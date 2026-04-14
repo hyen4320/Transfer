@@ -1,0 +1,3164 @@
+[
+  {
+    "name": "Gianluigi Donnarumma",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "James Trafford",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Marcus Bettinelli",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Josko Gvardiol",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Marc Guéhi",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Rúben Dias",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Abdukodir Khusanov",
+    "position": "DF",
+    "nationality": "Uzbekistan",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "John Stones",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Nathan Aké",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Max Alleyne",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Nico O'Reilly",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Rayan Aït-Nouri",
+    "position": "DF",
+    "nationality": "Algeria",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Matheus Nunes",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Rico Lewis",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Rodri",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Nico González",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Tijjani Reijnders",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Sverre Nypan",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Mateo Kovacic",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Phil Foden",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Rayan Cherki",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Bernardo Silva",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Jérémy Doku",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Savinho",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Antoine Semenyo",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Erling Haaland",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "Omar Marmoush",
+    "position": "FW",
+    "nationality": "Egypt",
+    "club_name": "Manchester City"
+  },
+  {
+    "name": "David Raya",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Kepa Arrizabalaga",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "William Saliba",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Gabriel",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Piero Hincapié",
+    "position": "DF",
+    "nationality": "Ecuador",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Cristhian Mosquera",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Riccardo Calafiori",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Myles Lewis-Skelly",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Jurriën Timber",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Ben White",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Martín Zubimendi",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Christian Nørgaard",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Declan Rice",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Mikel Merino",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Martin Ødegaard",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Eberechi Eze",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Gabriel Martinelli",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Leandro Trossard",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Bukayo Saka",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Noni Madueke",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Max Dowman",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Viktor Gyökeres",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Kai Havertz",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Gabriel Jesus",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Arsenal FC"
+  },
+  {
+    "name": "Robert Sánchez",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Filip Jørgensen",
+    "position": "GK",
+    "nationality": "Denmark",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Gabriel Slonina",
+    "position": "GK",
+    "nationality": "United States",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Teddy Sharman-Lowe",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "James Hillson",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Levi Colwill",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Trevoh Chalobah",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Wesley Fofana",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Mamadou Sarr",
+    "position": "DF",
+    "nationality": "Senegal",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Tosin Adarabioyo",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Benoît Badiashile",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Marc Cucurella",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Jorrel Hato",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Caleb Wiley",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Reece James",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Malo Gusto",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Josh Acheampong",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Moisés Caicedo",
+    "position": "MF",
+    "nationality": "Ecuador",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Roméo Lavia",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Dário Essugo",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Enzo Fernández",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Andrey Santos",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Cole Palmer",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Alejandro Garnacho",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Jamie Gittens",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Mykhaylo Mudryk",
+    "position": "FW",
+    "nationality": "Ukraine",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Estêvão",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Pedro Neto",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "João Pedro",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Liam Delap",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Marc Guiu",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Chelsea FC"
+  },
+  {
+    "name": "Giorgi Mamardashvili",
+    "position": "GK",
+    "nationality": "Georgia",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Alisson",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Freddie Woodman",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Harvey Davies",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Ibrahima Konaté",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Giovanni Leoni",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Virgil van Dijk",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Joe Gomez",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Rhys Williams",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Milos Kerkez",
+    "position": "DF",
+    "nationality": "Hungary",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Andrew Robertson",
+    "position": "DF",
+    "nationality": "Scotland",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Jeremie Frimpong",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Conor Bradley",
+    "position": "DF",
+    "nationality": "Northern Ireland",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Calvin Ramsay",
+    "position": "DF",
+    "nationality": "Scotland",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Ryan Gravenberch",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Wataru Endo",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Stefan Bajcetic",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Alexis Mac Allister",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Curtis Jones",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Trey Nyoni",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Florian Wirtz",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Dominik Szoboszlai",
+    "position": "MF",
+    "nationality": "Hungary",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Cody Gakpo",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Rio Ngumoha",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Mohamed Salah",
+    "position": "FW",
+    "nationality": "Egypt",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Federico Chiesa",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Alexander Isak",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Hugo Ekitiké",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Liverpool FC"
+  },
+  {
+    "name": "Guglielmo Vicario",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Antonín Kinský",
+    "position": "GK",
+    "nationality": "Czech Republic",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Brandon Austin",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Micky van de Ven",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Cristian Romero",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Radu Drăgușin",
+    "position": "DF",
+    "nationality": "Romania",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Kevin Danso",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Ben Davies",
+    "position": "DF",
+    "nationality": "Wales",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Destiny Udogie",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Djed Spence",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Souza",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Pedro Porro",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Rodrigo Bentancur",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "João Palhinha",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Yves Bissouma",
+    "position": "MF",
+    "nationality": "Mali",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Lucas Bergvall",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Archie Gray",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Conor Gallagher",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Pape Matar Sarr",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Xavi Simons",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Dejan Kulusevski",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "James Maddison",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Wilson Odobert",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Mohammed Kudus",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Dominic Solanke",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Richarlison",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Mathys Tel",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Randal Kolo Muani",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Tottenham Hotspur"
+  },
+  {
+    "name": "Senne Lammens",
+    "position": "GK",
+    "nationality": "Belgium",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Altay Bayındır",
+    "position": "GK",
+    "nationality": "Türkiye",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Tom Heaton",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Leny Yoro",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Matthijs de Ligt",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Lisandro Martínez",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Ayden Heaven",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Harry Maguire",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Patrick Dorgu",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Luke Shaw",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Tyrell Malacia",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Diogo Dalot",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Noussair Mazraoui",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Manuel Ugarte",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Casemiro",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Kobbie Mainoo",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Bruno Fernandes",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Mason Mount",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Bryan Mbeumo",
+    "position": "FW",
+    "nationality": "Cameroon",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Amad Diallo",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Matheus Cunha",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Benjamin Sesko",
+    "position": "FW",
+    "nationality": "Slovenia",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Joshua Zirkzee",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Chido Obi",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "Manchester United"
+  },
+  {
+    "name": "Aaron Ramsdale",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Nick Pope",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Mark Gillespie",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "John Ruddy",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Malick Thiaw",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Sven Botman",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Fabian Schär",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Dan Burn",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Lewis Hall",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Alex Murphy",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Tino Livramento",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Kieran Trippier",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Emil Krafth",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Sandro Tonali",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Bruno Guimarães",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Jacob Ramsey",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Joelinton",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Lewis Miley",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Joe Willock",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Anthony Gordon",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Harvey Barnes",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Anthony Elanga",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Jacob Murphy",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Nick Woltemade",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "Yoane Wissa",
+    "position": "FW",
+    "nationality": "DR Congo",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "William Osula",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "Newcastle United"
+  },
+  {
+    "name": "John Victor",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Stefan Ortega",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Matz Sels",
+    "position": "GK",
+    "nationality": "Belgium",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Angus Gunn",
+    "position": "GK",
+    "nationality": "Scotland",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Murillo",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Nikola Milenković",
+    "position": "DF",
+    "nationality": "Serbia",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Morato",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Jair Cunha",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Zach Abbott",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Willy Boly",
+    "position": "DF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Neco Williams",
+    "position": "DF",
+    "nationality": "Wales",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Luca Netz",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Ola Aina",
+    "position": "DF",
+    "nationality": "Nigeria",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Nicolò Savona",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Eric da Silva Moreira",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Ibrahim Sangaré",
+    "position": "MF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Elliot Anderson",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Nicolás Domínguez",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Ryan Yates",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Morgan Gibbs-White",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Omari Hutchinson",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "James McAtee",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Callum Hudson-Odoi",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Dan Ndoye",
+    "position": "FW",
+    "nationality": "Switzerland",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Dilane Bakwa",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Lorenzo Lucca",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Igor Jesus",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Taiwo Awoniyi",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Chris Wood",
+    "position": "FW",
+    "nationality": "New Zealand",
+    "club_name": "Nottingham Forest"
+  },
+  {
+    "name": "Emiliano Martínez",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Marco Bizot",
+    "position": "GK",
+    "nationality": "Netherlands",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Ezri Konsa",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Pau Torres",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Victor Lindelöf",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Tyrone Mings",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Ian Maatsen",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Lucas Digne",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Matty Cash",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Andrés García",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Amadou Onana",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Boubacar Kamara",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Lamare Bogarde",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Youri Tielemans",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Douglas Luiz",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "John McGinn",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Ross Barkley",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Morgan Rogers",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Harvey Elliott",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Emiliano Buendía",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Jadon Sancho",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Leon Bailey",
+    "position": "FW",
+    "nationality": "Jamaica",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Alysson",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Ollie Watkins",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Tammy Abraham",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Aston Villa"
+  },
+  {
+    "name": "Dean Henderson",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Walter Benítez",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Remi Matthews",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Maxence Lacroix",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Chris Richards",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Jaydee Canvot",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Chadi Riad",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Tyrick Mitchell",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Borna Sosa",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Rio Cardines",
+    "position": "DF",
+    "nationality": "Trinidad and Tobago",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Daniel Muñoz",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Caleb Kporha",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Nathaniel Clyne",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Adam Wharton",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Cheick Doucouré",
+    "position": "MF",
+    "nationality": "Mali",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Jefferson Lerma",
+    "position": "MF",
+    "nationality": "Colombia",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Kaden Rodney",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Will Hughes",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Daichi Kamada",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Justin Devenny",
+    "position": "MF",
+    "nationality": "Northern Ireland",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Ismaïla Sarr",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Yéremy Pino",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Brennan Johnson",
+    "position": "FW",
+    "nationality": "Wales",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Evann Guessand",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Jørgen Strand Larsen",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Jean-Philippe Mateta",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Christantus Uche",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Eddie Nketiah",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Crystal Palace"
+  },
+  {
+    "name": "Djordje Petrovic",
+    "position": "GK",
+    "nationality": "Serbia",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Christos Mandas",
+    "position": "GK",
+    "nationality": "Greece",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Fraser Forster",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Bafodé Diakité",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Marcos Senesi",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Veljko Milosavljevic",
+    "position": "DF",
+    "nationality": "Serbia",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "James Hill",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Matai Akinmboni",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Adrien Truffert",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Julio Soler",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Álex Jiménez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Adam Smith",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Tyler Adams",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Alex Scott",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Lewis Cook",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Alex Tóth",
+    "position": "MF",
+    "nationality": "Hungary",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Ryan Christie",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Justin Kluivert",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Marcus Tavernier",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Amine Adli",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Rayan",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Ben Gannon-Doak",
+    "position": "FW",
+    "nationality": "Scotland",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "David Brooks",
+    "position": "FW",
+    "nationality": "Wales",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Junior Kroupi",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Evanilson",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Enes Ünal",
+    "position": "FW",
+    "nationality": "Türkiye",
+    "club_name": "AFC Bournemouth"
+  },
+  {
+    "name": "Bart Verbruggen",
+    "position": "GK",
+    "nationality": "Netherlands",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Jason Steele",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Tom McGill",
+    "position": "GK",
+    "nationality": "Canada",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Jan Paul van Hecke",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Olivier Boscagli",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Igor Julio",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Adam Webster",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Lewis Dunk",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Ferdi Kadıoğlu",
+    "position": "DF",
+    "nationality": "Türkiye",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Maxim De Cuyper",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Mats Wieffer",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Joël Veltman",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Carlos Baleba",
+    "position": "MF",
+    "nationality": "Cameroon",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Jack Hinshelwood",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Yasin Ayari",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Diego Gómez",
+    "position": "MF",
+    "nationality": "Paraguay",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Matt O'Riley",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Pascal Groß",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "James Milner",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Kaoru Mitoma",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Yankuba Minteh",
+    "position": "FW",
+    "nationality": "The Gambia",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Solly March",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Georginio Rutter",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Charalampos Kostoulas",
+    "position": "FW",
+    "nationality": "Greece",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Stefanos Tzimas",
+    "position": "FW",
+    "nationality": "Greece",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Danny Welbeck",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Brighton & Hove Albion"
+  },
+  {
+    "name": "Caoimhín Kelleher",
+    "position": "GK",
+    "nationality": "Ireland",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Hákon Valdimarsson",
+    "position": "GK",
+    "nationality": "Iceland",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Ellery Balcombe",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Julian Eyestone",
+    "position": "GK",
+    "nationality": "United States",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Sepp van den Berg",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Nathan Collins",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Kristoffer Ajer",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Ethan Pinnock",
+    "position": "DF",
+    "nationality": "Jamaica",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Rico Henry",
+    "position": "DF",
+    "nationality": "Jamaica",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Michael Kayode",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Aaron Hickey",
+    "position": "DF",
+    "nationality": "Scotland",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Vitaly Janelt",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Jordan Henderson",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Yegor Yarmolyuk",
+    "position": "MF",
+    "nationality": "Ukraine",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Mathias Jensen",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Josh Dasilva",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Keane Lewis-Potter",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Mikkel Damsgaard",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Antoni Milambo",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Fábio Carvalho",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Kevin Schade",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Reiss Nelson",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Dango Ouattara",
+    "position": "FW",
+    "nationality": "Burkina Faso",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Romelle Donovan",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Igor Thiago",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Kaye Furo",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Brentford FC"
+  },
+  {
+    "name": "Jordan Pickford",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Mark Travers",
+    "position": "GK",
+    "nationality": "Ireland",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Tom King",
+    "position": "GK",
+    "nationality": "Wales",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Jarrad Branthwaite",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "James Tarkowski",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Michael Keane",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Vitaliy Mykolenko",
+    "position": "DF",
+    "nationality": "Ukraine",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Adam Aznou",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Jake O'Brien",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Nathan Patterson",
+    "position": "DF",
+    "nationality": "Scotland",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Séamus Coleman",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "James Garner",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Idrissa Gueye",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Kiernan Dewsbury-Hall",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Carlos Alcaraz",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Tim Iroegbunam",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Harrison Armstrong",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Merlin Röhl",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Jack Grealish",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Tyrique George",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Dwight McNeil",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Iliman Ndiaye",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Tyler Dibling",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Thierno Barry",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Beto",
+    "position": "FW",
+    "nationality": "Guinea-Bissau",
+    "club_name": "Everton FC"
+  },
+  {
+    "name": "Bernd Leno",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Benjamin Lecomte",
+    "position": "GK",
+    "nationality": "France",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Calvin Bassey",
+    "position": "DF",
+    "nationality": "Nigeria",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Joachim Andersen",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Issa Diop",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Jorge Cuenca",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Antonee Robinson",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Ryan Sessegnon",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Kenny Tete",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Timothy Castagne",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Sander Berge",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Saša Lukić",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Harrison Reed",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Tom Cairney",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Emile Smith Rowe",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Josh King",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Kevin",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Alex Iwobi",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Oscar Bobb",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Harry Wilson",
+    "position": "FW",
+    "nationality": "Wales",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Samuel Chukwueze",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Rodrigo Muniz",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Raúl Jiménez",
+    "position": "FW",
+    "nationality": "Mexico",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Jonah Kusi-Asare",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Fulham FC"
+  },
+  {
+    "name": "Robin Roefs",
+    "position": "GK",
+    "nationality": "Netherlands",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Melker Ellborg",
+    "position": "GK",
+    "nationality": "Sweden",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Simon Moore",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Dan Ballard",
+    "position": "DF",
+    "nationality": "Northern Ireland",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Omar Alderete",
+    "position": "DF",
+    "nationality": "Paraguay",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Luke O'Nien",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Dennis Cirkin",
+    "position": "DF",
+    "nationality": "Latvia",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Reinildo Mandava",
+    "position": "DF",
+    "nationality": "Mozambique",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Trai Hume",
+    "position": "DF",
+    "nationality": "Northern Ireland",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Lutsharel Geertruida",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Nordi Mukiele",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Granit Xhaka",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Habib Diarra",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Noah Sadiki",
+    "position": "MF",
+    "nationality": "DR Congo",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Enzo Le Fée",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Abdoullah Ba",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Chris Rigg",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Milan Aleksic",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Harrison Jones",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Nilson Angulo",
+    "position": "FW",
+    "nationality": "Ecuador",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Romaine Mundle",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Chemsdine Talbi",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Bertrand Traoré",
+    "position": "FW",
+    "nationality": "Burkina Faso",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Jocelin Ta Bi",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Brian Brobbey",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Eliezer Mayenda",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Wilson Isidor",
+    "position": "FW",
+    "nationality": "Haiti",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Ahmed Abdullahi",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Sunderland AFC"
+  },
+  {
+    "name": "Mads Hermansen",
+    "position": "GK",
+    "nationality": "Denmark",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Alphonse Areola",
+    "position": "GK",
+    "nationality": "France",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Lukasz Fabianski",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Jean-Clair Todibo",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Maximilian Kilman",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Axel Disasi",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Konstantinos Mavropanos",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Ezra Mayers",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "El Hadji Malick Diouf",
+    "position": "DF",
+    "nationality": "Senegal",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Oliver Scarles",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Aaron Wan-Bissaka",
+    "position": "DF",
+    "nationality": "DR Congo",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Kyle Walker-Peters",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Soungoutou Magassa",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Tomáš Souček",
+    "position": "MF",
+    "nationality": "Czech Republic",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Freddie Potts",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Mohamadou Kanté",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Mateus Fernandes",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Crysencio Summerville",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Keiber Lamadrid",
+    "position": "FW",
+    "nationality": "Venezuela",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Jarrod Bowen",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Adama Traoré",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Taty Castellanos",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Pablo",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Callum Wilson",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "West Ham United"
+  },
+  {
+    "name": "Lucas Perri",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Illan Meslier",
+    "position": "GK",
+    "nationality": "France",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Karl Darlow",
+    "position": "GK",
+    "nationality": "Wales",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Alex Cairns",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Pascal Struijk",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Jaka Bijol",
+    "position": "DF",
+    "nationality": "Slovenia",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Joe Rodon",
+    "position": "DF",
+    "nationality": "Wales",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Sebastiaan Bornauw",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Gabriel Gudmundsson",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Sam Byram",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Jayden Bogle",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "James Justin",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Ethan Ampadu",
+    "position": "MF",
+    "nationality": "Wales",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Anton Stach",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Ilia Gruev",
+    "position": "MF",
+    "nationality": "Bulgaria",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Charlie Crew",
+    "position": "MF",
+    "nationality": "Wales",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Sean Longstaff",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Ao Tanaka",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Brenden Aaronson",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Facundo Buonanotte",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Noah Okafor",
+    "position": "FW",
+    "nationality": "Switzerland",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Wilfried Gnonto",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Daniel James",
+    "position": "FW",
+    "nationality": "Wales",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Dominic Calvert-Lewin",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Joël Piroe",
+    "position": "FW",
+    "nationality": "Suriname",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "Lukas Nmecha",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Leeds United"
+  },
+  {
+    "name": "José Sá",
+    "position": "GK",
+    "nationality": "Portugal",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Sam Johnstone",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Daniel Bentley",
+    "position": "GK",
+    "nationality": "England",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Ladislav Krejčí",
+    "position": "DF",
+    "nationality": "Czech Republic",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Toti",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Yerson Mosquera",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Santiago Bueno",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Hugo Bueno",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "David Møller Wolfe",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Jackson Tchatchoua",
+    "position": "DF",
+    "nationality": "Cameroon",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Pedro Lima",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Matt Doherty",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "André",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "João Gomes",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Jean-Ricner Bellegarde",
+    "position": "MF",
+    "nationality": "Haiti",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Rodrigo Gomes",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Mateus Mané",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Angel Gomes",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Enso González",
+    "position": "FW",
+    "nationality": "Paraguay",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Tolu Arokodare",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Adam Armstrong",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Hee-chan Hwang",
+    "position": "FW",
+    "nationality": "Korea, South",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Nathan Fraser",
+    "position": "FW",
+    "nationality": "Ireland",
+    "club_name": "Wolverhampton Wanderers"
+  },
+  {
+    "name": "Max Weiß",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Martin Dúbravka",
+    "position": "GK",
+    "nationality": "Slovakia",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Václav Hladký",
+    "position": "GK",
+    "nationality": "Czech Republic",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Maxime Estève",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Bashir Humphreys",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Hjalmar Ekdal",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Axel Tuanzebe",
+    "position": "DF",
+    "nationality": "DR Congo",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Joe Worrall",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Jordan Beyer",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Quilindschy Hartman",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Lucas Pires",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Kyle Walker",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Connor Roberts",
+    "position": "DF",
+    "nationality": "Wales",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Lesley Ugochukwu",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Florentino",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "James Ward-Prowse",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Josh Cullen",
+    "position": "MF",
+    "nationality": "Ireland",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Josh Laurent",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Hannibal",
+    "position": "MF",
+    "nationality": "Tunisia",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Mike Tresor",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Jaidon Anthony",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Jacob Bruun Larsen",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Loum Tchaouna",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Marcus Edwards",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Zian Flemming",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Lyle Foster",
+    "position": "FW",
+    "nationality": "South Africa",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Zeki Amdouni",
+    "position": "FW",
+    "nationality": "Switzerland",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Armando Broja",
+    "position": "FW",
+    "nationality": "Albania",
+    "club_name": "Burnley FC"
+  },
+  {
+    "name": "Ashley Barnes",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Burnley FC"
+  }
+]

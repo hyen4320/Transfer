@@ -1,0 +1,3104 @@
+[
+  {
+    "name": "Jonas Urbig",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Manuel Neuer",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Sven Ulreich",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Leon Klanac",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Dayot Upamecano",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Jonathan Tah",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Min-jae Kim",
+    "position": "DF",
+    "nationality": "Korea, South",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Hiroki Ito",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Alphonso Davies",
+    "position": "DF",
+    "nationality": "Canada",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Josip Stanisic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Konrad Laimer",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Aleksandar Pavlovic",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Joshua Kimmich",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Tom Bischof",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Leon Goretzka",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Bara Sapoko Ndiaye",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Jamal Musiala",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Lennart Karl",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Raphaël Guerreiro",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Luis Díaz",
+    "position": "FW",
+    "nationality": "Colombia",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Michael Olise",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Serge Gnabry",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Harry Kane",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Nicolas Jackson",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "Bayern Munich"
+  },
+  {
+    "name": "Gregor Kobel",
+    "position": "GK",
+    "nationality": "Switzerland",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Alexander Meyer",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Patrick Drewes",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Silas Ostrzinski",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Nico Schlotterbeck",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Waldemar Anton",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Ramy Bensebaini",
+    "position": "DF",
+    "nationality": "Algeria",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Luca Reggiani",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Emre Can",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Niklas Süle",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Filippo Mane",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Daniel Svensson",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Almugera Kabar",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Julian Ryerson",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Salih Özcan",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Felix Nmecha",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Jobe Bellingham",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Carney Chukwuemeka",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Marcel Sabitzer",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Yan Couto",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Julian Brandt",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Karim Adeyemi",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Samuele Inácio",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Serhou Guirassy",
+    "position": "FW",
+    "nationality": "Guinea",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Maximilian Beier",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Fábio Silva",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Borussia Dortmund"
+  },
+  {
+    "name": "Maarten Vandevoordt",
+    "position": "GK",
+    "nationality": "Belgium",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Péter Gulácsi",
+    "position": "GK",
+    "nationality": "Hungary",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Leopold Zingerle",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Castello Lukeba",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "El Chadaille Bitshiabu",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Willi Orbán",
+    "position": "DF",
+    "nationality": "Hungary",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Lukas Klostermann",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "David Raum",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Max Finkgräfe",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Ridle Baku",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Benjamin Henrichs",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Kosta Nedeljkovic",
+    "position": "DF",
+    "nationality": "Serbia",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Nicolas Seiwald",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Benno Kaltefleiter",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Assan Ouédraogo",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Ezechiel Banzuzi",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Xaver Schlager",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Christoph Baumgartner",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Brajan Gruda",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Andrija Maksimovic",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Viggo Gebel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Yan Diomande",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Antonio Nusa",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Suleman Sani",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Tidiam Gomis",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Ayodele Thomas",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Johan Bakayoko",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Rômulo",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Conrad Harder",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Samba Konaté",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "RB Leipzig"
+  },
+  {
+    "name": "Mark Flekken",
+    "position": "GK",
+    "nationality": "Netherlands",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Jonas Omlin",
+    "position": "GK",
+    "nationality": "Switzerland",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Janis Blaswich",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Niklas Lomb",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Jarell Quansah",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Edmond Tapsoba",
+    "position": "DF",
+    "nationality": "Burkina Faso",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Loïc Badé",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Axel Tape",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Tim Oermann",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Issa Traoré",
+    "position": "DF",
+    "nationality": "Mali",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Alejandro Grimaldo",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Arthur",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Lucas Vázquez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Equi Fernández",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Robert Andrich",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Exequiel Palacios",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Aleix García",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Ibrahim Maza",
+    "position": "MF",
+    "nationality": "Algeria",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Malik Tillman",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Jonas Hofmann",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Eliesse Ben Seghir",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Martin Terrier",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Ernest Poku",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Nathan Tella",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Montrell Culbreath",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Christian Kofane",
+    "position": "FW",
+    "nationality": "Cameroon",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Patrik Schick",
+    "position": "FW",
+    "nationality": "Czech Republic",
+    "club_name": "Bayer 04 Leverkusen"
+  },
+  {
+    "name": "Kauã Santos",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Michael Zetterer",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Jens Grahl",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Amil Siljevic",
+    "position": "GK",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Arthur Theate",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Nnamdi Collins",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Robin Koch",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Aurèle Amenda",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Nathaniel Brown",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Keita Kosugi",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Rasmus Kristensen",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Elias Baum",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Timothy Chandler",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Ellyes Skhiri",
+    "position": "MF",
+    "nationality": "Tunisia",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Hugo Larsson",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Oscar Højlund",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Mahmoud Dahoud",
+    "position": "MF",
+    "nationality": "Syria",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Can Uzun",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Farès Chaïbi",
+    "position": "MF",
+    "nationality": "Algeria",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Love Arrhov",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Mario Götze",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Jean-Mattéo Bahoya",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Ritsu Doan",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Ansgar Knauff",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Ayoube Amaimouni-Echghouyab",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Jonathan Burkardt",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Arnaud Kalimuendo",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Younes Ebnoutalib",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Michy Batshuayi",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Eintracht Frankfurt"
+  },
+  {
+    "name": "Alexander Nübel",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Florian Hellstern",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Fabian Bredlow",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Stefan Drljaca",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Finn Jeltsch",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Ramon Hendriks",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Jeff Chabot",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Luca Jaquez",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Ameen Al-Dakhil",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Dan-Axel Zagadou",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Maximilian Mittelstädt",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Josha Vagnoman",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Lorenz Assignon",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Pascal Stenzel",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Angelo Stiller",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Chema Andrés",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Atakan Karazor",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Mirza Catovic",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Nikolas Nartey",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Bilal El Khannouss",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Chris Führich",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Justin Diehl",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Jamie Leweling",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Badredine Bouanani",
+    "position": "FW",
+    "nationality": "Algeria",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Lazar Jovanovic",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Noah Darvich",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Ermedin Demirovic",
+    "position": "FW",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Deniz Undav",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Tiago Tomás",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Jeremy Arévalo",
+    "position": "FW",
+    "nationality": "Ecuador",
+    "club_name": "VfB Stuttgart"
+  },
+  {
+    "name": "Oliver Baumann",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Luca Philipp",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Lúkas Petersson",
+    "position": "GK",
+    "nationality": "Iceland",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Albian Hajdari",
+    "position": "DF",
+    "nationality": "Kosovo",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Robin Hranac",
+    "position": "DF",
+    "nationality": "Czech Republic",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Ozan Kabak",
+    "position": "DF",
+    "nationality": "Türkiye",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Koki Machida",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Kevin Akpoguma",
+    "position": "DF",
+    "nationality": "Nigeria",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Kelven Frees",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Bernardo",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Valentin Gendrey",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Vladimír Coufal",
+    "position": "DF",
+    "nationality": "Czech Republic",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Leon Avdullahu",
+    "position": "MF",
+    "nationality": "Kosovo",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Wouter Burger",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Luis Engelns",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Grischa Prömel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Luka Duric",
+    "position": "MF",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Alexander Prass",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Muhammed Damar",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Andrej Kramaric",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Bazoumana Touré",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Cole Campbell",
+    "position": "FW",
+    "nationality": "United States",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Fisnik Asllani",
+    "position": "FW",
+    "nationality": "Kosovo",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Tim Lemperle",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Adam Hlozek",
+    "position": "FW",
+    "nationality": "Czech Republic",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Max Moerstedt",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Yannick Eduardo",
+    "position": "FW",
+    "nationality": "Czech Republic",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Deniz Zeitler",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Ihlas Bebou",
+    "position": "FW",
+    "nationality": "Togo",
+    "club_name": "TSG 1899 Hoffenheim"
+  },
+  {
+    "name": "Kamil Grabara",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Marius Müller",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jakub Zielinski",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Pavao Pervan",
+    "position": "GK",
+    "nationality": "Austria",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Konstantinos Koulierakis",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jeanuël Belocian",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jonas Adjetey",
+    "position": "DF",
+    "nationality": "Ghana",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Denis Vavro",
+    "position": "DF",
+    "nationality": "Slovakia",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jenson Seelt",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Moritz Jenz",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Cleiton",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Joakim Maehle",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Aaron Zehnter",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Rogério",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Saël Kumbedi",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Kilian Fischer",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jan Bürger",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Vini Souza",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Mattias Svanberg",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Maximilian Arnold",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Pharell Hensel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Yannick Gerhardt",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Kevin Paredes",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Lovro Majer",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Bence Dárdai",
+    "position": "MF",
+    "nationality": "Hungary",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Christian Eriksen",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Patrick Wimmer",
+    "position": "FW",
+    "nationality": "Austria",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Adam Daghim",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jesper Lindstrøm",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Mohamed Amoura",
+    "position": "FW",
+    "nationality": "Algeria",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Dzenan Pejcinovic",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Kento Shiogai",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Jonas Wind",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "VfL Wolfsburg"
+  },
+  {
+    "name": "Noah Atubolu",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Florian Müller",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Jannik Huth",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Philipp Lienhart",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Bruno Ogbus",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Matthias Ginter",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Max Rosenfelder",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Anthony Jung",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Jordy Makengo",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Christian Günter",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Philipp Treu",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Lukas Kübler",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Patrick Osterhage",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Nicolas Höfler",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Johan Manzambi",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Maximilian Eggestein",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Daniel-Kofi Kyereh",
+    "position": "MF",
+    "nationality": "Ghana",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Derry Scherhant",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Vincenzo Grifo",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Cyriaque Irié",
+    "position": "FW",
+    "nationality": "Burkina Faso",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Niklas Beste",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Yuito Suzuki",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Maximilian Philipp",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Igor Matanovic",
+    "position": "FW",
+    "nationality": "Croatia",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Lucas Höler",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SC Freiburg"
+  },
+  {
+    "name": "Mio Backhaus",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Karl Hein",
+    "position": "GK",
+    "nationality": "Estonia",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Markus Kolke",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Stefan Smarkalev",
+    "position": "GK",
+    "nationality": "Bulgaria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Karim Coulibaly",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Marco Friedl",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Amos Pieper",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Niklas Stark",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Maximilian Wöber",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Julián Malatini",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Mick Schmetgens",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Felix Agu",
+    "position": "DF",
+    "nationality": "Nigeria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Olivier Deman",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Isaac Schmidt",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Yukinari Sugawara",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Mitchell Weiser",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Senne Lynen",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Wesley Adeh",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Jens Stage",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Leonardo Bittencourt",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Romano Schmid",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Cameron Puertas",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Patrice Covic",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Samuel Mbangula",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Marco Grüll",
+    "position": "FW",
+    "nationality": "Austria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Justin Njinmah",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Jovan Milosevic",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Victor Boniface",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Keke Topp",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Salim Musah",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "SV Werder Bremen"
+  },
+  {
+    "name": "Sander Tangvik",
+    "position": "GK",
+    "nationality": "Norway",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Daniel Heuer Fernandes",
+    "position": "GK",
+    "nationality": "Portugal",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Hannes Hermann",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Fernando Dickes",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Luka Vuskovic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Jordan Torunarigha",
+    "position": "DF",
+    "nationality": "Nigeria",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Daniel Elfadli",
+    "position": "DF",
+    "nationality": "Libya",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Warmed Omari",
+    "position": "DF",
+    "nationality": "Comoros",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Shafiq Nandja",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Miro Muheim",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Noah Katterbach",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "William Mikelbrencis",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Giorgi Gocholeishvili",
+    "position": "DF",
+    "nationality": "Georgia",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Nicolai Remberg",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Albert Sambi Lokonga",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Nicolás Capaldo",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Fábio Vieira",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Albert Grønbaek",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Omar Megeed",
+    "position": "MF",
+    "nationality": "Egypt",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Philip Otele",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Alexander Røssing-Lelesiit",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Jean-Luc Dompé",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Fábio Baldé",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Rayan Philippe",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Bakery Jatta",
+    "position": "FW",
+    "nationality": "The Gambia",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Damion Downs",
+    "position": "FW",
+    "nationality": "United States",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Ransford Königsdörffer",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Otto Stange",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Robert Glatzel",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Yussuf Poulsen",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "Hamburger SV"
+  },
+  {
+    "name": "Finn Dahmen",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Nediljko Labrovic",
+    "position": "GK",
+    "nationality": "Croatia",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Daniel Klein",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Chrislain Matsima",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Noahkai Banks",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Keven Schlotterbeck",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Cédric Zesiger",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Arthur Chaves",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Jeffrey Gouweleeuw",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Felix Meiser",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Dimitrios Giannoulis",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Mads Pedersen",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Oliver Sorg",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Marius Wolf",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Kristijan Jakic",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Robin Fellhauer",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Yannik Keitel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Mahmut Kücüksahin",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Han-Noah Massengo",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Elvis Rexhbecaj",
+    "position": "MF",
+    "nationality": "Kosovo",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Anton Kade",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Alexis Claude-Maurice",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Mert Kömür",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Fabian Rieder",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Ismaël Gharbi",
+    "position": "FW",
+    "nationality": "Tunisia",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Rodrigo Ribeiro",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Uchenna Ogundu",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Michael Gregoritsch",
+    "position": "FW",
+    "nationality": "Austria",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Thomas Kastanaras",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "FC Augsburg"
+  },
+  {
+    "name": "Moritz Nicolas",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Tiago Pereira Cardoso",
+    "position": "GK",
+    "nationality": "Luxembourg",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Jan Olschowsky",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Tobias Sippel",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Nico Elvedi",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Kevin Diks",
+    "position": "DF",
+    "nationality": "Indonesia",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Kota Takai",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Fabio Chiarodia",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Marvin Friedrich",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Lukas Ullrich",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Joe Scally",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Yannik Engelhardt",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Philipp Sander",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Niklas Swider",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Rocco Reitz",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Jens Castrop",
+    "position": "MF",
+    "nationality": "Korea, South",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Florian Neuhaus",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Wael Mohya",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Giovanni Reyna",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Kevin Stöger",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Robin Hack",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Hugo Bolin",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Franck Honorat",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Nathan Ngoumou",
+    "position": "FW",
+    "nationality": "Cameroon",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Tim Kleindienst",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Shuto Machino",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Haris Tabakovic",
+    "position": "FW",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Alejo Sarco",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Borussia Mönchengladbach"
+  },
+  {
+    "name": "Robin Zentner",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Lasse Rieß",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Daniel Batz",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Kacper Potulski",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Stefan Posch",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Andreas Hanche-Olsen",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Dominik Kohr",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Danny da Costa",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Maxim Leitsch",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Stefan Bell",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Maxim Dal",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Phillipp Mwene",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Kasey Bos",
+    "position": "DF",
+    "nationality": "Australia",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Anthony Caci",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Silvan Widmer",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Kaishu Sano",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Lennard Maloney",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Sota Kawasaki",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Niklas Tauer",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Nadiem Amiri",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Daniel Gleiber",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Nikolas Veratschnig",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Paul Nebel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Jae-sung Lee",
+    "position": "MF",
+    "nationality": "Korea, South",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Sheraldo Becker",
+    "position": "FW",
+    "nationality": "Suriname",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Silas",
+    "position": "FW",
+    "nationality": "DR Congo",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Armindo Sieb",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Nelson Weiper",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Benedict Hollerbach",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "William Bøving",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Phillip Tietz",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FSV Mainz 05"
+  },
+  {
+    "name": "Marvin Schwäbe",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Ron-Robert Zieler",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Matthias Köbbing",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Rav van den Berg",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Jahmai Simpson-Pusey",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Joël Schmied",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Cenk Özkacar",
+    "position": "DF",
+    "nationality": "Türkiye",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Timo Hübers",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Dominique Heintz",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Luca Kilian",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Kristoffer Lund",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Sebastian Sebulonsen",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Eric Martel",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Tom Krauß",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Fayssal Harchaoui",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Ísak Jóhannesson",
+    "position": "MF",
+    "nationality": "Iceland",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Denis Huseinbasic",
+    "position": "MF",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Felipe Chávez",
+    "position": "MF",
+    "nationality": "Peru",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Alessio Castro-Montes",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Florian Kainz",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Said El Mala",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Jakub Kamiński",
+    "position": "FW",
+    "nationality": "Poland",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Linton Maina",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Marius Bülter",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Jan Thielmann",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Youssoupha Niang",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Ragnar Ache",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Luca Waldschmidt",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Fynn Schenten",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Malek El Mala",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Köln"
+  },
+  {
+    "name": "Frederik Rönnow",
+    "position": "GK",
+    "nationality": "Denmark",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Matheo Raab",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Carl Klaus",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Leopold Querfeld",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Danilho Doekhi",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Diogo Leite",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Stanley Nsoki",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Tom Rothe",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Derrick Köhn",
+    "position": "DF",
+    "nationality": "Ghana",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Andrik Markgraf",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Josip Juranovic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Christopher Trimmel",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Aljoscha Kemlein",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Rani Khedira",
+    "position": "MF",
+    "nationality": "Tunisia",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "András Schäfer",
+    "position": "MF",
+    "nationality": "Hungary",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Janik Haberer",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Alex Král",
+    "position": "MF",
+    "nationality": "Czech Republic",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Robert Skov",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Woo-yeong Jeong",
+    "position": "MF",
+    "nationality": "Korea, South",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Livan Burcu",
+    "position": "FW",
+    "nationality": "Türkiye",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "David Preu",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Linus Güther",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Ilyas Ansah",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Andrej Ilic",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Oliver Burke",
+    "position": "FW",
+    "nationality": "Scotland",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Tim Skarke",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Dmytro Bogdanov",
+    "position": "FW",
+    "nationality": "Ukraine",
+    "club_name": "1.FC Union Berlin"
+  },
+  {
+    "name": "Nikola Vasilj",
+    "position": "GK",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Ben Voll",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Simon Spari",
+    "position": "GK",
+    "nationality": "Austria",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Emil Gazdov",
+    "position": "GK",
+    "nationality": "Canada",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Eric Smith",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "David Nemeth",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Tomoya Ando",
+    "position": "DF",
+    "nationality": "Japan",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Hauke Wahl",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Adam Dzwigala",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Karol Mets",
+    "position": "DF",
+    "nationality": "Estonia",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Jannik Robatsch",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Louis Oppie",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Lars Ritzka",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Arkadiusz Pyrka",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Manolis Saliakas",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Fin Stevens",
+    "position": "DF",
+    "nationality": "Wales",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "James Sands",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Marwin Schmitz",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Joel Chima Fujita",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Mathias Rasmussen",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Connor Metcalfe",
+    "position": "MF",
+    "nationality": "Australia",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Jackson Irvine",
+    "position": "MF",
+    "nationality": "Australia",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Nick Schmidt",
+    "position": "MF",
+    "nationality": "Japan",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Danel Sinani",
+    "position": "MF",
+    "nationality": "Luxembourg",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Mathias Pereira Lage",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Andréas Hountondji",
+    "position": "FW",
+    "nationality": "Benin",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Martijn Kaars",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Taichi Hara",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Ricky-Jade Jones",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Abdoulie Ceesay",
+    "position": "FW",
+    "nationality": "The Gambia",
+    "club_name": "FC St. Pauli"
+  },
+  {
+    "name": "Diant Ramaj",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Frank Feller",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Paul Tschernuth",
+    "position": "GK",
+    "nationality": "Austria",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Tim Siersleben",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Patrick Mainka",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Benedikt Gimber",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Adam Kölle",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Hennes Behrens",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Jonas Föhrenbach",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Leart Paçarada",
+    "position": "DF",
+    "nationality": "Kosovo",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Leonidas Stergiou",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Omar Traoré",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Marnon Busch",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Niklas Dorsch",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Julian Niehues",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Jan Schöppner",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Luca Kerber",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Nick Rothweiler",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Arijon Ibrahimovic",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Adrian Beck",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Mathias Honsak",
+    "position": "FW",
+    "nationality": "Austria",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Yannik Wagner",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Eren Dinkçi",
+    "position": "FW",
+    "nationality": "Türkiye",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Christian Conteh",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Sirlord Conteh",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Marvin Pieringer",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Mikkel Kaufmann",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Budu Zivzivadze",
+    "position": "FW",
+    "nationality": "Georgia",
+    "club_name": "1.FC Heidenheim 1846"
+  },
+  {
+    "name": "Stefan Schimmer",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "1.FC Heidenheim 1846"
+  }
+]

@@ -1,0 +1,3050 @@
+[
+  {
+    "name": "Josep Martínez",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Yann Sommer",
+    "position": "GK",
+    "nationality": "Switzerland",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Raffaele Di Gennaro",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Alessandro Bastoni",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Yann Bisseck",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Manuel Akanji",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Stefan de Vrij",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Francesco Acerbi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Federico Dimarco",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Carlos Augusto",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Denzel Dumfries",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Matteo Darmian",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Hakan Çalhanoğlu",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Nicolò Barella",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Petar Sučić",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Davide Frattesi",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Andy Diouf",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Piotr Zieliński",
+    "position": "MF",
+    "nationality": "Poland",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Henrikh Mkhitaryan",
+    "position": "MF",
+    "nationality": "Armenia",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Luis Henrique",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Lautaro Martínez",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Marcus Thuram",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Pio Esposito",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Ange-Yoan Bonny",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Inter Milan"
+  },
+  {
+    "name": "Michele Di Gregorio",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Mattia Perin",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Carlo Pinsoglio",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Bremer",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Pierre Kalulu",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Lloyd Kelly",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Federico Gatti",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Andrea Cambiaso",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Juan Cabal",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Emil Holm",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Manuel Locatelli",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Khéphren Thuram",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Weston McKennie",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Fabio Miretti",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Filip Kostić",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Teun Koopmeiners",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Vasilije Adžić",
+    "position": "MF",
+    "nationality": "Montenegro",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Kenan Yıldız",
+    "position": "FW",
+    "nationality": "Türkiye",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Jérémie Boga",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Francisco Conceição",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Edon Zhegrova",
+    "position": "FW",
+    "nationality": "Kosovo",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Dušan Vlahović",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Jonathan David",
+    "position": "FW",
+    "nationality": "Canada",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Loïs Openda",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Arkadiusz Milik",
+    "position": "FW",
+    "nationality": "Poland",
+    "club_name": "Juventus FC"
+  },
+  {
+    "name": "Mike Maignan",
+    "position": "GK",
+    "nationality": "France",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Pietro Terracciano",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Lorenzo Torriani",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Strahinja Pavlović",
+    "position": "DF",
+    "nationality": "Serbia",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Koni De Winter",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Fikayo Tomori",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Matteo Gabbia",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "David Odogu",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Davide Bartesaghi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Pervis Estupiñán",
+    "position": "DF",
+    "nationality": "Ecuador",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Zachary Athekame",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Ardon Jashari",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Samuele Ricci",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Youssouf Fofana",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Adrien Rabiot",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Ruben Loftus-Cheek",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Luka Modrić",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Alexis Saelemaekers",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Rafael Leão",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Christian Pulisic",
+    "position": "FW",
+    "nationality": "United States",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Christopher Nkunku",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Santiago Gimenez",
+    "position": "FW",
+    "nationality": "Mexico",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Niclas Füllkrug",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "AC Milan"
+  },
+  {
+    "name": "Mile Svilar",
+    "position": "GK",
+    "nationality": "Serbia",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Pierluigi Gollini",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Radoslaw Zelezny",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Evan Ndicka",
+    "position": "DF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Gianluca Mancini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Daniele Ghilardi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Jan Ziolkowski",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Mario Hermoso",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Angeliño",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Konstantinos Tsimikas",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Wesley",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Zeki Çelik",
+    "position": "DF",
+    "nationality": "Türkiye",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Devyne Rensch",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Bryan Cristante",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Manu Koné",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Neil El Aynaoui",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Niccolò Pisilli",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Lorenzo Pellegrini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Bryan Zaragoza",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Stephan El Shaarawy",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Matías Soulé",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Lorenzo Venturino",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Paulo Dybala",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Donyell Malen",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Evan Ferguson",
+    "position": "FW",
+    "nationality": "Ireland",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Robinio Vaz",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Artem Dovbyk",
+    "position": "FW",
+    "nationality": "Ukraine",
+    "club_name": "AS Roma"
+  },
+  {
+    "name": "Vanja Milinković-Savić",
+    "position": "GK",
+    "nationality": "Serbia",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Alex Meret",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Nikita Contini",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Mathias Ferrante",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Alessandro Buongiorno",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Sam Beukema",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Amir Rrahmani",
+    "position": "DF",
+    "nationality": "Kosovo",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Juan Jesus",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Miguel Gutiérrez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Mathías Olivera",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Leonardo Spinazzola",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Giovanni Di Lorenzo",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Pasquale Mazzocchi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Billy Gilmour",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Stanislav Lobotka",
+    "position": "MF",
+    "nationality": "Slovakia",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Scott McTominay",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Frank Anguissa",
+    "position": "MF",
+    "nationality": "Cameroon",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Antonio Vergara",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Eljif Elmas",
+    "position": "MF",
+    "nationality": "North Macedonia",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Kevin De Bruyne",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Alisson Santos",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "David Neres",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Matteo Politano",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Rasmus Højlund",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Romelu Lukaku",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Giovane",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "SSC Napoli"
+  },
+  {
+    "name": "Marco Carnesecchi",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Marco Sportiello",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Francesco Rossi",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Giorgio Scalvini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Honest Ahanor",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Isak Hien",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Odilon Kossounou",
+    "position": "DF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Sead Kolasinac",
+    "position": "DF",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Berat Djimsiti",
+    "position": "DF",
+    "nationality": "Albania",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Marten de Roon",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Éderson",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Yunus Musah",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Mario Pašalić",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Raoul Bellanova",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Davide Zappacosta",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Nicola Zalewski",
+    "position": "MF",
+    "nationality": "Poland",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Lorenzo Bernasconi",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Mitchel Bakker",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Charles De Ketelaere",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Lazar Samardžić",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Kamaldeen Sulemana",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Giacomo Raspadori",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Gianluca Scamacca",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Nikola Krstović",
+    "position": "FW",
+    "nationality": "Montenegro",
+    "club_name": "Atalanta BC"
+  },
+  {
+    "name": "Jean Butez",
+    "position": "GK",
+    "nationality": "France",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Noel Törnqvist",
+    "position": "GK",
+    "nationality": "Sweden",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Nikola Cavlina",
+    "position": "GK",
+    "nationality": "Croatia",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Henrique Menke",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Mauro Vigorito",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Jacobo Ramón",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Diego Carlos",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Marc Oliver Kempf",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Edoardo Goldaniga",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Álex Valle",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Alberto Moreno",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Ignace Van der Brempt",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Mërgim Vojvoda",
+    "position": "DF",
+    "nationality": "Kosovo",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Ivan Smolcic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Máximo Perrone",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Lucas Da Cunha",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Maxence Caqueret",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Adrian Lahdo",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Sergi Roberto",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Nico Paz",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Martin Baturina",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Jesús Rodríguez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Assane Diao",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Jayden Addai",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Nicolas Kühn",
+    "position": "FW",
+    "nationality": "Germany",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Anastasios Douvikas",
+    "position": "FW",
+    "nationality": "Greece",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Álvaro Morata",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Como 1907"
+  },
+  {
+    "name": "Lukasz Skorupski",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Federico Ravaglia",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Massimo Pessina",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Jhon Lucumí",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Torbjørn Heggem",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Martin Vitík",
+    "position": "DF",
+    "nationality": "Czech Republic",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Eivind Helland",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Nicolò Casale",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Kevin Bonifazi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Juan Miranda",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Charalampos Lykogiannis",
+    "position": "DF",
+    "nationality": "Greece",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "João Mário",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Nadir Zortea",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Lorenzo De Silvestri",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Nikola Moro",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Lewis Ferguson",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Tommaso Pobega",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Simon Sohm",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Remo Freuler",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Jens Odgaard",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Jonathan Rowe",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Nicolò Cambiaghi",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Benja Domínguez",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Riccardo Orsolini",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Federico Bernardeschi",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Santiago Castro",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "Thijs Dallinga",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Bologna FC 1909"
+  },
+  {
+    "name": "David de Gea",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Oliver Christensen",
+    "position": "GK",
+    "nationality": "Denmark",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Luca Lezzerini",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Pietro Comuzzo",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Marin Pongracic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Luca Ranieri",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Eddy Kouadio",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Daniele Rugani",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Eman Košpo",
+    "position": "DF",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Niccolò Fortini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Fabiano Parisi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Robin Gosens",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Luis Balbo",
+    "position": "DF",
+    "nationality": "Venezuela",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Dodô",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Tariq Lamptey",
+    "position": "DF",
+    "nationality": "Ghana",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Rolando Mandragora",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Nicolò Fagioli",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Cher Ndour",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Marco Brescianini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Jacopo Fazzini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Giovanni Fabbian",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Abdelhamid Sabiri",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Manor Solomon",
+    "position": "FW",
+    "nationality": "Israel",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Jack Harrison",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Albert Gudmundsson",
+    "position": "FW",
+    "nationality": "Iceland",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Moise Kean",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Roberto Piccoli",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "ACF Fiorentina"
+  },
+  {
+    "name": "Edoardo Motta",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Ivan Provedel",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Alessio Furlanetto",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Mario Gila",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Oliver Provstgaard",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Alessio Romagnoli",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Samuel Gigot",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Patric",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Nuno Tavares",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Luca Pellegrini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Adam Marusic",
+    "position": "DF",
+    "nationality": "Montenegro",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Manuel Lazzari",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Elseid Hysaj",
+    "position": "DF",
+    "nationality": "Albania",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Nicolò Rovella",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Reda Belahyane",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Danilo Cataldi",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Kenneth Taylor",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Fisayo Dele-Bashiru",
+    "position": "MF",
+    "nationality": "Nigeria",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Toma Bašić",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Daniel Maldini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Adrian Przyborek",
+    "position": "MF",
+    "nationality": "Poland",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Mattia Zaccagni",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Gustav Isaksen",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Tijjani Noslin",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Matteo Cancellieri",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Pedro",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Petar Ratkov",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Boulaye Dia",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "SS Lazio"
+  },
+  {
+    "name": "Arijanet Murić",
+    "position": "GK",
+    "nationality": "Kosovo",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Stefano Turati",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Gioele Zacchi",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Giacomo Satalino",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Tarik Muharemović",
+    "position": "DF",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Jay Idzes",
+    "position": "DF",
+    "nationality": "Indonesia",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Fali Candé",
+    "position": "DF",
+    "nationality": "Guinea-Bissau",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Filippo Romagna",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Pedro Felipe",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Josh Doig",
+    "position": "DF",
+    "nationality": "Scotland",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Ulisses Garcia",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Edoardo Pieragnolo",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Sebastian Walukiewicz",
+    "position": "DF",
+    "nationality": "Poland",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Woyo Coulibaly",
+    "position": "DF",
+    "nationality": "Mali",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Luca Lipani",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Daniel Boloca",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Nemanja Matić",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Ismaël Koné",
+    "position": "MF",
+    "nationality": "Canada",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Kristian Thorstvedt",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Aster Vranckx",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Edoardo Iannoni",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Cristian Volpato",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Darryl Bakola",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Armand Laurienté",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Alieu Fadera",
+    "position": "FW",
+    "nationality": "The Gambia",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Domenico Berardi",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Andrea Pinamonti",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "M'Bala Nzola",
+    "position": "FW",
+    "nationality": "Angola",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Luca Moro",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Sassuolo"
+  },
+  {
+    "name": "Zion Suzuki",
+    "position": "GK",
+    "nationality": "Japan",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Edoardo Corvi",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Filippo Rinaldi",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Alessandro Circati",
+    "position": "DF",
+    "nationality": "Australia",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Mariano Troilo",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Abdoulaye Ndiaye",
+    "position": "DF",
+    "nationality": "Senegal",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Lautaro Valenti",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Emanuele Valeri",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Franco Carboni",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Sascha Britschgi",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Enrico Delprato",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Mandela Keita",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Hans Nicolussi Caviglia",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Nahuel Estévez",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Adrián Bernabé",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Oliver Sørensen",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Christian Ordóñez",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Benja Cremaschi",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Gaetano Oristanio",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Jacob Ondrejka",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Gabriel Strefezza",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Pontus Almqvist",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Mateo Pellegrino",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Matija Frigan",
+    "position": "FW",
+    "nationality": "Croatia",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Nesta Elphege",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Justin Bijlow",
+    "position": "GK",
+    "nationality": "Netherlands",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Nicola Leali",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Benjamin Siegrist",
+    "position": "GK",
+    "nationality": "Switzerland",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Ernestas Lysionok",
+    "position": "GK",
+    "nationality": "Lithuania",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Daniele Sommariva",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Johan Vásquez",
+    "position": "DF",
+    "nationality": "Mexico",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Leo Østigård",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Alessandro Marcandalli",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Nils Zätterström",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Sebastian Otoa",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Aarón Martín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Brooke Norton-Cuffy",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Stefano Sabelli",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Morten Frendrup",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Jean Onana",
+    "position": "MF",
+    "nationality": "Cameroon",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Amorim",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Mikael Egill Ellertsson",
+    "position": "MF",
+    "nationality": "Iceland",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Patrizio Masini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Ruslan Malinovskyi",
+    "position": "MF",
+    "nationality": "Ukraine",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Tommaso Baldanzi",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Maxwel Cornet",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Junior Messias",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Jeff Ekhator",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Lorenzo Colombo",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Vitinha",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Caleb Ekuban",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Genoa CFC"
+  },
+  {
+    "name": "Elia Caprile",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Alen Sherri",
+    "position": "GK",
+    "nationality": "Albania",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Giuseppe Ciocci",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Alberto Dossena",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Adam Obert",
+    "position": "DF",
+    "nationality": "Slovakia",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Juan Rodríguez",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Yerry Mina",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Zé Pedro",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Riyad Idrissi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Marco Palestra",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Gabriele Zappa",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Othniël Raterink",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Ibrahim Sulemana",
+    "position": "MF",
+    "nationality": "Ghana",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Michel Adopo",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Michael Folorunsho",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Joseph Liteta",
+    "position": "MF",
+    "nationality": "Zambia",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Alessandro Deiola",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Luca Mazzitelli",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Gianluca Gaetano",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Mattia Felici",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Agustín Albarracín",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Sebastiano Esposito",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Semih Kılıçsoy",
+    "position": "FW",
+    "nationality": "Türkiye",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Gennaro Borrelli",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Andrea Belotti",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Yael Trepy",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Leonardo Pavoletti",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Cagliari Calcio"
+  },
+  {
+    "name": "Franco Israel",
+    "position": "GK",
+    "nationality": "Uruguay",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Alberto Paleari",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Lapo Siviero",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Saúl Coco",
+    "position": "DF",
+    "nationality": "Equatorial Guinea",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Luca Marianucci",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Ardian Ismajli",
+    "position": "DF",
+    "nationality": "Albania",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Guillermo Maripán",
+    "position": "DF",
+    "nationality": "Chile",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Enzo Ebosse",
+    "position": "DF",
+    "nationality": "Cameroon",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Saba Sazonov",
+    "position": "DF",
+    "nationality": "Georgia",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Rafa Obrador",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Niels Nkounkou",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Cristiano Biraghi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Marcus Pedersen",
+    "position": "DF",
+    "nationality": "Norway",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Matteo Prati",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Adrien Tamèze",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Cesare Casadei",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Ivan Ilić",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Gvidas Gineitis",
+    "position": "MF",
+    "nationality": "Lithuania",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Emirhan İlkhan",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Valentino Lazaro",
+    "position": "MF",
+    "nationality": "Austria",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Nikola Vlašić",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Tino Anjorin",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Sergiu Perciun",
+    "position": "MF",
+    "nationality": "Moldova",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Alieu Njie",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Zakaria Aboukhlal",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Zanos Savva",
+    "position": "FW",
+    "nationality": "Cyprus",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Ché Adams",
+    "position": "FW",
+    "nationality": "Scotland",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Giovanni Simeone",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Sandro Kulenović",
+    "position": "FW",
+    "nationality": "Croatia",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Duván Zapata",
+    "position": "FW",
+    "nationality": "Colombia",
+    "club_name": "Torino FC"
+  },
+  {
+    "name": "Adrian Semper",
+    "position": "GK",
+    "nationality": "Croatia",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Simone Scuffet",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Nícolas",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Simone Canestrelli",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Rosen Bozhinov",
+    "position": "DF",
+    "nationality": "Bulgaria",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Francesco Coppola",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Antonio Caracciolo",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Arturo Calabresi",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Raúl Albiol",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Daniel Denoon",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Marius Marin",
+    "position": "MF",
+    "nationality": "Romania",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Malthe Højholt",
+    "position": "MF",
+    "nationality": "Denmark",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Felipe Loyola",
+    "position": "MF",
+    "nationality": "Chile",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Ebenezer Akinsanmiro",
+    "position": "MF",
+    "nationality": "Nigeria",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "İsak Vural",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Michel Aebischer",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Gabriele Piccinini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Idrissa Touré",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Juan Cuadrado",
+    "position": "MF",
+    "nationality": "Colombia",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Samuel Iling-Junior",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Samuele Angori",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Calvin Stengs",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Lorran",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Matteo Tramoni",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Mehdi Léris",
+    "position": "FW",
+    "nationality": "Algeria",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Rafiu Durosinmi",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Henrik Meister",
+    "position": "FW",
+    "nationality": "Denmark",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Filip Stojilkovic",
+    "position": "FW",
+    "nationality": "Switzerland",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Stefano Moreo",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Pisa Sporting Club"
+  },
+  {
+    "name": "Lorenzo Montipò",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Simone Perilli",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Giacomo Toniolo",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Arthur Borghi",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Victor Nelsson",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Armel Bella-Kotchap",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Nicolás Valentini",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Tobias Slotsager",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Andrias Edmundsson",
+    "position": "DF",
+    "nationality": "Faroe Islands",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Martin Frese",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Domagoj Bradarić",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Rafik Belghali",
+    "position": "DF",
+    "nationality": "Algeria",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Pol Lirola",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Fallou Cham",
+    "position": "DF",
+    "nationality": "The Gambia",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Daniel Oyegoke",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Moatasem Al-Musrati",
+    "position": "MF",
+    "nationality": "Libya",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Cheikh Niasse",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Sandi Lovrić",
+    "position": "MF",
+    "nationality": "Slovenia",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Suat Serdar",
+    "position": "MF",
+    "nationality": "Germany",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Antoine Bernede",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Abdou Harroui",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Roberto Gagliardini",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Jean-Daniel Akpa Akpro",
+    "position": "MF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Tomas Suslov",
+    "position": "MF",
+    "nationality": "Slovakia",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Gift Orban",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Kieron Bowie",
+    "position": "FW",
+    "nationality": "Scotland",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Amin Sarr",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Daniel Mosquera",
+    "position": "FW",
+    "nationality": "Colombia",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Isaac",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Junior Ajayi",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Hellas Verona"
+  },
+  {
+    "name": "Wladimiro Falcone",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Christian Früchtl",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Jasper Samooja",
+    "position": "GK",
+    "nationality": "Finland",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Tiago Gabriel",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Jamil Siebert",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Gaspar",
+    "position": "DF",
+    "nationality": "Angola",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Gaby Jean",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Matías Pérez",
+    "position": "DF",
+    "nationality": "Chile",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Antonino Gallo",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Corrie Ndaba",
+    "position": "DF",
+    "nationality": "Ireland",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Danilo Veiga",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Oumar Ngom",
+    "position": "MF",
+    "nationality": "Mauritania",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Ylber Ramadani",
+    "position": "MF",
+    "nationality": "Albania",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Sadik Fofana",
+    "position": "MF",
+    "nationality": "Togo",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Medon Berisha",
+    "position": "MF",
+    "nationality": "Albania",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Lassana Coulibaly",
+    "position": "MF",
+    "nationality": "Mali",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Thórir Jóhann Helgason",
+    "position": "MF",
+    "nationality": "Iceland",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Álex Sala",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Omri Gandelman",
+    "position": "MF",
+    "nationality": "Israel",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Filip Marchwinski",
+    "position": "MF",
+    "nationality": "Poland",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Riccardo Sottil",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Lameck Banda",
+    "position": "FW",
+    "nationality": "Zambia",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Santiago Pierotti",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Konan N’Dri",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Francesco Camarda",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Nikola Stulic",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Walid Cheddira",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "US Lecce"
+  },
+  {
+    "name": "Emil Audero",
+    "position": "GK",
+    "nationality": "Indonesia",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Marco Silvestri",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Lapo Nava",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Mikayil Faye",
+    "position": "DF",
+    "nationality": "Senegal",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Filippo Terracciano",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Sebastiano Luperto",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Federico Baschirotto",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Matteo Bianchetti",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Francesco Folino",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Federico Ceccherini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Giuseppe Pezzella",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Tommaso Barbieri",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Romano Floriani Mussolini",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Alberto Grassi",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Warren Bondo",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Martín Payero",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Jari Vandeputte",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Morten Thorsby",
+    "position": "MF",
+    "nationality": "Norway",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Michele Collocolo",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Youssef Maleh",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Alessio Zerbin",
+    "position": "MF",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Faris Moumbagna",
+    "position": "FW",
+    "nationality": "Cameroon",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Federico Bonazzoli",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Antonio Sanabria",
+    "position": "FW",
+    "nationality": "Paraguay",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "David Okereke",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Milan Djuric",
+    "position": "FW",
+    "nationality": "Bosnia-Herzegovina",
+    "club_name": "US Cremonese"
+  },
+  {
+    "name": "Jamie Vardy",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "US Cremonese"
+  }
+]

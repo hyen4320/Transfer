@@ -1,0 +1,3116 @@
+[
+  {
+    "name": "Thibaut Courtois",
+    "position": "GK",
+    "nationality": "Belgium",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Andriy Lunin",
+    "position": "GK",
+    "nationality": "Ukraine",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Fran González",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Dean Huijsen",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Éder Militão",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Raúl Asencio",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Antonio Rüdiger",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "David Alaba",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Álvaro Carreras",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Fran García",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Ferland Mendy",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Trent Alexander-Arnold",
+    "position": "DF",
+    "nationality": "England",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Daniel Carvajal",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Aurélien Tchouaméni",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Federico Valverde",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Eduardo Camavinga",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Thiago Pitarch",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Dani Ceballos",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Jorge Cestero",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Manuel Ángel",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Jude Bellingham",
+    "position": "MF",
+    "nationality": "England",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Arda Güler",
+    "position": "MF",
+    "nationality": "Türkiye",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Vinicius Junior",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Rodrygo",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Franco Mastantuono",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Brahim Díaz",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Kylian Mbappé",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Gonzalo García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Madrid"
+  },
+  {
+    "name": "Joan García",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Wojciech Szczęsny",
+    "position": "GK",
+    "nationality": "Poland",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Diego Kochen",
+    "position": "GK",
+    "nationality": "United States",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Pau Cubarsí",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Eric García",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Ronald Araujo",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Andreas Christensen",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Alejandro Balde",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Gerard Martín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Jules Koundé",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "João Cancelo",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Marc Bernal",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Marc Casadó",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Pedri",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Frenkie de Jong",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Gavi",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Fermín López",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Dani Olmo",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Raphinha",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Marcus Rashford",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Lamine Yamal",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Roony Bardghji",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Ferran Torres",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Robert Lewandowski",
+    "position": "FW",
+    "nationality": "Poland",
+    "club_name": "FC Barcelona"
+  },
+  {
+    "name": "Jan Oblak",
+    "position": "GK",
+    "nationality": "Slovenia",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Juan Musso",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Dávid Hancko",
+    "position": "DF",
+    "nationality": "Slovakia",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Marc Pubill",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Robin Le Normand",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "José María Giménez",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Clément Lenglet",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Matteo Ruggeri",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Marcos Llorente",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Nahuel Molina",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Pablo Barrios",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Johnny Cardoso",
+    "position": "MF",
+    "nationality": "United States",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Rodrigo Mendoza",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Obed Vargas",
+    "position": "MF",
+    "nationality": "Mexico",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Koke",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Álex Baena",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Nico González",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Thiago Almada",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Giuliano Simeone",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Ademola Lookman",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Antoine Griezmann",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Julián Alvarez",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Alexander Sørloth",
+    "position": "FW",
+    "nationality": "Norway",
+    "club_name": "Atlético de Madrid"
+  },
+  {
+    "name": "Luiz Júnior",
+    "position": "GK",
+    "nationality": "Brazil",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Diego Conde",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Arnau Tenas",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Renato Veiga",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Logan Costa",
+    "position": "DF",
+    "nationality": "Cape Verde",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Rafa Marín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Juan Foyth",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Willy Kambwala",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Sergi Cardona",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Alfonso Pedraza",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Pau Navarro",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Santiago Mouriño",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Alex Freeman",
+    "position": "DF",
+    "nationality": "United States",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Thomas Partey",
+    "position": "MF",
+    "nationality": "Ghana",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Pape Gueye",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Santi Comesaña",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Carlos Macià",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Dani Parejo",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Alberto Moleiro",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Alfon González",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Hugo López",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Tajon Buchanan",
+    "position": "FW",
+    "nationality": "Canada",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Nicolas Pépé",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Georges Mikautadze",
+    "position": "FW",
+    "nationality": "Georgia",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Tani Oluwaseyi",
+    "position": "FW",
+    "nationality": "Canada",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Ayoze Pérez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Gerard Moreno",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Pau Cabanes",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Villarreal CF"
+  },
+  {
+    "name": "Unai Simón",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Álex Padilla",
+    "position": "GK",
+    "nationality": "Mexico",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Dani Vivian",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Aitor Paredes",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Aymeric Laporte",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Yeray Álvarez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Unai Egiluz",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Adama Boiro",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Yuri Berchiche",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Jesús Areso",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Andoni Gorosabel",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Iñigo Lekue",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Mikel Vesga",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Mikel Jauregizar",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Beñat Prados",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Alejandro Rego",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Selton Sánchez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Iñigo Ruiz de Galarreta",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Oihan Sancet",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Unai Gómez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Nico Williams",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Álex Berenguer",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Nico Serrano",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Iñaki Williams",
+    "position": "FW",
+    "nationality": "Ghana",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Robert Navarro",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Gorka Guruzeta",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Maroan Sannadi",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Urko Izeta",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Athletic Bilbao"
+  },
+  {
+    "name": "Álex Remiro",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Unai Marrero",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Jon Martín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Igor Zubeldia",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Duje Caleta-Car",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Aritz Elustondo",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Sergio Gómez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Aihen Muñoz",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Jon Aramburu",
+    "position": "DF",
+    "nationality": "Venezuela",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Álvaro Odriozola",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Jon Gorrotxategi",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Beñat Turrientes",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Luka Sucic",
+    "position": "MF",
+    "nationality": "Croatia",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Yangel Herrera",
+    "position": "MF",
+    "nationality": "Venezuela",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Carlos Soler",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Brais Méndez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Arsen Zakharyan",
+    "position": "MF",
+    "nationality": "Russia",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Pablo Marín",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Ander Barrenetxea",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Gonçalo Guedes",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Wesley",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Takefusa Kubo",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Mikel Oyarzabal",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Orri Óskarsson",
+    "position": "FW",
+    "nationality": "Iceland",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Jon Karrikaburu",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Sociedad"
+  },
+  {
+    "name": "Álvaro Valles",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Pau López",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Adrián San Miguel",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Natan",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Valentín Gómez",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Diego Llorente",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Marc Bartra",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Junior Firpo",
+    "position": "DF",
+    "nationality": "Dominican Republic",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Ricardo Rodríguez",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Ángel Ortiz",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Héctor Bellerín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Sofyan Amrabat",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Marc Roca",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Sergi Altimira",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Álvaro Fidalgo",
+    "position": "MF",
+    "nationality": "Mexico",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Nelson Deossa",
+    "position": "MF",
+    "nationality": "Colombia",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Pablo Fornals",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Giovani Lo Celso",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Isco",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Abde Ezzalzouli",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Rodrigo Riquelme",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Antony",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Pablo García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Aitor Ruibal",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Cucho Hernández",
+    "position": "FW",
+    "nationality": "Colombia",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Chimy Ávila",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Cédric Bakambu",
+    "position": "FW",
+    "nationality": "DR Congo",
+    "club_name": "Real Betis Balompié"
+  },
+  {
+    "name": "Ionuț Radu",
+    "position": "GK",
+    "nationality": "Romania",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Iván Villar",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Marc Vidal",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Javi Rodríguez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Carl Starfelt",
+    "position": "DF",
+    "nationality": "Sweden",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Carlos Domínguez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Yoel Lago",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Manu Fernández",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Marcos Alonso",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Joseph Aidoo",
+    "position": "DF",
+    "nationality": "Ghana",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Mihailo Ristic",
+    "position": "DF",
+    "nationality": "Serbia",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Óscar Mingueza",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Sergio Carreira",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Álvaro Núñez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Javi Rueda",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Miguel Román",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Ilaix Moriba",
+    "position": "MF",
+    "nationality": "Guinea",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Hugo Sotelo",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Matías Vecino",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Fer López",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Williot Swedberg",
+    "position": "FW",
+    "nationality": "Sweden",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Hugo Álvarez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Franco Cervi",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Jones El-Abdellaoui",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Ferran Jutglà",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Pablo Durán",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Borja Iglesias",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Iago Aspas",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Celta de Vigo"
+  },
+  {
+    "name": "Julen Agirrezabala",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Stole Dimitrievski",
+    "position": "GK",
+    "nationality": "North Macedonia",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Cristian Rivero",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "César Tárrega",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "José Copete",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Unai Núñez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Eray Cömert",
+    "position": "DF",
+    "nationality": "Switzerland",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Mouctar Diakhaby",
+    "position": "DF",
+    "nationality": "Guinea",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "José Gayà",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Jesús Vázquez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Thierry Correia",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Renzo Saravia",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Dimitri Foulquier",
+    "position": "DF",
+    "nationality": "Guadeloupe",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Pepelu",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Guido Rodríguez",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Baptiste Santamaria",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Javi Guerra",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Filip Ugrinic",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "André Almeida",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Largie Ramazani",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Arnaut Danjuma",
+    "position": "FW",
+    "nationality": "Netherlands",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Diego López",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Luis Rioja",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Dani Raba",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Hugo Duro",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Lucas Beltrán",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Umar Sadiq",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Valencia CF"
+  },
+  {
+    "name": "Marc-André ter Stegen",
+    "position": "GK",
+    "nationality": "Germany",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Paulo Gazzaniga",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Rubén Blanco",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Vladyslav Krapyvtsov",
+    "position": "GK",
+    "nationality": "Ukraine",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Juan Carlos",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Vitor Reis",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Alejandro Francés",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Daley Blind",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "David López",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Álex Moreno",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Arnau Martínez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Hugo Rincón",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Axel Witsel",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Azzedine Ounahi",
+    "position": "MF",
+    "nationality": "Morocco",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Iván Martín",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Fran Beltrán",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Donny van de Beek",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Lass Kourouma",
+    "position": "MF",
+    "nationality": "Guinea",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Claudio Echeverri",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Thomas Lemar",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Bryan Gil",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Joel Roca",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Viktor Tsygankov",
+    "position": "FW",
+    "nationality": "Ukraine",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Portu",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Vladyslav Vanat",
+    "position": "FW",
+    "nationality": "Ukraine",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Abel Ruiz",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Cristhian Stuani",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Girona FC"
+  },
+  {
+    "name": "Odysseas Vlachodimos",
+    "position": "GK",
+    "nationality": "Greece",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Ørjan Nyland",
+    "position": "GK",
+    "nationality": "Norway",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Kike Salas",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Marcão",
+    "position": "DF",
+    "nationality": "Brazil",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Fábio Cardoso",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Andrés Castrín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Tanguy Nianzou",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "César Azpilicueta",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Federico Gattoni",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Gabriel Suazo",
+    "position": "DF",
+    "nationality": "Chile",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Oso",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Juanlu Sánchez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "José Ángel Carmona",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Lucien Agoumé",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Batista Mendy",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Nemanja Gudelj",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Djibril Sow",
+    "position": "MF",
+    "nationality": "Switzerland",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Joan Jordán",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Manu Bueno",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Rubén Vargas",
+    "position": "FW",
+    "nationality": "Switzerland",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Chidera Ejuke",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Adnan Januzaj",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Miguel Ángel Sierra",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Peque Fernández",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Alexis Sánchez",
+    "position": "FW",
+    "nationality": "Chile",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Akor Adams",
+    "position": "FW",
+    "nationality": "Nigeria",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Isaac Romero",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Neal Maupay",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "Sevilla FC"
+  },
+  {
+    "name": "Marko Dmitrovic",
+    "position": "GK",
+    "nationality": "Serbia",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Ángel Fortuño",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Clemens Riedel",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Fernando Calero",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Miguel Rubio",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Leandro Cabrera",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Carlos Romero",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "José Salinas",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Omar El Hilali",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Rubén Sánchez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Urko González de Zárate",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Charles Pickel",
+    "position": "MF",
+    "nationality": "DR Congo",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Pol Lozano",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Edu Expósito",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Ramón Terrats",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Javi Puado",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Pere Milla",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Tyrhys Dolan",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Cyril Ngonge",
+    "position": "FW",
+    "nationality": "Belgium",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Jofre Carreras",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Antoniu Roca",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Roberto Fernández",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Kike García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Espanyol Barcelona"
+  },
+  {
+    "name": "Augusto Batalla",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Dani Cárdenas",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Nobel Mendy",
+    "position": "DF",
+    "nationality": "Senegal",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Abdul Mumin",
+    "position": "DF",
+    "nationality": "Ghana",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Luiz Felipe",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Jozhua Vertrouwd",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Florian Lejeune",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Pep Chavarría",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Alfonso Espino",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Andrei Rațiu",
+    "position": "DF",
+    "nationality": "Romania",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Iván Balliu",
+    "position": "DF",
+    "nationality": "Albania",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Gerard Gumbau",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Pedro Díaz",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Unai López",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Óscar Valentín",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Pathé Ciss",
+    "position": "MF",
+    "nationality": "Senegal",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Samu Becerra",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Randy Nteka",
+    "position": "MF",
+    "nationality": "Angola",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Óscar Trejo",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Carlos Martín",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Álvaro García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Ilias Akhomach",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Jorge de Frutos",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Fran Pérez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Isi Palazón",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Alemão",
+    "position": "FW",
+    "nationality": "Brazil",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Sergio Camello",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Rayo Vallecano"
+  },
+  {
+    "name": "Sergio Herrera",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Aitor Fernández",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Enzo Boyomo",
+    "position": "DF",
+    "nationality": "Cameroon",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Jorge Herrando",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Alejandro Catena",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Abel Bretones",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Javi Galán",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Juan Cruz",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Valentin Rosier",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Iñigo Arguibide",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Lucas Torró",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Iker Muñoz",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Jon Moncayola",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Asier Osambela",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Aimar Oroz",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Moi Gómez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Víctor Muñoz",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Raúl Moro",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Rubén García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Iker Benito",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Kike Barja",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Raúl García",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Ante Budimir",
+    "position": "FW",
+    "nationality": "Croatia",
+    "club_name": "CA Osasuna"
+  },
+  {
+    "name": "Leo Román",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Lucas Bergström",
+    "position": "GK",
+    "nationality": "Finland",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Iván Cuéllar",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Martin Valjent",
+    "position": "DF",
+    "nationality": "Slovakia",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Marash Kumbulla",
+    "position": "DF",
+    "nationality": "Albania",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Antonio Raíllo",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "David López",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Johan Mojica",
+    "position": "DF",
+    "nationality": "Colombia",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Toni Lato",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Pablo Maffeo",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Mateu Morey",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Samú Costa",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Omar Mascarell",
+    "position": "MF",
+    "nationality": "Equatorial Guinea",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Sergi Darder",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Antonio Sánchez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Manu Morlanes",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Jan Salas",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Pablo Torre",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Jan Virgili",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Javi Llabrés",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Zito Luvumbo",
+    "position": "FW",
+    "nationality": "Angola",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Takuma Asano",
+    "position": "FW",
+    "nationality": "Japan",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Justin Kalumba",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Vedat Muriqi",
+    "position": "FW",
+    "nationality": "Kosovo",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Mateo Joseph",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Abdón Prats",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "RCD Mallorca"
+  },
+  {
+    "name": "Mathew Ryan",
+    "position": "GK",
+    "nationality": "Australia",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Pablo Campos",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Álex Primo",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Matías Moreno",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Alan Matturro",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Adrián Dela",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Unai Elgezabal",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Manu Sánchez",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Diego Pampín",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Jeremy Toljan",
+    "position": "DF",
+    "nationality": "Germany",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Víctor García",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Ugo Raghouber",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Oriol Rey",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Kervin Arriaga",
+    "position": "MF",
+    "nationality": "Honduras",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Pablo Martínez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Jon Ander Olasagasti",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Unai Vencedor",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Carlos Álvarez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Roger Brugué",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Paco Cortés",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Kareem Tunde",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Tay Abed",
+    "position": "FW",
+    "nationality": "Israel",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Iker Losada",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Karl Etta Eyong",
+    "position": "FW",
+    "nationality": "Cameroon",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Iván Romero",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Carlos Espí",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "José Luis Morales",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Levante UD"
+  },
+  {
+    "name": "Iñaki Peña",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Alejandro Iturbe",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Matías Dituro",
+    "position": "GK",
+    "nationality": "Argentina",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "David Affengruber",
+    "position": "DF",
+    "nationality": "Austria",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Víctor Chust",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "John Donald",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Pedro Bigas",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Adrià Pedrosa",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Léo Pétrot",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Héctor Fort",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Buba Sangaré",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Federico Redondo",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Marc Aguado",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Aleix Febas",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Martim Neto",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Gonzalo Villar",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Germán Valera",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Lucas Cepeda",
+    "position": "FW",
+    "nationality": "Chile",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Tete Morente",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Yago Santiago",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Grady Diangana",
+    "position": "FW",
+    "nationality": "DR Congo",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Josan",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Adam Boayar",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Álvaro Rodríguez",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "Rafa Mir",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "André Silva",
+    "position": "FW",
+    "nationality": "Portugal",
+    "club_name": "Elche CF"
+  },
+  {
+    "name": "David Soria",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Jiri Letacek",
+    "position": "GK",
+    "nationality": "Czech Republic",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Abdel Abqar",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Sebastián Boselli",
+    "position": "DF",
+    "nationality": "Uruguay",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Zaid Romero",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Dakonam Djené",
+    "position": "DF",
+    "nationality": "Togo",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Domingos Duarte",
+    "position": "DF",
+    "nationality": "Portugal",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Diego Rico",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Davinchi",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Juan Iglesias",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Kiko Femenía",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Ismael Bekhoucha",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Allan Nyom",
+    "position": "DF",
+    "nationality": "Cameroon",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Mario Martín",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Mauro Arambarri",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Luis Milla",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Javi Muñoz",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Adrián Liso",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Veljko Birmancevic",
+    "position": "FW",
+    "nationality": "Serbia",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Juanmi",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Abu Kamara",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Álex Sancris",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Borja Mayoral",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Martín Satriano",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Luis Vázquez",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Getafe CF"
+  },
+  {
+    "name": "Antonio Sivera",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Raúl Fernández",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Jon Pacheco",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Ville Koski",
+    "position": "DF",
+    "nationality": "Finland",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Facundo Garcés",
+    "position": "DF",
+    "nationality": "Malaysia",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Youssef Enríquez",
+    "position": "DF",
+    "nationality": "Morocco",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Victor Parada",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Nahuel Tenaglia",
+    "position": "DF",
+    "nationality": "Argentina",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Jonny Otto",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Antonio Blanco",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Carlos Protesoni",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Pablo Ibáñez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Carles Aleñá",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Ander Guevara",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Jon Guridi",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Calebe",
+    "position": "MF",
+    "nationality": "Brazil",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Denis Suárez",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Abde Rebbach",
+    "position": "FW",
+    "nationality": "Algeria",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Ángel Pérez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Lucas Boyé",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Toni Martínez",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Ibrahim Diabate",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Aitor Mañas",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Mariano Díaz",
+    "position": "FW",
+    "nationality": "Dominican Republic",
+    "club_name": "Deportivo Alavés"
+  },
+  {
+    "name": "Aarón Escandell",
+    "position": "GK",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Horațiu Moldovan",
+    "position": "GK",
+    "nationality": "Romania",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "David Carmo",
+    "position": "DF",
+    "nationality": "Angola",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Eric Bailly",
+    "position": "DF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "David Costas",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Dani Calvo",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Javi López",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Rahim Alhassane",
+    "position": "DF",
+    "nationality": "Niger",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Nacho Vidal",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Lucas Ahijado",
+    "position": "DF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Santiago Colombatto",
+    "position": "MF",
+    "nationality": "Argentina",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Leander Dendoncker",
+    "position": "MF",
+    "nationality": "Belgium",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Nicolás Fonseca",
+    "position": "MF",
+    "nationality": "Uruguay",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Alberto Reina",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Kwasi Sibo",
+    "position": "MF",
+    "nationality": "Ghana",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Santi Cazorla",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Luka Ilic",
+    "position": "MF",
+    "nationality": "Serbia",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Pablo Agudín",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Thiago Fernández",
+    "position": "FW",
+    "nationality": "Argentina",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Ilyas Chaira",
+    "position": "FW",
+    "nationality": "Morocco",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Ovie Ejaria",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Haissem Hassan",
+    "position": "FW",
+    "nationality": "Egypt",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Federico Viñas",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Thiago Borbas",
+    "position": "FW",
+    "nationality": "Uruguay",
+    "club_name": "Real Oviedo"
+  },
+  {
+    "name": "Álex Forés",
+    "position": "FW",
+    "nationality": "Spain",
+    "club_name": "Real Oviedo"
+  }
+]

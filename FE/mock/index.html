@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TransferMap</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #060a12;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .country {
+      fill: #0c1e36;
+      stroke: #1a4a8a;
+      stroke-width: 0.8;
+      transition: fill 0.2s ease;
+    }
+
+    .country:hover {
+      fill: #1a3560;
+      cursor: pointer;
+    }
+
+    .country-border {
+      fill: none;
+      stroke: #0e2d5c;
+      stroke-width: 0.5;
+    }
+
+    /* 중앙 글로우 */
+    .title-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .title-overlay h1 {
+      font-size: clamp(2.5rem, 5vw, 5.5rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 1),
+        0 0 30px rgba(100, 160, 255, 0.9),
+        0 0 70px rgba(50, 110, 255, 0.6),
+        0 0 130px rgba(30, 80, 255, 0.3);
+    }
+
+    .title-overlay .subtitle {
+      margin-top: 0.5em;
+      font-size: clamp(0.55rem, 1vw, 0.9rem);
+      color: rgba(140, 190, 255, 0.65);
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* 리그 배지 */
+    .league-badge {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .league-badge:hover {
+      transform: translate(-50%, -50%) scale(1.15);
+      filter: brightness(1.3);
+    }
+
+    .badge-img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #0c1e36;
+      border: 2px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(0,0,0,0.6);
+      overflow: hidden;
+    }
+
+    .badge-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+    }
+
+    .badge-name {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(220, 230, 255, 0.85);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      white-space: nowrap;
+    }
+
+    /* 연결선 pulse 점 */
+    .league-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 19;
+    }
+  </style>
+</head>
+<body>
+
+<div class="scene">
+  <svg id="map"></svg>
+
+  <div class="title-overlay">
+    <h1>TransferMap</h1>
+    <div class="subtitle">European Football Transfer Network</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script>
+  // 유럽 국가 ISO 3166-1 numeric 코드
+  const europeanIds = new Set([
+    8,   // Albania
+    20,  // Andorra
+    40,  // Austria
+    56,  // Belgium
+    70,  // Bosnia and Herzegovina
+    100, // Bulgaria
+    112, // Belarus
+    191, // Croatia
+    196, // Cyprus
+    203, // Czech Republic
+    208, // Denmark
+    233, // Estonia
+    246, // Finland
+    250, // France
+    276, // Germany
+    300, // Greece
+    348, // Hungary
+    352, // Iceland
+    372, // Ireland
+    380, // Italy
+    428, // Latvia
+    438, // Liechtenstein
+    440, // Lithuania
+    442, // Luxembourg
+    470, // Malta
+    492, // Monaco
+    498, // Moldova
+    499, // Montenegro
+    528, // Netherlands
+    578, // Norway
+    616, // Poland
+    620, // Portugal
+    642, // Romania
+    674, // San Marino
+    688, // Serbia
+    703, // Slovakia
+    705, // Slovenia
+    724, // Spain
+    752, // Sweden
+    756, // Switzerland
+    804, // Ukraine
+    807, // North Macedonia
+    826, // United Kingdom
+  ]);
+
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  const svg = d3.select("#map")
+    .attr("width", W)
+    .attr("height", H);
+
+  // 배경 글로우 (radial gradient)
+  const defs = svg.append("defs");
+
+  const radialGlow = defs.append("radialGradient")
+    .attr("id", "centerGlow")
+    .attr("cx", "50%").attr("cy", "50%")
+    .attr("r", "50%");
+  radialGlow.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#1040aa")
+    .attr("stop-opacity", 0.18);
+  radialGlow.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#000")
+    .attr("stop-opacity", 0);
+
+  svg.append("ellipse")
+    .attr("cx", W / 2).attr("cy", H / 2)
+    .attr("rx", W * 0.38).attr("ry", H * 0.38)
+    .attr("fill", "url(#centerGlow)");
+
+  // 메르카토르 투영 - 유럽 중앙 기준
+  const projection = d3.geoMercator()
+    .center([15, 54])
+    .scale(Math.min(W, H) * 1.1)
+    .translate([W / 2, H / 2]);
+
+  const pathGen = d3.geoPath().projection(projection);
+
+  fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
+    .then(r => r.json())
+    .then(world => {
+      const all = topojson.feature(world, world.objects.countries);
+      const borders = topojson.mesh(world, world.objects.countries,
+        (a, b) => a !== b && europeanIds.has(+a.id) && europeanIds.has(+b.id));
+
+      const europeFeatures = all.features.filter(d => europeanIds.has(+d.id));
+
+      // 국가 면
+      svg.selectAll(".country")
+        .data(europeFeatures)
+        .join("path")
+        .attr("class", "country")
+        .attr("d", pathGen)
+        .append("title")
+          .text(d => d.id);
+
+      // 국경선 (내부)
+      svg.append("path")
+        .datum(borders)
+        .attr("class", "country-border")
+        .attr("d", pathGen);
+
+      // 리그 배지 렌더링
+      renderLeagueBadges();
+    })
+    .catch(() => {
+      // CDN 실패 시 안내 텍스트
+      svg.append("text")
+        .attr("x", W / 2).attr("y", H / 2)
+        .attr("text-anchor", "middle")
+        .attr("fill", "#666")
+        .text("인터넷 연결이 필요합니다.");
+    });
+
+  // ── 5대 리그 데이터 ──────────────────────────────────────────
+  // logo: 실제 로고 이미지 경로로 교체하세요 (예: "assets/premier-league.png")
+  const leagues = [
+    {
+      id: "premier-league",
+      name: "Premier League",
+      lon: -1.5, lat: 52.5,        // 잉글랜드
+      color: "#38003c",
+      accent: "#00ff85",
+      logo: null,                   // "assets/premier-league.png"
+      abbr: "PL",
+    },
+    {
+      id: "laliga",
+      name: "La Liga",
+      lon: -3.7, lat: 40.4,        // 스페인
+      color: "#ee8707",
+      accent: "#c8102e",
+      logo: null,                   // "assets/laliga.png"
+      abbr: "LL",
+    },
+    {
+      id: "bundesliga",
+      name: "Bundesliga",
+      lon: 10.4, lat: 51.2,        // 독일
+      color: "#d20515",
+      accent: "#000000",
+      logo: null,                   // "assets/bundesliga.png"
+      abbr: "BL",
+    },
+    {
+      id: "serie-a",
+      name: "Serie A",
+      lon: 12.5, lat: 43.0,        // 이탈리아
+      color: "#1a1b5e",
+      accent: "#008fd7",
+      logo: null,                   // "assets/serie-a.png"
+      abbr: "SA",
+    },
+    {
+      id: "ligue1",
+      name: "Ligue 1",
+      lon: 2.3, lat: 46.6,         // 프랑스
+      color: "#091c3e",
+      accent: "#dba514",
+      logo: null,                   // "assets/ligue1.png"
+      abbr: "L1",
+    },
+  ];
+
+  function renderLeagueBadges() {
+    const scene = document.querySelector(".scene");
+
+    leagues.forEach(league => {
+      const [px, py] = projection([league.lon, league.lat]);
+
+      const badge = document.createElement("div");
+      badge.className = "league-badge";
+      badge.id = `badge-${league.id}`;
+      badge.style.left = px + "px";
+      badge.style.top  = py + "px";
+      badge.title = league.name;
+
+      const circle = document.createElement("div");
+      circle.className = "badge-img";
+      circle.style.background = league.color;
+      circle.style.boxShadow = `0 0 20px ${league.accent}55, 0 0 6px rgba(0,0,0,0.8)`;
+      circle.style.border = `2px solid ${league.accent}88`;
+
+      if (league.logo) {
+        // 실제 로고 이미지가 있을 때
+        const img = document.createElement("img");
+        img.src = league.logo;
+        img.alt = league.name;
+        circle.appendChild(img);
+      } else {
+        // 플레이스홀더: 약자 텍스트
+        circle.style.fontSize = "0.95rem";
+        circle.style.fontWeight = "900";
+        circle.style.color = league.accent;
+        circle.style.fontFamily = "'Arial Black', Arial, sans-serif";
+        circle.style.letterSpacing = "0.05em";
+        circle.style.textShadow = `0 0 8px ${league.accent}`;
+        circle.textContent = league.abbr;
+      }
+
+      const label = document.createElement("div");
+      label.className = "badge-name";
+      label.textContent = league.name;
+
+      badge.appendChild(circle);
+      badge.appendChild(label);
+      scene.appendChild(badge);
+    });
+  }
+</script>
+
+</body>
+</html>
