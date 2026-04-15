@@ -1,0 +1,41 @@
+package transfer.be.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import transfer.be.dto.response.PlayerResponse;
+import transfer.be.dto.response.TransferNewsResponse;
+import transfer.be.model.Player;
+import transfer.be.repository.PlayerRepository;
+import transfer.be.service.TransferNewsService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/players")
+@RequiredArgsConstructor
+public class PlayerController {
+
+    private final PlayerRepository playerRepository;
+    private final TransferNewsService transferNewsService;
+
+    /** 선수 상세 */
+    @GetMapping("/{id}")
+    public PlayerResponse getById(@PathVariable Long id) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
+        return PlayerResponse.from(player);
+    }
+
+    /** 선수 이적 히스토리 */
+    @GetMapping("/{id}/transfers")
+    public List<TransferNewsResponse> getTransfers(@PathVariable Long id) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
+        return transferNewsService.findByPlayer(player).stream()
+                .map(TransferNewsResponse::from)
+                .toList();
+    }
+}

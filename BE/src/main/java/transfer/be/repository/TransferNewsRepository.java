@@ -1,10 +1,13 @@
 package transfer.be.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import transfer.be.model.Club;
 import transfer.be.model.Journalist;
+import transfer.be.model.League;
 import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 
@@ -16,7 +19,24 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
 
     List<TransferNews> findByStatus(TransferNews.Status status);
 
+    Page<TransferNews> findByStatusOrderByPublishedAtDesc(TransferNews.Status status, Pageable pageable);
+
     List<TransferNews> findByToClubOrderByPublishedAtDesc(Club club);
+
+    List<TransferNews> findByFromClubOrderByPublishedAtDesc(Club club);
+
+    Page<TransferNews> findAllByOrderByPublishedAtDesc(Pageable pageable);
+
+    /** 기자가 작성한 Post에 연결된 이적 뉴스 조회 */
+    List<TransferNews> findByPostJournalistOrderByPublishedAtDesc(Journalist journalist);
+
+    /** 리그 소속 구단의 영입 이적 뉴스 조회 */
+    @Query("""
+            SELECT tn FROM TransferNews tn
+            WHERE tn.toClub.league = :league
+            ORDER BY tn.publishedAt DESC
+            """)
+    Page<TransferNews> findByLeagueOrderByPublishedAtDesc(@Param("league") League league, Pageable pageable);
 
     /** 기자의 전체 뉴스 수 (공신력 정확도 계산용) */
     @Query("""

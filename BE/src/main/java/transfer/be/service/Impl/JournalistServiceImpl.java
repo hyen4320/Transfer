@@ -1,6 +1,8 @@
 package transfer.be.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import transfer.be.api.XApiClient;
@@ -20,6 +22,7 @@ public class JournalistServiceImpl implements JournalistService {
     private final XApiClient xApiClient;
 
     @Override
+    @Cacheable(cacheNames = "journalist:ranking")
     @Transactional(readOnly = true)
     public List<Journalist> findAllByRank() {
         return journalistRepository.findAllByOrderByRankAsc();
@@ -58,11 +61,13 @@ public class JournalistServiceImpl implements JournalistService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "journalist:ranking", allEntries = true)
     @Transactional
     public void updateCredibilityScore(Long journalistId, float newScore) {
         Journalist journalist = findById(journalistId);
 
         Journalist updated = Journalist.builder()
+                .id(journalist.getId())
                 .xHandle(journalist.getXHandle())
                 .name(journalist.getName())
                 .profileImageUrl(journalist.getProfileImageUrl())
@@ -70,6 +75,7 @@ public class JournalistServiceImpl implements JournalistService {
                 .credibilityScore(newScore)
                 .rank(journalist.getRank())
                 .lastSyncedAt(journalist.getLastSyncedAt())
+                .createdAt(journalist.getCreatedAt())
                 .build();
 
         journalistRepository.save(updated);

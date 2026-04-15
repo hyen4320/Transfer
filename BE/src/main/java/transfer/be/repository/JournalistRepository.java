@@ -3,6 +3,7 @@ package transfer.be.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import transfer.be.model.Journalist;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.Optional;
 
 public interface JournalistRepository extends JpaRepository<Journalist, Long> {
 
-    Optional<Journalist> findByXHandle(String xHandle);
+    @Query("SELECT j FROM Journalist j WHERE j.xHandle = :xHandle")
+    Optional<Journalist> findByXHandle(@Param("xHandle") String xHandle);
 
-    boolean existsByXHandle(String xHandle);
+    @Query("SELECT CASE WHEN COUNT(j) > 0 THEN true ELSE false END FROM Journalist j WHERE j.xHandle = :xHandle")
+    boolean existsByXHandle(@Param("xHandle") String xHandle);
 
     List<Journalist> findAllByOrderByRankAsc();
 

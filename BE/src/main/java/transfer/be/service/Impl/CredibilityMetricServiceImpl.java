@@ -106,14 +106,13 @@ public class CredibilityMetricServiceImpl implements CredibilityMetricService {
     private float calculateImpactScore(Journalist journalist) {
         if (journalist.getFollowerCount() == null || journalist.getFollowerCount() == 0) return 0f;
 
-        double rawScore = transferNewsRepository.findByPlayerOrderByPublishedAtDesc(null)
+        double rawScore = transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist)
                 .stream()
-                .filter(tn -> tn.getPost().getJournalist().getId().equals(journalist.getId()))
                 .mapToDouble(tn -> {
                     var post = tn.getPost();
-                    int rt   = post.getRetweetCount()  != null ? post.getRetweetCount()  : 0;
-                    int like = post.getLikeCount()      != null ? post.getLikeCount()     : 0;
-                    int view = post.getViewCount()      != null ? post.getViewCount()     : 0;
+                    int rt   = post.getRetweetCount() != null ? post.getRetweetCount() : 0;
+                    int like = post.getLikeCount()     != null ? post.getLikeCount()    : 0;
+                    int view = post.getViewCount()     != null ? post.getViewCount()    : 0;
                     return rt * 3.0 + like + view * 0.1;
                 })
                 .average()

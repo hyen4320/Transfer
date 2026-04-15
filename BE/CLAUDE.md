@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Spring Boot 4.0.5 backend (Java 17) with JPA for database access and Spring Web MVC for REST APIs. Configured with both MySQL and PostgreSQL drivers. Uses Lombok for boilerplate reduction.
-
+빌드는 사용자가 직접한다.
+JPQL 소문자 지켜라
 ## Commands
 
 ```bash
