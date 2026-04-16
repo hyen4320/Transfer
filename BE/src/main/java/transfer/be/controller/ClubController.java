@@ -22,6 +22,14 @@ public class ClubController {
     private final ClubRepository clubRepository;
     private final TransferNewsService transferNewsService;
 
+    /** 전체 구단 목록 (지도 마커용) */
+    @GetMapping
+    public List<ClubResponse> getAll() {
+        return clubRepository.findAll().stream()
+                .map(ClubResponse::from)
+                .toList();
+    }
+
     /** 구단 상세 */
     @GetMapping("/{id}")
     public ClubResponse getById(@PathVariable Long id) {

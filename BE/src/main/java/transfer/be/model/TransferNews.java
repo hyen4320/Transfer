@@ -47,10 +47,26 @@ public class TransferNews {
     /** 기사 자체 신뢰도 레이블 (1~5) */
     private Byte reliability;
 
+    /**
+     * 시즌 인코딩: 앞두자리 + 뒷두자리 (예: 24/25 → 49, 25/26 → 51)
+     * 2씩 증가하는 홀수 패턴으로 고유값 보장.
+     */
+    @Column(name = "season")
+    private Short season;
+
+    /** 이적 윈도우: SUMMER (6~9월) | WINTER (1~2월) */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transfer_window")
+    private TransferWindow window;
+
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
     public enum Status {
         RUMOR, CONFIRMED, DENIED, LOAN
+    }
+
+    public enum TransferWindow {
+        SUMMER, WINTER
     }
 }

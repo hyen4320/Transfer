@@ -12,6 +12,6 @@ public interface CredibilityMetricRepository extends JpaRepository<CredibilityMe
 
     Optional<CredibilityMetric> findByJournalistAndMeasuredDate(Journalist journalist, LocalDate measuredDate);
 
-    /** 기자의 월별 지표 이력 (최신순) */
-    List<CredibilityMetric> findByJournalistOrderByMeasuredDateDesc(Journalist journalist);
+    /** 기자의 월별 지표 이력 (최신순) — 엔티티 대신 ID로 조회 (DevTools classloader 충돌 방지) */
+    List<CredibilityMetric> findByJournalistIdOrderByMeasuredDateDesc(Long journalistId);
 }

@@ -7,61 +7,127 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --bg: #060a12;
+      --surface: #0d1626;
+      --surface2: #111e33;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8edf5;
+      --text-sub: rgba(160,185,220,0.7);
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.35);
+      --panel-w: 380px;
+    }
+
     body {
-      background: #060a12;
+      background: var(--bg);
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
     }
 
+    /* ── MAP ───────────────────────────────────── */
     .scene {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 100vw;
       height: 100vh;
     }
 
-    #map {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+    #map { position: absolute; top: 0; left: 0; }
 
     .country {
       fill: #0c1e36;
       stroke: #1a4a8a;
       stroke-width: 0.8;
-      transition: fill 0.2s ease;
+      transition: fill 0.2s, filter 0.2s;
+      cursor: default;
+    }
+    .country:hover { fill: #1a3560; }
+    .country.league-country { cursor: pointer; }
+    .country.league-country:hover {
+      fill: #1d3d7a;
+      filter: drop-shadow(0 0 10px rgba(80,140,255,0.5));
+    }
+    .country-border { fill: none; stroke: #0e2d5c; stroke-width: 0.5; }
+
+    /* ── ZOOM TRANSITION ───────────────────────────────── */
+    .scene {
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+    }
+    .scene.zooming {
+      transition: transform 0.7s cubic-bezier(0.55,0,0.8,1), opacity 0.28s 0.42s;
+      transform: scale(10);
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .country:hover {
-      fill: #1a3560;
+    /* ── TOP BAR ───────────────────────────────── */
+    .topbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: linear-gradient(to bottom, rgba(6,10,18,0.85) 0%, transparent 100%);
+      z-index: 30;
+      pointer-events: none;
+    }
+    .topbar-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(100,160,255,0.8);
+      pointer-events: all;
+    }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-nav {
+      display: flex;
+      gap: 8px;
+      pointer-events: all;
+    }
+    .nav-btn {
+      background: rgba(13,22,38,0.8);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: 6px;
       cursor: pointer;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-btn:hover {
+      color: var(--text);
+      border-color: rgba(59,130,246,0.5);
+      background: rgba(59,130,246,0.1);
     }
 
-    .country-border {
-      fill: none;
-      stroke: #0e2d5c;
-      stroke-width: 0.5;
-    }
-
-    /* 중앙 글로우 */
+    /* ── TITLE OVERLAY ─────────────────────────── */
     .title-overlay {
       position: absolute;
-      top: 50%;
+      top: 42%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
       pointer-events: none;
       z-index: 10;
+      transition: opacity 0.4s;
     }
-
+    .title-overlay.hidden { opacity: 0; }
     .title-overlay h1 {
       font-size: clamp(2.5rem, 5vw, 5.5rem);
       font-weight: 900;
@@ -69,23 +135,21 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       text-shadow:
-        0 0 10px rgba(255, 255, 255, 1),
-        0 0 30px rgba(100, 160, 255, 0.9),
-        0 0 70px rgba(50, 110, 255, 0.6),
-        0 0 130px rgba(30, 80, 255, 0.3);
+        0 0 10px rgba(255,255,255,1),
+        0 0 30px rgba(100,160,255,0.9),
+        0 0 70px rgba(50,110,255,0.6),
+        0 0 130px rgba(30,80,255,0.3);
     }
-
     .title-overlay .subtitle {
       margin-top: 0.5em;
       font-size: clamp(0.55rem, 1vw, 0.9rem);
-      color: rgba(140, 190, 255, 0.65);
+      color: rgba(140,190,255,0.65);
       letter-spacing: 0.45em;
       text-transform: uppercase;
       font-weight: 400;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
     }
 
-    /* 리그 배지 */
+    /* ── LEAGUE BADGES ─────────────────────────── */
     .league-badge {
       position: absolute;
       display: flex;
@@ -95,17 +159,12 @@
       cursor: pointer;
       transform: translate(-50%, -50%);
       z-index: 20;
-      transition: transform 0.2s ease, filter 0.2s ease;
+      transition: transform 0.2s, filter 0.2s;
     }
-
-    .league-badge:hover {
-      transform: translate(-50%, -50%) scale(1.15);
-      filter: brightness(1.3);
-    }
-
+    .league-badge:hover { transform: translate(-50%, -50%) scale(1.15); filter: brightness(1.3); }
+    .league-badge.active .badge-img { box-shadow: 0 0 0 2px #fff, 0 0 20px var(--accent-glow) !important; }
     .badge-img {
-      width: 52px;
-      height: 52px;
+      width: 52px; height: 52px;
       border-radius: 50%;
       background: #0c1e36;
       border: 2px solid rgba(255,255,255,0.15);
@@ -115,265 +174,1359 @@
       box-shadow: 0 0 16px rgba(0,0,0,0.6);
       overflow: hidden;
     }
-
-    .badge-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 6px;
-    }
-
     .badge-name {
       font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(220, 230, 255, 0.85);
-      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: rgba(220,230,255,0.85);
       text-shadow: 0 1px 4px rgba(0,0,0,0.9);
       white-space: nowrap;
     }
 
-    /* 연결선 pulse 점 */
-    .league-dot {
+    /* ── CLUB MARKERS ──────────────────────────── */
+    .club-marker {
       position: absolute;
-      width: 6px;
-      height: 6px;
+      width: 10px; height: 10px;
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      z-index: 19;
+      z-index: 18;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .club-marker:hover {
+      transform: translate(-50%, -50%) scale(1.6);
+      box-shadow: 0 0 12px currentColor;
+      z-index: 25;
+    }
+    .club-marker-tooltip {
+      position: absolute;
+      bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(6,10,18,0.92);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: var(--text);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .club-marker:hover .club-marker-tooltip { opacity: 1; }
+
+    /* ── TRANSFER ROUTES ───────────────────────── */
+    #routes { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 15; }
+
+    /* ── LEAGUE FILTER ─────────────────────────── */
+    .league-filter {
+      position: absolute;
+      bottom: 28px;
+      left: 24px;
+      display: flex;
+      gap: 8px;
+      z-index: 30;
+    }
+    .filter-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(13,22,38,0.85);
+      backdrop-filter: blur(8px);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: all 0.2s;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      color: var(--text);
+      border-color: rgba(59,130,246,0.6);
+      background: rgba(59,130,246,0.12);
+    }
+    .filter-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ── SIDE PANEL ────────────────────────────── */
+    .panel {
+      position: absolute;
+      top: 0; right: 0;
+      width: var(--panel-w);
+      height: 100vh;
+      background: rgba(8,14,26,0.95);
+      backdrop-filter: blur(16px);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 40;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .panel.open { transform: translateX(0); }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .panel-close {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-sub);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .panel-close:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    .panel-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .panel-tab {
+      flex: 1;
+      padding: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text-sub);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .panel-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── FILTER BAR ────────────────────────────── */
+    .panel-filters {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .status-badge {
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      opacity: 0.55;
+    }
+    .status-badge.active { opacity: 1; }
+    .status-badge.rumour { background: rgba(234,179,8,0.15); color: #eab308; border-color: rgba(234,179,8,0.3); }
+    .status-badge.confirmed { background: rgba(34,197,94,0.15); color: #22c55e; border-color: rgba(34,197,94,0.3); }
+    .status-badge.denied { background: rgba(239,68,68,0.15); color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    /* ── NEWS CARDS ────────────────────────────── */
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 0;
+    }
+    .panel-body::-webkit-scrollbar { width: 4px; }
+    .panel-body::-webkit-scrollbar-track { background: transparent; }
+    .panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    .news-card {
+      margin: 0 12px 8px;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .news-card:hover {
+      background: var(--surface2);
+      border-color: rgba(59,130,246,0.3);
+      transform: translateX(-2px);
+    }
+
+    .news-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .transfer-route {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      flex: 1;
+    }
+    .transfer-arrow {
+      color: var(--accent);
+      font-style: normal;
+      margin: 0 4px;
+    }
+    .news-status {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+    .news-status.rumour { background: rgba(234,179,8,0.15); color: #eab308; }
+    .news-status.confirmed { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .news-status.denied { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+    .news-fee {
+      font-size: 0.78rem;
+      color: rgba(200,220,255,0.6);
+      margin-bottom: 8px;
+    }
+
+    .news-journalist {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .journalist-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .journalist-avatar {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sub);
+    }
+    .journalist-name {
+      font-size: 0.7rem;
+      color: var(--text-sub);
+    }
+    .credibility-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .news-time {
+      font-size: 0.62rem;
+      color: rgba(160,185,220,0.4);
+    }
+
+    /* ── CLUB PANEL ────────────────────────────── */
+    .club-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .club-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .club-logo {
+      width: 52px; height: 52px;
+      border-radius: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .club-info h2 { font-size: 1rem; font-weight: 800; color: var(--text); }
+    .club-meta { font-size: 0.72rem; color: var(--text-sub); margin-top: 3px; }
+    .club-stats {
+      display: flex;
+      gap: 16px;
+    }
+    .club-stat { font-size: 0.7rem; color: var(--text-sub); }
+    .club-stat strong { display: block; font-size: 1.1rem; color: var(--text); font-weight: 800; }
+
+    /* ── PANEL VIEWS ───────────────────────────── */
+    .panel-view { display: none; height: 100%; flex-direction: column; }
+    .panel-view.active { display: flex; }
+
+    /* ── JOURNALIST RANKING PAGE ───────────────── */
+    .page {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+    }
+    .page.active { display: flex; }
+
+    .page-header {
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .back-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .page-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .journalist-table {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 32px;
+    }
+    .journalist-table::-webkit-scrollbar { width: 4px; }
+    .journalist-table::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      padding: 0 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: var(--surface); }
+    tbody td {
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: var(--text);
+      vertical-align: middle;
+    }
+    .rank-num {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--text-sub);
+      width: 40px;
+    }
+    .rank-num.top { color: #f59e0b; }
+    .j-handle { color: var(--accent); font-size: 0.75rem; }
+    .score-bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .score-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .score-fill { height: 100%; border-radius: 3px; }
+    .score-fill.speed { background: #3b82f6; }
+    .score-fill.accuracy { background: #22c55e; }
+    .score-fill.impact { background: #f59e0b; }
+
+    /* ── COUNTRY LIST PAGE ─────────────────────── */
+    .country-grid {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+      align-content: start;
+    }
+    .country-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .country-card:hover {
+      background: var(--surface2);
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .country-card-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .country-flag {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+    .country-card-info { flex: 1; }
+    .country-card-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .country-card-league {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .country-league-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+    .country-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .country-stat-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+    .country-stat-num {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .country-stat-label {
+      font-size: 0.6rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+    .country-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+    .country-top-club {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+    .country-view-btn {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── COUNTRY MAP PAGE ──────────────────────── */
+    .country-map-scene {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .country-map-sidebar {
+      width: 320px;
+      flex-shrink: 0;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .country-map-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .country-map-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .country-map-league-badge {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+    .country-map-clubs {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .country-map-clubs-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+    .club-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .club-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .club-chip:hover { color: var(--text); border-color: rgba(59,130,246,0.4); }
+    .club-chip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .country-news-feed { flex: 1; overflow-y: auto; padding: 12px 0; }
+
+    /* ── SCROLLBAR GLOBAL ──────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
   </style>
 </head>
 <body>
 
-<div class="scene">
+<!-- ─── MAIN MAP VIEW ───────────────────────────────────────────── -->
+<div class="scene" id="scene">
   <svg id="map"></svg>
+  <svg id="routes" id="routes"></svg>
 
-  <div class="title-overlay">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-logo">Transfer<span>Map</span></div>
+    <div class="topbar-nav">
+      <button class="nav-btn" onclick="openPanel('news')">
+        ◈ News Feed
+      </button>
+      <button class="nav-btn" onclick="showPage('countries')">
+        ⊞ Countries
+      </button>
+      <button class="nav-btn" onclick="showPage('journalists')">
+        ★ Journalists
+      </button>
+    </div>
+  </div>
+
+  <!-- Title Overlay -->
+  <div class="title-overlay" id="titleOverlay">
     <h1>TransferMap</h1>
     <div class="subtitle">European Football Transfer Network</div>
+  </div>
+
+  <!-- League Filter -->
+  <div class="league-filter" id="leagueFilter"></div>
+</div>
+
+<!-- ─── SIDE PANEL ──────────────────────────────────────────────── -->
+<div class="panel" id="panel">
+
+  <!-- NEWS FEED VIEW -->
+  <div class="panel-view active" id="view-news">
+    <div class="panel-header">
+      <div class="panel-title">Transfer Feed</div>
+      <button class="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="panel-filters">
+      <span class="status-badge rumour active" onclick="toggleFilter(this)">Rumour</span>
+      <span class="status-badge confirmed active" onclick="toggleFilter(this)">Confirmed</span>
+      <span class="status-badge denied" onclick="toggleFilter(this)">Denied</span>
+    </div>
+    <div class="panel-body" id="newsFeed"></div>
+  </div>
+
+  <!-- CLUB DETAIL VIEW -->
+  <div class="panel-view" id="view-club">
+    <div class="panel-header">
+      <button class="panel-close" style="margin-right:8px" onclick="switchView('news')">←</button>
+      <div class="panel-title" id="clubPanelTitle">Club</div>
+      <button class="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="club-header">
+      <div class="club-logo-row">
+        <div class="club-logo" id="clubLogo">⚽</div>
+        <div class="club-info">
+          <h2 id="clubName">Club Name</h2>
+          <div class="club-meta" id="clubMeta">City · League · Stadium</div>
+        </div>
+      </div>
+      <div class="club-stats">
+        <div class="club-stat"><strong id="clubIn">–</strong>Incoming</div>
+        <div class="club-stat"><strong id="clubOut">–</strong>Outgoing</div>
+      </div>
+    </div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" onclick="switchClubTab(this,'in')">Incoming</div>
+      <div class="panel-tab" onclick="switchClubTab(this,'out')">Outgoing</div>
+    </div>
+    <div class="panel-body" id="clubFeed"></div>
+  </div>
+
+</div>
+
+<!-- ─── COUNTRY LIST PAGE ───────────────────────────────────────── -->
+<div class="page" id="page-countries">
+  <div class="page-header">
+    <button class="back-btn" onclick="hidePage('countries')">← Map</button>
+    <div class="page-title">Countries</div>
+  </div>
+  <div class="country-grid" id="countryGrid"></div>
+</div>
+
+<!-- ─── COUNTRY MAP PAGE ─────────────────────────────────────────── -->
+<div class="page" id="page-country-map">
+  <div class="page-header" id="countryMapHeader">
+    <button class="back-btn">← Countries</button>
+    <div class="page-title" id="countryMapTitle">Country</div>
+    <div id="countryMapBadge"></div>
+  </div>
+  <div class="country-map-layout">
+    <div class="country-map-scene">
+      <svg id="country-map"></svg>
+      <svg id="country-routes" style="position:absolute;top:0;left:0;pointer-events:none"></svg>
+    </div>
+    <div class="country-map-sidebar">
+      <div class="country-map-clubs">
+        <div class="country-map-clubs-title">Clubs</div>
+        <div class="club-chip-list" id="countryClubChips"></div>
+      </div>
+      <div class="panel-filters" style="border-top:none">
+        <span class="status-badge rumour active" onclick="toggleFilter(this)">Rumour</span>
+        <span class="status-badge confirmed active" onclick="toggleFilter(this)">Confirmed</span>
+        <span class="status-badge denied" onclick="toggleFilter(this)">Denied</span>
+      </div>
+      <div class="country-news-feed" id="countryNewsFeed"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── JOURNALIST RANKING PAGE ─────────────────────────────────── -->
+<div class="page" id="page-journalists">
+  <div class="page-header">
+    <button class="back-btn" onclick="hidePage('journalists')">← Map</button>
+    <div class="page-title">Journalist Ranking</div>
+  </div>
+  <div class="journalist-table">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Journalist</th>
+          <th>Followers</th>
+          <th>Credibility</th>
+          <th>Speed · Accuracy · Impact</th>
+        </tr>
+      </thead>
+      <tbody id="journalistTable"></tbody>
+    </table>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 <script>
-  // 유럽 국가 ISO 3166-1 numeric 코드
-  const europeanIds = new Set([
-    8,   // Albania
-    20,  // Andorra
-    40,  // Austria
-    56,  // Belgium
-    70,  // Bosnia and Herzegovina
-    100, // Bulgaria
-    112, // Belarus
-    191, // Croatia
-    196, // Cyprus
-    203, // Czech Republic
-    208, // Denmark
-    233, // Estonia
-    246, // Finland
-    250, // France
-    276, // Germany
-    300, // Greece
-    348, // Hungary
-    352, // Iceland
-    372, // Ireland
-    380, // Italy
-    428, // Latvia
-    438, // Liechtenstein
-    440, // Lithuania
-    442, // Luxembourg
-    470, // Malta
-    492, // Monaco
-    498, // Moldova
-    499, // Montenegro
-    528, // Netherlands
-    578, // Norway
-    616, // Poland
-    620, // Portugal
-    642, // Romania
-    674, // San Marino
-    688, // Serbia
-    703, // Slovakia
-    705, // Slovenia
-    724, // Spain
-    752, // Sweden
-    756, // Switzerland
-    804, // Ukraine
-    807, // North Macedonia
-    826, // United Kingdom
-  ]);
+// ── MOCK DATA ──────────────────────────────────────────────────────
+const LEAGUES = [
+  { id:"pl", name:"Premier League", lon:-1.5, lat:52.5, color:"#38003c", accent:"#00ff85", abbr:"PL",
+    country:"England", flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", numericId:826, center:[-2,53.5], scale:2800, clubs:20, transfers:38, news:142 },
+  { id:"ll", name:"La Liga",        lon:-3.7, lat:40.4, color:"#ee8707", accent:"#c8102e", abbr:"LL",
+    country:"Spain",   flag:"🇪🇸", numericId:724, center:[-3.5,40],  scale:2200, clubs:20, transfers:29, news:98  },
+  { id:"bl", name:"Bundesliga",     lon:10.4, lat:51.2, color:"#d20515", accent:"#ffcd00", abbr:"BL",
+    country:"Germany", flag:"🇩🇪", numericId:276, center:[10.5,51.5], scale:2600, clubs:18, transfers:31, news:87  },
+  { id:"sa", name:"Serie A",        lon:12.5, lat:43.0, color:"#1a1b5e", accent:"#008fd7", abbr:"SA",
+    country:"Italy",   flag:"🇮🇹", numericId:380, center:[12.5,42.5], scale:2400, clubs:20, transfers:27, news:76  },
+  { id:"l1", name:"Ligue 1",        lon: 2.3, lat:46.6, color:"#091c3e", accent:"#dba514", abbr:"L1",
+    country:"France",  flag:"🇫🇷", numericId:250, center:[2.5,46.5],  scale:2200, clubs:18, transfers:22, news:61  },
+];
 
-  const W = window.innerWidth;
-  const H = window.innerHeight;
+const CLUBS = [
+  { id:1, name:"Arsenal",       lon:-0.11, lat:51.55, league:"pl", color:"#ef0107", emoji:"🔴" },
+  { id:2, name:"Man City",      lon:-2.20, lat:53.48, league:"pl", color:"#6cabdd", emoji:"🔵" },
+  { id:3, name:"Real Madrid",   lon:-3.69, lat:40.45, league:"ll", color:"#febe10", emoji:"⚪" },
+  { id:4, name:"Barcelona",     lon: 2.12, lat:41.38, league:"ll", color:"#004d98", emoji:"🔵" },
+  { id:5, name:"Bayern Munich", lon:11.62, lat:48.22, league:"bl", color:"#dc052d", emoji:"🔴" },
+  { id:6, name:"Dortmund",      lon: 7.45, lat:51.49, league:"bl", color:"#fde100", emoji:"🟡" },
+  { id:7, name:"Juventus",      lon: 7.64, lat:45.11, league:"sa", color:"#000000", emoji:"⚫" },
+  { id:8, name:"AC Milan",      lon: 9.12, lat:45.48, league:"sa", color:"#fb090b", emoji:"🔴" },
+  { id:9, name:"PSG",           lon: 2.25, lat:48.84, league:"l1", color:"#004170", emoji:"🔵" },
+  { id:10,name:"Marseille",     lon: 5.39, lat:43.27, league:"l1", color:"#2faee0", emoji:"🔵" },
+];
 
-  const svg = d3.select("#map")
-    .attr("width", W)
-    .attr("height", H);
+const NEWS = [
+  { player:"Kylian Mbappé",   from:"PSG",        to:"Real Madrid", fee:"€180M",  status:"confirmed", journalist:"Fabrizio Romano", handle:"@FabrizioRomano", credibility:98.5, time:"2h ago" },
+  { player:"Jamal Musiala",   from:"Bayern",     to:"Man City",    fee:"€120M",  status:"rumour",    journalist:"David Ornstein",  handle:"@David_Ornstein", credibility:94.1, time:"4h ago" },
+  { player:"Pedri",           from:"Barcelona",  to:"Arsenal",     fee:"€90M",   status:"rumour",    journalist:"Fabrizio Romano", handle:"@FabrizioRomano", credibility:98.5, time:"6h ago" },
+  { player:"Gianluigi Donnarumma", from:"PSG",   to:"Juventus",    fee:"Free",   status:"confirmed", journalist:"Gianluca Di Marzio", handle:"@DiMarzio",     credibility:91.0, time:"8h ago" },
+  { player:"Erling Haaland",  from:"Man City",   to:"Real Madrid", fee:"€200M",  status:"denied",    journalist:"Fabrizio Romano", handle:"@FabrizioRomano", credibility:98.5, time:"12h ago" },
+  { player:"Florian Wirtz",   from:"Dortmund",   to:"Liverpool",   fee:"€110M",  status:"rumour",    journalist:"David Ornstein",  handle:"@David_Ornstein", credibility:94.1, time:"1d ago" },
+];
 
-  // 배경 글로우 (radial gradient)
-  const defs = svg.append("defs");
+const JOURNALISTS = [
+  { name:"Fabrizio Romano", handle:"@FabrizioRomano", followers:"24.0M", score:98.5, speed:92, accuracy:99, impact:97 },
+  { name:"David Ornstein",  handle:"@David_Ornstein", followers:"2.1M",  score:94.1, speed:88, accuracy:96, impact:85 },
+  { name:"Gianluca Di Marzio", handle:"@DiMarzio",   followers:"1.8M",  score:91.0, speed:85, accuracy:93, impact:80 },
+  { name:"Ben Jacobs",      handle:"@JacobsBen",      followers:"890K",  score:87.3, speed:82, accuracy:89, impact:77 },
+  { name:"Florian Plettenberg", handle:"@Plettigoal", followers:"750K",  score:84.6, speed:80, accuracy:86, impact:74 },
+];
 
-  const radialGlow = defs.append("radialGradient")
-    .attr("id", "centerGlow")
-    .attr("cx", "50%").attr("cy", "50%")
-    .attr("r", "50%");
-  radialGlow.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#1040aa")
-    .attr("stop-opacity", 0.18);
-  radialGlow.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#000")
-    .attr("stop-opacity", 0);
+const CLUB_TRANSFERS = {
+  3: { // Real Madrid
+    in:  [{ player:"Kylian Mbappé", from:"PSG",    fee:"€180M", status:"confirmed" }],
+    out: [{ player:"Karim Benzema", to:"Al-Ittihad", fee:"Free", status:"confirmed" }],
+  },
+  9: { // PSG
+    in:  [{ player:"Ousmane Dembélé", from:"Barcelona", fee:"€50M", status:"confirmed" }],
+    out: [{ player:"Kylian Mbappé",   to:"Real Madrid", fee:"€180M", status:"confirmed" },
+          { player:"Donnarumma",      to:"Juventus",    fee:"Free",   status:"confirmed" }],
+  },
+};
 
-  svg.append("ellipse")
-    .attr("cx", W / 2).attr("cy", H / 2)
-    .attr("rx", W * 0.38).attr("ry", H * 0.38)
-    .attr("fill", "url(#centerGlow)");
+// ── STATE ──────────────────────────────────────────────────────────
+let projection;
+let activeLeague = null;
+let currentClubId = null;
 
-  // 메르카토르 투영 - 유럽 중앙 기준
-  const projection = d3.geoMercator()
-    .center([15, 54])
-    .scale(Math.min(W, H) * 1.1)
-    .translate([W / 2, H / 2]);
+// ── MAP INIT ───────────────────────────────────────────────────────
+const europeanIds = new Set([8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,428,438,440,442,470,492,498,499,528,578,616,620,642,674,688,703,705,724,752,756,804,807,826]);
 
-  const pathGen = d3.geoPath().projection(projection);
+const W = window.innerWidth, H = window.innerHeight;
 
-  fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
-    .then(r => r.json())
-    .then(world => {
-      const all = topojson.feature(world, world.objects.countries);
-      const borders = topojson.mesh(world, world.objects.countries,
-        (a, b) => a !== b && europeanIds.has(+a.id) && europeanIds.has(+b.id));
+const svg = d3.select("#map").attr("width", W).attr("height", H);
+const routeSvg = d3.select("#routes").attr("width", W).attr("height", H);
 
-      const europeFeatures = all.features.filter(d => europeanIds.has(+d.id));
+const defs = svg.append("defs");
+const radialGlow = defs.append("radialGradient").attr("id","centerGlow").attr("cx","50%").attr("cy","50%").attr("r","50%");
+radialGlow.append("stop").attr("offset","0%").attr("stop-color","#1040aa").attr("stop-opacity",0.18);
+radialGlow.append("stop").attr("offset","100%").attr("stop-color","#000").attr("stop-opacity",0);
+svg.append("ellipse").attr("cx",W/2).attr("cy",H/2).attr("rx",W*0.38).attr("ry",H*0.38).attr("fill","url(#centerGlow)");
 
-      // 국가 면
-      svg.selectAll(".country")
-        .data(europeFeatures)
-        .join("path")
-        .attr("class", "country")
-        .attr("d", pathGen)
-        .append("title")
-          .text(d => d.id);
+// Arrow marker
+const rdefs = routeSvg.append("defs");
+rdefs.append("marker")
+  .attr("id","arrow").attr("markerWidth",6).attr("markerHeight",4)
+  .attr("refX",6).attr("refY",2).attr("orient","auto")
+  .append("polygon").attr("points","0 0, 6 2, 0 4").attr("fill","rgba(59,130,246,0.7)");
 
-      // 국경선 (내부)
-      svg.append("path")
-        .datum(borders)
-        .attr("class", "country-border")
-        .attr("d", pathGen);
+projection = d3.geoMercator().center([15,54]).scale(Math.min(W,H)*1.1).translate([W/2,H/2]);
+const pathGen = d3.geoPath().projection(projection);
 
-      // 리그 배지 렌더링
-      renderLeagueBadges();
-    })
-    .catch(() => {
-      // CDN 실패 시 안내 텍스트
-      svg.append("text")
-        .attr("x", W / 2).attr("y", H / 2)
-        .attr("text-anchor", "middle")
-        .attr("fill", "#666")
-        .text("인터넷 연결이 필요합니다.");
+fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
+  .then(r => r.json())
+  .then(world => {
+    const all = topojson.feature(world, world.objects.countries);
+    const borders = topojson.mesh(world, world.objects.countries, (a,b) => a!==b && europeanIds.has(+a.id) && europeanIds.has(+b.id));
+    const europeFeatures = all.features.filter(d => europeanIds.has(+d.id));
+
+    const countryPaths = svg.selectAll(".country").data(europeFeatures).join("path")
+      .attr("class", d => {
+        const isLeague = LEAGUES.some(l => l.numericId === +d.id);
+        return "country" + (isLeague ? " league-country" : "");
+      })
+      .attr("d", pathGen);
+
+    countryPaths.append("title").text(d => d.id);
+
+    countryPaths.on("click", function(event, d) {
+      const league = LEAGUES.find(l => l.numericId === +d.id);
+      if (!league) return;
+      const centroid = pathGen.centroid(d);
+      zoomIntoCountry(league, centroid);
     });
 
-  // ── 5대 리그 데이터 ──────────────────────────────────────────
-  // logo: 실제 로고 이미지 경로로 교체하세요 (예: "assets/premier-league.png")
-  const leagues = [
-    {
-      id: "premier-league",
-      name: "Premier League",
-      lon: -1.5, lat: 52.5,        // 잉글랜드
-      color: "#38003c",
-      accent: "#00ff85",
-      logo: null,                   // "assets/premier-league.png"
-      abbr: "PL",
-    },
-    {
-      id: "laliga",
-      name: "La Liga",
-      lon: -3.7, lat: 40.4,        // 스페인
-      color: "#ee8707",
-      accent: "#c8102e",
-      logo: null,                   // "assets/laliga.png"
-      abbr: "LL",
-    },
-    {
-      id: "bundesliga",
-      name: "Bundesliga",
-      lon: 10.4, lat: 51.2,        // 독일
-      color: "#d20515",
-      accent: "#000000",
-      logo: null,                   // "assets/bundesliga.png"
-      abbr: "BL",
-    },
-    {
-      id: "serie-a",
-      name: "Serie A",
-      lon: 12.5, lat: 43.0,        // 이탈리아
-      color: "#1a1b5e",
-      accent: "#008fd7",
-      logo: null,                   // "assets/serie-a.png"
-      abbr: "SA",
-    },
-    {
-      id: "ligue1",
-      name: "Ligue 1",
-      lon: 2.3, lat: 46.6,         // 프랑스
-      color: "#091c3e",
-      accent: "#dba514",
-      logo: null,                   // "assets/ligue1.png"
-      abbr: "L1",
-    },
+    svg.append("path").datum(borders).attr("class","country-border").attr("d",pathGen);
+
+    renderLeagueBadges();
+    renderClubMarkers();
+    renderTransferRoutes();
+  });
+
+// ── LEAGUE BADGES ──────────────────────────────────────────────────
+function renderLeagueBadges() {
+  const scene = document.getElementById("scene");
+  const filterEl = document.getElementById("leagueFilter");
+
+  LEAGUES.forEach(l => {
+    const [px,py] = projection([l.lon, l.lat]);
+    const badge = document.createElement("div");
+    badge.className = "league-badge";
+    badge.id = `badge-${l.id}`;
+    badge.style.left = px+"px";
+    badge.style.top  = py+"px";
+    badge.title = l.name;
+
+    const circle = document.createElement("div");
+    circle.className = "badge-img";
+    circle.style.background = l.color;
+    circle.style.boxShadow = `0 0 20px ${l.accent}55, 0 0 6px rgba(0,0,0,0.8)`;
+    circle.style.border = `2px solid ${l.accent}88`;
+    circle.style.fontSize = "0.95rem";
+    circle.style.fontWeight = "900";
+    circle.style.color = l.accent;
+    circle.style.textShadow = `0 0 8px ${l.accent}`;
+    circle.textContent = l.abbr;
+
+    const label = document.createElement("div");
+    label.className = "badge-name";
+    label.textContent = l.name;
+
+    badge.appendChild(circle);
+    badge.appendChild(label);
+    badge.addEventListener("click", () => filterLeague(l.id));
+    scene.appendChild(badge);
+
+    // filter chip
+    const chip = document.createElement("div");
+    chip.className = "filter-chip";
+    chip.dataset.league = l.id;
+    chip.innerHTML = `<span class="filter-dot" style="background:${l.accent}"></span>${l.abbr}`;
+    chip.addEventListener("click", () => filterLeague(l.id));
+    filterEl.appendChild(chip);
+  });
+}
+
+function filterLeague(id) {
+  activeLeague = activeLeague === id ? null : id;
+  document.querySelectorAll(".league-badge").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+  if (activeLeague) {
+    document.getElementById(`badge-${activeLeague}`).classList.add("active");
+    document.querySelector(`.filter-chip[data-league="${activeLeague}"]`).classList.add("active");
+    openPanel("news");
+  }
+  renderTransferRoutes();
+}
+
+// ── CLUB MARKERS ───────────────────────────────────────────────────
+function renderClubMarkers() {
+  const scene = document.getElementById("scene");
+  CLUBS.forEach(c => {
+    const [px,py] = projection([c.lon, c.lat]);
+    const el = document.createElement("div");
+    el.className = "club-marker";
+    el.style.left = px+"px";
+    el.style.top  = py+"px";
+    el.style.background = c.color;
+    el.style.boxShadow = `0 0 8px ${c.color}88`;
+
+    const tip = document.createElement("div");
+    tip.className = "club-marker-tooltip";
+    tip.textContent = c.name;
+    el.appendChild(tip);
+
+    el.addEventListener("click", () => openClubPanel(c));
+    scene.appendChild(el);
+  });
+}
+
+// ── TRANSFER ROUTES ───────────────────────────────────────────────
+function renderTransferRoutes() {
+  routeSvg.selectAll(".route").remove();
+
+  const routes = [
+    { from:"PSG", to:"Real Madrid" },
+    { from:"Bayern Munich", to:"Man City" },
+    { from:"Dortmund", to:"Arsenal" },
   ];
 
-  function renderLeagueBadges() {
-    const scene = document.querySelector(".scene");
+  routes.forEach(r => {
+    const fromClub = CLUBS.find(c => c.name === r.from || r.from.includes(c.name.split(" ")[0]));
+    const toClub   = CLUBS.find(c => c.name === r.to   || r.to.includes(c.name.split(" ")[0]));
+    if (!fromClub || !toClub) return;
 
-    leagues.forEach(league => {
-      const [px, py] = projection([league.lon, league.lat]);
+    const [x1,y1] = projection([fromClub.lon, fromClub.lat]);
+    const [x2,y2] = projection([toClub.lon,   toClub.lat]);
+    const mx = (x1+x2)/2 + (y2-y1)*0.25;
+    const my = (y1+y2)/2 - Math.abs(x2-x1)*0.2;
 
-      const badge = document.createElement("div");
-      badge.className = "league-badge";
-      badge.id = `badge-${league.id}`;
-      badge.style.left = px + "px";
-      badge.style.top  = py + "px";
-      badge.title = league.name;
+    routeSvg.append("path")
+      .attr("class","route")
+      .attr("d",`M${x1},${y1} Q${mx},${my} ${x2},${y2}`)
+      .attr("fill","none")
+      .attr("stroke","rgba(59,130,246,0.5)")
+      .attr("stroke-width",1.5)
+      .attr("stroke-dasharray","6 4")
+      .attr("marker-end","url(#arrow)");
+  });
+}
 
-      const circle = document.createElement("div");
-      circle.className = "badge-img";
-      circle.style.background = league.color;
-      circle.style.boxShadow = `0 0 20px ${league.accent}55, 0 0 6px rgba(0,0,0,0.8)`;
-      circle.style.border = `2px solid ${league.accent}88`;
+// ── NEWS FEED ──────────────────────────────────────────────────────
+function renderNewsFeed() {
+  const container = document.getElementById("newsFeed");
+  container.innerHTML = "";
+  NEWS.forEach(n => {
+    const div = document.createElement("div");
+    div.className = "news-card";
+    div.innerHTML = `
+      <div class="news-card-top">
+        <div class="transfer-route">
+          ${n.player}<br>
+          <span style="font-size:0.72rem;color:var(--text-sub)">${n.from}</span>
+          <span class="transfer-arrow">→</span>
+          <span style="font-size:0.72rem;color:var(--text-sub)">${n.to}</span>
+        </div>
+        <span class="news-status ${n.status}">${n.status.toUpperCase()}</span>
+      </div>
+      <div class="news-fee">${n.fee}</div>
+      <div class="news-journalist">
+        <div class="journalist-info">
+          <div class="journalist-avatar">✎</div>
+          <div class="journalist-name">${n.journalist}<br><span style="color:var(--accent);font-size:0.62rem">${n.handle}</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="credibility-badge">${n.credibility}</div>
+          <div class="news-time">${n.time}</div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
 
-      if (league.logo) {
-        // 실제 로고 이미지가 있을 때
-        const img = document.createElement("img");
-        img.src = league.logo;
-        img.alt = league.name;
-        circle.appendChild(img);
-      } else {
-        // 플레이스홀더: 약자 텍스트
-        circle.style.fontSize = "0.95rem";
-        circle.style.fontWeight = "900";
-        circle.style.color = league.accent;
-        circle.style.fontFamily = "'Arial Black', Arial, sans-serif";
-        circle.style.letterSpacing = "0.05em";
-        circle.style.textShadow = `0 0 8px ${league.accent}`;
-        circle.textContent = league.abbr;
-      }
+// ── CLUB PANEL ─────────────────────────────────────────────────────
+function openClubPanel(club) {
+  currentClubId = club.id;
+  document.getElementById("clubPanelTitle").textContent = club.name;
+  document.getElementById("clubName").textContent = club.name;
+  document.getElementById("clubLogo").textContent = club.emoji;
+  document.getElementById("clubMeta").textContent = `${club.league.toUpperCase()} · Mock Stadium`;
 
-      const label = document.createElement("div");
-      label.className = "badge-name";
-      label.textContent = league.name;
+  const data = CLUB_TRANSFERS[club.id] || { in:[], out:[] };
+  document.getElementById("clubIn").textContent = data.in.length;
+  document.getElementById("clubOut").textContent = data.out.length;
 
-      badge.appendChild(circle);
-      badge.appendChild(label);
-      scene.appendChild(badge);
+  renderClubFeed("in");
+  switchView("club");
+  openPanel();
+}
+
+function renderClubFeed(tab) {
+  const data = CLUB_TRANSFERS[currentClubId] || { in:[], out:[] };
+  const items = data[tab] || [];
+  const container = document.getElementById("clubFeed");
+  container.innerHTML = items.length === 0
+    ? `<div style="padding:24px;text-align:center;color:var(--text-sub);font-size:0.78rem">No transfers</div>`
+    : items.map(t => `
+      <div class="news-card">
+        <div class="news-card-top">
+          <div class="transfer-route">${t.player}</div>
+          <span class="news-status ${t.status}">${t.status.toUpperCase()}</span>
+        </div>
+        <div class="news-fee">${t.fee}</div>
+        <div class="news-journalist">
+          <span style="color:var(--text-sub);font-size:0.72rem">${tab==="in" ? "from: "+t.from : "to: "+t.to}</span>
+        </div>
+      </div>`).join("");
+}
+
+function switchClubTab(el, tab) {
+  document.querySelectorAll(".panel-tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  renderClubFeed(tab);
+}
+
+// ── JOURNALIST TABLE ───────────────────────────────────────────────
+function renderJournalistTable() {
+  const tbody = document.getElementById("journalistTable");
+  tbody.innerHTML = JOURNALISTS.map((j,i) => `
+    <tr>
+      <td><span class="rank-num ${i<3?"top":""}">${i+1}</span></td>
+      <td>
+        <div style="font-weight:700">${j.name}</div>
+        <div class="j-handle">${j.handle}</div>
+      </td>
+      <td style="color:var(--text-sub)">${j.followers}</td>
+      <td>
+        <span class="credibility-badge" style="font-size:0.8rem;padding:4px 10px">${j.score}</span>
+      </td>
+      <td>
+        <div class="score-bar-wrap" style="margin-bottom:3px">
+          <div style="width:48px;font-size:0.6rem;color:var(--text-sub)">Speed</div>
+          <div class="score-bar"><div class="score-fill speed" style="width:${j.speed}%"></div></div>
+          <div style="width:28px;font-size:0.62rem;color:var(--text-sub);text-align:right">${j.speed}</div>
+        </div>
+        <div class="score-bar-wrap" style="margin-bottom:3px">
+          <div style="width:48px;font-size:0.6rem;color:var(--text-sub)">Acc</div>
+          <div class="score-bar"><div class="score-fill accuracy" style="width:${j.accuracy}%"></div></div>
+          <div style="width:28px;font-size:0.62rem;color:var(--text-sub);text-align:right">${j.accuracy}</div>
+        </div>
+        <div class="score-bar-wrap">
+          <div style="width:48px;font-size:0.6rem;color:var(--text-sub)">Impact</div>
+          <div class="score-bar"><div class="score-fill impact" style="width:${j.impact}%"></div></div>
+          <div style="width:28px;font-size:0.62rem;color:var(--text-sub);text-align:right">${j.impact}</div>
+        </div>
+      </td>
+    </tr>`).join("");
+}
+
+// ── UI CONTROLS ────────────────────────────────────────────────────
+function openPanel(view) {
+  const panel = document.getElementById("panel");
+  panel.classList.add("open");
+  if (view) switchView(view);
+  document.getElementById("titleOverlay").classList.add("hidden");
+}
+
+function closePanel() {
+  document.getElementById("panel").classList.remove("open");
+  document.getElementById("titleOverlay").classList.remove("hidden");
+}
+
+function switchView(view) {
+  document.querySelectorAll(".panel-view").forEach(v => v.classList.remove("active"));
+  document.getElementById(`view-${view}`).classList.add("active");
+}
+
+function showPage(id) {
+  document.getElementById(`page-${id}`).classList.add("active");
+}
+
+function hidePage(id) {
+  document.getElementById(`page-${id}`).classList.remove("active");
+}
+
+function toggleFilter(el) {
+  el.classList.toggle("active");
+}
+
+// ── ZOOM INTO COUNTRY ─────────────────────────────────────────────
+function zoomIntoCountry(league, centroid) {
+  const scene = document.getElementById("scene");
+
+  // Hide floating UI before zoom
+  const fadeOuts = [
+    ...document.querySelectorAll(".league-badge, .club-marker"),
+    document.querySelector(".topbar"),
+    document.getElementById("leagueFilter"),
+    document.getElementById("titleOverlay"),
+  ];
+  fadeOuts.forEach(el => {
+    if (!el) return;
+    el.style.transition = "opacity 0.2s";
+    el.style.opacity = "0";
+  });
+
+  // Anchor the zoom to where the user clicked
+  scene.style.transformOrigin = `${centroid[0]}px ${centroid[1]}px`;
+
+  requestAnimationFrame(() => {
+    scene.classList.add("zooming");
+  });
+
+  setTimeout(() => {
+    // Reset scene state silently
+    scene.classList.remove("zooming");
+    scene.style.transition = "none";
+    scene.style.transform = "";
+    scene.style.opacity = "";
+    scene.style.transformOrigin = "";
+
+    // Restore floating UI
+    fadeOuts.forEach(el => {
+      if (!el) return;
+      el.style.transition = "";
+      el.style.opacity = "";
     });
-  }
-</script>
 
+    openCountryMap(league, true);
+  }, 720);
+}
+
+// ── COUNTRY LIST ──────────────────────────────────────────────────
+function renderCountryGrid() {
+  const grid = document.getElementById("countryGrid");
+  grid.innerHTML = "";
+
+  LEAGUES.forEach(l => {
+    const clubs = CLUBS.filter(c => c.league === l.id);
+    const topClub = clubs[0]?.name || "–";
+
+    const card = document.createElement("div");
+    card.className = "country-card";
+    card.innerHTML = `
+      <div class="country-card-top">
+        <div class="country-flag">${l.flag}</div>
+        <div class="country-card-info">
+          <div class="country-card-name">${l.country}</div>
+          <div style="margin-top:6px">
+            <span class="country-league-badge" style="background:${l.color};color:${l.accent};border:1px solid ${l.accent}44">
+              ${l.name}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="country-stats">
+        <div class="country-stat-item">
+          <div class="country-stat-num">${l.clubs}</div>
+          <div class="country-stat-label">Clubs</div>
+        </div>
+        <div class="country-stat-item">
+          <div class="country-stat-num" style="color:var(--accent)">${l.transfers}</div>
+          <div class="country-stat-label">Transfers</div>
+        </div>
+        <div class="country-stat-item">
+          <div class="country-stat-num" style="color:#22c55e">${l.news}</div>
+          <div class="country-stat-label">News</div>
+        </div>
+      </div>
+      <div class="country-card-footer">
+        <span class="country-top-club">Top club: <strong style="color:var(--text)">${topClub}</strong></span>
+        <span class="country-view-btn">View Map →</span>
+      </div>`;
+    card.addEventListener("click", () => openCountryMap(l));
+    grid.appendChild(card);
+  });
+}
+
+// ── COUNTRY MAP ────────────────────────────────────────────────────
+let countryMapProjection = null;
+let countryWorldData = null;
+
+function openCountryMap(league, fromMap = false) {
+  if (!fromMap) hidePage("countries");
+  showPage("country-map");
+
+  // Back button behaviour depends on entry point
+  const backBtn = document.querySelector("#page-country-map .back-btn");
+  if (fromMap) {
+    backBtn.textContent = "← Map";
+    backBtn.onclick = () => hidePage("country-map");
+  } else {
+    backBtn.textContent = "← Countries";
+    backBtn.onclick = () => { hidePage("country-map"); showPage("countries"); };
+  }
+
+  document.getElementById("countryMapTitle").textContent = `${league.flag} ${league.country}`;
+  const badge = document.getElementById("countryMapBadge");
+  badge.innerHTML = `<span class="country-map-league-badge" style="background:${league.color};color:${league.accent};border:1px solid ${league.accent}44">${league.name}</span>`;
+
+  // Club chips
+  const chips = document.getElementById("countryClubChips");
+  chips.innerHTML = CLUBS.filter(c => c.league === league.id).map(c =>
+    `<div class="club-chip" onclick="highlightClub(${c.id})">
+      <span class="club-chip-dot" style="background:${c.color}"></span>${c.name}
+    </div>`
+  ).join("");
+
+  // News feed for this country
+  renderCountryNews(league.id);
+
+  // Draw country map
+  drawCountryMap(league);
+}
+
+function drawCountryMap(league) {
+  const container = document.querySelector(".country-map-scene");
+  const cW = container.clientWidth || window.innerWidth - 320;
+  const cH = container.clientHeight || window.innerHeight - 56;
+
+  const mapSvg = d3.select("#country-map").attr("width", cW).attr("height", cH);
+  const routesSvg = d3.select("#country-routes").attr("width", cW).attr("height", cH);
+  mapSvg.selectAll("*").remove();
+  routesSvg.selectAll("*").remove();
+
+  // bg
+  const mdefs = mapSvg.append("defs");
+  const rg = mdefs.append("radialGradient").attr("id","cMapGlow").attr("cx","50%").attr("cy","50%").attr("r","50%");
+  rg.append("stop").attr("offset","0%").attr("stop-color",league.accent).attr("stop-opacity",0.06);
+  rg.append("stop").attr("offset","100%").attr("stop-color","#000").attr("stop-opacity",0);
+  mapSvg.append("rect").attr("width",cW).attr("height",cH).attr("fill","url(#cMapGlow)");
+
+  // arrow marker
+  const rdefs2 = routesSvg.append("defs");
+  rdefs2.append("marker").attr("id","carrow").attr("markerWidth",6).attr("markerHeight",4)
+    .attr("refX",6).attr("refY",2).attr("orient","auto")
+    .append("polygon").attr("points","0 0, 6 2, 0 4").attr("fill",league.accent+"bb");
+
+  if (!countryWorldData) {
+    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
+      .then(r => r.json())
+      .then(world => {
+        countryWorldData = world;
+        _renderCountryMap(league, mapSvg, routesSvg, cW, cH);
+      });
+  } else {
+    _renderCountryMap(league, mapSvg, routesSvg, cW, cH);
+  }
+}
+
+function _renderCountryMap(league, mapSvg, routesSvg, cW, cH) {
+  const allFeatures = topojson.feature(countryWorldData, countryWorldData.objects.countries).features;
+  const countryFeature = allFeatures.find(f => +f.id === league.numericId);
+  const europeFeatures = allFeatures.filter(f => europeanIds.has(+f.id));
+
+  const proj = d3.geoMercator().center(league.center).scale(league.scale).translate([cW/2, cH/2]);
+  countryMapProjection = proj;
+  const pg = d3.geoPath().projection(proj);
+
+  // Neighbouring countries (dim)
+  mapSvg.selectAll(".nbr").data(europeFeatures).join("path")
+    .attr("class","nbr")
+    .attr("d", pg)
+    .attr("fill", "#0a1828")
+    .attr("stroke", "#1a4a8a55")
+    .attr("stroke-width", 0.6);
+
+  // Target country (highlighted)
+  if (countryFeature) {
+    mapSvg.append("path")
+      .datum(countryFeature)
+      .attr("d", pg)
+      .attr("fill", league.color + "55")
+      .attr("stroke", league.accent)
+      .attr("stroke-width", 1.5)
+      .attr("filter", "drop-shadow(0 0 8px " + league.accent + "66)");
+  }
+
+  // Club markers
+  const leagueClubs = CLUBS.filter(c => c.league === league.id);
+  leagueClubs.forEach(c => {
+    const [cx, cy] = proj([c.lon, c.lat]);
+    mapSvg.append("circle")
+      .attr("cx", cx).attr("cy", cy).attr("r", 7)
+      .attr("fill", c.color)
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 1.5)
+      .attr("style", "cursor:pointer")
+      .attr("filter", `drop-shadow(0 0 6px ${c.color})`)
+      .on("mouseover", function(event) {
+        d3.select(this).attr("r", 10);
+        mapSvg.append("text").attr("class","club-label")
+          .attr("x", cx).attr("y", cy - 14)
+          .attr("text-anchor","middle")
+          .attr("fill","#fff")
+          .attr("font-size","11px")
+          .attr("font-weight","700")
+          .attr("font-family","Helvetica Neue, Arial, sans-serif")
+          .text(c.name);
+      })
+      .on("mouseout", function() {
+        d3.select(this).attr("r", 7);
+        mapSvg.selectAll(".club-label").remove();
+      });
+  });
+
+  // Transfer routes within the country
+  const intraRoutes = NEWS.filter(n => {
+    const fc = leagueClubs.find(c => n.from.includes(c.name.split(" ")[0]) || c.name.includes(n.from));
+    const tc = leagueClubs.find(c => n.to.includes(c.name.split(" ")[0]) || c.name.includes(n.to));
+    return fc && tc;
+  });
+
+  intraRoutes.forEach(n => {
+    const fc = leagueClubs.find(c => n.from.includes(c.name.split(" ")[0]) || c.name.includes(n.from));
+    const tc = leagueClubs.find(c => n.to.includes(c.name.split(" ")[0]) || c.name.includes(n.to));
+    if (!fc || !tc) return;
+    const [x1,y1] = proj([fc.lon,fc.lat]);
+    const [x2,y2] = proj([tc.lon,tc.lat]);
+    const mx = (x1+x2)/2 + (y2-y1)*0.3;
+    const my = (y1+y2)/2 - Math.abs(x2-x1)*0.3;
+    routesSvg.append("path")
+      .attr("d",`M${x1},${y1} Q${mx},${my} ${x2},${y2}`)
+      .attr("fill","none")
+      .attr("stroke", league.accent+"88")
+      .attr("stroke-width",1.5)
+      .attr("stroke-dasharray","5 3")
+      .attr("marker-end","url(#carrow)");
+  });
+}
+
+function renderCountryNews(leagueId) {
+  const league = LEAGUES.find(l => l.id === leagueId);
+  const container = document.getElementById("countryNewsFeed");
+  const leagueClubNames = CLUBS.filter(c => c.league === leagueId).map(c => c.name.split(" ")[0]);
+  const filtered = NEWS.filter(n =>
+    leagueClubNames.some(name => n.from.includes(name) || n.to.includes(name))
+  );
+  const items = filtered.length ? filtered : NEWS.slice(0, 3);
+  container.innerHTML = items.map(n => `
+    <div class="news-card">
+      <div class="news-card-top">
+        <div class="transfer-route">
+          ${n.player}<br>
+          <span style="font-size:0.72rem;color:var(--text-sub)">${n.from}</span>
+          <span class="transfer-arrow">→</span>
+          <span style="font-size:0.72rem;color:var(--text-sub)">${n.to}</span>
+        </div>
+        <span class="news-status ${n.status}">${n.status.toUpperCase()}</span>
+      </div>
+      <div class="news-fee">${n.fee}</div>
+      <div class="news-journalist">
+        <div class="journalist-info">
+          <div class="journalist-avatar">✎</div>
+          <div class="journalist-name">${n.journalist}</div>
+        </div>
+        <div class="news-time">${n.time}</div>
+      </div>
+    </div>`).join("");
+}
+
+function highlightClub(id) {
+  // placeholder: 실제 구현 시 해당 마커 강조
+}
+
+// ── INIT ───────────────────────────────────────────────────────────
+renderNewsFeed();
+renderJournalistTable();
+renderCountryGrid();
+</script>
 </body>
 </html>

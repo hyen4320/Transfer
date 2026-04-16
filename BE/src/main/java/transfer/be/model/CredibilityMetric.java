@@ -39,11 +39,30 @@ public class CredibilityMetric {
     @Column(name = "measured_date", nullable = false)
     private LocalDate measuredDate;
 
+    /**
+     * 시즌 인코딩: 앞두자리 + 뒷두자리 (예: 24/25 → 49, 25/26 → 51)
+     */
+    @Column(name = "season")
+    private Short season;
+
+    /** 이적 윈도우: SUMMER (6~9월) | WINTER (1~2월) */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transfer_window")
+    private TransferWindow window;
+
+    /** 해당 시즌+윈도우 기준 공신력 순위 */
+    @Column(name = "rank")
+    private Integer rank;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     private void prePersist() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public enum TransferWindow {
+        SUMMER, WINTER
     }
 }

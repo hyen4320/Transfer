@@ -31,6 +31,9 @@ dependencies {
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // Cache abstraction (@Cacheable, NoOpCacheManager 등)
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 

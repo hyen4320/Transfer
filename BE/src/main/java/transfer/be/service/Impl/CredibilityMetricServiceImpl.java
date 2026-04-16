@@ -32,7 +32,7 @@ public class CredibilityMetricServiceImpl implements CredibilityMetricService {
     @Override
     @Transactional(readOnly = true)
     public List<CredibilityMetric> findByJournalist(Journalist journalist) {
-        return credibilityMetricRepository.findByJournalistOrderByMeasuredDateDesc(journalist);
+        return credibilityMetricRepository.findByJournalistIdOrderByMeasuredDateDesc(journalist.getId());
     }
 
     @Override
@@ -84,9 +84,9 @@ public class CredibilityMetricServiceImpl implements CredibilityMetricService {
      * 속도 점수: 최초 보도 건수 / 전체 뉴스 건수
      */
     private float calculateSpeedScore(Journalist journalist) {
-        long total = transferNewsRepository.countByJournalist(journalist);
+        long total = transferNewsRepository.countByJournalistId(journalist.getId());
         if (total == 0) return 0f;
-        long firstReports = transferNewsRepository.countFirstReportByJournalist(journalist);
+        long firstReports = transferNewsRepository.countFirstReportByJournalistId(journalist.getId());
         return (float) firstReports / total * 100;
     }
 
@@ -94,9 +94,9 @@ public class CredibilityMetricServiceImpl implements CredibilityMetricService {
      * 정확도 점수: 검증된 뉴스 / 전체 뉴스 비율
      */
     private float calculateAccuracyScore(Journalist journalist) {
-        long total = transferNewsRepository.countByJournalist(journalist);
+        long total = transferNewsRepository.countByJournalistId(journalist.getId());
         if (total == 0) return 0f;
-        long confirmed = transferNewsRepository.countConfirmedByJournalist(journalist);
+        long confirmed = transferNewsRepository.countConfirmedByJournalistId(journalist.getId());
         return (float) confirmed / total * 100;
     }
 
@@ -106,7 +106,7 @@ public class CredibilityMetricServiceImpl implements CredibilityMetricService {
     private float calculateImpactScore(Journalist journalist) {
         if (journalist.getFollowerCount() == null || journalist.getFollowerCount() == 0) return 0f;
 
-        double rawScore = transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist)
+        double rawScore = transferNewsRepository.findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId())
                 .stream()
                 .mapToDouble(tn -> {
                     var post = tn.getPost();

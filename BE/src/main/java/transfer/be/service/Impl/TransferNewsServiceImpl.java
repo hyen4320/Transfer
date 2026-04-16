@@ -61,7 +61,7 @@ public class TransferNewsServiceImpl implements TransferNewsService {
     @Override
     @Transactional(readOnly = true)
     public List<TransferNews> findByJournalist(Journalist journalist) {
-        return transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist);
+        return transferNewsRepository.findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId());
     }
 
     @Override

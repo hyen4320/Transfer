@@ -1,5 +1,6 @@
 package transfer.be.dto.response;
 
+import transfer.be.model.CredibilityMetric;
 import transfer.be.model.Journalist;
 
 public record JournalistResponse(
@@ -9,9 +10,16 @@ public record JournalistResponse(
         String profileImageUrl,
         Integer followerCount,
         Float credibilityScore,
-        Integer rank
+        Integer rank,
+        Float speedScore,
+        Float accuracyScore,
+        Float impactScore
 ) {
     public static JournalistResponse from(Journalist j) {
+        return from(j, null);
+    }
+
+    public static JournalistResponse from(Journalist j, CredibilityMetric metric) {
         return new JournalistResponse(
                 j.getId(),
                 j.getXHandle(),
@@ -19,7 +27,10 @@ public record JournalistResponse(
                 j.getProfileImageUrl(),
                 j.getFollowerCount(),
                 j.getCredibilityScore(),
-                j.getRank()
+                j.getRank(),
+                metric != null ? metric.getSpeedScore()    : null,
+                metric != null ? metric.getAccuracyScore() : null,
+                metric != null ? metric.getImpactScore()   : null
         );
     }
 }

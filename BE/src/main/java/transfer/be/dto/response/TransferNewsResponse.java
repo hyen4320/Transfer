@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public record TransferNewsResponse(
         Long id,
+        Long journalistId,
         String playerName,
         String fromClubName,
         String toClubName,
@@ -23,6 +24,7 @@ public record TransferNewsResponse(
         Journalist journalist = tn.getPost().getJournalist();
         return new TransferNewsResponse(
                 tn.getId(),
+                journalist.getId(),
                 tn.getPlayer().getName(),
                 tn.getFromClub() != null ? tn.getFromClub().getName() : null,
                 tn.getToClub().getName(),
