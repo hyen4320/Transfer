@@ -9,6 +9,7 @@ import JournalistDetailPage from './components/JournalistDetailPage';
 import PlayerDetailPage from './components/PlayerDetailPage';
 import CountryMapPage from './components/CountryMapPage';
 import ErrorPage from './components/ErrorPage';
+import SearchPage from './components/SearchPage';
 import type { League } from './types';
 
 function MapView() {
@@ -105,6 +106,13 @@ function MapView() {
                          hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
               ★ Journalists
             </button>
+            <button onClick={() => navigate('/search')}
+              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
+                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
+                         backdrop-blur-lg flex items-center gap-1.5 transition-all
+                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
+              ⌕ Search
+            </button>
           </div>
         </div>
 
@@ -157,6 +165,7 @@ export default function App() {
       } />
       <Route path="/journalists/:id"   element={<JournalistDetailPage />} />
       <Route path="/players/:id"       element={<PlayerDetailPage />} />
+      <Route path="/search"             element={<SearchPage />} />
       <Route path="/404"               element={<ErrorPage code={404} />} />
       <Route path="/500"               element={<ErrorPage code={500} />} />
       <Route path="*"                  element={<ErrorPage code={404} />} />
