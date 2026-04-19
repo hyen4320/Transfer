@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Spring Boot 4.0.5 backend (Java 17) with JPA for database access and Spring Web MVC for REST APIs. Configured with both MySQL and PostgreSQL drivers. Uses Lombok for boilerplate reduction.
-빌드는 사용자가 직접한다.
+빌드/실행은 사용자가 직접한다. Claude는 gradle, npm 등 실행 명령어를 절대 호출하지 않는다.
 JPQL 소문자 지켜라
 ## Commands
 
@@ -25,16 +25,49 @@ JPQL 소문자 지켜라
 
 **Base package**: `transfer.be`
 
-**Typical layered structure to follow** (not yet implemented — this is a fresh scaffold):
-- `transfer.be.controller` — `@RestController` classes handling HTTP requests
-- `transfer.be.service` — Business logic (`@Service`)
-- `transfer.be.repository` — Spring Data JPA repositories (`@Repository`)
-- `transfer.be.entity` — JPA entity classes (`@Entity`)
-- `transfer.be.dto` — Request/Response DTOs
+**레이어 구조:**
+```
+Controller (@RestController)
+    ↓ DTO (Request/Response)
+Service (@Service, Interface + Impl 분리)
+    ↓
+Repository (Spring Data JPA, JPQL 소문자)
+    ↓
+Model (@Entity) ← model 패키지 사용 (entity 아님)
+```
 
-**Entry point**: `BeApplication.java` — standard `@SpringBootApplication` bootstrap.
+**주요 패키지:**
+- `transfer.be.controller` — HTTP 요청 처리
+- `transfer.be.service` / `service.Impl` — 비즈니스 로직
+- `transfer.be.repository` — JPA 레포지토리
+- `transfer.be.model` — JPA 엔티티 (entity 패키지 아님)
+- `transfer.be.dto` — 요청/응답 DTO
+- `transfer.be.scheduler` — 스케줄러 (X API 수집 등)
+- `transfer.be.client` — 외부 API 클라이언트 (X API)
 
-**Configuration**: `src/main/resources/application.properties` — currently only sets `spring.application.name=BE`. Database datasource, JPA settings, and port config go here.
+**데이터 흐름 (X 게시물 수집):**
+```
+XCollectorScheduler (15분마다)
+    → PostServiceImpl.collectAndSave()
+    → XApiClient (X API v2, userId 기반)
+    → Post 저장
+```
+
+**Entry point**: `BeApplication.java`
+
+## Domain Rules
+
+**Season 인코딩** — `TransferNews.season` 및 `CredibilityMetric.season` 필드에 적용:
+- 방식: 시즌을 구성하는 두 연도의 끝 두 자리 합산
+- 24/25 시즌 → `49` (24 + 25)
+- 25/26 시즌 → `51` (25 + 26)
+- 항상 홀수, 1씩 증가
+
+**TransferWindow** — `SUMMER` (6~9월) / `WINTER` (1~2월)
+
+**TransferNews.Status** — `INTEREST` → `RUMOR` → `CONFIRMED` / `DENIED` / `LOAN`
+
+**Player.ContractStatus** — `FREE_AGENT` / `CONTRACTED` / `LOANED`
 
 ## Key Dependencies
 

@@ -99,13 +99,13 @@ class TransferNewsServiceTest {
     @Test
     @DisplayName("findByJournalist는 기자 기준으로 조회한다")
     void findByJournalist_기자_기준_조회() {
-        Journalist journalist = Journalist.builder().xHandle("Romano").name("Romano").credibilityScore(0f).build();
-        when(transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist))
+        Journalist journalist = Journalist.builder().id(1L).xHandle("Romano").name("Romano").credibilityScore(0f).build();
+        when(transferNewsRepository.findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId()))
                 .thenReturn(List.of());
 
         List<TransferNews> result = transferNewsService.findByJournalist(journalist);
 
         assertThat(result).isEmpty();
-        verify(transferNewsRepository).findByPostJournalistOrderByPublishedAtDesc(journalist);
+        verify(transferNewsRepository).findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId());
     }
 }

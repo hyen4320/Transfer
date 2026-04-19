@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useClubs } from './hooks/useClubs';
+import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
 import SidePanel from './components/SidePanel';
 import JournalistPage from './components/JournalistPage';
@@ -14,12 +15,14 @@ function MapView() {
   const navigate = useNavigate();
   const sceneRef = useRef<HTMLDivElement>(null);
   const { clubs } = useClubs();
+  const { items: news } = useNews();
 
   const [panelOpen, setPanelOpen]           = useState(false);
   const [titleVisible, setTitleVisible]     = useState(true);
   const [selectedLeague, setSelectedLeague] = useState<League | null>(null);
   const [showCountryMap, setShowCountryMap] = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
+  const [panelLeague, setPanelLeague]       = useState<League | null>(null);
 
   const handleCountryClick = (league: League, centroid: [number, number]) => {
     const scene = sceneRef.current;
@@ -46,6 +49,13 @@ function MapView() {
     }, 720);
   };
 
+  const handleLeaguePanelClick = (league: League) => {
+    setPanelLeague(league);
+    setSelectedClubId(null);
+    setPanelOpen(true);
+    setTitleVisible(false);
+  };
+
   const handleClubClick = (clubId: number) => {
     setSelectedClubId(clubId);
     setPanelOpen(true);
@@ -54,6 +64,7 @@ function MapView() {
 
   const openNewsFeed = () => {
     setSelectedClubId(null);
+    setPanelLeague(null);
     setPanelOpen(true);
     setTitleVisible(false);
   };
@@ -61,6 +72,7 @@ function MapView() {
   const closePanel = () => {
     setPanelOpen(false);
     setSelectedClubId(null);
+    setPanelLeague(null);
     setTitleVisible(true);
   };
 
@@ -69,7 +81,7 @@ function MapView() {
 
       {/* MAP SCENE */}
       <div ref={sceneRef} className="absolute inset-0" style={{ willChange: 'transform, opacity' }}>
-        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} clubs={clubs} />
+        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} clubs={clubs} news={news} />
 
         {/* Topbar */}
         <div className="absolute top-0 left-0 right-0 h-14 flex items-center justify-between px-6 z-30 pointer-events-none"
@@ -112,7 +124,13 @@ function MapView() {
       </div>
 
       {/* SIDE PANEL */}
-      <SidePanel open={panelOpen} onClose={closePanel} selectedClubId={selectedClubId} />
+      <SidePanel
+        open={panelOpen}
+        onClose={closePanel}
+        selectedClubId={selectedClubId}
+        selectedLeague={panelLeague}
+        leagueClubs={panelLeague ? clubs.filter(c => c.league === panelLeague.id) : []}
+      />
 
       {/* COUNTRY MAP (overlay) */}
       {showCountryMap && selectedLeague && (
@@ -121,6 +139,7 @@ function MapView() {
           backLabel="← Map"
           onBack={() => setShowCountryMap(false)}
           clubs={clubs}
+          news={news}
         />
       )}
     </div>

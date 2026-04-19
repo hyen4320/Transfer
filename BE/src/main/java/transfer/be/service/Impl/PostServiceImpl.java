@@ -8,8 +8,10 @@ import transfer.be.api.XApiClient;
 import transfer.be.api.dto.XTweetResponse;
 import transfer.be.model.Journalist;
 import transfer.be.model.Post;
+import transfer.be.model.TransferNews.Status;
 import transfer.be.repository.PostRepository;
 import transfer.be.service.PostService;
+import transfer.be.service.TransferNewsFilter;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -23,6 +25,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final XApiClient xApiClient;
+    private final TransferNewsFilter transferNewsFilter;
 
     @Override
     @Transactional(readOnly = true)
@@ -38,7 +41,13 @@ public class PostServiceImpl implements PostService {
                 .map(Post::getXPostId)
                 .orElse(null);
 
-        XTweetResponse response = xApiClient.getUserTweets(journalist.getXHandle(), sinceId);
+        String userId = journalist.getXUserId();
+        if (userId == null) {
+            log.warn("xUserId 없음 — @{} 수집 스킵 (registerFromX로 재등록 필요)", journalist.getXHandle());
+            return List.of();
+        }
+
+        XTweetResponse response = xApiClient.getUserTweets(userId, sinceId);
 
         if (response == null || response.data() == null) {
             log.info("No new posts for @{}", journalist.getXHandle());
@@ -46,10 +55,18 @@ public class PostServiceImpl implements PostService {
         }
 
         List<Post> saved = new ArrayList<>();
+        int skippedNonTransfer = 0;
         for (XTweetResponse.XTweet tweet : response.data()) {
             if (postRepository.existsByXPostId(tweet.id())) {
                 continue;
             }
+
+            Status status = transferNewsFilter.detectStatus(tweet.text());
+            if (status == null) {
+                skippedNonTransfer++;
+                continue;
+            }
+
             Post post = Post.builder()
                     .journalist(journalist)
                     .xPostId(tweet.id())
@@ -62,9 +79,11 @@ public class PostServiceImpl implements PostService {
                     .build();
 
             saved.add(postRepository.save(post));
+            log.info("[TRANSFER] @{} status={} | {}", journalist.getXHandle(), status, tweet.text());
         }
 
-        log.info("Collected {} new posts from @{}", saved.size(), journalist.getXHandle());
+        log.info("Collected {} transfer posts from @{} (skipped {} non-transfer)",
+                saved.size(), journalist.getXHandle(), skippedNonTransfer);
         return saved;
     }
 

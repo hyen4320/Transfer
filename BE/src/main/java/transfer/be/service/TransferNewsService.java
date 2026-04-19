@@ -2,6 +2,7 @@ package transfer.be.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import transfer.be.dto.request.TransferNewsSearchCondition;
 import transfer.be.model.Club;
 import transfer.be.model.Journalist;
 import transfer.be.model.League;
@@ -29,6 +30,8 @@ public interface TransferNewsService {
     Page<TransferNews> findByLeague(League league, Pageable pageable);
 
     Page<TransferNews> findFeed(Pageable pageable);
+
+    Page<TransferNews> search(TransferNewsSearchCondition condition, Pageable pageable);
 
     TransferNews save(TransferNews transferNews);
 

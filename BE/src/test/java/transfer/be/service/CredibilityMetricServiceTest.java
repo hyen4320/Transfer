@@ -20,6 +20,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,11 +40,11 @@ class CredibilityMetricServiceTest {
                 .credibilityScore(0f).followerCount(10_000).build();
 
         // speed: 전체 2건, 최초 보도 1건 → speedScore = 50
-        when(transferNewsRepository.countByJournalist(journalist)).thenReturn(2L);
-        when(transferNewsRepository.countFirstReportByJournalist(journalist)).thenReturn(1L);
+        when(transferNewsRepository.countByJournalistId(journalist.getId())).thenReturn(2L);
+        when(transferNewsRepository.countFirstReportByJournalistId(journalist.getId())).thenReturn(1L);
 
         // accuracy: 전체 2건, 확정 1건 → accuracyScore = 50
-        when(transferNewsRepository.countConfirmedByJournalist(journalist)).thenReturn(1L);
+        when(transferNewsRepository.countConfirmedByJournalistId(journalist.getId())).thenReturn(1L);
 
         // impact: retweet=30, like=100, view=1000 → rawScore = 30*3+100+1000*0.1 = 290
         // impactScore = 290 / 10000 * 100 = 2.9
@@ -56,7 +57,7 @@ class CredibilityMetricServiceTest {
         TransferNews tn = TransferNews.builder()
                 .post(post).player(player).toClub(toClub)
                 .status(TransferNews.Status.RUMOR).build();
-        when(transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist))
+        when(transferNewsRepository.findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId()))
                 .thenReturn(List.of(tn));
 
         when(credibilityMetricRepository.findByJournalistAndMeasuredDate(any(), any()))
@@ -82,7 +83,7 @@ class CredibilityMetricServiceTest {
                 .credibilityScore(0f).followerCount(0).build();
 
         // countByJournalist=0 → speed/accuracy 조기 반환, followerCount=0 → impact 조기 반환
-        when(transferNewsRepository.countByJournalist(journalist)).thenReturn(0L);
+        when(transferNewsRepository.countByJournalistId(journalist.getId())).thenReturn(0L);
         when(credibilityMetricRepository.findByJournalistAndMeasuredDate(any(), any()))
                 .thenReturn(Optional.empty());
         when(credibilityMetricRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
@@ -102,7 +103,7 @@ class CredibilityMetricServiceTest {
         when(journalistRepository.findAll()).thenReturn(List.of(j1, j2));
         // countByJournalist=0 이면 speed/accuracy 모두 즉시 0f 반환 → countFirstReport/countConfirmed 미호출
         // followerCount=0 이면 impact 즉시 0f 반환 → findByPostJournalist 미호출
-        when(transferNewsRepository.countByJournalist(any())).thenReturn(0L);
+        when(transferNewsRepository.countByJournalistId(anyLong())).thenReturn(0L);
         when(credibilityMetricRepository.findByJournalistAndMeasuredDate(any(), any())).thenReturn(Optional.empty());
         when(credibilityMetricRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 

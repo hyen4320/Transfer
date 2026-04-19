@@ -24,6 +24,7 @@ export const CLUBS: Club[] = [
   { id:8,  name:'AC Milan',      lon: 9.12, lat:45.48, league:'sa', color:'#fb090b', emoji:'🔴' },
   { id:9,  name:'PSG',           lon: 2.25, lat:48.84, league:'l1', color:'#004170', emoji:'🔵' },
   { id:10, name:'Marseille',     lon: 5.39, lat:43.27, league:'l1', color:'#2faee0', emoji:'🔵' },
+  { id:11, name:'Liverpool',     lon:-2.96, lat:53.43, league:'pl', color:'#c8102e', emoji:'🔴' },
 ];
 
 export const JOURNALISTS: Journalist[] = [
@@ -70,12 +71,14 @@ export const PLAYER_HISTORY: Record<number, TransferHistory[]> = {
 };
 
 export const NEWS: NewsItem[] = [
-  { id:1, player:'Kylian Mbappé',        playerId:1, from:'PSG',       to:'Real Madrid', fee:'€180M',  status:'confirmed', journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'2h ago' },
-  { id:2, player:'Jamal Musiala',         playerId:2, from:'Bayern',    to:'Man City',    fee:'€120M',  status:'rumour',    journalist:'David Ornstein',     journalistId:2, handle:'@David_Ornstein', credibility:94.1, time:'4h ago' },
-  { id:3, player:'Pedri',                 playerId:3, from:'Barcelona', to:'Arsenal',     fee:'€90M',   status:'rumour',    journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'6h ago' },
-  { id:4, player:'Gianluigi Donnarumma',  playerId:5, from:'PSG',       to:'Juventus',    fee:'Free',   status:'confirmed', journalist:'Gianluca Di Marzio', journalistId:3, handle:'@DiMarzio',       credibility:91.0, time:'8h ago' },
-  { id:5, player:'Erling Haaland',        playerId:4, from:'Man City',  to:'Real Madrid', fee:'€200M',  status:'denied',    journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'12h ago' },
-  { id:6, player:'Florian Wirtz',                    from:'Dortmund',  to:'Liverpool',   fee:'€110M',  status:'rumour',    journalist:'David Ornstein',     journalistId:2, handle:'@David_Ornstein', credibility:94.1, time:'1d ago' },
+  { id:1, player:'Kylian Mbappé',        playerId:1, fromClubId:9,  toClubId:3,  from:'PSG',          to:'Real Madrid',  fee:'€180M',  status:'confirmed', journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'2h ago' },
+  { id:2, player:'Jamal Musiala',         playerId:2, fromClubId:5,  toClubId:2,  from:'Bayern Munich', to:'Man City',     fee:'€120M',  status:'rumour',    journalist:'David Ornstein',     journalistId:2, handle:'@David_Ornstein', credibility:94.1, time:'4h ago' },
+  { id:3, player:'Pedri',                 playerId:3, fromClubId:4,  toClubId:1,  from:'Barcelona',    to:'Arsenal',      fee:'€90M',   status:'rumour',    journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'6h ago' },
+  { id:4, player:'Gianluigi Donnarumma',  playerId:5, fromClubId:9,  toClubId:7,  from:'PSG',          to:'Juventus',     fee:'Free',   status:'confirmed', journalist:'Gianluca Di Marzio', journalistId:3, handle:'@DiMarzio',       credibility:91.0, time:'8h ago' },
+  { id:5, player:'Erling Haaland',        playerId:4, fromClubId:2,  toClubId:3,  from:'Man City',     to:'Real Madrid',  fee:'€200M',  status:'denied',    journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'12h ago' },
+  { id:6, player:'Florian Wirtz',                     fromClubId:6,  toClubId:11, from:'Dortmund',     to:'Liverpool',    fee:'€110M',  status:'rumour',    journalist:'David Ornstein',     journalistId:2, handle:'@David_Ornstein', credibility:94.1, time:'1d ago' },
+  { id:7, player:'Lamine Yamal',                      fromClubId:4,  toClubId:3,  from:'Barcelona',    to:'Real Madrid',  fee:'€150M',  status:'rumour',    journalist:'Fabrizio Romano',    journalistId:1, handle:'@FabrizioRomano', credibility:98.5, time:'5h ago' },
+  { id:8, player:'Jonathan Clauss',                   fromClubId:10, toClubId:9,  from:'Marseille',    to:'PSG',          fee:'€12M',   status:'confirmed', journalist:'Gianluca Di Marzio', journalistId:3, handle:'@DiMarzio',       credibility:91.0, time:'3h ago' },
 ];
 
 export const CLUB_TRANSFERS: Record<number, ClubTransfers> = {

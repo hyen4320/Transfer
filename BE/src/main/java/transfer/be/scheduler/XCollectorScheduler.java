@@ -2,7 +2,6 @@ package transfer.be.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,6 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@ConditionalOnBean(StringRedisTemplate.class)
 public class XCollectorScheduler {
 
     private static final String RATE_LIMIT_KEY = "x-api:rate-limit";

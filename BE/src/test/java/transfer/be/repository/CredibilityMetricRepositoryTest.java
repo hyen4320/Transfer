@@ -67,7 +67,7 @@ class CredibilityMetricRepositoryTest {
         saveMetric(LocalDate.of(2024, 2, 1), 50f, 60f, 5f);
 
         List<CredibilityMetric> result =
-                credibilityMetricRepository.findByJournalistOrderByMeasuredDateDesc(journalist);
+                credibilityMetricRepository.findByJournalistIdOrderByMeasuredDateDesc(journalist.getId());
 
         assertThat(result).hasSize(3);
         assertThat(result.get(0).getMeasuredDate()).isEqualTo(LocalDate.of(2024, 3, 1)); // 최신
@@ -86,7 +86,7 @@ class CredibilityMetricRepositoryTest {
         saveMetric(LocalDate.now(), 50f, 60f, 5f);
 
         List<CredibilityMetric> result =
-                credibilityMetricRepository.findByJournalistOrderByMeasuredDateDesc(journalist);
+                credibilityMetricRepository.findByJournalistIdOrderByMeasuredDateDesc(journalist.getId());
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getSpeedScore()).isEqualTo(50f);

@@ -3,6 +3,7 @@ package transfer.be.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import transfer.be.model.Club;
@@ -12,7 +13,7 @@ import transfer.be.model.TransferNews;
 
 import java.util.List;
 
-public interface TransferNewsRepository extends JpaRepository<TransferNews, Long> {
+public interface TransferNewsRepository extends JpaRepository<TransferNews, Long>, JpaSpecificationExecutor<TransferNews> {
 
     List<TransferNews> findByPlayerOrderByPublishedAtDesc(Player player);
 

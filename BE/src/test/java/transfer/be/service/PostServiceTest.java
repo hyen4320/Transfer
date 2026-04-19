@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import transfer.be.api.XApiClient;
 import transfer.be.api.dto.XTweetResponse;
@@ -25,10 +26,11 @@ class PostServiceTest {
 
     @Mock PostRepository postRepository;
     @Mock XApiClient xApiClient;
+    @Spy TransferNewsFilter transferNewsFilter = new TransferNewsFilter();
     @InjectMocks PostServiceImpl postService;
 
     private Journalist journalist() {
-        return Journalist.builder().id(1L).xHandle("Romano").name("Romano").credibilityScore(0f).build();
+        return Journalist.builder().id(1L).xHandle("Romano").name("Romano").xUserId("12345").credibilityScore(0f).build();
     }
 
     private XTweetResponse.PublicMetrics metrics(int like, int retweet, int reply, int view) {
@@ -104,7 +106,7 @@ class PostServiceTest {
         when(postRepository.findTopByJournalistOrderByPostedAtDesc(j)).thenReturn(Optional.empty());
 
         XTweetResponse.XTweet tweet = new XTweetResponse.XTweet(
-                "new-tweet", "Transfer news", null, "2024-01-01T00:00:00Z", metrics(5, 10, 3, 1000));
+                "new-tweet", "Mbappe to Arsenal. Done deal confirmed.", null, "2024-01-01T00:00:00Z", metrics(5, 10, 3, 1000));
         when(xApiClient.getUserTweets(anyString(), isNull()))
                 .thenReturn(new XTweetResponse(List.of(tweet), meta(1)));
         when(postRepository.existsByXPostId("new-tweet")).thenReturn(false);
@@ -122,15 +124,33 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("collectAndSave: 이적 무관 게시글은 저장하지 않는다")
+    void collectAndSave_비이적_게시글_스킵() {
+        Journalist j = journalist();
+        when(postRepository.findTopByJournalistOrderByPostedAtDesc(j)).thenReturn(Optional.empty());
+
+        XTweetResponse.XTweet tweet = new XTweetResponse.XTweet(
+                "non-transfer", "What a match last night. City were incredible.", null, "2024-01-01T00:00:00Z", metrics(5, 10, 2, 100));
+        when(xApiClient.getUserTweets(anyString(), isNull()))
+                .thenReturn(new XTweetResponse(List.of(tweet), meta(1)));
+        when(postRepository.existsByXPostId("non-transfer")).thenReturn(false);
+
+        List<Post> result = postService.collectAndSave(j);
+
+        assertThat(result).isEmpty();
+        verify(postRepository, never()).save(any());
+    }
+
+    @Test
     @DisplayName("collectAndSave: 마지막 포스트의 xPostId를 sinceId로 전달한다")
     void collectAndSave_sinceId_사용() {
         Journalist j = journalist();
         Post lastPost = Post.builder().xPostId("since-999").content("old").build();
         when(postRepository.findTopByJournalistOrderByPostedAtDesc(j)).thenReturn(Optional.of(lastPost));
-        when(xApiClient.getUserTweets("Romano", "since-999")).thenReturn(null);
+        when(xApiClient.getUserTweets("12345", "since-999")).thenReturn(null);
 
         postService.collectAndSave(j);
 
-        verify(xApiClient).getUserTweets("Romano", "since-999");
+        verify(xApiClient).getUserTweets("12345", "since-999");
     }
 }

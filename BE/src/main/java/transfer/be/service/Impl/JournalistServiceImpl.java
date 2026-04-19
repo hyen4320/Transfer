@@ -50,6 +50,7 @@ public class JournalistServiceImpl implements JournalistService {
 
         Journalist journalist = Journalist.builder()
                 .xHandle(user.username())
+                .xUserId(user.id())
                 .name(user.name())
                 .profileImageUrl(user.profileImageUrl())
                 .followerCount(user.publicMetrics().followersCount())

@@ -4,7 +4,7 @@ import { useNews } from '../hooks/useNews';
 import { fetchClub, fetchClubTransfers } from '../api/clubs';
 import { ApiError } from '../api/client';
 import type { ApiClub } from '../api/types';
-import type { NewsItem } from '../types';
+import type { League, Club, NewsItem } from '../types';
 import NewsCard from './NewsCard';
 
 const STATUS_STYLE: Record<string, string> = {
@@ -18,12 +18,14 @@ interface Props {
   open: boolean;
   onClose: () => void;
   selectedClubId?: number | null;
+  selectedLeague?: League | null;
+  leagueClubs?: Club[];
 }
 
-export default function SidePanel({ open, onClose, selectedClubId }: Props) {
+export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [] }: Props) {
   const navigate = useNavigate();
 
-  const [view,    setView]    = useState<'news' | 'club'>('news');
+  const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
   const [filters, setFilters] = useState({ rumour: true, confirmed: true, denied: false });
 
@@ -38,10 +40,18 @@ export default function SidePanel({ open, onClose, selectedClubId }: Props) {
 
   const filteredNews = allNews.filter(n => filters[n.status as keyof typeof filters] ?? true);
 
+  // 리그가 선택되면 리그 뷰로 전환
+  useEffect(() => {
+    if (selectedLeague) {
+      setView('league');
+      setClubDetail(null);
+    }
+  }, [selectedLeague]);
+
   // 클럽 ID가 바뀌면 API 조회 후 클럽 뷰로 전환
   useEffect(() => {
     if (!selectedClubId) {
-      setView('news');
+      if (!selectedLeague) setView('news');
       setClubDetail(null);
       return;
     }
@@ -57,7 +67,7 @@ export default function SidePanel({ open, onClose, selectedClubId }: Props) {
         if (err instanceof ApiError && err.status >= 500) navigate('/500');
       })
       .finally(() => setClubLoading(false));
-  }, [selectedClubId, navigate]);
+  }, [selectedClubId, navigate, selectedLeague]);
 
   const activeTransfers = clubTab === 'in' ? clubTransfers.incoming : clubTransfers.outgoing;
 
@@ -99,11 +109,87 @@ export default function SidePanel({ open, onClose, selectedClubId }: Props) {
         </>
       )}
 
+      {/* ── LEAGUE VIEW ── */}
+      {view === 'league' && selectedLeague && (
+        <>
+          {/* Header */}
+          <div className="flex items-center px-7 py-6 border-b border-[var(--border)] gap-3 flex-shrink-0">
+            <button onClick={onClose}
+              className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
+                         text-[var(--text-sub)] hover:text-[var(--text)] transition-all">✕</button>
+            <div className="flex-1">
+              <div className="text-[0.78rem] text-[var(--text-sub)] font-semibold tracking-widest uppercase mb-0.5">
+                {selectedLeague.flag} {selectedLeague.country}
+              </div>
+              <div className="text-[0.95rem] font-extrabold tracking-wide">{selectedLeague.name}</div>
+            </div>
+            <span className="px-3.5 py-1.5 rounded-full text-[0.75rem] font-black tracking-wide flex-shrink-0"
+              style={{ background: selectedLeague.color, color: selectedLeague.accent, border: `1px solid ${selectedLeague.accent}44` }}>
+              {selectedLeague.abbr}
+            </span>
+          </div>
+
+          {/* Stats bar */}
+          <div className="flex border-b border-[var(--border)] flex-shrink-0">
+            {[
+              { label: 'Clubs',     value: leagueClubs.length },
+              { label: 'Transfers', value: selectedLeague.transfers },
+              { label: 'News',      value: selectedLeague.news },
+            ].map(s => (
+              <div key={s.label} className="flex-1 py-5 text-center border-r border-[var(--border)] last:border-r-0">
+                <div className="text-[1.3rem] font-extrabold" style={{ color: selectedLeague.accent }}>{s.value}</div>
+                <div className="text-[0.66rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Club list */}
+          <div className="flex-1 overflow-y-auto py-4">
+            <div className="px-5 mb-3 text-[0.65rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">
+              Clubs
+            </div>
+            {leagueClubs.map(club => (
+              <button
+                key={club.id}
+                onClick={() => {
+                  setView('club');
+                  setClubTab('in');
+                  setClubLoading(true);
+                  Promise.all([fetchClub(club.id), fetchClubTransfers(club.id)])
+                    .then(([detail, transfers]) => {
+                      setClubDetail(detail);
+                      setClubTransfers(transfers);
+                    })
+                    .catch(err => {
+                      if (err instanceof ApiError && err.status >= 500) navigate('/500');
+                    })
+                    .finally(() => setClubLoading(false));
+                }}
+                className="w-full flex items-center gap-4 px-5 py-4 text-left
+                           hover:bg-[rgba(255,255,255,0.04)] transition-colors border-b border-[var(--border)] last:border-b-0">
+                <div className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center text-lg"
+                  style={{ background: club.color + '22', border: `1.5px solid ${club.color}88`, boxShadow: `0 0 10px ${club.color}44` }}>
+                  {club.emoji ?? '⚽'}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[0.88rem] font-bold truncate">{club.name}</div>
+                  <div className="text-[0.7rem] text-[var(--text-sub)] mt-0.5">
+                    {club.lon.toFixed(2)}°E · {club.lat.toFixed(2)}°N
+                  </div>
+                </div>
+                <div className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ background: club.color, boxShadow: `0 0 6px ${club.color}` }} />
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
       {/* ── CLUB VIEW ── */}
       {view === 'club' && (
         <>
           <div className="flex items-center px-7 py-6 border-b border-[var(--border)] gap-3 flex-shrink-0">
-            <button onClick={() => { setView('news'); }}
+            <button onClick={() => setView(selectedLeague ? 'league' : 'news')}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] transition-all">←</button>
             <div className="text-[0.92rem] font-bold tracking-widest uppercase flex-1">

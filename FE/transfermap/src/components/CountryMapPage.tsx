@@ -1,13 +1,12 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
-import type { Topology, GeometryCollection } from 'topojson-specification';
 import type { GeoPermissibleObjects } from 'd3-geo';
-import type { League, Club } from '../types';
-import { CLUBS, NEWS } from '../data/mock';
+import type { League, Club, NewsItem, TransferStatus } from '../types';
 import NewsCard from './NewsCard';
 import SidePanel from './SidePanel';
-import { resolveOverlaps } from '../utils/mapUtils';
+import { resolveOverlaps, parseFee } from '../utils/mapUtils';
+import { loadWorldAtlas } from '../utils/worldAtlas';
 
 const EUROPEAN_IDS = new Set([
   8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,
@@ -15,40 +14,79 @@ const EUROPEAN_IDS = new Set([
   752,756,804,807,826,
 ]);
 
+const STATUS_COLOR: Record<TransferStatus, string> = {
+  confirmed: '#22c55e',
+  rumour:    '#f59e0b',
+  denied:    '#ef4444',
+  loan:      '#a78bfa',
+};
+
+const STATUS_LABEL: Record<TransferStatus, string> = {
+  confirmed: 'CONFIRMED',
+  rumour:    'RUMOUR',
+  denied:    'DENIED',
+  loan:      'LOAN',
+};
+
+interface RouteInfo {
+  id: number;
+  d: string;
+  status: TransferStatus;
+  sameLeague: boolean;
+  player: string;
+  fee: string;
+  from: string;
+  to: string;
+  animDur: number;
+  animate: boolean;
+}
+
+const ANIM_LIMIT = 20;
+
+function nameMatch(a: string, b: string): boolean {
+  if (!a || !b) return false;
+  a = a.toLowerCase().trim();
+  b = b.toLowerCase().trim();
+  return a === b || a.includes(b) || b.includes(a);
+}
+
 interface Props {
   league: League;
   onBack: () => void;
   backLabel?: string;
   clubs?: Club[];
+  news?: NewsItem[];
 }
 
-export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp }: Props) {
-  const sceneRef  = useRef<HTMLDivElement>(null);
-  const mapRef    = useRef<SVGSVGElement>(null);
-  const routeRef  = useRef<SVGSVGElement>(null);
-  const worldRef  = useRef<Topology<{ countries: GeometryCollection }> | null>(null);
+export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: newsProp = [] }: Props) {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const mapRef   = useRef<SVGSVGElement>(null);
+  const worldRef = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
 
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
+  const [routePaths,     setRoutePaths]     = useState<RouteInfo[]>([]);
+  const [hoveredRoute,   setHoveredRoute]   = useState<RouteInfo | null>(null);
+  const [tooltipPos,     setTooltipPos]     = useState({ x: 0, y: 0 });
 
-  const allClubs        = clubsProp ?? CLUBS;
-  const leagueClubs     = allClubs.filter(c => c.league === league.id);
-  const leagueClubNames = leagueClubs.map(c => c.name.split(' ')[0]);
-  const countryNews     = NEWS.filter(n =>
-    leagueClubNames.some(name => n.from.includes(name) || n.to.includes(name))
+  const allClubs    = clubsProp ?? [];
+  const leagueClubs = useMemo(() => allClubs.filter(c => c.league === league.id), [allClubs, league.id]);
+  const leagueClubIds = useMemo(() => new Set(leagueClubs.map(c => c.id)), [leagueClubs]);
+
+  const countryNews = useMemo(() =>
+    newsProp.filter(n =>
+      leagueClubs.some(c => nameMatch(c.name, n.from) || nameMatch(c.name, n.to))
+    ),
+    [leagueClubs, newsProp]
   );
-  const feedItems = countryNews.length ? countryNews : NEWS.slice(0, 3);
+  const feedItems = countryNews.length ? countryNews : newsProp.slice(0, 10);
 
   const draw = useCallback((cW: number, cH: number) => {
     const world = worldRef.current;
-    if (!world || !mapRef.current || !routeRef.current) return;
+    if (!world || !mapRef.current) return;
 
-    const mapSvg   = d3.select(mapRef.current);
-    const routeSvg = d3.select(routeRef.current);
-
+    const mapSvg = d3.select(mapRef.current);
     mapSvg.attr('width', cW).attr('height', cH);
-    routeSvg.attr('width', cW).attr('height', cH);
     mapSvg.selectAll('*').remove();
-    routeSvg.selectAll('*').remove();
 
     // Background glow
     const mdefs = mapSvg.append('defs');
@@ -57,12 +95,6 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
     rg.append('stop').attr('offset',  '0%').attr('stop-color', league.accent).attr('stop-opacity', 0.06);
     rg.append('stop').attr('offset', '100%').attr('stop-color', '#000').attr('stop-opacity', 0);
     mapSvg.append('rect').attr('width', cW).attr('height', cH).attr('fill', 'url(#cMapGlow)');
-
-    // Arrow marker
-    routeSvg.append('defs').append('marker')
-      .attr('id', 'carrow').attr('markerWidth', 6).attr('markerHeight', 4)
-      .attr('refX', 6).attr('refY', 2).attr('orient', 'auto')
-      .append('polygon').attr('points', '0 0, 6 2, 0 4').attr('fill', league.accent + 'bb');
 
     const proj = d3.geoMercator().center(league.center).scale(league.scale).translate([cW / 2, cH / 2]);
     const pg   = d3.geoPath().projection(proj);
@@ -88,8 +120,8 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
 
     // Club markers (overlap resolved)
     const rawPos = leagueClubs.map(c => {
-      const [x, y] = proj([c.lon, c.lat]);
-      return { id: c.id, x, y };
+      const p = proj([c.lon, c.lat]);
+      return { id: c.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
     });
     const resolvedPos = resolveOverlaps(rawPos, 20);
 
@@ -115,44 +147,79 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
         .on('click', () => setSelectedClubId(c.id));
     });
 
-    // Intra-league routes
-    NEWS.forEach(n => {
-      const fc = leagueClubs.find(c => n.from.includes(c.name.split(' ')[0]) || c.name.includes(n.from));
-      const tc = leagueClubs.find(c => n.to.includes(c.name.split(' ')[0]) || c.name.includes(n.to));
-      if (!fc || !tc) return;
-      const [x1, y1] = proj([fc.lon, fc.lat]);
-      const [x2, y2] = proj([tc.lon, tc.lat]);
-      const mx = (x1 + x2) / 2 + (y2 - y1) * 0.3;
-      const my = (y1 + y2) / 2 - Math.abs(x2 - x1) * 0.3;
-      routeSvg.append('path')
-        .attr('d', `M${x1},${y1} Q${mx},${my} ${x2},${y2}`)
-        .attr('fill', 'none').attr('stroke', league.accent + '88')
-        .attr('stroke-width', 1.5).attr('stroke-dasharray', '5 3')
-        .attr('marker-end', 'url(#carrow)');
-    });
-  }, [league, leagueClubs]);
+    // 이름 기반으로 구단 → 투영 좌표 조회 (API 데이터 사용)
+    const clubProjMap = new Map(allClubs.map(c => {
+      const p = proj([c.lon, c.lat]);
+      return [c.id, p ? { x: p[0], y: p[1], club: c } : null] as const;
+    }));
 
-  // Load world data once, then draw
+    function findClubProj(name: string) {
+      if (!name || name === 'Free Agent') return null;
+      for (const entry of clubProjMap.values()) {
+        if (entry && nameMatch(entry.club.name, name)) return entry;
+      }
+      return null;
+    }
+
+    const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
+
+    const computed = sortedNews.map((n, rank) => {
+      const fp = findClubProj(n.from);
+      const tp = findClubProj(n.to);
+      if (!fp || !tp) return null;
+
+      const fromInLeague = leagueClubIds.has(fp.club.id);
+      const toInLeague   = leagueClubIds.has(tp.club.id);
+      if (!fromInLeague && !toInLeague) return null;
+
+      const [x1, y1] = [fp.x, fp.y];
+      const [x2, y2] = [tp.x, tp.y];
+      const sameLeague = fromInLeague && toInLeague;
+      const dx = x2 - x1, dy = y2 - y1;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);
+      const perpX = (dy / Math.max(dist, 1)) * lift * 0.35;
+      const mx = (x1 + x2) / 2 + perpX;
+      const my = (y1 + y2) / 2 - lift;
+
+      return {
+        id: n.id,
+        d: `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
+        status: n.status,
+        sameLeague,
+        player: n.player,
+        fee: n.fee,
+        from: n.from,
+        to: n.to,
+        animDur: n.status === 'confirmed' ? 2.2 : n.status === 'rumour' ? 3.5 : 5,
+        animate: rank < ANIM_LIMIT && n.status !== 'denied',
+      } as RouteInfo;
+    }).filter((r): r is RouteInfo => r !== null);
+
+    setRoutePaths(computed);
+  }, [league, leagueClubs, leagueClubIds, allClubs, newsProp]);
+
   useEffect(() => {
-    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
-      .then(r => r.json())
-      .then((world: Topology<{ countries: GeometryCollection }>) => {
-        worldRef.current = world;
-        const el = sceneRef.current;
-        if (el) draw(el.clientWidth, el.clientHeight);
-      });
+    loadWorldAtlas().then(world => {
+      worldRef.current = world;
+      const el = sceneRef.current;
+      if (el) draw(el.clientWidth, el.clientHeight);
+    });
   }, [draw]);
 
-  // ResizeObserver on the map scene only
   useEffect(() => {
     const el = sceneRef.current;
     if (!el) return;
+    let timer: ReturnType<typeof setTimeout>;
     const ro = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect;
-      if (worldRef.current) draw(width, height);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (worldRef.current) draw(width, height);
+      }, 80);
     });
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => { ro.disconnect(); clearTimeout(timer); };
   }, [draw]);
 
   return (
@@ -175,8 +242,116 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
       <div className="flex-1 flex overflow-hidden">
         {/* Map */}
         <div ref={sceneRef} className="flex-1 relative overflow-hidden">
-          <svg ref={mapRef}   className="absolute inset-0" />
-          <svg ref={routeRef} className="absolute inset-0 pointer-events-none" />
+          <svg ref={mapRef} className="absolute inset-0" />
+
+          {/* Transfer routes layer — React-managed */}
+          <svg className="absolute inset-0" style={{ zIndex: 15, overflow: 'visible', pointerEvents: 'none' }}>
+            <defs>
+              <filter id="ca-dot-blur" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2" />
+              </filter>
+              {(Object.entries(STATUS_COLOR) as [TransferStatus, string][]).map(([status, color]) => (
+                <marker key={status}
+                  id={`ca-arrow-${status}`}
+                  markerWidth="7" markerHeight="5"
+                  refX="6" refY="2.5" orient="auto">
+                  <polygon points="0 0, 7 2.5, 0 5" fill={color} fillOpacity="0.85" />
+                </marker>
+              ))}
+            </defs>
+
+            {routePaths.map(r => {
+              const color   = STATUS_COLOR[r.status];
+              const opacity = r.status === 'denied' ? 0.25 : r.sameLeague ? 0.6 : 0.8;
+              const strokeW = r.sameLeague ? 1.8 : 2.5;
+              const dashes  = r.status === 'confirmed' ? undefined
+                            : r.status === 'rumour'    ? '7 4'
+                            : '3 6';
+              return (
+                <g key={r.id} style={{ pointerEvents: 'auto' }}
+                   onMouseEnter={e => { setHoveredRoute(r); setTooltipPos({ x: e.clientX, y: e.clientY }); }}
+                   onMouseLeave={() => setHoveredRoute(null)}
+                   onMouseMove={e => setTooltipPos({ x: e.clientX, y: e.clientY })}>
+
+                  {/* Outer glow — cross-league only */}
+                  {!r.sameLeague && (
+                    <path d={r.d} fill="none"
+                      stroke={color} strokeWidth={10} strokeOpacity={0.1} />
+                  )}
+
+                  {/* Main arc */}
+                  <path d={r.d} fill="none"
+                    stroke={color}
+                    strokeWidth={strokeW}
+                    strokeOpacity={opacity}
+                    strokeDasharray={dashes}
+                    markerEnd={`url(#ca-arrow-${r.status})`}
+                    style={{ cursor: 'pointer' }}
+                  />
+
+                  {/* Transparent wider hit area */}
+                  <path d={r.d} fill="none" stroke="transparent" strokeWidth={16}
+                    style={{ cursor: 'pointer' }} />
+
+                  {/* Animated travelling dot — 이적료 상위 ANIM_LIMIT개만 */}
+                  {r.animate && (
+                    <circle
+                      r={r.sameLeague ? 3.5 : 5}
+                      fill={color}
+                      style={{ filter: `drop-shadow(0 0 ${r.sameLeague ? 4 : 8}px ${color})` }}>
+                      <animateMotion
+                        dur={`${r.animDur}s`}
+                        repeatCount="indefinite"
+                        {...({ path: r.d } as any)}
+                      />
+                    </circle>
+                  )}
+
+                  {/* Trailing glow for confirmed */}
+                  {r.animate && r.status === 'confirmed' && (
+                    <circle r={r.sameLeague ? 6 : 10} fill={color} fillOpacity={0.15}
+                      filter="url(#ca-dot-blur)">
+                      <animateMotion
+                        dur={`${r.animDur}s`}
+                        repeatCount="indefinite"
+                        begin="0.15s"
+                        {...({ path: r.d } as any)}
+                      />
+                    </circle>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* Route tooltip */}
+          {hoveredRoute && (
+            <div className="fixed z-[60] pointer-events-none select-none
+                            bg-[rgba(4,8,18,0.96)] border border-white/10
+                            rounded-xl px-3.5 py-2.5 min-w-[170px] shadow-2xl"
+                 style={{ left: tooltipPos.x + 14, top: tooltipPos.y - 50 }}>
+              <div className="text-white font-bold text-sm leading-tight">{hoveredRoute.player}</div>
+              <div className="text-white/50 text-xs mt-0.5">
+                {hoveredRoute.from}
+                <span className="text-white/30 mx-1">→</span>
+                {hoveredRoute.to}
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded"
+                  style={{
+                    color: STATUS_COLOR[hoveredRoute.status],
+                    background: STATUS_COLOR[hoveredRoute.status] + '20',
+                    border: `1px solid ${STATUS_COLOR[hoveredRoute.status]}40`,
+                  }}>
+                  {STATUS_LABEL[hoveredRoute.status]}
+                </span>
+                <span className="text-white text-xs font-bold">{hoveredRoute.fee}</span>
+              </div>
+              <div className="text-white/30 text-[0.6rem] mt-1.5 tracking-wider">
+                {hoveredRoute.sameLeague ? '◈ Same League' : '✈ Cross League'}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Sidebar */}

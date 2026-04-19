@@ -61,7 +61,7 @@ class TransferNewsRepositoryTest {
         saveNews(savePost("t1", 10, 5, 100), TransferNews.Status.RUMOR);
         saveNews(savePost("t2", 20, 10, 200), TransferNews.Status.CONFIRMED);
 
-        long count = transferNewsRepository.countByJournalist(journalist);
+        long count = transferNewsRepository.countByJournalistId(journalist.getId());
 
         assertThat(count).isEqualTo(2);
     }
@@ -76,7 +76,7 @@ class TransferNewsRepositoryTest {
                 .post(savePost("t-new", 10, 5, 100)).player(player).fromClub(fromClub).toClub(toClub)
                 .status(TransferNews.Status.CONFIRMED).publishedAt(LocalDateTime.now()).build());
 
-        List<TransferNews> result = transferNewsRepository.findByPostJournalistOrderByPublishedAtDesc(journalist);
+        List<TransferNews> result = transferNewsRepository.findByPostJournalistIdOrderByPublishedAtDesc(journalist.getId());
 
         assertThat(result).hasSize(2);
         assertThat(result.get(0).getPost().getXPostId()).isEqualTo("t-new"); // 최신이 앞
@@ -101,7 +101,7 @@ class TransferNewsRepositoryTest {
         saveNews(savePost("t2", 10, 5, 100), TransferNews.Status.RUMOR);
         verificationRepository.save(Verification.builder().transferNews(confirmed).isConfirmed(true).build());
 
-        long count = transferNewsRepository.countConfirmedByJournalist(journalist);
+        long count = transferNewsRepository.countConfirmedByJournalistId(journalist.getId());
 
         assertThat(count).isEqualTo(1);
     }

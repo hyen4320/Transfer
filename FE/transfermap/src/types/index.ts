@@ -32,6 +32,8 @@ export interface NewsItem {
   id: number;
   player: string;
   playerId?: number;
+  fromClubId?: number;
+  toClubId?: number;
   from: string;
   to: string;
   fee: string;

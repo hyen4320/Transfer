@@ -5,12 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import transfer.be.dto.request.TransferNewsSearchCondition;
 import transfer.be.model.Club;
 import transfer.be.model.Journalist;
 import transfer.be.model.League;
 import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 import transfer.be.repository.TransferNewsRepository;
+import transfer.be.repository.TransferNewsSpecification;
 import transfer.be.service.TransferNewsService;
 
 import java.util.List;
@@ -80,6 +82,12 @@ public class TransferNewsServiceImpl implements TransferNewsService {
     @Transactional
     public TransferNews save(TransferNews transferNews) {
         return transferNewsRepository.save(transferNews);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<TransferNews> search(TransferNewsSearchCondition condition, Pageable pageable) {
+        return transferNewsRepository.findAll(TransferNewsSpecification.from(condition), pageable);
     }
 
     @Override

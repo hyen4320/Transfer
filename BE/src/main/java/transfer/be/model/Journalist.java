@@ -25,6 +25,10 @@ public class Journalist implements Serializable {
     @Column(name = "x_handle", unique = true, nullable = false)
     private String xHandle;
 
+    /** X API v2 숫자형 사용자 ID — getUserTweets 호출 시 사용 */
+    @Column(name = "x_user_id", unique = true)
+    private String xUserId;
+
     @Column(nullable = false)
     private String name;
 

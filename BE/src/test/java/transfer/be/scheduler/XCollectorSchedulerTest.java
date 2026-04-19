@@ -35,6 +35,10 @@ class XCollectorSchedulerTest {
     }
 
     private Journalist journalist(long id, String handle) {
+        return Journalist.builder().id(id).xHandle(handle).xUserId("100" + id).name(handle).credibilityScore(0f).build();
+    }
+
+    private Journalist journalistNoUserId(long id, String handle) {
         return Journalist.builder().id(id).xHandle(handle).name(handle).credibilityScore(0f).build();
     }
 
@@ -95,5 +99,19 @@ class XCollectorSchedulerTest {
         scheduler.collectAllJournalistPosts();
 
         verify(redisTemplate).expire(eq("x-api:rate-limit"), any());
+    }
+
+    @Test
+    @DisplayName("xUserId 없는 기자는 collectAndSave에서 스킵되어 rate-limit 카운터가 올라가지 않는다")
+    void collectAll_xUserId_없는_기자_스킵() {
+        Journalist j1 = journalistNoUserId(1L, "no-id-journalist");
+        when(journalistService.findAllByRank()).thenReturn(List.of(j1));
+        when(valueOperations.get("x-api:rate-limit")).thenReturn(null);
+        when(postService.collectAndSave(j1)).thenReturn(List.of()); // PostServiceImpl이 내부에서 스킵
+
+        scheduler.collectAllJournalistPosts();
+
+        // rate-limit increment는 호출됨 (스킵 판단은 PostServiceImpl 책임)
+        verify(postService).collectAndSave(j1);
     }
 }

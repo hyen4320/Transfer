@@ -37,7 +37,16 @@ public class Player {
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
+    /** FREE_AGENT | CONTRACTED | LOANED */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contract_status")
+    private ContractStatus contractStatus;
+
     public enum Position {
         GK, DF, MF, FW
+    }
+
+    public enum ContractStatus {
+        FREE_AGENT, CONTRACTED, LOANED
     }
 }

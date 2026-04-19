@@ -9,6 +9,7 @@ public record PlayerResponse(
         String position,
         String currentClubName,
         String contractUntil,
+        String contractStatus,
         String profileImageUrl
 ) {
     public static PlayerResponse from(Player p) {
@@ -19,6 +20,7 @@ public record PlayerResponse(
                 p.getPosition() != null ? p.getPosition().name() : null,
                 p.getCurrentClub() != null ? p.getCurrentClub().getName() : null,
                 p.getContractUntil() != null ? p.getContractUntil().toString() : null,
+                p.getContractStatus() != null ? p.getContractStatus().name() : null,
                 p.getProfileImageUrl()
         );
     }
