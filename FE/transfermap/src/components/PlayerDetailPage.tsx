@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchPlayer, fetchPlayerTransfers } from '../api/players';
 import { ApiError } from '../api/client';
-import { PLAYERS, PLAYER_HISTORY, NEWS } from '../data/mock';
 import type { ApiPlayer } from '../api/types';
 import type { NewsItem, TransferHistory } from '../types';
 import NewsCard from './NewsCard';
@@ -37,20 +36,7 @@ export default function PlayerDetailPage() {
         if (err instanceof ApiError && err.status >= 500) {
           navigate('/500', { replace: true }); return;
         }
-        // 4xx → mock fallback
-        const mock = PLAYERS.find(p => p.id === numId);
-        if (!mock) { navigate('/404', { replace: true }); return; }
-        setPlayer({
-          id: mock.id,
-          name: mock.name,
-          nationality: mock.nationality,
-          position: mock.position,
-          currentClubName: mock.currentClub,
-          contractUntil: mock.contractUntil,
-          profileImageUrl: null,
-        });
-        setHistory(PLAYER_HISTORY[numId] ?? []);
-        setNews(NEWS.filter(n => n.playerId === numId));
+        navigate('/404', { replace: true });
       })
       .finally(() => setLoading(false));
   }, [id, navigate]);

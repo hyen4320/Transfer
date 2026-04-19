@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchJournalist, fetchJournalistNews } from '../api/journalists';
 import { ApiError } from '../api/client';
-import { JOURNALISTS, NEWS } from '../data/mock';
 import type { Journalist, NewsItem } from '../types';
 import NewsCard from './NewsCard';
 
@@ -27,11 +26,7 @@ export default function JournalistDetailPage() {
         if (err instanceof ApiError && err.status >= 500) {
           navigate('/500', { replace: true }); return;
         }
-        // 4xx → mock fallback
-        const mock = JOURNALISTS.find(j => j.id === numId);
-        if (!mock) { navigate('/404', { replace: true }); return; }
-        setJournalist(mock);
-        setNews(NEWS.filter(n => n.journalistId === numId));
+        navigate('/404', { replace: true });
       })
       .finally(() => setLoading(false));
   }, [id, navigate]);
