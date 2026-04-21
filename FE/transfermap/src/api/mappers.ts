@@ -1,5 +1,5 @@
-import type { NewsItem, Journalist, TransferStatus, TransferHistory } from '../types';
-import type { ApiNewsItem, ApiJournalist } from './types';
+import type { NewsItem, Journalist, Player, TransferStatus, TransferHistory } from '../types';
+import type { ApiNewsItem, ApiJournalist, ApiPlayer } from './types';
 
 const STATUS_MAP: Record<string, TransferStatus> = {
   RUMOR: 'rumour', CONFIRMED: 'confirmed', DENIED: 'denied', LOAN: 'loan',
@@ -48,6 +48,7 @@ export function mapNews(n: ApiNewsItem): NewsItem {
                     : `@${n.journalistXHandle}`,
     credibility:  n.journalistCredibility,
     time:         relativeTime(n.publishedAt),
+    sourceUrl:    n.sourceUrl,
   };
 }
 
@@ -61,6 +62,18 @@ export function mapJournalist(j: ApiJournalist): Journalist {
     speed:     j.speedScore    ?? 0,
     accuracy:  j.accuracyScore ?? 0,
     impact:    j.impactScore   ?? 0,
+  };
+}
+
+export function mapPlayer(p: ApiPlayer): Player {
+  return {
+    id:            p.id,
+    name:          p.name,
+    nationality:   p.nationality,
+    position:      p.position ?? 'FW',
+    currentClub:   p.currentClubName ?? 'Free Agent',
+    currentLeague: p.currentLeagueName ?? undefined,
+    contractUntil: p.contractUntil ?? '',
   };
 }
 

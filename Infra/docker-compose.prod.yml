@@ -1,0 +1,64 @@
+services:
+
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: transfer-postgres
+    environment:
+      POSTGRES_DB: transfer
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d transfer"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: transfer-redis
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  be:
+    build:
+      context: ../BE
+      dockerfile: Dockerfile
+    container_name: transfer-be
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/transfer
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      X_API_BEARER_TOKEN: ${X_API_BEARER_TOKEN}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  fe:
+    build:
+      context: ../FE/transfermap
+      dockerfile: Dockerfile
+    container_name: transfer-fe
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - be
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

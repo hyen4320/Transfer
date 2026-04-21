@@ -43,6 +43,7 @@ export interface NewsItem {
   handle: string;
   credibility: number;
   time: string;
+  sourceUrl?: string;
 }
 
 export interface Journalist {

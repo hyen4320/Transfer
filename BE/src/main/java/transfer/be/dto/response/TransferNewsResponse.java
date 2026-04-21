@@ -18,10 +18,15 @@ public record TransferNewsResponse(
         String journalistXHandle,
         String journalistName,
         Float journalistCredibility,
-        String postContent
+        String postContent,
+        String sourceUrl
 ) {
     public static TransferNewsResponse from(TransferNews tn) {
         Journalist journalist = tn.getPost().getJournalist();
+        String xHandle = journalist.getXHandle();
+        String xPostId = tn.getPost().getXPostId();
+        String sourceUrl = "https://x.com/" + xHandle + "/status/" + xPostId;
+
         return new TransferNewsResponse(
                 tn.getId(),
                 journalist.getId(),
@@ -32,10 +37,11 @@ public record TransferNewsResponse(
                 tn.getStatus().name(),
                 tn.getReliability(),
                 tn.getPublishedAt(),
-                journalist.getXHandle(),
+                xHandle,
                 journalist.getName(),
                 journalist.getCredibilityScore(),
-                tn.getPost().getContent()
+                tn.getPost().getContent(),
+                sourceUrl
         );
     }
 }

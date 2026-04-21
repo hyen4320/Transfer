@@ -13,6 +13,7 @@ export interface ApiNewsItem {
   journalistName: string;
   journalistCredibility: number;
   postContent: string;
+  sourceUrl: string;
 }
 
 /** BE JournalistResponse */
@@ -36,8 +37,19 @@ export interface ApiPlayer {
   nationality: string;
   position: string | null;
   currentClubName: string | null;
+  currentLeagueName: string | null;
   contractUntil: string | null;
+  contractStatus: string | null;
   profileImageUrl: string | null;
+}
+
+/** BE LeagueResponse */
+export interface ApiLeague {
+  id: number;
+  name: string;
+  countryCode: string;
+  logoUrl: string | null;
+  tier: number | null;
 }
 
 /** BE ClubResponse */

@@ -1,6 +1,7 @@
 package transfer.be.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,17 @@ public class PlayerController {
         Player player = playerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
         return PlayerResponse.from(player);
+    }
+
+    /** 선수 이름 자동완성 검색 */
+    @GetMapping("/search")
+    public List<PlayerResponse> search(
+            @RequestParam(defaultValue = "") String q,
+            @RequestParam(defaultValue = "8") int size
+    ) {
+        if (q.isBlank()) return List.of();
+        return playerRepository.findByNameContainingIgnoreCase(q, PageRequest.of(0, size))
+                .stream().map(PlayerResponse::from).toList();
     }
 
     /** 계약 만료 임박 선수 목록 (기본 6개월 이내) */

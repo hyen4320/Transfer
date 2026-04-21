@@ -7,9 +7,10 @@ const STATUS_STYLE: Record<string, string> = {
   loan:      'bg-blue-500/15 text-blue-400 border border-blue-500/30',
 };
 
-export default function NewsCard({ item }: { item: NewsItem }) {
+export default function NewsCard({ item, onClick }: { item: NewsItem; onClick?: () => void }) {
   return (
-    <div className="mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
+    <div onClick={onClick}
+         className="mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
                     bg-[var(--surface)] border-[var(--border)]
                     hover:bg-[var(--surface2)] hover:border-blue-500/30 hover:-translate-x-0.5">
 
@@ -45,7 +46,20 @@ export default function NewsCard({ item }: { item: NewsItem }) {
           <div className="text-[0.7rem] font-bold text-[var(--accent)] bg-[var(--accent-glow)] px-2.5 py-1 rounded-full">
             {item.credibility}
           </div>
-          <div className="text-[0.65rem] text-[rgba(160,185,220,0.4)] mt-1.5">{item.time}</div>
+          <div className="flex items-center gap-2 justify-end mt-1.5">
+            <div className="text-[0.65rem] text-[rgba(160,185,220,0.4)]">{item.time}</div>
+            {item.sourceUrl && (
+              <a
+                href={item.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+                className="text-[0.65rem] text-[var(--accent)] opacity-60 hover:opacity-100 transition-opacity"
+              >
+                X
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>

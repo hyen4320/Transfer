@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import transfer.be.model.Journalist;
 import transfer.be.model.Post;
 import transfer.be.service.JournalistService;
+import transfer.be.service.PostParsingService;
 import transfer.be.service.PostService;
 
 import java.time.Duration;
@@ -28,6 +29,7 @@ public class XCollectorScheduler {
 
     private final JournalistService journalistService;
     private final PostService postService;
+    private final PostParsingService postParsingService;
     private final StringRedisTemplate redisTemplate;
 
     @Scheduled(fixedDelay = 15 * 60 * 1000)
@@ -45,6 +47,7 @@ public class XCollectorScheduler {
                 incrementRateLimit();
                 if (!collected.isEmpty()) {
                     log.info("[XCollector] @{} — 신규 포스트 {}건 수집", journalist.getXHandle(), collected.size());
+                    postParsingService.parseAndSave(collected);
                 }
             } catch (Exception e) {
                 log.error("[XCollector] @{} 수집 실패: {}", journalist.getXHandle(), e.getMessage());

@@ -20,9 +20,10 @@ interface Props {
   selectedClubId?: number | null;
   selectedLeague?: League | null;
   leagueClubs?: Club[];
+  onNewsClick?: (item: NewsItem) => void;
 }
 
-export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [] }: Props) {
+export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsClick }: Props) {
   const navigate = useNavigate();
 
   const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
@@ -103,7 +104,7 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
           <div className="flex-1 overflow-y-auto py-5">
             {newsLoading
               ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
-              : filteredNews.map((n, i) => <NewsCard key={n.id ?? i} item={n} />)
+              : filteredNews.map((n, i) => <NewsCard key={n.id ?? i} item={n} onClick={() => onNewsClick?.(n)} />)
             }
           </div>
         </>

@@ -28,6 +28,9 @@ dependencies {
     // Web
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 
+    // Jackson (JSON 직렬화/역직렬화)
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
