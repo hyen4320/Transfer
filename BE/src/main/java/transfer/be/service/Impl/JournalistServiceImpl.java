@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import transfer.be.api.XApiClient;
 import transfer.be.api.dto.XUserResponse;
+import transfer.be.exception.NotFoundException;
 import transfer.be.model.Journalist;
 import transfer.be.repository.JournalistRepository;
 import transfer.be.service.JournalistService;
@@ -32,7 +33,7 @@ public class JournalistServiceImpl implements JournalistService {
     @Transactional(readOnly = true)
     public Journalist findById(Long id) {
         return journalistRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Journalist not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Journalist not found: " + id));
     }
 
     @Override

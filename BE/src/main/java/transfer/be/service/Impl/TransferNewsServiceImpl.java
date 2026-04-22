@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import transfer.be.dto.request.TransferNewsSearchCondition;
+import transfer.be.exception.NotFoundException;
 import transfer.be.model.Club;
 import transfer.be.model.Journalist;
 import transfer.be.model.League;
@@ -27,7 +28,7 @@ public class TransferNewsServiceImpl implements TransferNewsService {
     @Transactional(readOnly = true)
     public TransferNews findById(Long id) {
         return transferNewsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("TransferNews not found: " + id));
+                .orElseThrow(() -> new NotFoundException("TransferNews not found: " + id));
     }
 
     @Override

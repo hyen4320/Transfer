@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import transfer.be.dto.response.ClubResponse;
+import transfer.be.exception.NotFoundException;
 import transfer.be.dto.response.TransferNewsResponse;
 import transfer.be.model.Club;
 import transfer.be.repository.ClubRepository;
@@ -34,7 +35,7 @@ public class ClubController {
     @GetMapping("/{id}")
     public ClubResponse getById(@PathVariable Long id) {
         Club club = clubRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Club not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Club not found: " + id));
         return ClubResponse.from(club);
     }
 
@@ -42,7 +43,7 @@ public class ClubController {
     @GetMapping("/{id}/transfers")
     public Map<String, List<TransferNewsResponse>> getTransfers(@PathVariable Long id) {
         Club club = clubRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Club not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Club not found: " + id));
 
         List<TransferNewsResponse> incoming = transferNewsService.findByToClub(club).stream()
                 .map(TransferNewsResponse::from)

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import transfer.be.dto.response.PlayerResponse;
+import transfer.be.exception.NotFoundException;
 import transfer.be.dto.response.TransferNewsResponse;
 import transfer.be.model.Player;
 import transfer.be.repository.PlayerRepository;
@@ -28,7 +29,7 @@ public class PlayerController {
     @GetMapping("/{id}")
     public PlayerResponse getById(@PathVariable Long id) {
         Player player = playerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Player not found: " + id));
         return PlayerResponse.from(player);
     }
 
@@ -56,7 +57,7 @@ public class PlayerController {
     @GetMapping("/{id}/transfers")
     public List<TransferNewsResponse> getTransfers(@PathVariable Long id) {
         Player player = playerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Player not found: " + id));
+                .orElseThrow(() -> new NotFoundException("Player not found: " + id));
         return transferNewsService.findByPlayer(player).stream()
                 .map(TransferNewsResponse::from)
                 .toList();

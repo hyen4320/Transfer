@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import transfer.be.dto.response.ClubResponse;
+import transfer.be.exception.NotFoundException;
 import transfer.be.dto.response.LeagueResponse;
 import transfer.be.dto.response.TransferNewsResponse;
 import transfer.be.model.League;
@@ -39,7 +40,7 @@ public class LeagueController {
     @GetMapping("/{id}/clubs")
     public List<ClubResponse> getClubs(@PathVariable Long id) {
         League league = leagueRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("League not found: " + id));
+                .orElseThrow(() -> new NotFoundException("League not found: " + id));
         return clubRepository.findByLeague(league).stream()
                 .map(ClubResponse::from)
                 .toList();
@@ -52,7 +53,7 @@ public class LeagueController {
             @PageableDefault(size = 20) Pageable pageable
     ) {
         League league = leagueRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("League not found: " + id));
+                .orElseThrow(() -> new NotFoundException("League not found: " + id));
         return transferNewsService.findByLeague(league, pageable)
                 .map(TransferNewsResponse::from);
     }
