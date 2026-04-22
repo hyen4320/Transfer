@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import transfer.be.client.ClaudeApiClient;
+import transfer.be.client.GeminiApiClient;
 import transfer.be.client.dto.ParseResult;
 import transfer.be.model.*;
 import transfer.be.repository.ClubAliasRepository;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostParsingServiceImpl implements PostParsingService {
 
-    private final ClaudeApiClient claudeApiClient;
+    private final GeminiApiClient geminiApiClient;
     private final PlayerRepository playerRepository;
     private final ClubRepository clubRepository;
     private final ClubAliasRepository clubAliasRepository;
@@ -42,7 +42,7 @@ public class PostParsingServiceImpl implements PostParsingService {
     }
 
     private void parseSingle(Post post) {
-        ParseResult result = claudeApiClient.parseTransferTweet(post.getContent());
+        ParseResult result = geminiApiClient.parseTransferTweet(post.getContent());
 
         if (!result.isTransferNews() || result.playerName() == null || result.toClub() == null) {
             log.debug("[Parsing] post_id={} — 이적 뉴스 아님, 스킵", post.getId());
