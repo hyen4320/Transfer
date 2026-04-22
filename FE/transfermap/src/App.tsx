@@ -12,6 +12,9 @@ import CountryMapPage from './components/CountryMapPage';
 import ErrorPage from './components/ErrorPage';
 import SearchPage from './components/SearchPage';
 import NoticePage from './components/NoticePage';
+import PrivacyPage from './components/PrivacyPage';
+import ContactPage from './components/ContactPage';
+import AboutPage from './components/AboutPage';
 import type { League, Player, NewsItem } from './types';
 import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
@@ -323,6 +326,9 @@ export default function App() {
       <Route path="/players/:id"       element={<PlayerDetailPage />} />
       <Route path="/search"             element={<SearchPage />} />
       <Route path="/notice"             element={<NoticePage />} />
+      <Route path="/privacy"           element={<PrivacyPage />} />
+      <Route path="/contact"           element={<ContactPage />} />
+      <Route path="/about"             element={<AboutPage />} />
       <Route path="/404"               element={<ErrorPage code={404} />} />
       <Route path="/500"               element={<ErrorPage code={500} />} />
       <Route path="*"                  element={<ErrorPage code={404} />} />
