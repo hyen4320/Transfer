@@ -139,7 +139,6 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
       return { id: c.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
     });
     const resolvedClubPos = resolveOverlaps(rawClubPos);
-    const clubPosMap = new Map(resolvedClubPos.map(p => [p.id, p]));
 
     setBadgePos(LEAGUES.map(l => {
       const p = proj([l.lon, l.lat]);
