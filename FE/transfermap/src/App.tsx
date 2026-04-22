@@ -301,9 +301,9 @@ function MapView() {
       {/* FOOTER */}
       <div className="absolute bottom-3 right-4 flex gap-4 z-30 pointer-events-auto">
         {[
-          { label: 'About',   path: '/info?tab=about' },
-          { label: 'Contact', path: '/info?tab=contact' },
-          { label: '개인정보처리방침', path: '/info?tab=privacy' },
+          { label: 'About',   path: '/info' },
+          { label: 'Contact', path: '/info' },
+          { label: '개인정보처리방침', path: '/info' },
         ].map(({ label, path }) => (
           <button key={path} onClick={() => navigate(path)}
             className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors tracking-wide">

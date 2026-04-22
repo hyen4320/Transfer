@@ -25,7 +25,7 @@ interface Props {
   selectedNewsId?: number | null;
 }
 
-export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsClick, onNewsSelect, selectedNewsId }: Props) {
+export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsSelect, selectedNewsId }: Props) {
   const navigate = useNavigate();
 
   const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
