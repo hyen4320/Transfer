@@ -16,8 +16,8 @@ COUNTRY_CODE = "DE"
 TIER         = 1
 TM_PATH      = "/bundesliga/startseite/wettbewerb/L1"
 SEASON       = 2025
-OUT_SQL      = "bundesliga.sql"
-OUT_JSON     = "bundesliga_players.json"
+OUT_SQL      = os.path.join(os.path.dirname(__file__), "bundesliga.sql")
+OUT_JSON     = os.path.join(os.path.dirname(__file__), "bundesliga_players.json")
 
 
 def main():

@@ -63,7 +63,7 @@ def esc(val) -> str:
 # ── HTTP GET ──────────────────────────────────────────────────────────────────
 def _get(path: str) -> BeautifulSoup:
     url = BASE_URL + path
-    res = requests.get(url, headers=HEADERS, timeout=15)
+    res = requests.get(url, headers=HEADERS, timeout=30)
     res.raise_for_status()
     return BeautifulSoup(res.text, "html.parser")
 

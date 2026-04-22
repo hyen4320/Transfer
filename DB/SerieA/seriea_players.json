@@ -210,6 +210,12 @@
     "club_name": "Juventus FC"
   },
   {
+    "name": "Teun Koopmeiners",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Juventus FC"
+  },
+  {
     "name": "Khéphren Thuram",
     "position": "MF",
     "nationality": "France",
@@ -231,12 +237,6 @@
     "name": "Filip Kostić",
     "position": "MF",
     "nationality": "Serbia",
-    "club_name": "Juventus FC"
-  },
-  {
-    "name": "Teun Koopmeiners",
-    "position": "MF",
-    "nationality": "Netherlands",
     "club_name": "Juventus FC"
   },
   {
@@ -1870,6 +1870,162 @@
     "position": "FW",
     "nationality": "France",
     "club_name": "Parma Calcio 1913"
+  },
+  {
+    "name": "Maduka Okoye",
+    "position": "GK",
+    "nationality": "Nigeria",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Răzvan Sava",
+    "position": "GK",
+    "nationality": "Romania",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Alessandro Nunziante",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Daniele Padelli",
+    "position": "GK",
+    "nationality": "Italy",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Oumar Solet",
+    "position": "DF",
+    "nationality": "France",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Thomas Kristensen",
+    "position": "DF",
+    "nationality": "Denmark",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Nicolò Bertola",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Branimir Mlacic",
+    "position": "DF",
+    "nationality": "Croatia",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Christian Kabasele",
+    "position": "DF",
+    "nationality": "Belgium",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Jordan Zemura",
+    "position": "DF",
+    "nationality": "Zimbabwe",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Hassane Kamara",
+    "position": "DF",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Alessandro Zanoli",
+    "position": "DF",
+    "nationality": "Italy",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Kingsley Ehizibue",
+    "position": "DF",
+    "nationality": "Netherlands",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Jesper Karlström",
+    "position": "MF",
+    "nationality": "Sweden",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Abdoulaye Camara",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Arthur Atta",
+    "position": "MF",
+    "nationality": "France",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Lennon Miller",
+    "position": "MF",
+    "nationality": "Scotland",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Jurgen Ekkelenkamp",
+    "position": "MF",
+    "nationality": "Netherlands",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Jakub Piotrowski",
+    "position": "MF",
+    "nationality": "Poland",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Oier Zarraga",
+    "position": "MF",
+    "nationality": "Spain",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Juan Arizala",
+    "position": "MF",
+    "nationality": "Colombia",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Nicolò Zaniolo",
+    "position": "FW",
+    "nationality": "Italy",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Keinan Davis",
+    "position": "FW",
+    "nationality": "England",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Idrissa Gueye",
+    "position": "FW",
+    "nationality": "Senegal",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Adam Buksa",
+    "position": "FW",
+    "nationality": "Poland",
+    "club_name": "Udinese Calcio"
+  },
+  {
+    "name": "Vakoun Bayo",
+    "position": "FW",
+    "nationality": "Cote d'Ivoire",
+    "club_name": "Udinese Calcio"
   },
   {
     "name": "Justin Bijlow",

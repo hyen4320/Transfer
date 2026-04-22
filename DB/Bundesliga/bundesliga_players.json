@@ -78,6 +78,12 @@
     "club_name": "Bayern Munich"
   },
   {
+    "name": "David Santos Daiber",
+    "position": "MF",
+    "nationality": "Portugal",
+    "club_name": "Bayern Munich"
+  },
+  {
     "name": "Tom Bischof",
     "position": "MF",
     "nationality": "Germany",
@@ -2706,13 +2712,13 @@
     "club_name": "1.FC Union Berlin"
   },
   {
-    "name": "David Preu",
+    "name": "Linus Güther",
     "position": "FW",
     "nationality": "Germany",
     "club_name": "1.FC Union Berlin"
   },
   {
-    "name": "Linus Güther",
+    "name": "David Preu",
     "position": "FW",
     "nationality": "Germany",
     "club_name": "1.FC Union Berlin"

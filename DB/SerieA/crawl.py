@@ -16,8 +16,8 @@ COUNTRY_CODE = "IT"
 TIER         = 1
 TM_PATH      = "/serie-a/startseite/wettbewerb/IT1"
 SEASON       = 2025
-OUT_SQL      = "seriea.sql"
-OUT_JSON     = "seriea_players.json"
+OUT_SQL      = os.path.join(os.path.dirname(__file__), "seriea.sql")
+OUT_JSON     = os.path.join(os.path.dirname(__file__), "seriea_players.json")
 
 
 def main():

@@ -606,180 +606,6 @@
     "club_name": "RC Strasbourg Alsace"
   },
   {
-    "name": "Dominik Greif",
-    "position": "GK",
-    "nationality": "Slovakia",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Rémy Descamps",
-    "position": "GK",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Lassine Diarra",
-    "position": "GK",
-    "nationality": "Mali",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Moussa Niakhaté",
-    "position": "DF",
-    "nationality": "Senegal",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Ruben Kluivert",
-    "position": "DF",
-    "nationality": "Netherlands",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Clinton Mata",
-    "position": "DF",
-    "nationality": "Angola",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Noham Kamara",
-    "position": "DF",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Abner",
-    "position": "DF",
-    "nationality": "Brazil",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Nicolás Tagliafico",
-    "position": "DF",
-    "nationality": "Argentina",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Achraf Laâziri",
-    "position": "DF",
-    "nationality": "Morocco",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Ainsley Maitland-Niles",
-    "position": "DF",
-    "nationality": "England",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Hans Hateboer",
-    "position": "DF",
-    "nationality": "Netherlands",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Steeve Kango",
-    "position": "DF",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Tyler Morton",
-    "position": "MF",
-    "nationality": "England",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Orel Mangala",
-    "position": "MF",
-    "nationality": "Belgium",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Tanner Tessmann",
-    "position": "MF",
-    "nationality": "United States",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Mathys de Carvalho",
-    "position": "MF",
-    "nationality": "Portugal",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Corentin Tolisso",
-    "position": "MF",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Khalis Merah",
-    "position": "MF",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Pavel Sulc",
-    "position": "MF",
-    "nationality": "Czech Republic",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Noah Nartey",
-    "position": "MF",
-    "nationality": "Denmark",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Adam Karabec",
-    "position": "MF",
-    "nationality": "Czech Republic",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Malick Fofana",
-    "position": "FW",
-    "nationality": "Belgium",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Afonso Moreira",
-    "position": "FW",
-    "nationality": "Portugal",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Rémi Himbert",
-    "position": "FW",
-    "nationality": "France",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Ernest Nuamah",
-    "position": "FW",
-    "nationality": "Ghana",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Rachid Ghezzal",
-    "position": "FW",
-    "nationality": "Algeria",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Endrick",
-    "position": "FW",
-    "nationality": "Brazil",
-    "club_name": "Olympique Lyon"
-  },
-  {
-    "name": "Roman Yaremchuk",
-    "position": "FW",
-    "nationality": "Ukraine",
-    "club_name": "Olympique Lyon"
-  },
-  {
     "name": "Berke Özer",
     "position": "GK",
     "nationality": "Türkiye",
@@ -1236,6 +1062,12 @@
     "club_name": "RC Lens"
   },
   {
+    "name": "Wesley Saïd",
+    "position": "FW",
+    "nationality": "France",
+    "club_name": "RC Lens"
+  },
+  {
     "name": "Odsonne Édouard",
     "position": "FW",
     "nationality": "France",
@@ -1243,12 +1075,6 @@
   },
   {
     "name": "Rayan Fofana",
-    "position": "FW",
-    "nationality": "France",
-    "club_name": "RC Lens"
-  },
-  {
-    "name": "Wesley Saïd",
     "position": "FW",
     "nationality": "France",
     "club_name": "RC Lens"
