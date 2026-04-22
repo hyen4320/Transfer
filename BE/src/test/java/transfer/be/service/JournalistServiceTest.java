@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import transfer.be.api.XApiClient;
 import transfer.be.api.dto.XUserResponse;
+import transfer.be.exception.NotFoundException;
 import transfer.be.model.Journalist;
 import transfer.be.repository.JournalistRepository;
 import transfer.be.service.impl.JournalistServiceImpl;
@@ -49,7 +50,7 @@ class JournalistServiceTest {
         when(journalistRepository.findById(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> journalistService.findById(99L))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Journalist not found: 99");
     }
 

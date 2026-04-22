@@ -9,6 +9,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import transfer.be.exception.NotFoundException;
 import transfer.be.model.Journalist;
 import transfer.be.scheduler.XCollectorScheduler;
 import transfer.be.service.JournalistService;
@@ -67,7 +68,7 @@ class JournalistControllerTest {
     @DisplayName("GET /api/journalists/{id} → 존재하지 않으면 404")
     void getById_없으면_404() throws Exception {
         when(journalistService.findById(99L))
-                .thenThrow(new IllegalArgumentException("Journalist not found: 99"));
+                .thenThrow(new NotFoundException("Journalist not found: 99"));
 
         mockMvc.perform(get("/api/journalists/99"))
                 .andExpect(status().isNotFound())

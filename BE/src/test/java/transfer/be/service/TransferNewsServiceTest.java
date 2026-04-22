@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import transfer.be.exception.NotFoundException;
 import transfer.be.model.*;
 import transfer.be.repository.TransferNewsRepository;
 import transfer.be.service.impl.TransferNewsServiceImpl;
@@ -38,7 +39,7 @@ class TransferNewsServiceTest {
         when(transferNewsRepository.findById(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> transferNewsService.findById(99L))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("TransferNews not found: 99");
     }
 
