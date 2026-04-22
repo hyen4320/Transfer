@@ -1,6 +1,7 @@
 package transfer.be.api;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * X API v2 실제 호출 통합 테스트.
  * application.properties의 x.api.bearer-token이 설정되어 있어야 합니다.
  */
+@Tag("integration")
 @SpringBootTest
 class XAPITest {
 
