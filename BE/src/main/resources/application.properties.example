@@ -1,0 +1,57 @@
+spring.application.name=BE
+
+# ══════════════════════════════════════════
+# Server
+# ══════════════════════════════════════════
+server.port=8080
+
+# ══════════════════════════════════════════
+# PostgreSQL DataSource
+# ══════════════════════════════════════════
+spring.datasource.url=jdbc:postgresql://localhost:5432/transfer
+spring.datasource.username=transfer
+spring.datasource.password=transfer
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Connection Pool (HikariCP)
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.connection-timeout=30000
+
+# ══════════════════════════════════════════
+# JPA / Hibernate
+# ══════════════════════════════════════════
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+# 운영: validate / 개발: update
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=true
+
+# ══════════════════════════════════════════
+# Redis
+# ══════════════════════════════════════════
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+# spring.data.redis.password=
+
+# ══════════════════════════════════════════
+# X (Twitter) API v2
+# ══════════════════════════════════════════
+x.api.bearer-token=YOUR_BEARER_TOKEN_HERE
+x.api.base-url=https://api.twitter.com
+# 한 번에 가져올 트윗 수 (1~100)
+x.api.max-results=10
+
+# ══════════════════════════════════════════
+# Google Gemini API
+# ══════════════════════════════════════════
+gemini.api-key=YOUR_GEMINI_API_KEY_HERE
+# 기본값: gemini-2.0-flash (비용 최적화)
+# gemini.model=gemini-2.0-flash
+
+# ══════════════════════════════════════════
+# Logging
+# ══════════════════════════════════════════
+logging.level.transfer.be=DEBUG
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.springframework.web.client=DEBUG
