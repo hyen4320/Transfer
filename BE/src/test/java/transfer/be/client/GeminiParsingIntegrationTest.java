@@ -1,6 +1,7 @@
 package transfer.be.client;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * DB / Redis 없이 GeminiApiClient 빈만 로드.
  * GEMINI_API_KEY는 test/resources/application.properties에서 읽음.
  */
+@Tag("integration")
 @ExtendWith(SpringExtension.class)
 @Import({GeminiApiConfig.class, GeminiApiClient.class})
 @EnableConfigurationProperties(GeminiApiProperties.class)
