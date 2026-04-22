@@ -40,6 +40,7 @@ services:
       SPRING_DATA_REDIS_HOST: redis
       X_API_BEARER_TOKEN: ${X_API_BEARER_TOKEN}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       postgres:
         condition: service_healthy
