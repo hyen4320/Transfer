@@ -12,9 +12,7 @@ import CountryMapPage from './components/CountryMapPage';
 import ErrorPage from './components/ErrorPage';
 import SearchPage from './components/SearchPage';
 import NoticePage from './components/NoticePage';
-import PrivacyPage from './components/PrivacyPage';
-import ContactPage from './components/ContactPage';
-import AboutPage from './components/AboutPage';
+import InfoPage from './components/InfoPage';
 import type { League, Player, NewsItem } from './types';
 import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
@@ -26,19 +24,22 @@ function MapView() {
   const { clubs } = useClubs();
   const { items: news } = useNews();
 
-  // 입장 애니메이션
+  // 입장 애니메이션 (한 번 본 경우 스킵)
   type IntroPhase = 'enter' | 'rise' | 'done';
-  const [introPhase, setIntroPhase] = useState<IntroPhase>('enter');
-  const [textVisible, setTextVisible] = useState(false);
+  const alreadySeen = localStorage.getItem('introSeen') === '1';
+  const [introPhase, setIntroPhase] = useState<IntroPhase>(alreadySeen ? 'done' : 'enter');
+  const [textVisible, setTextVisible] = useState(alreadySeen);
 
   useEffect(() => {
+    if (alreadySeen) return;
     const t0 = setTimeout(() => setTextVisible(true), 60);
     const t1 = setTimeout(() => setIntroPhase('rise'), 1000);
-    const t2 = setTimeout(() => setIntroPhase('done'), 1800);
+    const t2 = setTimeout(() => { setIntroPhase('done'); localStorage.setItem('introSeen', '1'); }, 1800);
     return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   const [filteredNews, setFilteredNews]     = useState<NewsItem[] | null>(null);
+  const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
   const [panelOpen, setPanelOpen]           = useState(false);
   const [leftPanelOpen, setLeftPanelOpen]   = useState(false);
   const [selectedLeague, setSelectedLeague] = useState<League | null>(null);
@@ -180,6 +181,7 @@ function MapView() {
     setPanelOpen(false);
     setSelectedClubId(null);
     setPanelLeague(null);
+    setSelectedNewsId(null);
   };
 
   return (
@@ -232,7 +234,7 @@ function MapView() {
             : 'none',
         }),
       }}>
-        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} clubs={clubs} news={filteredNews ?? news} />
+        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} clubs={clubs} news={filteredNews ?? news} selectedNewsId={selectedNewsId} />
 
         {/* Topbar */}
         <div className="absolute top-0 left-0 right-0 h-14 flex items-center justify-between px-6 z-30 pointer-events-none"
@@ -284,6 +286,8 @@ function MapView() {
         selectedLeague={panelLeague}
         leagueClubs={panelLeague ? clubs.filter(c => c.league === panelLeague.id) : []}
         onNewsClick={item => { closePanel(); handleNewsClick(item); }}
+        onNewsSelect={item => setSelectedNewsId(item ? item.id : null)}
+        selectedNewsId={selectedNewsId}
       />
 
       {/* LEFT PANEL (search / filter overlay) */}
@@ -297,9 +301,9 @@ function MapView() {
       {/* FOOTER */}
       <div className="absolute bottom-3 right-4 flex gap-4 z-30 pointer-events-auto">
         {[
-          { label: 'About',   path: '/about' },
-          { label: 'Contact', path: '/contact' },
-          { label: '개인정보처리방침', path: '/privacy' },
+          { label: 'About',   path: '/info?tab=about' },
+          { label: 'Contact', path: '/info?tab=contact' },
+          { label: '개인정보처리방침', path: '/info?tab=privacy' },
         ].map(({ label, path }) => (
           <button key={path} onClick={() => navigate(path)}
             className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors tracking-wide">
@@ -340,9 +344,10 @@ export default function App() {
       <Route path="/players/:id"       element={<PlayerDetailPage />} />
       <Route path="/search"             element={<SearchPage />} />
       <Route path="/notice"             element={<NoticePage />} />
-      <Route path="/privacy"           element={<PrivacyPage />} />
-      <Route path="/contact"           element={<ContactPage />} />
-      <Route path="/about"             element={<AboutPage />} />
+      <Route path="/info"               element={<InfoPage />} />
+      <Route path="/privacy"           element={<InfoPage />} />
+      <Route path="/contact"           element={<InfoPage />} />
+      <Route path="/about"             element={<InfoPage />} />
       <Route path="/404"               element={<ErrorPage code={404} />} />
       <Route path="/500"               element={<ErrorPage code={500} />} />
       <Route path="*"                  element={<ErrorPage code={404} />} />

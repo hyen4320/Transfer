@@ -7,12 +7,14 @@ const STATUS_STYLE: Record<string, string> = {
   loan:      'bg-blue-500/15 text-blue-400 border border-blue-500/30',
 };
 
-export default function NewsCard({ item, onClick }: { item: NewsItem; onClick?: () => void }) {
+export default function NewsCard({ item, onClick, highlighted }: { item: NewsItem; onClick?: () => void; highlighted?: boolean }) {
   return (
     <div onClick={onClick}
-         className="mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
-                    bg-[var(--surface)] border-[var(--border)]
-                    hover:bg-[var(--surface2)] hover:border-blue-500/30 hover:-translate-x-0.5">
+         className={`mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
+                    hover:bg-[var(--surface2)] hover:-translate-x-0.5
+                    ${highlighted
+                      ? 'bg-[var(--surface2)] border-blue-500/60 shadow-[0_0_12px_rgba(59,130,246,0.2)]'
+                      : 'bg-[var(--surface)] border-[var(--border)] hover:border-blue-500/30'}`}>
 
       {/* Player + status */}
       <div className="flex items-start justify-between gap-4 mb-4">

@@ -57,9 +57,10 @@ interface Props {
   onLeagueClick?: (league: League) => void;
   clubs?: Club[];
   news?: NewsItem[];
+  selectedNewsId?: number | null;
 }
 
-export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, clubs: clubsProp, news: newsProp = [] }: Props) {
+export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, clubs: clubsProp, news: newsProp = [], selectedNewsId }: Props) {
   const clubs = clubsProp ?? CLUBS;
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef       = useRef<SVGSVGElement>(null);
@@ -245,9 +246,13 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
         </defs>
 
         {routePaths.map(r => {
+          const isSelected = selectedNewsId != null && r.id === selectedNewsId;
+          const isDimmed   = selectedNewsId != null && r.id !== selectedNewsId;
           const color   = STATUS_COLOR[r.status];
-          const opacity = r.status === 'denied' ? 0.25 : r.sameLeague ? 0.55 : 0.75;
-          const strokeW = r.sameLeague ? 1.5 : 2.2;
+          const opacity = isDimmed ? 0.06
+                        : r.status === 'denied' ? 0.25
+                        : r.sameLeague ? 0.55 : 0.75;
+          const strokeW = isSelected ? 3.5 : r.sameLeague ? 1.5 : 2.2;
           const dashes  = r.status === 'confirmed' ? undefined
                         : r.status === 'rumour'    ? '7 4'
                         : '3 6';
