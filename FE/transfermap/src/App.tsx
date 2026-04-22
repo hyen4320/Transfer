@@ -294,6 +294,20 @@ function MapView() {
         onApplyFilter={handleApplyFilter}
       />
 
+      {/* FOOTER */}
+      <div className="absolute bottom-3 right-4 flex gap-4 z-30 pointer-events-auto">
+        {[
+          { label: 'About',   path: '/about' },
+          { label: 'Contact', path: '/contact' },
+          { label: '개인정보처리방침', path: '/privacy' },
+        ].map(({ label, path }) => (
+          <button key={path} onClick={() => navigate(path)}
+            className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors tracking-wide">
+            {label}
+          </button>
+        ))}
+      </div>
+
       {/* COUNTRY MAP (overlay) */}
       {showCountryMap && selectedLeague && (
         <CountryMapPage

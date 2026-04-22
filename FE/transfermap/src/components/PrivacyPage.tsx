@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-3">3. 보관 기간</h2>
-            <p>서버 액세스 로그는 30일간 보관 후 자동 삭제됩니다.</p>
+            <p>서버 액세스 로그는 일정 용량(파일당 10MB, 최대 3개) 초과 시 오래된 순서로 자동 삭제됩니다.</p>
           </section>
 
           <section>
