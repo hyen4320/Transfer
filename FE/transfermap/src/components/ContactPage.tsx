@@ -2,11 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 const LINKS = [
   {
-    label: 'GitHub',
-    href: 'https://github.com/Hyeon-Uk',
-    desc: '소스코드 및 이슈 트래킹',
-  },
-  {
     label: 'Email',
     href: 'mailto:hyen43204@gmail.com',
     desc: 'hyen43204@gmail.com',
