@@ -450,6 +450,15 @@ export default function SearchPage() {
   );
 }
 
+function ResultGroup({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[0.65rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">{label}</div>
+      <div className="flex flex-col gap-2">{children}</div>
+    </div>
+  );
+}
+
 function FilterSection({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="mb-5">
