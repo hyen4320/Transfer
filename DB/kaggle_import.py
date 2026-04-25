@@ -151,8 +151,8 @@ def main():
         "--  kaggle_import.py 자동 생성",
         "-- ============================================================",
         "",
-        "INSERT INTO journalist (x_handle, x_user_id, name, credibility_score, created_at)",
-        "SELECT 'kaggle_bot', '0', 'Kaggle Import Bot', 0, NOW()",
+        "INSERT INTO journalist (x_handle, name, credibility_score, created_at)",
+        "SELECT 'kaggle_bot', 'Kaggle Import Bot', 0, NOW()",
         "WHERE NOT EXISTS (SELECT 1 FROM journalist WHERE x_handle = 'kaggle_bot');",
         "",
     ]
