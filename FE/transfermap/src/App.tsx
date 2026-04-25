@@ -4,7 +4,8 @@ import { useClubs } from './hooks/useClubs';
 import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
 import SidePanel from './components/SidePanel';
-import LeftPanel from './components/LeftPanel';
+import LeftPanel, { type LeftPanelHandle } from './components/LeftPanel';
+import MobileTabBar from './components/MobileTabBar';
 import JournalistPage from './components/JournalistPage';
 import JournalistDetailPage from './components/JournalistDetailPage';
 import PlayerDetailPage from './components/PlayerDetailPage';
@@ -13,14 +14,16 @@ import ErrorPage from './components/ErrorPage';
 import SearchPage from './components/SearchPage';
 import NoticePage from './components/NoticePage';
 import InfoPage from './components/InfoPage';
+import AdSlot, { SLOT } from './components/AdSlot';
 import type { League, Player, NewsItem } from './types';
 import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
 import { LEAGUES } from './data/mock';
 
 function MapView() {
-  const navigate = useNavigate();
-  const sceneRef = useRef<HTMLDivElement>(null);
+  const navigate      = useNavigate();
+  const sceneRef      = useRef<HTMLDivElement>(null);
+  const leftPanelRef  = useRef<LeftPanelHandle>(null);
   const { clubs } = useClubs();
   const { items: news } = useNews();
 
@@ -41,12 +44,14 @@ function MapView() {
   const [filteredNews, setFilteredNews]     = useState<NewsItem[] | null>(null);
   const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
   const [panelOpen, setPanelOpen]           = useState(false);
+  const [hoveredRouteId, setHoveredRouteId] = useState<number | null>(null);
   const [leftPanelOpen, setLeftPanelOpen]   = useState(false);
   const [selectedLeague, setSelectedLeague] = useState<League | null>(null);
   const [showCountryMap, setShowCountryMap] = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
   const [panelLeague, setPanelLeague]       = useState<League | null>(null);
   const [flyPlayer, setFlyPlayer]           = useState<Player | null>(null);
+  const [anchorDismissed, setAnchorDismissed] = useState(false);
 
   const handleNewsClick = useCallback((item: NewsItem) => {
     const toName = (item.to ?? '').toLowerCase().trim();
@@ -171,10 +176,17 @@ function MapView() {
     setPanelOpen(true);
   };
 
+  const isNewsFeedOpen = panelOpen && !selectedClubId && !panelLeague;
+
   const openNewsFeed = () => {
-    setSelectedClubId(null);
-    setPanelLeague(null);
-    setPanelOpen(true);
+    if (isNewsFeedOpen) {
+      setPanelOpen(false);
+      setSelectedNewsId(null);
+    } else {
+      setSelectedClubId(null);
+      setPanelLeague(null);
+      setPanelOpen(true);
+    }
   };
 
   const closePanel = () => {
@@ -183,6 +195,39 @@ function MapView() {
     setPanelLeague(null);
     setSelectedNewsId(null);
   };
+
+  // 키보드 단축키: Esc = 패널 닫기, / = 검색 토글, n = 뉴스피드 토글
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === 'Escape') {
+        setPanelOpen(false);
+        setSelectedClubId(null);
+        setPanelLeague(null);
+        setSelectedNewsId(null);
+        setLeftPanelOpen(false);
+      } else if (e.key === '/') {
+        e.preventDefault();
+        if (leftPanelOpen) {
+          setLeftPanelOpen(false);
+        } else {
+          setLeftPanelOpen(true);
+          leftPanelRef.current?.focusSearch();
+        }
+      } else if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (isNewsFeedOpen) {
+          setPanelOpen(false);
+          setSelectedNewsId(null);
+        } else {
+          setSelectedClubId(null);
+          setPanelLeague(null);
+          setPanelOpen(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isNewsFeedOpen, leftPanelOpen]);
 
   return (
     <div className="w-screen h-screen overflow-hidden bg-[var(--bg)] relative">
@@ -234,21 +279,28 @@ function MapView() {
             : 'none',
         }),
       }}>
-        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} clubs={clubs} news={filteredNews ?? news} selectedNewsId={selectedNewsId} />
+        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} onRouteHover={setHoveredRouteId} clubs={clubs} news={filteredNews ?? news} selectedNewsId={selectedNewsId} />
 
         {/* Topbar */}
-        <div className="absolute top-0 left-0 right-0 h-14 flex items-center justify-between px-6 z-30 pointer-events-none"
+        <div className="absolute top-0 left-0 right-0 h-14 flex items-center px-6 z-30 pointer-events-none"
           style={{ background: 'linear-gradient(to bottom, rgba(6,10,18,0.85) 0%, transparent 100%)' }}>
-          <div className="text-[1.1rem] font-black tracking-[0.25em] uppercase text-white pointer-events-auto"
-            style={{ textShadow: '0 0 20px rgba(100,160,255,0.8)' }}>
-            Transfer<span className="text-[var(--accent)]">Map</span>
+
+          {/* 로고 — 왼쪽 */}
+          <div className="pointer-events-auto flex-none">
+            <div className="text-[1.1rem] font-black tracking-[0.25em] uppercase text-white"
+              style={{ textShadow: '0 0 20px rgba(100,160,255,0.8)' }}>
+              Transfer<span className="text-[var(--accent)]">Map</span>
+            </div>
           </div>
-          <div className="flex gap-2 pointer-events-auto">
+
+          {/* 버튼 4개 — 데스크톱 중앙 */}
+          <div className="hidden sm:flex flex-1 items-center justify-center gap-2 pointer-events-auto">
             <button onClick={openNewsFeed}
-              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
-                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
+              className={`bg-[rgba(13,22,38,0.8)] border text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
                          backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
+                         ${isNewsFeedOpen
+                           ? 'border-[var(--accent)]/60 text-[var(--accent)] bg-[var(--accent)]/10'
+                           : 'border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10'}`}>
               ◈ News Feed
             </button>
             <button onClick={() => navigate('/journalists')}
@@ -265,7 +317,7 @@ function MapView() {
                          hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
               ! Notice
             </button>
-            <button onClick={() => { setLeftPanelOpen(true); }}
+            <button onClick={() => setLeftPanelOpen(p => !p)}
               className={`bg-[rgba(13,22,38,0.8)] border text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
                          backdrop-blur-lg flex items-center gap-1.5 transition-all
                          ${leftPanelOpen
@@ -274,6 +326,9 @@ function MapView() {
               ⌕ Search
             </button>
           </div>
+
+          {/* 우측 균형 여백 — 로고 너비만큼 */}
+          <div className="hidden sm:block flex-none" style={{ width: 'calc(1.1rem * 10)' }} />
         </div>
 
       </div>
@@ -288,10 +343,12 @@ function MapView() {
         onNewsClick={item => { closePanel(); handleNewsClick(item); }}
         onNewsSelect={item => setSelectedNewsId(item ? item.id : null)}
         selectedNewsId={selectedNewsId}
+        hoveredRouteId={hoveredRouteId}
       />
 
       {/* LEFT PANEL (search / filter overlay) */}
       <LeftPanel
+        ref={leftPanelRef}
         open={leftPanelOpen}
         onClose={() => { setLeftPanelOpen(false); }}
         onFlyTo={handleFlyTo}
@@ -299,7 +356,8 @@ function MapView() {
       />
 
       {/* FOOTER */}
-      <div className="absolute bottom-3 right-4 flex gap-4 z-30 pointer-events-auto">
+      <div className="absolute right-4 flex gap-4 z-40 pointer-events-auto sm:flex hidden transition-all duration-200"
+           style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '12px' }}>
         {[
           { label: 'About',   path: '/info' },
           { label: 'Contact', path: '/info' },
@@ -311,6 +369,51 @@ function MapView() {
           </button>
         ))}
       </div>
+
+      {/* 스카이스크래퍼 광고 — 데스크톱 1200px 이상, 패널 바깥 우측 */}
+      {!panelOpen && (
+        <div className="absolute top-16 right-0 w-[160px] z-30 pointer-events-none hidden 2xl:block">
+          <AdSlot
+            slot={SLOT.SKYSCRAPER}
+            format="vertical"
+            className="pointer-events-auto"
+            style={{ minHeight: 600, width: 160 }}
+          />
+        </div>
+      )}
+
+      {/* 앵커 배너 — 패널 닫혀있을 때만, 데스크톱 */}
+      {!panelOpen && !anchorDismissed && (
+        <div className="absolute bottom-0 left-0 right-0 z-35 hidden sm:flex items-center justify-center
+                        bg-[rgba(6,10,18,0.9)] border-t border-[var(--border)] backdrop-blur-sm"
+             style={{ height: 56 }}>
+          <AdSlot
+            slot={SLOT.ANCHOR_BOTTOM}
+            format="horizontal"
+            className="flex-1 max-w-[728px]"
+            style={{ minHeight: 48 }}
+          />
+          <button onClick={() => setAnchorDismissed(true)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full
+                       flex items-center justify-center text-[var(--text-sub)] text-xs
+                       hover:text-[var(--text)] hover:bg-white/10 transition-all">✕</button>
+        </div>
+      )}
+
+      {/* 모바일 FAB — 조건검색 */}
+      <button onClick={() => setLeftPanelOpen(true)}
+        className="sm:hidden fixed bottom-20 right-4 z-50 w-14 h-14 rounded-full
+                   bg-[var(--accent)] flex items-center justify-center text-white text-xl
+                   shadow-[0_4px_20px_rgba(59,130,246,0.5)] active:scale-95 transition-transform">
+        ⚙
+      </button>
+
+      {/* 모바일 탭바 */}
+      <MobileTabBar
+        active={panelOpen ? 'news' : leftPanelOpen ? 'search' : 'map'}
+        onNews={openNewsFeed}
+        onSearch={() => setLeftPanelOpen(true)}
+      />
 
       {/* COUNTRY MAP (overlay) */}
       {showCountryMap && selectedLeague && (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { League, Player } from '../types';
 import type { ApiLeague } from '../api/types';
@@ -72,7 +72,11 @@ interface Props {
   onApplyFilter?: (params: NewsFilterParams[], statuses: Set<string>) => void;
 }
 
-export default function LeftPanel({ open, onClose, onFlyTo, onApplyFilter }: Props) {
+export interface LeftPanelHandle {
+  focusSearch: () => void;
+}
+
+const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, onClose, onFlyTo, onApplyFilter }, ref) {
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>('filter');
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
@@ -100,7 +104,17 @@ export default function LeftPanel({ open, onClose, onFlyTo, onApplyFilter }: Pro
   const [flyLeague, setFlyLeague] = useState<League | null>(null);
   const [progress, setProgress] = useState(0);
 
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debounceRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    focusSearch: () => {
+      setTab('player');
+      setFlyStep('idle');
+      setQuery('');
+      setTimeout(() => searchInputRef.current?.focus(), 50);
+    },
+  }), []);
 
   // Load leagues and supporting data once on mount
   useEffect(() => {
@@ -461,6 +475,7 @@ export default function LeftPanel({ open, onClose, onFlyTo, onApplyFilter }: Pro
                 <div className="relative flex items-center">
                   <span className="absolute left-3 text-[1.1rem] text-[var(--text-sub)] pointer-events-none">⌕</span>
                   <input
+                    ref={searchInputRef}
                     value={query}
                     onChange={e => setQuery(e.target.value)}
                     placeholder="선수, 클럽, 기자 검색…"
@@ -689,7 +704,9 @@ export default function LeftPanel({ open, onClose, onFlyTo, onApplyFilter }: Pro
       )}
     </div>
   );
-}
+});
+
+export default LeftPanel;
 
 function FilterSection({ label, children }: { label: string; children: React.ReactNode }) {
   return (

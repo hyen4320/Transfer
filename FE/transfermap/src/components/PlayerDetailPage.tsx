@@ -5,6 +5,7 @@ import { ApiError } from '../api/client';
 import type { ApiPlayer } from '../api/types';
 import type { NewsItem, TransferHistory } from '../types';
 import NewsCard from './NewsCard';
+import AdSlot, { SLOT } from './AdSlot';
 
 const STATUS_STYLE: Record<string, string> = {
   rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
@@ -61,7 +62,13 @@ export default function PlayerDetailPage() {
       </div>
 
       <div className="flex-1 overflow-y-auto px-14 py-12">
-        <div className="max-w-2xl mx-auto flex flex-col gap-10">
+        <div className="flex gap-8 items-start max-w-5xl mx-auto">
+        {/* MPU 사이드바 — 스티키, 화면 넓을 때만 */}
+        <aside className="hidden xl:flex flex-col gap-6 w-[300px] flex-shrink-0 sticky top-0">
+          <AdSlot slot={SLOT.MPU_SIDEBAR_1} style={{ minHeight: 250 }} className="rounded-xl overflow-hidden" />
+          <AdSlot slot={SLOT.MPU_SIDEBAR_2} style={{ minHeight: 250 }} className="rounded-xl overflow-hidden" />
+        </aside>
+        <div className="flex-1 min-w-0 flex flex-col gap-10">
 
           {/* Profile card */}
           <div className="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-10">
@@ -134,6 +141,14 @@ export default function PlayerDetailPage() {
             </div>
           )}
 
+          {/* 인터섹션 광고 — 타임라인과 관련 뉴스 사이 */}
+          <AdSlot
+            slot={SLOT.INTER_SECTION}
+            format="auto"
+            className="rounded-xl overflow-hidden border-t border-b border-[var(--border)] py-1"
+            style={{ minHeight: 90 }}
+          />
+
           {/* Related news */}
           <div>
             <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-5 px-1">
@@ -144,7 +159,8 @@ export default function PlayerDetailPage() {
               : news.map(n => <NewsCard key={n.id} item={n} />)
             }
           </div>
-        </div>
+        </div>{/* flex-1 content */}
+        </div>{/* flex gap-8 */}
       </div>
     </div>
   );

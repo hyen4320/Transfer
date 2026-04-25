@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNews } from '../hooks/useNews';
 import { fetchClub, fetchClubTransfers } from '../api/clubs';
@@ -6,6 +6,18 @@ import { ApiError } from '../api/client';
 import type { ApiClub } from '../api/types';
 import type { League, Club, NewsItem } from '../types';
 import NewsCard from './NewsCard';
+import AdSlot, { SLOT } from './AdSlot';
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const handle = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener('change', handle);
+    return () => mq.removeEventListener('change', handle);
+  }, []);
+  return mobile;
+}
 
 const STATUS_STYLE: Record<string, string> = {
   rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
@@ -23,10 +35,13 @@ interface Props {
   onNewsClick?: (item: NewsItem) => void;
   onNewsSelect?: (item: NewsItem | null) => void;
   selectedNewsId?: number | null;
+  hoveredRouteId?: number | null;
 }
 
-export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsSelect, selectedNewsId }: Props) {
-  const navigate = useNavigate();
+export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsSelect, selectedNewsId, hoveredRouteId }: Props) {
+  const navigate  = useNavigate();
+  const isMobile  = useIsMobile();
+  const [sheetFull, setSheetFull] = useState(false);
 
   const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
@@ -74,18 +89,53 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
 
   const activeTransfers = clubTab === 'in' ? clubTransfers.incoming : clubTransfers.outgoing;
 
+  const newsListRef = useRef<HTMLDivElement>(null);
+
+  // 지도 루트 호버 시 뉴스피드 스크롤 동기화
+  useEffect(() => {
+    if (hoveredRouteId == null || !open || view !== 'news') return;
+    const container = newsListRef.current;
+    if (!container) return;
+    const el = container.querySelector(`[data-news-id="${hoveredRouteId}"]`) as HTMLElement | null;
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [hoveredRouteId, open, view]);
+
+  // 닫힐 때 바텀시트 상태 초기화
+  const handleClose = useCallback(() => {
+    setSheetFull(false);
+    onClose();
+  }, [onClose]);
+
+  // 모바일: 바텀시트 / 데스크톱: 우측 패널
+  const mobileTranslate = !open ? 'translate-y-full'
+                        : sheetFull ? 'translate-y-0'
+                        : 'translate-y-[calc(100%-160px)]';
+
   return (
-    <div className={`absolute top-0 right-0 w-[460px] h-screen flex flex-col z-40
-                     bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-l border-[var(--border)]
-                     transition-transform duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
-                     ${open ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div className={`flex flex-col z-40 bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-[var(--border)]
+                     transition-[transform] duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
+                     ${isMobile
+                       ? `fixed bottom-0 left-0 right-0 h-[92dvh] border-t rounded-t-2xl ${mobileTranslate}`
+                       : `absolute top-0 right-0 w-[460px] h-screen border-l ${open ? 'translate-x-0' : 'translate-x-full'}`
+                     }`}>
+
+      {/* 모바일 드래그 핸들 */}
+      {isMobile && (
+        <button onClick={() => setSheetFull(f => !f)}
+          className="flex-shrink-0 flex flex-col items-center pt-3 pb-1 gap-1 w-full">
+          <span className="w-10 h-1 rounded-full bg-white/20" />
+          <span className="text-[0.58rem] tracking-widest text-[var(--text-sub)] uppercase">
+            {sheetFull ? '▼ 접기' : '▲ 펼치기'}
+          </span>
+        </button>
+      )}
 
       {/* ── NEWS VIEW ── */}
       {view === 'news' && (
         <>
           <div className="flex items-center justify-between px-7 py-6 border-b border-[var(--border)] flex-shrink-0">
             <div className="text-[0.92rem] font-bold tracking-widest uppercase">Transfer Feed</div>
-            <button onClick={onClose}
+            <button onClick={handleClose}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] hover:border-white/20 transition-all">✕</button>
           </div>
@@ -103,19 +153,30 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
             ))}
           </div>
 
-          <div className="flex-1 overflow-y-auto py-5">
+          <div ref={newsListRef} className="flex-1 overflow-y-auto py-5">
             {newsLoading
               ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
               : filteredNews.map((n, i) => (
-                  <NewsCard
-                    key={n.id ?? i}
-                    item={n}
-                    highlighted={selectedNewsId === n.id}
-                    onClick={() => {
-                      if (selectedNewsId === n.id) { onNewsSelect?.(null); }
-                      else { onNewsSelect?.(n); }
-                    }}
-                  />
+                  <div key={n.id ?? i} data-news-id={n.id}
+                       className={hoveredRouteId === n.id ? 'ring-1 ring-inset ring-[var(--accent)]/30 rounded-xl mx-1 transition-all' : ''}>
+                    {/* 3번째 카드 다음마다 인피드 네이티브 광고 */}
+                    {i > 0 && i % 3 === 0 && (
+                      <AdSlot
+                        slot={SLOT.FEED_NATIVE}
+                        format="fluid"
+                        layoutKey="-fb+5w+4e-db+86"
+                        className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]"
+                      />
+                    )}
+                    <NewsCard
+                      item={n}
+                      highlighted={selectedNewsId === n.id}
+                      onClick={() => {
+                        if (selectedNewsId === n.id) { onNewsSelect?.(null); }
+                        else { onNewsSelect?.(n); }
+                      }}
+                    />
+                  </div>
                 ))
             }
           </div>
@@ -127,7 +188,7 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
         <>
           {/* Header */}
           <div className="flex items-center px-7 py-6 border-b border-[var(--border)] gap-3 flex-shrink-0">
-            <button onClick={onClose}
+            <button onClick={handleClose}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] transition-all">✕</button>
             <div className="flex-1">
@@ -208,7 +269,7 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
             <div className="text-[0.92rem] font-bold tracking-widest uppercase flex-1">
               {clubDetail?.name ?? '…'}
             </div>
-            <button onClick={onClose}
+            <button onClick={handleClose}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] transition-all">✕</button>
           </div>

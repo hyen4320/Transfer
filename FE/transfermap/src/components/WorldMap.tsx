@@ -44,6 +44,16 @@ interface RouteInfo {
 
 interface OverlayPos { id: string | number; x: number; y: number; }
 
+interface DragState {
+  league: import('../types').League;
+  centroid: [number, number];
+  startX: number;
+  startY: number;
+  ringX: number;
+  ringY: number;
+  progress: number; // 0–1
+}
+
 function nameMatch(a: string, b: string): boolean {
   if (!a || !b) return false;
   a = a.toLowerCase().trim();
@@ -55,12 +65,13 @@ interface Props {
   onCountryClick: (league: League, centroid: [number, number]) => void;
   onClubClick: (clubId: number) => void;
   onLeagueClick?: (league: League) => void;
+  onRouteHover?: (id: number | null) => void;
   clubs?: Club[];
   news?: NewsItem[];
   selectedNewsId?: number | null;
 }
 
-export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, clubs: clubsProp, news: newsProp = [], selectedNewsId }: Props) {
+export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, onRouteHover, clubs: clubsProp, news: newsProp = [], selectedNewsId }: Props) {
   const clubs = clubsProp ?? CLUBS;
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef       = useRef<SVGSVGElement>(null);
@@ -71,6 +82,10 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
   const [routePaths,    setRoutePaths]    = useState<RouteInfo[]>([]);
   const [hoveredRoute,  setHoveredRoute]  = useState<RouteInfo | null>(null);
   const [tooltipPos,    setTooltipPos]    = useState({ x: 0, y: 0 });
+  const [dragState,     setDragState]     = useState<DragState | null>(null);
+
+  const dragRef   = useRef<DragState | null>(null);
+  const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const worldRef = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
 
@@ -94,9 +109,9 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
       .attr('fill', 'url(#centerGlow)');
 
     const proj = d3.geoMercator()
-      .center([15, 54])
+      .center([15, 53])
       .scale(Math.min(W, H) * 1.1)
-      .translate([W / 2, H / 2]);
+      .translate([W / 2, H * 0.45]);
     const pg = d3.geoPath().projection(proj);
     projRef.current = proj;
 
@@ -124,10 +139,38 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
       .on('mouseout', function() {
         d3.select(this).attr('fill', '#0c1e36').style('filter', 'none');
       })
-      .on('click', function(_, d) {
+      .on('click', function(event, d) {
+        // 드래그 후에는 click 무시
+        if (dragRef.current?.progress && dragRef.current.progress > 0.1) return;
         const league = LEAGUES.find(l => l.numericId === +(d.id ?? 0));
         if (!league) return;
         onCountryClick(league, pg.centroid(d) as [number, number]);
+      })
+      .on('pointerdown', function(event, d) {
+        const league = LEAGUES.find(l => l.numericId === +(d.id ?? 0));
+        if (!league) return;
+        event.stopPropagation();
+
+        const centroid = pg.centroid(d) as [number, number];
+        const rect  = containerRef.current?.getBoundingClientRect();
+        const ringX = (rect ? event.clientX - rect.left : event.clientX);
+        const ringY = (rect ? event.clientY - rect.top  : event.clientY);
+
+        const state: DragState = {
+          league, centroid,
+          startX: event.clientX, startY: event.clientY,
+          ringX, ringY, progress: 0,
+        };
+        dragRef.current = state;
+        setDragState({ ...state });
+
+        // 500ms 롱프레스로 진입
+        holdTimer.current = setTimeout(() => {
+          if (!dragRef.current) return;
+          dragRef.current = null;
+          setDragState(null);
+          onCountryClick(league, centroid);
+        }, 500);
       });
 
     svg.append('path').datum(borders as GeoPermissibleObjects)
@@ -196,6 +239,54 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
     setRoutePaths(computed);
   }, [onCountryClick, clubs, newsProp]);
 
+  // 드래그-투-엔터: 전역 pointermove/up 추적
+  useEffect(() => {
+    const THRESHOLD = 0.4; // 화면 짧은 축 대비 비율
+
+    const onMove = (e: PointerEvent) => {
+      const state = dragRef.current;
+      if (!state) return;
+
+      const dx   = e.clientX - state.startX;
+      const dy   = e.clientY - state.startY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const axis = Math.min(window.innerWidth, window.innerHeight);
+      const prog = Math.min(dist / (axis * THRESHOLD), 1);
+
+      const rect  = containerRef.current?.getBoundingClientRect();
+      const ringX = rect ? e.clientX - rect.left : e.clientX;
+      const ringY = rect ? e.clientY - rect.top  : e.clientY;
+
+      const next: DragState = { ...state, progress: prog, ringX, ringY };
+      dragRef.current = next;
+      setDragState({ ...next });
+
+      if (prog >= 1) {
+        if (holdTimer.current) clearTimeout(holdTimer.current);
+        dragRef.current = null;
+        setDragState(null);
+        onCountryClick(state.league, state.centroid);
+      }
+    };
+
+    const onUp = () => {
+      if (holdTimer.current) clearTimeout(holdTimer.current);
+      if (dragRef.current) {
+        dragRef.current = null;
+        setDragState(null);
+      }
+    };
+
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup',   onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup',   onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [onCountryClick]);
+
   useEffect(() => {
     loadWorldAtlas().then(world => {
       worldRef.current = world;
@@ -258,8 +349,8 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
                         : '3 6';
           return (
             <g key={r.id} style={{ pointerEvents: 'auto' }}
-               onMouseEnter={e => { setHoveredRoute(r); setTooltipPos({ x: e.clientX, y: e.clientY }); }}
-               onMouseLeave={() => setHoveredRoute(null)}
+               onMouseEnter={e => { setHoveredRoute(r); setTooltipPos({ x: e.clientX, y: e.clientY }); onRouteHover?.(r.id); }}
+               onMouseLeave={() => { setHoveredRoute(null); onRouteHover?.(null); }}
                onMouseMove={e => setTooltipPos({ x: e.clientX, y: e.clientY })}>
 
               {/* Outer glow — cross-league only */}
@@ -371,6 +462,50 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, c
           </div>
         );
       })}
+
+      {/* 드래그-투-엔터 진행 링 */}
+      {dragState && (
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 60 }}>
+          {/* 반투명 배경 */}
+          <div className="absolute inset-0 transition-opacity duration-150"
+               style={{ background: 'rgba(6,10,18,0.3)', opacity: dragState.progress }} />
+
+          {/* 진행 링 + 국가명 */}
+          <div className="absolute -translate-x-1/2 -translate-y-1/2"
+               style={{ left: dragState.ringX, top: dragState.ringY }}>
+            <svg width="88" height="88" style={{ overflow: 'visible' }}>
+              {/* 트랙 */}
+              <circle cx="44" cy="44" r="36" fill="none"
+                stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
+              {/* 진행 호 */}
+              <circle cx="44" cy="44" r="36" fill="none"
+                stroke="var(--accent)" strokeWidth="3"
+                strokeDasharray={`${dragState.progress * 226.2} 226.2`}
+                strokeLinecap="round"
+                transform="rotate(-90 44 44)" />
+              {/* 중심 점 */}
+              <circle cx="44" cy="44" r="5" fill="var(--accent)"
+                style={{ filter: 'drop-shadow(0 0 6px var(--accent))' }} />
+            </svg>
+            {/* 국가 이름 */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap
+                            text-[0.75rem] font-black tracking-widest uppercase text-white
+                            transition-opacity duration-100"
+                 style={{ opacity: dragState.progress }}>
+              {dragState.league.flag} {dragState.league.country}
+            </div>
+          </div>
+
+          {/* 60% 이상에서 오른쪽 가장자리 ghost 힌트 */}
+          {dragState.progress > 0.6 && (
+            <div className="absolute top-0 right-0 w-1.5 h-full rounded-l"
+                 style={{
+                   background: 'linear-gradient(to left, rgba(59,130,246,0.4), transparent)',
+                   opacity: (dragState.progress - 0.6) / 0.4,
+                 }} />
+          )}
+        </div>
+      )}
 
       {/* Club markers */}
       {clubs.map(c => {
