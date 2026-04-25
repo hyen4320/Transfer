@@ -33,6 +33,15 @@ export async function fetchAllClubs(): Promise<Club[]> {
     .map(mapApiClub);
 }
 
+export async function fetchClubsBySeason(season: number, leagueId?: number): Promise<Club[]> {
+  const q = new URLSearchParams({ season: String(season) });
+  if (leagueId != null) q.set('leagueId', String(leagueId));
+  const data = await apiFetch<ApiClub[]>(`/clubs?${q}`);
+  return data
+    .filter(c => c.latitude != null && c.longitude != null)
+    .map(mapApiClub);
+}
+
 export async function fetchClub(id: number): Promise<ApiClub> {
   return apiFetch<ApiClub>(`/clubs/${id}`);
 }

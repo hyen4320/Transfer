@@ -5,24 +5,24 @@ import { ApiError } from '../api/client';
 import { NEWS } from '../data/mock';
 import type { NewsItem } from '../types';
 
-export function useNews() {
+export function useNews(season: number = 51) {
   const navigate = useNavigate();
   const [items,   setItems]   = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    fetchNews()
+    fetchNews({ season, size: 30 })
       .then(data => setItems(data.length > 0 ? data : NEWS))
       .catch(err => {
         if (err instanceof ApiError && err.status >= 500) {
           navigate('/500');
         } else {
-          setItems(NEWS); // 4xx 또는 네트워크 오류 → mock fallback
+          setItems(NEWS);
         }
       })
       .finally(() => setLoading(false));
-  }, [navigate]);
+  }, [navigate, season]);
 
   return { items, loading };
 }

@@ -1,12 +1,25 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNews } from '../hooks/useNews';
-import { fetchClub, fetchClubTransfers } from '../api/clubs';
+import { fetchClub, fetchClubTransfers, fetchClubsBySeason } from '../api/clubs';
+import { fetchLeagues } from '../api/leagues';
 import { ApiError } from '../api/client';
-import type { ApiClub } from '../api/types';
+import type { ApiClub, ApiLeague } from '../api/types';
 import type { League, Club, NewsItem } from '../types';
 import NewsCard from './NewsCard';
 import AdSlot, { SLOT } from './AdSlot';
+
+const LEAGUE_NAME_TO_ID: Record<string, string> = {
+  'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
+};
+
+const SEASON_OPTIONS = [
+  { label: '25/26', value: 51 },
+  { label: '24/25', value: 49 },
+  { label: '23/24', value: 47 },
+  { label: '22/23', value: 45 },
+  { label: '21/22', value: 43 },
+];
 
 function useIsMobile() {
   const [mobile, setMobile] = useState(() => window.innerWidth < 640);
@@ -46,12 +59,21 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
   const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
   const [filters, setFilters] = useState({ rumour: true, confirmed: true, denied: false });
+  const [season,  setSeason]  = useState(51);
 
   const [clubDetail,    setClubDetail]    = useState<ApiClub | null>(null);
   const [clubTransfers, setClubTransfers] = useState<{ incoming: NewsItem[]; outgoing: NewsItem[] }>({ incoming: [], outgoing: [] });
   const [clubLoading,   setClubLoading]   = useState(false);
 
-  const { items: allNews, loading: newsLoading } = useNews();
+  const [apiLeagues,       setApiLeagues]       = useState<ApiLeague[]>([]);
+  const [seasonClubs,      setSeasonClubs]       = useState<Club[]>(leagueClubs);
+  const [seasonClubsLoading, setSeasonClubsLoading] = useState(false);
+
+  const { items: allNews, loading: newsLoading } = useNews(season);
+
+  useEffect(() => {
+    fetchLeagues().then(setApiLeagues).catch(() => {});
+  }, []);
 
   const toggleFilter = (key: keyof typeof filters) =>
     setFilters(f => ({ ...f, [key]: !f[key] }));
@@ -65,6 +87,18 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
       setClubDetail(null);
     }
   }, [selectedLeague]);
+
+  // 리그 또는 시즌 변경 시 시즌 기준 클럽 재조회
+  useEffect(() => {
+    if (!selectedLeague) { setSeasonClubs(leagueClubs); return; }
+    const beLeagueId = apiLeagues.find(l => LEAGUE_NAME_TO_ID[l.name] === selectedLeague.id)?.id;
+    if (!beLeagueId) { setSeasonClubs(leagueClubs); return; }
+    setSeasonClubsLoading(true);
+    fetchClubsBySeason(season, beLeagueId)
+      .then(clubs => setSeasonClubs(clubs.length > 0 ? clubs : leagueClubs))
+      .catch(() => setSeasonClubs(leagueClubs))
+      .finally(() => setSeasonClubsLoading(false));
+  }, [selectedLeague, season, apiLeagues, leagueClubs]);
 
   // 클럽 ID가 바뀌면 API 조회 후 클럽 뷰로 전환
   useEffect(() => {
@@ -140,7 +174,20 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
                          text-[var(--text-sub)] hover:text-[var(--text)] hover:border-white/20 transition-all">✕</button>
           </div>
 
-          <div className="flex gap-3 flex-wrap px-7 py-6 border-b border-[var(--border)] flex-shrink-0">
+          {/* 시즌 셀렉터 */}
+          <div className="flex gap-2 flex-wrap px-7 pt-4 pb-2 flex-shrink-0">
+            {SEASON_OPTIONS.map(s => (
+              <button key={s.value} onClick={() => setSeason(s.value)}
+                className={`px-3 py-1 rounded-full text-[0.68rem] font-bold border transition-all
+                  ${season === s.value
+                    ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
+                    : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
             {(['rumour', 'confirmed', 'denied'] as const).map(s => (
               <button key={s} onClick={() => toggleFilter(s)}
                 className={`px-5 py-2.5 rounded-full text-[0.72rem] font-bold tracking-widest border transition-all
@@ -203,10 +250,23 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
             </span>
           </div>
 
+          {/* 시즌 셀렉터 */}
+          <div className="flex gap-2 flex-wrap px-7 pt-4 pb-3 flex-shrink-0">
+            {SEASON_OPTIONS.map(s => (
+              <button key={s.value} onClick={() => setSeason(s.value)}
+                className={`px-3 py-1 rounded-full text-[0.68rem] font-bold border transition-all
+                  ${season === s.value
+                    ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
+                    : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+
           {/* Stats bar */}
           <div className="flex border-b border-[var(--border)] flex-shrink-0">
             {[
-              { label: 'Clubs',     value: leagueClubs.length },
+              { label: 'Clubs',     value: seasonClubsLoading ? '…' : seasonClubs.length },
               { label: 'Transfers', value: selectedLeague.transfers },
               { label: 'News',      value: selectedLeague.news },
             ].map(s => (
@@ -222,7 +282,9 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
             <div className="px-5 mb-3 text-[0.65rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">
               Clubs
             </div>
-            {leagueClubs.map(club => (
+            {seasonClubsLoading
+              ? <div className="flex items-center justify-center h-20 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
+              : seasonClubs.map(club => (
               <button
                 key={club.id}
                 onClick={() => {

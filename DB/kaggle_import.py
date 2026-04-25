@@ -164,8 +164,8 @@ def main():
         fee_eur, status = parse_fee(t.get("transfer_fee"))
 
         player     = t.get("player_name", "").strip()
-        from_club  = t.get("from_club_name", "").strip() or None
-        to_club    = t.get("to_club_name", "").strip() or None
+        to_club    = t.get("from_club_name", "").strip() or None
+        from_club  = t.get("to_club_name", "").strip() or None
 
         if not player or not to_club or season is None:
             skipped += 1
