@@ -139,7 +139,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       .on('mouseout', function() {
         d3.select(this).attr('fill', '#0c1e36').style('filter', 'none');
       })
-      .on('click', function(event, d) {
+      .on('click', function(_event, d) {
         // 드래그 후에는 click 무시
         if (dragRef.current?.progress && dragRef.current.progress > 0.1) return;
         const league = LEAGUES.find(l => l.numericId === +(d.id ?? 0));
