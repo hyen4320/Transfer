@@ -171,7 +171,8 @@ def main():
             skipped += 1
             continue
 
-        p_info   = players.get(t.get("player_id", ""), {})
+        tm_id    = t.get("player_id", "").strip()
+        p_info   = players.get(tm_id, {})
         post_id  = f"KAGGLE_{idx:06d}"
         fee_sql  = str(fee_eur) if fee_eur is not None else "NULL"
         win_sql  = esc(window)
@@ -182,15 +183,16 @@ def main():
         pos_sql      = esc(p_info.get("position"))
         contract_sql = esc(p_info.get("contract_until"))
         image_sql    = esc(p_info.get("image_url"))
+        tm_id_sql    = esc(tm_id) if tm_id else "NULL"
 
         lines += [
             f"-- [{idx}] {player}  {from_club or 'FA'} → {to_club}",
-            "INSERT INTO player (name, nationality, position, contract_until, profile_image_url, contract_status)",
-            f"SELECT {esc(player)}, {nat_sql}, {pos_sql}, {contract_sql}, {image_sql}, 'CONTRACTED'",
-            f"WHERE NOT EXISTS (SELECT 1 FROM player WHERE name = {esc(player)});",
+            "INSERT INTO player (name, nationality, position, contract_until, profile_image_url, contract_status, transfermarkt_id)",
+            f"SELECT {esc(player)}, {nat_sql}, {pos_sql}, {contract_sql}, {image_sql}, 'CONTRACTED', {tm_id_sql}",
+            f"WHERE NOT EXISTS (SELECT 1 FROM player WHERE transfermarkt_id = {tm_id_sql});",
             "",
             "INSERT INTO post (journalist_id, x_post_id, content, posted_at, collected_at)",
-            f"SELECT (SELECT journalist_id FROM journalist WHERE x_handle = 'kaggle_bot'),",
+            f"SELECT (SELECT journalist_id FROM journalist WHERE x_handle = 'kaggle_bot' LIMIT 1),",
             f"    {esc(post_id)}, {esc(content)}, {date_sql}, NOW()",
             f"WHERE NOT EXISTS (SELECT 1 FROM post WHERE x_post_id = {esc(post_id)});",
             "",
@@ -198,11 +200,11 @@ def main():
             "    (post_id, player_id, from_club_id, to_club_id, fee_eur, status, season, transfer_window, published_at)",
             "SELECT",
             f"    (SELECT post_id FROM post WHERE x_post_id = {esc(post_id)}),",
-            f"    (SELECT player_id FROM player WHERE name = {esc(player)}),",
+            f"    (SELECT player_id FROM player WHERE transfermarkt_id = {tm_id_sql}),",
             f"    {club_sub(from_club)},",
             f"    {club_sub(to_club)},",
             f"    {fee_sql}, {esc(status)}, {season}, {win_sql}, {date_sql}",
-            f"WHERE (SELECT player_id FROM player WHERE name = {esc(player)}) IS NOT NULL",
+            f"WHERE (SELECT player_id FROM player WHERE transfermarkt_id = {tm_id_sql}) IS NOT NULL",
             f"  AND {club_sub(to_club)} IS NOT NULL;",
             "",
         ]
