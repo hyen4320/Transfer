@@ -17,10 +17,11 @@ export interface NewsFilterParams {
   fromClubId?: number;
   page?: number;
   size?: number;
+  sort?: string;
 }
 
 function buildNewsQuery(params: NewsFilterParams): URLSearchParams {
-  const q = new URLSearchParams({ sort: 'publishedAt,desc', size: String(params.size ?? 50) });
+  const q = new URLSearchParams({ sort: params.sort ?? 'publishedAt,desc', size: String(params.size ?? 50) });
   if (params.status)      q.set('status',      params.status.toUpperCase());
   if (params.season != null) q.set('season',   String(params.season));
   if (params.leagueId)    q.set('leagueId',    String(params.leagueId));

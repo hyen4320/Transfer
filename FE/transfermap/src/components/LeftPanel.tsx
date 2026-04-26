@@ -41,8 +41,11 @@ type FlyStep = 'idle' | 'zooming' | 'arrived';
 
 // season encoding: 25+26=51 (25/26), 24+25=49 (24/25)
 const SEASON_OPTIONS = [
-  { label: '25/26 (현재)', value: 51 },
-  { label: '24/25',        value: 49 },
+  { label: '25/26', value: 51 },
+  { label: '24/25', value: 49 },
+  { label: '23/24', value: 47 },
+  { label: '22/23', value: 45 },
+  { label: '21/22', value: 43 },
 ];
 
 interface FilterState {
@@ -104,6 +107,9 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
   const [flyLeague, setFlyLeague] = useState<League | null>(null);
   const [progress, setProgress] = useState(0);
 
+  const [searchSeason, setSearchSeason] = useState(51);
+  const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+
   const debounceRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -152,6 +158,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     if (!query.trim() || flyStep !== 'idle') {
       setSearchResults([]);
+      if (!query.trim()) setSelectedClub(null);
       return;
     }
     debounceRef.current = setTimeout(() => {
@@ -276,6 +283,16 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
     setProgress(0);
     setQuery('');
     setSearchResults([]);
+    setSelectedClub(null);
+  };
+
+  const handleClubSelect = (club: Club) => {
+    setSelectedClub(club);
+    const allStatuses = new Set(['rumour', 'confirmed', 'denied', 'loan']);
+    onApplyFilter?.([
+      { fromClubId: club.id, season: searchSeason, size: 30 },
+      { toClubId:   club.id, season: searchSeason, size: 30 },
+    ], allStatuses);
   };
 
   const leagueNewsCount = (feId: string) => {
@@ -492,7 +509,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                 <div className="flex gap-2 mt-3">
                   <span className="text-[0.7rem] text-[var(--text-sub)] self-center">범위</span>
                   {(['player', 'club', 'journalist'] as Scope[]).map(s => (
-                    <button key={s} onClick={() => setScope(s)}
+                    <button key={s} onClick={() => { setScope(s); setSelectedClub(null); }}
                       className={`px-3 py-1 rounded-full text-[0.7rem] font-bold border transition-all
                         ${scope === s
                           ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
@@ -501,6 +518,20 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                     </button>
                   ))}
                 </div>
+                {scope === 'club' && (
+                  <div className="flex gap-1.5 mt-2 flex-wrap">
+                    <span className="text-[0.7rem] text-[var(--text-sub)] self-center">시즌</span>
+                    {SEASON_OPTIONS.map(s => (
+                      <button key={s.value} onClick={() => setSearchSeason(s.value)}
+                        className={`px-2.5 py-0.5 rounded-full text-[0.68rem] font-bold border transition-all
+                          ${searchSeason === s.value
+                            ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
+                            : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </>
             ) : (
               <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border
@@ -607,6 +638,17 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             )}
 
             {/* Idle: search results */}
+            {flyStep === 'idle' && selectedClub && scope === 'club' && (
+              <div className="mx-6 mt-3 px-3 py-2 rounded-lg bg-[var(--accent)]/10 border border-[var(--accent)]/30
+                              flex items-center gap-2 text-[0.75rem]">
+                <span className="text-[var(--accent)]">◈</span>
+                <span className="text-[var(--text)] font-semibold flex-1 truncate">{selectedClub.name}</span>
+                <span className="text-[0.68rem] text-[var(--accent)]/80 flex-shrink-0">
+                  {SEASON_OPTIONS.find(s => s.value === searchSeason)?.label} · 지도에 표시 중
+                </span>
+              </div>
+            )}
+
             {flyStep === 'idle' && query.trim() && (
               <div className="px-6 py-3">
                 <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-2">
@@ -625,6 +667,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                         <button key={i}
                           onClick={() => {
                             if (scope === 'player') handlePlayerSelect(p);
+                            else if (scope === 'club') handleClubSelect(c);
                             else if (scope === 'journalist') navigate(`/journalists/${j.id}`);
                           }}
                           className="w-full flex items-center gap-3 py-3 border-b border-[var(--border)]

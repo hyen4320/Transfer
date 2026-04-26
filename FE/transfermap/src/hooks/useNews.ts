@@ -12,7 +12,7 @@ export function useNews(season: number = 51) {
 
   useEffect(() => {
     setLoading(true);
-    fetchNews({ season, size: 30 })
+    fetchNews({ season, size: 30, sort: season === 51 ? 'publishedAt,desc' : 'feeEur,desc' })
       .then(data => setItems(data.length > 0 ? data : NEWS))
       .catch(err => {
         if (err instanceof ApiError && err.status >= 500) {
