@@ -13,13 +13,11 @@ const LEAGUE_NAME_TO_ID: Record<string, string> = {
   'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
 };
 
-const SEASON_OPTIONS = [
-  { label: '25/26', value: 51 },
-  { label: '24/25', value: 49 },
-  { label: '23/24', value: 47 },
-  { label: '22/23', value: 45 },
-  { label: '21/22', value: 43 },
-];
+const SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
+  const y1 = 25 - i, y2 = 26 - i;
+  const fmt = (y: number) => String(y).padStart(2, '0');
+  return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
+});
 
 function useIsMobile() {
   const [mobile, setMobile] = useState(() => window.innerWidth < 640);
@@ -175,16 +173,15 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
           </div>
 
           {/* 시즌 셀렉터 */}
-          <div className="flex gap-2 flex-wrap px-7 pt-4 pb-2 flex-shrink-0">
-            {SEASON_OPTIONS.map(s => (
-              <button key={s.value} onClick={() => setSeason(s.value)}
-                className={`px-3 py-1 rounded-full text-[0.68rem] font-bold border transition-all
-                  ${season === s.value
-                    ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
-                    : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
-                {s.label}
-              </button>
-            ))}
+          <div className="px-7 pt-4 pb-2 flex-shrink-0">
+            <select value={season} onChange={e => setSeason(Number(e.target.value))}
+              className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
+                         text-[0.8rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                         transition-colors cursor-pointer">
+              {SEASON_OPTIONS.map(s => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </select>
           </div>
 
           <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
@@ -251,16 +248,15 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
           </div>
 
           {/* 시즌 셀렉터 */}
-          <div className="flex gap-2 flex-wrap px-7 pt-4 pb-3 flex-shrink-0">
-            {SEASON_OPTIONS.map(s => (
-              <button key={s.value} onClick={() => setSeason(s.value)}
-                className={`px-3 py-1 rounded-full text-[0.68rem] font-bold border transition-all
-                  ${season === s.value
-                    ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
-                    : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
-                {s.label}
-              </button>
-            ))}
+          <div className="px-7 pt-4 pb-3 flex-shrink-0">
+            <select value={season} onChange={e => setSeason(Number(e.target.value))}
+              className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
+                         text-[0.8rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                         transition-colors cursor-pointer">
+              {SEASON_OPTIONS.map(s => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </select>
           </div>
 
           {/* Stats bar */}

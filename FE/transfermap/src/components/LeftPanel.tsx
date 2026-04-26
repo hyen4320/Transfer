@@ -40,13 +40,11 @@ type Scope = 'player' | 'club' | 'journalist';
 type FlyStep = 'idle' | 'zooming' | 'arrived';
 
 // season encoding: 25+26=51 (25/26), 24+25=49 (24/25)
-const SEASON_OPTIONS = [
-  { label: '25/26', value: 51 },
-  { label: '24/25', value: 49 },
-  { label: '23/24', value: 47 },
-  { label: '22/23', value: 45 },
-  { label: '21/22', value: 43 },
-];
+const SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
+  const y1 = 25 - i, y2 = 26 - i;
+  const fmt = (y: number) => String(y).padStart(2, '0');
+  return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
+});
 
 interface FilterState {
   leagues: Set<string>;
@@ -235,6 +233,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
               maxFeeEur,
               from,
               to,
+              season: filters.season,
               size: 1,
             });
             total += t;
@@ -252,6 +251,14 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
     const timer = setTimeout(doFetch, 400);
     return () => clearTimeout(timer);
   }, [filters, open, tab, apiLeagues]);
+
+  // 과거 시즌 선택 시 날짜 기반 timeWindow 자동 해제
+  useEffect(() => {
+    if (filters.season !== 51 && !['이번 창', '전체'].includes(filters.timeWindow)) {
+      setFilters(f => ({ ...f, timeWindow: '전체' }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.season]);
 
   const toggleSet = (key: 'leagues' | 'statuses', val: string) => {
     setFilters(prev => {
@@ -355,17 +362,15 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
 
             {/* Season */}
             <FilterSection label="시즌">
-              <div className="flex flex-wrap gap-2 pt-1">
+              <select value={filters.season}
+                onChange={e => setFilters(f => ({ ...f, season: Number(e.target.value) }))}
+                className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
+                           text-[0.8rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                           transition-colors cursor-pointer">
                 {SEASON_OPTIONS.map(s => (
-                  <button key={s.value} onClick={() => setFilters(f => ({ ...f, season: s.value }))}
-                    className={`px-4 py-1.5 rounded-full text-[0.72rem] font-bold border transition-all
-                      ${filters.season === s.value
-                        ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
-                        : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
-                    {s.label}
-                  </button>
+                  <option key={s.value} value={s.value}>{s.label}</option>
                 ))}
-              </div>
+              </select>
             </FilterSection>
 
             {/* League */}
@@ -410,15 +415,25 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             {/* Fee range */}
             <FilterSection label="이적료">
               <div className="pt-1 flex flex-col gap-2">
-                <div className="flex justify-between text-[0.72rem] text-[var(--text-sub)]">
-                  <span>€{filters.feeMin}M</span>
-                  <span>최대 €{filters.feeMax}M</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">최소</span>
+                  <input type="range" min={0} max={290} step={10}
+                    value={filters.feeMin}
+                    onChange={e => setFilters(f => ({ ...f, feeMin: Math.min(Number(e.target.value), f.feeMax - 10) }))}
+                    className="flex-1 accent-[var(--accent)]" />
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-14 text-right flex-shrink-0">€{filters.feeMin}M</span>
                 </div>
-                <input type="range" min={0} max={300} step={10}
-                  value={filters.feeMax}
-                  onChange={e => setFilters(f => ({ ...f, feeMax: Number(e.target.value) }))}
-                  className="w-full accent-[var(--accent)]" />
-                <div className="text-[0.65rem] text-[var(--text-sub)] text-right">€0 – €{filters.feeMax}M</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">최대</span>
+                  <input type="range" min={10} max={300} step={10}
+                    value={filters.feeMax}
+                    onChange={e => setFilters(f => ({ ...f, feeMax: Math.max(Number(e.target.value), f.feeMin + 10) }))}
+                    className="flex-1 accent-[var(--accent)]" />
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-14 text-right flex-shrink-0">€{filters.feeMax}M</span>
+                </div>
+                <div className="text-[0.65rem] text-[var(--text-sub)] text-right">
+                  €{filters.feeMin}M – €{filters.feeMax}M
+                </div>
               </div>
             </FilterSection>
 
@@ -519,17 +534,16 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                   ))}
                 </div>
                 {scope === 'club' && (
-                  <div className="flex gap-1.5 mt-2 flex-wrap">
-                    <span className="text-[0.7rem] text-[var(--text-sub)] self-center">시즌</span>
-                    {SEASON_OPTIONS.map(s => (
-                      <button key={s.value} onClick={() => setSearchSeason(s.value)}
-                        className={`px-2.5 py-0.5 rounded-full text-[0.68rem] font-bold border transition-all
-                          ${searchSeason === s.value
-                            ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
-                            : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
-                        {s.label}
-                      </button>
-                    ))}
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-[0.7rem] text-[var(--text-sub)] flex-shrink-0">시즌</span>
+                    <select value={searchSeason} onChange={e => setSearchSeason(Number(e.target.value))}
+                      className="flex-1 bg-[var(--surface2)] border border-[var(--border)] rounded-md px-2 py-1
+                                 text-[0.75rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                                 transition-colors cursor-pointer">
+                      {SEASON_OPTIONS.map(s => (
+                        <option key={s.value} value={s.value}>{s.label}</option>
+                      ))}
+                    </select>
                   </div>
                 )}
               </>

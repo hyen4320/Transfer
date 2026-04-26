@@ -20,12 +20,19 @@ import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
 import { LEAGUES } from './data/mock';
 
+const MAP_SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
+  const y1 = 25 - i, y2 = 26 - i;
+  const fmt = (y: number) => String(y).padStart(2, '0');
+  return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
+});
+
 function MapView() {
   const navigate      = useNavigate();
   const sceneRef      = useRef<HTMLDivElement>(null);
   const leftPanelRef  = useRef<LeftPanelHandle>(null);
-  const { clubs } = useClubs();
-  const { items: news } = useNews();
+  const [mapSeason, setMapSeason] = useState(51);
+  const { clubs } = useClubs(mapSeason);
+  const { items: news } = useNews(mapSeason);
 
   // 입장 애니메이션 (한 번 본 경우 스킵)
   type IntroPhase = 'enter' | 'rise' | 'done';
@@ -42,6 +49,9 @@ function MapView() {
   }, []);
 
   const [filteredNews, setFilteredNews]     = useState<NewsItem[] | null>(null);
+
+  // 시즌 변경 시 적용된 필터 초기화
+  useEffect(() => { setFilteredNews(null); }, [mapSeason]);
   const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
   const [panelOpen, setPanelOpen]           = useState(false);
   const [hoveredRouteId, setHoveredRouteId] = useState<number | null>(null);
@@ -354,6 +364,23 @@ function MapView() {
         onFlyTo={handleFlyTo}
         onApplyFilter={handleApplyFilter}
       />
+
+      {/* 시즌 셀렉터 — 좌측하단 플로팅 (LeftPanel 열릴 때 숨김) */}
+      {!leftPanelOpen && (
+        <div className="hidden sm:flex absolute left-4 z-40 transition-all duration-200"
+             style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '16px' }}>
+          <select
+            value={mapSeason}
+            onChange={e => setMapSeason(Number(e.target.value))}
+            className="bg-[rgba(13,22,38,0.85)] border border-[var(--border)] text-[var(--text-sub)]
+                       text-[0.72rem] rounded-md px-2.5 py-1.5 focus:outline-none backdrop-blur-sm
+                       hover:border-[var(--accent)]/50 hover:text-[var(--text)] transition-all cursor-pointer">
+            {MAP_SEASON_OPTIONS.map(s => (
+              <option key={s.value} value={s.value}>{s.label}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* FOOTER */}
       <div className="absolute right-4 flex gap-4 z-40 pointer-events-auto sm:flex hidden transition-all duration-200"
