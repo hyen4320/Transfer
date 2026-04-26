@@ -88,14 +88,10 @@ def esc(val) -> str:
     return "'" + str(val).replace("'", "''") + "'"
 
 
-def club_sub(name: str | None) -> str:
-    if not name:
+def club_by_kaggle_id(kaggle_id: str | None) -> str:
+    if not kaggle_id:
         return "NULL"
-    return (
-        f"COALESCE("
-        f"(SELECT ca.club_id FROM club_aliases ca WHERE lower(ca.alias) = lower({esc(name)})),"
-        f"(SELECT club_id FROM club WHERE lower(name) = lower({esc(name)})))"
-    )
+    return f"(SELECT club_id FROM club WHERE kaggle_club_id = {int(kaggle_id)})"
 
 
 # ── 메인 ──────────────────────────────────────────────────────────────────────
@@ -163,11 +159,13 @@ def main():
         window  = transfer_window(t.get("transfer_date", ""))
         fee_eur, status = parse_fee(t.get("transfer_fee"))
 
-        player     = t.get("player_name", "").strip()
-        from_club  = t.get("from_club_name", "").strip() or None
-        to_club    = t.get("to_club_name", "").strip() or None
+        player       = t.get("player_name", "").strip()
+        from_club    = t.get("from_club_name", "").strip() or None
+        to_club      = t.get("to_club_name", "").strip() or None
+        from_kaggle  = t.get("from_club_id", "").strip()
+        to_kaggle    = t.get("to_club_id", "").strip()
 
-        if not player or not to_club or season is None:
+        if not player or not to_kaggle or season is None:
             skipped += 1
             continue
 
@@ -177,7 +175,7 @@ def main():
         fee_sql  = str(fee_eur) if fee_eur is not None else "NULL"
         win_sql  = esc(window)
         date_sql = esc(t.get("transfer_date")) if t.get("transfer_date") else "NOW()"
-        content  = f"{player}: {from_club or 'FA'} → {to_club} [{t.get('transfer_fee') or '-'}] #Kaggle"
+        content  = f"{player}: {from_club or 'FA'} → {to_club or '?'} [{t.get('transfer_fee') or '-'}] #Kaggle"
 
         nat_sql      = esc(p_info.get("nationality"))
         pos_sql      = esc(p_info.get("position"))
@@ -185,8 +183,11 @@ def main():
         image_sql    = esc(p_info.get("image_url"))
         tm_id_sql    = esc(tm_id) if tm_id else "NULL"
 
+        from_club_sql = club_by_kaggle_id(from_kaggle)
+        to_club_sql   = club_by_kaggle_id(to_kaggle)
+
         lines += [
-            f"-- [{idx}] {player}  {from_club or 'FA'} → {to_club}",
+            f"-- [{idx}] {player}  {from_club or 'FA'} → {to_club or '?'}",
             "INSERT INTO player (name, nationality, position, contract_until, profile_image_url, contract_status, transfermarkt_id)",
             f"SELECT {esc(player)}, {nat_sql}, {pos_sql}, {contract_sql}, {image_sql}, 'CONTRACTED', {tm_id_sql}",
             f"WHERE NOT EXISTS (SELECT 1 FROM player WHERE transfermarkt_id = {tm_id_sql});",
@@ -201,11 +202,11 @@ def main():
             "SELECT",
             f"    (SELECT post_id FROM post WHERE x_post_id = {esc(post_id)}),",
             f"    (SELECT player_id FROM player WHERE transfermarkt_id = {tm_id_sql}),",
-            f"    {club_sub(from_club)},",
-            f"    {club_sub(to_club)},",
+            f"    {from_club_sql},",
+            f"    {to_club_sql},",
             f"    {fee_sql}, {esc(status)}, {season}, {win_sql}, {date_sql}",
             f"WHERE (SELECT player_id FROM player WHERE transfermarkt_id = {tm_id_sql}) IS NOT NULL",
-            f"  AND {club_sub(to_club)} IS NOT NULL;",
+            f"  AND {to_club_sql} IS NOT NULL;",
             "",
         ]
 
