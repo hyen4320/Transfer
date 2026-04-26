@@ -6,7 +6,7 @@ declare global {
 
 const CLIENT = 'ca-pub-6322996609513242';
 
-// 실제 슬롯 ID는 AdSense 콘솔에서 발급 후 교체하세요.
+// Replace with actual slot IDs from the AdSense console.
 export const SLOT = {
   ANCHOR_BOTTOM:    '1111111111',
   FEED_NATIVE:      '2222222222',
@@ -48,7 +48,7 @@ export default function AdSlot({ slot, format = 'auto', layoutKey, style, classN
   return (
     <div ref={wrapRef} className={className} style={style}>
       <p className="text-[0.58rem] text-center tracking-[0.25em] uppercase mb-0.5"
-         style={{ color: 'rgba(160,185,220,0.3)' }}>광고</p>
+         style={{ color: 'rgba(160,185,220,0.3)' }}>Ad</p>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}

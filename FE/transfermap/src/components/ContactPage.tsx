@@ -25,7 +25,7 @@ export default function ContactPage() {
 
       <div className="flex-1 overflow-y-auto px-14 py-10 max-w-3xl w-full">
         <p className="text-[0.84rem] text-[var(--text-sub)] mb-8 leading-relaxed">
-          버그 제보, 기자 등록 요청, 데이터 오류 신고 등 문의 사항은 아래로 연락해주세요.
+          For bug reports, journalist registration requests, or data error reports, please reach out below.
         </p>
 
         <div className="flex flex-col gap-4">

@@ -21,7 +21,7 @@ export default function JournalistPage({ onBack }: Props) {
       </div>
 
       <div className="flex-1 overflow-y-auto px-14 py-10">
-        {/* 리더보드 광고 — 데스크톱만 */}
+        {/* Leaderboard ad — desktop only */}
         <AdSlot
           slot={SLOT.LEADERBOARD}
           format="horizontal"
@@ -33,7 +33,7 @@ export default function JournalistPage({ onBack }: Props) {
           <div className="flex items-center justify-center h-40 text-[0.84rem] text-[var(--text-sub)]">Loading…</div>
         ) : (
           <div className="flex gap-8 items-start">
-            {/* 테이블 */}
+            {/* Table */}
             <table className="flex-1 border-collapse min-w-0">
               <thead>
                 <tr className="border-b border-[var(--border)]">
@@ -46,7 +46,7 @@ export default function JournalistPage({ onBack }: Props) {
               <tbody>
                 {journalists.map((j, i) => (
                   <React.Fragment key={j.id}>
-                    {/* 4행마다 네이티브 광고 행 삽입 */}
+                    {/* Insert native ad row every 4 rows */}
                     {i > 0 && i % 4 === 0 && (
                       <tr>
                         <td colSpan={5} className="p-0">
@@ -97,7 +97,7 @@ export default function JournalistPage({ onBack }: Props) {
               </tbody>
             </table>
 
-            {/* MPU 사이드바 — 화면 넓을 때만 표시 */}
+            {/* MPU sidebar — wide screens only */}
             <aside className="hidden xl:flex flex-col gap-6 w-[300px] flex-shrink-0 sticky top-0">
               <AdSlot slot={SLOT.MPU_SIDEBAR_1} style={{ minHeight: 250 }} className="rounded-xl overflow-hidden" />
               <AdSlot slot={SLOT.MPU_SIDEBAR_2} style={{ minHeight: 250 }} className="rounded-xl overflow-hidden" />

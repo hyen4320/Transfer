@@ -81,7 +81,7 @@ export default function NoticePage() {
         <div className="mt-10 pt-6 border-t border-[var(--border)] flex gap-6 text-[0.78rem] text-[var(--text-sub)]">
           <button onClick={() => navigate('/info')} className="hover:text-[var(--text)] transition-colors">About</button>
           <button onClick={() => navigate('/info')} className="hover:text-[var(--text)] transition-colors">Contact</button>
-          <button onClick={() => navigate('/info')} className="hover:text-[var(--text)] transition-colors">개인정보처리방침</button>
+          <button onClick={() => navigate('/info')} className="hover:text-[var(--text)] transition-colors">Privacy Policy</button>
         </div>
       </div>
     </div>

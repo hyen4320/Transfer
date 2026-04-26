@@ -31,7 +31,7 @@ function timeWindowToDates(w: string): { from?: string; to?: string } {
 }
 
 const POSITIONS = ['ALL', 'GK', 'DF', 'MF', 'FW'];
-const TIME_OPTIONS = ['24h', '7d', '30d', '이번 창', '전체'];
+const TIME_OPTIONS = ['24h', '7d', '30d', 'This window', 'All'];
 const TRENDING = ['Mbappé', 'Bellingham', 'Haaland', 'Saka', 'Yamal'];
 const RECENT = ['Haaland', 'Jude Bellingham', 'Saka'];
 
@@ -254,8 +254,8 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
 
   // 과거 시즌 선택 시 날짜 기반 timeWindow 자동 해제
   useEffect(() => {
-    if (filters.season !== 51 && !['이번 창', '전체'].includes(filters.timeWindow)) {
-      setFilters(f => ({ ...f, timeWindow: '전체' }));
+    if (filters.season !== 51 && !['This window', 'All'].includes(filters.timeWindow)) {
+      setFilters(f => ({ ...f, timeWindow: 'All' }));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.season]);
@@ -344,7 +344,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
               ${tab === t
                 ? 'text-[var(--accent)] border-[var(--accent)]'
                 : 'text-[var(--text-sub)] border-transparent hover:text-[var(--text)]'}`}>
-            {t === 'filter' ? '⚙ 조건검색' : '⌕ 선수검색'}
+            {t === 'filter' ? '⚙ Filter' : '⌕ Search'}
           </button>
         ))}
       </div>
@@ -361,7 +361,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </div>
 
             {/* Season */}
-            <FilterSection label="시즌">
+            <FilterSection label="Season">
               <select value={filters.season}
                 onChange={e => setFilters(f => ({ ...f, season: Number(e.target.value) }))}
                 className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
@@ -374,7 +374,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </FilterSection>
 
             {/* League */}
-            <FilterSection label="리그">
+            <FilterSection label="League">
               {LEAGUES.map(l => (
                 <CheckRow key={l.id}
                   checked={filters.leagues.has(l.id)}
@@ -386,7 +386,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </FilterSection>
 
             {/* Status */}
-            <FilterSection label="이적 상태">
+            <FilterSection label="Status">
               {(['rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <CheckRow key={s}
                   checked={filters.statuses.has(s)}
@@ -398,7 +398,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </FilterSection>
 
             {/* Position */}
-            <FilterSection label="포지션">
+            <FilterSection label="Position">
               <div className="flex flex-wrap gap-2 pt-1">
                 {POSITIONS.map(p => (
                   <button key={p} onClick={() => setFilters(f => ({ ...f, position: p }))}
@@ -413,10 +413,10 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </FilterSection>
 
             {/* Fee range */}
-            <FilterSection label="이적료">
+            <FilterSection label="Transfer Fee">
               <div className="pt-1 flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">최소</span>
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">Min</span>
                   <input type="range" min={0} max={290} step={10}
                     value={filters.feeMin}
                     onChange={e => setFilters(f => ({ ...f, feeMin: Math.min(Number(e.target.value), f.feeMax - 10) }))}
@@ -424,7 +424,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                   <span className="text-[0.65rem] text-[var(--text-sub)] w-14 text-right flex-shrink-0">€{filters.feeMin}M</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">최대</span>
+                  <span className="text-[0.65rem] text-[var(--text-sub)] w-8 flex-shrink-0">Max</span>
                   <input type="range" min={10} max={300} step={10}
                     value={filters.feeMax}
                     onChange={e => setFilters(f => ({ ...f, feeMax: Math.max(Number(e.target.value), f.feeMin + 10) }))}
@@ -438,7 +438,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             </FilterSection>
 
             {/* Time window */}
-            <FilterSection label="기간">
+            <FilterSection label="Period">
               <div className="flex flex-wrap gap-2 pt-1">
                 {TIME_OPTIONS.map(t => (
                   <button key={t} onClick={() => setFilters(f => ({ ...f, timeWindow: t }))}
@@ -484,13 +484,13 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
               className="flex-1 py-2.5 rounded-lg bg-[var(--accent)] hover:bg-blue-400
                          text-white text-[0.8rem] font-bold tracking-wide transition-colors">
               {filterCountLoading
-                ? '계산 중…'
-                : `결과 보기 · ${filterCount}`}
+                ? 'Calculating…'
+                : `Show Results · ${filterCount}`}
             </button>
             <button className="px-5 py-2.5 rounded-lg border border-[var(--border)]
                                text-[var(--text-sub)] hover:text-[var(--text)] text-[0.8rem] font-bold
                                hover:border-[var(--accent)]/40 transition-all">
-              ★ 저장
+              ★ Save
             </button>
           </div>
         </div>
@@ -510,7 +510,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                     ref={searchInputRef}
                     value={query}
                     onChange={e => setQuery(e.target.value)}
-                    placeholder="선수, 클럽, 기자 검색…"
+                    placeholder="Player, club, journalist…"
                     autoComplete="off"
                     className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg
                                pl-10 pr-10 py-2.5 text-[0.9rem] text-[var(--text)] placeholder-[var(--text-sub)]
@@ -522,20 +522,20 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                   )}
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <span className="text-[0.7rem] text-[var(--text-sub)] self-center">범위</span>
+                  <span className="text-[0.7rem] text-[var(--text-sub)] self-center">Scope</span>
                   {(['player', 'club', 'journalist'] as Scope[]).map(s => (
                     <button key={s} onClick={() => { setScope(s); setSelectedClub(null); }}
                       className={`px-3 py-1 rounded-full text-[0.7rem] font-bold border transition-all
                         ${scope === s
                           ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
                           : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40'}`}>
-                      {s === 'player' ? '선수' : s === 'club' ? '클럽' : '기자'}
+                      {s === 'player' ? 'Player' : s === 'club' ? 'Club' : 'Journalist'}
                     </button>
                   ))}
                 </div>
                 {scope === 'club' && (
                   <div className="flex items-center gap-2 mt-2">
-                    <span className="text-[0.7rem] text-[var(--text-sub)] flex-shrink-0">시즌</span>
+                    <span className="text-[0.7rem] text-[var(--text-sub)] flex-shrink-0">Season</span>
                     <select value={searchSeason} onChange={e => setSearchSeason(Number(e.target.value))}
                       className="flex-1 bg-[var(--surface2)] border border-[var(--border)] rounded-md px-2 py-1
                                  text-[0.75rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
@@ -566,12 +566,12 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             {/* Fly: zooming */}
             {flyStep === 'zooming' && flyPlayer && flyLeague && (
               <div className="px-6 py-6 flex flex-col gap-4">
-                <div className="text-center text-[0.88rem] font-bold text-[var(--text-sub)]">이동 중…</div>
+                <div className="text-center text-[0.88rem] font-bold text-[var(--text-sub)]">Navigating…</div>
                 <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 flex flex-col gap-3">
                   {[
-                    { label: '선수 선택',                         done: true,  active: false },
-                    { label: `국가 이동 · ${flyLeague.abbr}`,    done: false, active: true  },
-                    { label: '클럽 핀 고정',                      done: false, active: false },
+                    { label: 'Player selected',                   done: true,  active: false },
+                    { label: `Moving to ${flyLeague.abbr}`,       done: false, active: true  },
+                    { label: 'Pinning club',                      done: false, active: false },
                   ].map((step, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-[0.6rem]
@@ -603,31 +603,31 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                     {flyLeague.flag} {flyLeague.country} → {flyPlayer.currentClub}
                   </div>
                   <div className="text-[0.78rem] text-[var(--text-sub)]">
-                    지도에서 해당 클럽으로 이동했습니다.
+                    Map moved to the club's location.
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <button onClick={() => navigate(`/players/${flyPlayer.id}`)}
                     className="w-full py-2.5 rounded-lg bg-[var(--accent)] hover:bg-blue-400
                                text-white text-[0.8rem] font-bold transition-colors">
-                    ★ 선수 페이지로 →
+                    ★ Player Profile →
                   </button>
                   <div className="flex gap-2">
                     <button className="flex-1 py-2 rounded-lg border border-[var(--border)]
                                        text-[var(--text-sub)] hover:text-[var(--text)] text-[0.76rem] font-bold transition-all">
-                      국가 상세
+                      Country Detail
                     </button>
                     <button onClick={resetFly}
                       className="flex-1 py-2 rounded-lg border border-[var(--border)]
                                  text-[var(--text-sub)] hover:text-[var(--text)] text-[0.76rem] font-bold transition-all">
-                      ↺ 다시 검색
+                      ↺ Search Again
                     </button>
                   </div>
                 </div>
                 {relatedPlayers.length > 0 && (
                   <div>
                     <div className="text-[0.7rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-2">
-                      같은 국가 · 관련 선수
+                      Same Country · Related Players
                     </div>
                     <div className="border-t border-[var(--border)]">
                       {relatedPlayers.map(p => (
@@ -658,7 +658,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                 <span className="text-[var(--accent)]">◈</span>
                 <span className="text-[var(--text)] font-semibold flex-1 truncate">{selectedClub.name}</span>
                 <span className="text-[0.68rem] text-[var(--accent)]/80 flex-shrink-0">
-                  {SEASON_OPTIONS.find(s => s.value === searchSeason)?.label} · 지도에 표시 중
+                  {SEASON_OPTIONS.find(s => s.value === searchSeason)?.label} · Showing on map
                 </span>
               </div>
             )}
@@ -666,11 +666,11 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
             {flyStep === 'idle' && query.trim() && (
               <div className="px-6 py-3">
                 <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-2">
-                  추천
+                  Results
                   {searchLoading && <span className="ml-2 text-[var(--accent)] animate-pulse">…</span>}
                 </div>
                 {!searchLoading && searchResults.length === 0 ? (
-                  <div className="text-[0.82rem] text-[var(--text-sub)] py-4 text-center opacity-60">결과 없음</div>
+                  <div className="text-[0.82rem] text-[var(--text-sub)] py-4 text-center opacity-60">No results</div>
                 ) : (
                   <div className="border-t border-[var(--border)]">
                     {searchResults.map((item, i) => {
@@ -725,8 +725,8 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
               <div className="px-6 py-5 flex flex-col gap-6">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">최근 검색</span>
-                    <button className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)]">지우기</button>
+                    <span className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">Recent</span>
+                    <button className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)]">Clear</button>
                   </div>
                   <div className="border-t border-[var(--border)]">
                     {RECENT.map((s, i) => (
@@ -741,7 +741,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                   </div>
                 </div>
                 <div>
-                  <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">인기 검색</div>
+                  <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">Trending</div>
                   <div className="flex flex-wrap gap-2">
                     {TRENDING.map((t, i) => (
                       <button key={i} onClick={() => { setScope('player'); setQuery(t); }}

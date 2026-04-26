@@ -4,7 +4,7 @@ const STACK = [
   { category: 'Frontend', items: ['React 18', 'TypeScript', 'Vite', 'Tailwind CSS', 'D3.js'] },
   { category: 'Backend',  items: ['Spring Boot 4', 'Java 17', 'PostgreSQL + PostGIS', 'Redis'] },
   { category: 'Infra',    items: ['AWS EC2', 'Docker Compose', 'GitHub Actions', 'Nginx'] },
-  { category: 'AI',       items: ['Google Gemini API (트윗 파싱)', 'X API v2 (데이터 수집)'] },
+  { category: 'AI',       items: ['Google Gemini API (tweet parsing)', 'X API v2 (data collection)'] },
 ];
 
 export default function AboutPage() {
@@ -30,24 +30,24 @@ export default function AboutPage() {
               Transfer<span className="text-[var(--accent)]">Map</span>
             </h1>
             <p className="text-[0.84rem] text-[var(--text-sub)] leading-relaxed">
-              TransferMap은 유럽 축구 이적시장 정보를 실시간으로 시각화하는 서비스입니다.
-              신뢰도 높은 기자들의 X(트위터) 게시물을 수집·분석하여 선수 이동 루머와 확정 소식을
-              인터랙티브 지도 위에 표현합니다.
+              TransferMap visualises European football transfer market news in real time.
+              Posts from credibility-ranked journalists on X (Twitter) are collected and parsed
+              to display transfer rumours and confirmed moves on an interactive map.
             </p>
           </section>
 
           <section>
-            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-4">핵심 기능</h2>
+            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-4">Key Features</h2>
             <ul className="text-[0.84rem] text-[var(--text-sub)] space-y-2 list-disc list-inside">
-              <li>유럽 5대 리그 클럽 인터랙티브 지도</li>
-              <li>Gemini AI 기반 이적 트윗 자동 파싱</li>
-              <li>기자 공신력 점수 (속도·정확도·파급력 기반)</li>
-              <li>시즌·윈도우·상태별 이적 뉴스 필터</li>
+              <li>Interactive map of Europe's top 5 league clubs</li>
+              <li>Gemini AI-powered automatic transfer tweet parsing</li>
+              <li>Journalist credibility score (speed · accuracy · impact)</li>
+              <li>Transfer news filter by season, window, and status</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-4">기술 스택</h2>
+            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-4">Tech Stack</h2>
             <div className="flex flex-col gap-3">
               {STACK.map(s => (
                 <div key={s.category}
@@ -69,16 +69,16 @@ export default function AboutPage() {
           </section>
 
           <section>
-            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-3">데이터 출처</h2>
+            <h2 className="text-[0.78rem] font-bold tracking-widest uppercase text-[var(--text)] mb-3">Data Sources</h2>
             <p className="text-[0.84rem] text-[var(--text-sub)] leading-relaxed">
-              이적 뉴스는 공개된 기자 X 계정에서 수집됩니다. 데이터는 참고용이며 공식 발표가 아닙니다.
-              클럽·선수 정보 오류 및 기자 등록 요청은{' '}
+              Transfer news is collected from public journalist X accounts. Data is for reference only and does not constitute official announcements.
+              For club/player data errors or journalist registration requests, please use the{' '}
               <a href="/contact"
                 onClick={e => { e.preventDefault(); navigate('/contact'); }}
                 className="text-[var(--accent)] hover:underline">
                 Contact
               </a>
-              로 보내주세요.
+              {' '}page.
             </p>
           </section>
 

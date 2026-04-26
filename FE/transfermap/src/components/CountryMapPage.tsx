@@ -450,7 +450,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
               <input
                 value={searchQ}
                 onChange={e => setSearchQ(e.target.value)}
-                placeholder="선수, 구단 검색…"
+                placeholder="Search player, club…"
                 autoComplete="off"
                 className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg
                            pl-9 pr-8 py-2 text-[0.85rem] text-[var(--text)] placeholder-[var(--text-sub)]
@@ -463,7 +463,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
             </div>
             {searchQ && (
               <div className="mt-1.5 text-[0.68rem] text-[var(--text-sub)]">
-                선 {filteredRoutes.length}개 · 뉴스 {filteredFeed.length}개
+                {filteredRoutes.length} routes · {filteredFeed.length} news
               </div>
             )}
           </div>
@@ -488,7 +488,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
           {/* News feed */}
           <div className="flex-1 overflow-y-auto py-4">
             {filteredFeed.length === 0
-              ? <div className="py-10 text-center text-[0.82rem] text-[var(--text-sub)] opacity-50">검색 결과 없음</div>
+              ? <div className="py-10 text-center text-[0.82rem] text-[var(--text-sub)] opacity-50">No results</div>
               : filteredFeed.map((n, i) => (
                   <NewsCard key={n.id ?? i} item={n} onClick={() => onNewsClick?.(n)} />
                 ))

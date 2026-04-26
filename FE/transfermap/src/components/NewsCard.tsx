@@ -7,7 +7,12 @@ const STATUS_STYLE: Record<string, string> = {
   loan:      'bg-blue-500/15 text-blue-400 border border-blue-500/30',
 };
 
-export default function NewsCard({ item, onClick, highlighted }: { item: NewsItem; onClick?: () => void; highlighted?: boolean }) {
+export default function NewsCard({ item, onClick, highlighted, onPlayerClick }: {
+  item: NewsItem;
+  onClick?: () => void;
+  highlighted?: boolean;
+  onPlayerClick?: (name: string) => void;
+}) {
   return (
     <div onClick={onClick}
          className={`mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
@@ -19,7 +24,14 @@ export default function NewsCard({ item, onClick, highlighted }: { item: NewsIte
       {/* Player + status */}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex-1">
-          <div className="text-[0.95rem] font-bold text-[var(--text)] leading-snug">{item.player}</div>
+          <div
+            className={`text-[0.95rem] font-bold leading-snug transition-colors
+                        ${onPlayerClick
+                          ? 'text-[var(--text)] hover:text-[var(--accent)] underline-offset-2 hover:underline cursor-pointer'
+                          : 'text-[var(--text)]'}`}
+            onClick={onPlayerClick ? e => { e.stopPropagation(); onPlayerClick(item.player); } : undefined}>
+            {item.player}
+          </div>
           <div className="text-[0.8rem] text-[var(--text-sub)] mt-1.5">
             {item.from}
             <span className="text-[var(--accent)] mx-2">→</span>

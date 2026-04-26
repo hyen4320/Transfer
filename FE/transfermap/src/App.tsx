@@ -5,6 +5,7 @@ import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
 import SidePanel from './components/SidePanel';
 import LeftPanel, { type LeftPanelHandle } from './components/LeftPanel';
+import PlayerPanel from './components/PlayerPanel';
 import MobileTabBar from './components/MobileTabBar';
 import JournalistPage from './components/JournalistPage';
 import JournalistDetailPage from './components/JournalistDetailPage';
@@ -18,7 +19,12 @@ import AdSlot, { SLOT } from './components/AdSlot';
 import type { League, Player, NewsItem } from './types';
 import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
+import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
+
+const LEAGUE_NAME_TO_ID: Record<string, string> = {
+  'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
+};
 
 const MAP_SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
   const y1 = 25 - i, y2 = 26 - i;
@@ -34,7 +40,7 @@ function MapView() {
   const { clubs } = useClubs(mapSeason);
   const { items: news } = useNews(mapSeason);
 
-  // 입장 애니메이션 (한 번 본 경우 스킵)
+  // Intro animation (skip if already seen)
   type IntroPhase = 'enter' | 'rise' | 'done';
   const alreadySeen = localStorage.getItem('introSeen') === '1';
   const [introPhase, setIntroPhase] = useState<IntroPhase>(alreadySeen ? 'done' : 'enter');
@@ -50,7 +56,7 @@ function MapView() {
 
   const [filteredNews, setFilteredNews]     = useState<NewsItem[] | null>(null);
 
-  // 시즌 변경 시 적용된 필터 초기화
+  // Reset applied filter on season change
   useEffect(() => { setFilteredNews(null); }, [mapSeason]);
   const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
   const [panelOpen, setPanelOpen]           = useState(false);
@@ -62,6 +68,7 @@ function MapView() {
   const [panelLeague, setPanelLeague]       = useState<League | null>(null);
   const [flyPlayer, setFlyPlayer]           = useState<Player | null>(null);
   const [anchorDismissed, setAnchorDismissed] = useState(false);
+  const [playerPanelId, setPlayerPanelId]   = useState<number | null>(null);
 
   const handleNewsClick = useCallback((item: NewsItem) => {
     const toName = (item.to ?? '').toLowerCase().trim();
@@ -151,6 +158,19 @@ function MapView() {
     }, 720);
   };
 
+  const handlePlayerClick = useCallback(async (playerName: string) => {
+    try {
+      const results = await fetchPlayersSearch(playerName, 1);
+      if (!results.length) return;
+      const player = results[0];
+      setPlayerPanelId(player.id);
+      setLeftPanelOpen(false);
+      const leagueId = LEAGUE_NAME_TO_ID[player.currentLeague ?? ''];
+      const league   = LEAGUES.find(l => l.id === leagueId);
+      if (league) handleFlyTo(player, league);
+    } catch { /* silent fail */ }
+  }, [handleFlyTo]);
+
   const handleCountryClick = (league: League, centroid: [number, number]) => {
     const scene = sceneRef.current;
     if (!scene) return;
@@ -206,7 +226,7 @@ function MapView() {
     setSelectedNewsId(null);
   };
 
-  // 키보드 단축키: Esc = 패널 닫기, / = 검색 토글, n = 뉴스피드 토글
+  // Keyboard shortcuts: Esc = close panel, / = toggle search, n = toggle news feed
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -216,6 +236,7 @@ function MapView() {
         setPanelLeague(null);
         setSelectedNewsId(null);
         setLeftPanelOpen(false);
+        setPlayerPanelId(null);
       } else if (e.key === '/') {
         e.preventDefault();
         if (leftPanelOpen) {
@@ -295,7 +316,7 @@ function MapView() {
         <div className="absolute top-0 left-0 right-0 h-14 flex items-center px-6 z-30 pointer-events-none"
           style={{ background: 'linear-gradient(to bottom, rgba(6,10,18,0.85) 0%, transparent 100%)' }}>
 
-          {/* 로고 — 왼쪽 */}
+          {/* Logo — left */}
           <div className="pointer-events-auto flex-none">
             <div className="text-[1.1rem] font-black tracking-[0.25em] uppercase text-white"
               style={{ textShadow: '0 0 20px rgba(100,160,255,0.8)' }}>
@@ -303,7 +324,7 @@ function MapView() {
             </div>
           </div>
 
-          {/* 버튼 4개 — 데스크톱 중앙 */}
+          {/* 4 nav buttons — desktop center */}
           <div className="hidden sm:flex flex-1 items-center justify-center gap-2 pointer-events-auto">
             <button onClick={openNewsFeed}
               className={`bg-[rgba(13,22,38,0.8)] border text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
@@ -337,7 +358,7 @@ function MapView() {
             </button>
           </div>
 
-          {/* 우측 균형 여백 — 로고 너비만큼 */}
+          {/* Right spacer — matches logo width */}
           <div className="hidden sm:block flex-none" style={{ width: 'calc(1.1rem * 10)' }} />
         </div>
 
@@ -354,18 +375,27 @@ function MapView() {
         onNewsSelect={item => setSelectedNewsId(item ? item.id : null)}
         selectedNewsId={selectedNewsId}
         hoveredRouteId={hoveredRouteId}
+        season={mapSeason}
+        onSeasonChange={setMapSeason}
+        onPlayerClick={handlePlayerClick}
+      />
+
+      {/* PLAYER PANEL */}
+      <PlayerPanel
+        playerId={playerPanelId}
+        onClose={() => setPlayerPanelId(null)}
       />
 
       {/* LEFT PANEL (search / filter overlay) */}
       <LeftPanel
         ref={leftPanelRef}
         open={leftPanelOpen}
-        onClose={() => { setLeftPanelOpen(false); }}
+        onClose={() => { setLeftPanelOpen(false); setPlayerPanelId(null); }}
         onFlyTo={handleFlyTo}
         onApplyFilter={handleApplyFilter}
       />
 
-      {/* 시즌 셀렉터 — 좌측하단 플로팅 (LeftPanel 열릴 때 숨김) */}
+      {/* Season selector — floating bottom-left, hidden when LeftPanel is open */}
       {!leftPanelOpen && (
         <div className="hidden sm:flex absolute left-4 z-40 transition-all duration-200"
              style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '16px' }}>
@@ -388,7 +418,7 @@ function MapView() {
         {[
           { label: 'About',   path: '/info' },
           { label: 'Contact', path: '/info' },
-          { label: '개인정보처리방침', path: '/info' },
+          { label: 'Privacy', path: '/info' },
         ].map(({ label, path }) => (
           <button key={path} onClick={() => navigate(path)}
             className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors tracking-wide">
@@ -397,7 +427,7 @@ function MapView() {
         ))}
       </div>
 
-      {/* 스카이스크래퍼 광고 — 데스크톱 1200px 이상, 패널 바깥 우측 */}
+      {/* Skyscraper ad — desktop 1200px+, right of panel */}
       {!panelOpen && (
         <div className="absolute top-16 right-0 w-[160px] z-30 pointer-events-none hidden 2xl:block">
           <AdSlot
@@ -409,7 +439,7 @@ function MapView() {
         </div>
       )}
 
-      {/* 앵커 배너 — 패널 닫혀있을 때만, 데스크톱 */}
+      {/* Anchor banner — desktop only, shown when panel is closed */}
       {!panelOpen && !anchorDismissed && (
         <div className="absolute bottom-0 left-0 right-0 z-35 hidden sm:flex items-center justify-center
                         bg-[rgba(6,10,18,0.9)] border-t border-[var(--border)] backdrop-blur-sm"
@@ -427,7 +457,7 @@ function MapView() {
         </div>
       )}
 
-      {/* 모바일 FAB — 조건검색 */}
+      {/* Mobile FAB — filter */}
       <button onClick={() => setLeftPanelOpen(true)}
         className="sm:hidden fixed bottom-20 right-4 z-50 w-14 h-14 rounded-full
                    bg-[var(--accent)] flex items-center justify-center text-white text-xl
@@ -435,7 +465,7 @@ function MapView() {
         ⚙
       </button>
 
-      {/* 모바일 탭바 */}
+      {/* Mobile tab bar */}
       <MobileTabBar
         active={panelOpen ? 'news' : leftPanelOpen ? 'search' : 'map'}
         onNews={openNewsFeed}
@@ -452,7 +482,7 @@ function MapView() {
           news={filteredNews ?? news}
           flyPlayer={flyPlayer}
           onNewsClick={handleNewsClick}
-          leftOffset={leftPanelOpen ? 460 : 0}
+          leftOffset={leftPanelOpen || playerPanelId != null ? 460 : 0}
           searchOpen={leftPanelOpen}
           onToggleSearch={() => setLeftPanelOpen(p => !p)}
         />

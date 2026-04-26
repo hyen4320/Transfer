@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNews } from '../hooks/useNews';
+import { useNewsInfinite } from '../hooks/useNewsInfinite';
 import { fetchClub, fetchClubTransfers, fetchClubsBySeason } from '../api/clubs';
 import { fetchLeagues } from '../api/leagues';
 import { ApiError } from '../api/client';
@@ -47,9 +47,12 @@ interface Props {
   onNewsSelect?: (item: NewsItem | null) => void;
   selectedNewsId?: number | null;
   hoveredRouteId?: number | null;
+  season?: number;
+  onSeasonChange?: (s: number) => void;
+  onPlayerClick?: (name: string) => void;
 }
 
-export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsSelect, selectedNewsId, hoveredRouteId }: Props) {
+export default function SidePanel({ open, onClose, selectedClubId, selectedLeague, leagueClubs = [], onNewsSelect, selectedNewsId, hoveredRouteId, season: seasonProp = 51, onSeasonChange, onPlayerClick }: Props) {
   const navigate  = useNavigate();
   const isMobile  = useIsMobile();
   const [sheetFull, setSheetFull] = useState(false);
@@ -57,7 +60,8 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
   const [view,    setView]    = useState<'news' | 'club' | 'league'>('news');
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
   const [filters, setFilters] = useState({ rumour: true, confirmed: true, denied: false });
-  const [season,  setSeason]  = useState(51);
+  const season    = seasonProp;
+  const setSeason = (s: number) => onSeasonChange?.(s);
 
   const [clubDetail,    setClubDetail]    = useState<ApiClub | null>(null);
   const [clubTransfers, setClubTransfers] = useState<{ incoming: NewsItem[]; outgoing: NewsItem[] }>({ incoming: [], outgoing: [] });
@@ -67,7 +71,7 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
   const [seasonClubs,      setSeasonClubs]       = useState<Club[]>(leagueClubs);
   const [seasonClubsLoading, setSeasonClubsLoading] = useState(false);
 
-  const { items: allNews, loading: newsLoading } = useNews(season);
+  const { items: allNews, loading: newsLoading, loadingMore, hasMore, loadMore } = useNewsInfinite(season);
 
   useEffect(() => {
     fetchLeagues().then(setApiLeagues).catch(() => {});
@@ -122,6 +126,20 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
   const activeTransfers = clubTab === 'in' ? clubTransfers.incoming : clubTransfers.outgoing;
 
   const newsListRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Infinite scroll: load next page when sentinel enters the news container
+  useEffect(() => {
+    const sentinel  = sentinelRef.current;
+    const container = newsListRef.current;
+    if (!sentinel || !container) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) loadMore(); },
+      { root: container, threshold: 0.1 },
+    );
+    obs.observe(sentinel);
+    return () => obs.disconnect();
+  }, [loadMore]);
 
   // 지도 루트 호버 시 뉴스피드 스크롤 동기화
   useEffect(() => {
@@ -129,7 +147,12 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
     const container = newsListRef.current;
     if (!container) return;
     const el = container.querySelector(`[data-news-id="${hoveredRouteId}"]`) as HTMLElement | null;
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (el) {
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const relTop = elRect.top - containerRect.top + container.scrollTop;
+      container.scrollTo({ top: relTop - 120, behavior: 'smooth' });
+    }
   }, [hoveredRouteId, open, view]);
 
   // 닫힐 때 바텀시트 상태 초기화
@@ -157,7 +180,7 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
           className="flex-shrink-0 flex flex-col items-center pt-3 pb-1 gap-1 w-full">
           <span className="w-10 h-1 rounded-full bg-white/20" />
           <span className="text-[0.58rem] tracking-widest text-[var(--text-sub)] uppercase">
-            {sheetFull ? '▼ 접기' : '▲ 펼치기'}
+            {sheetFull ? '▼ Collapse' : '▲ Expand'}
           </span>
         </button>
       )}
@@ -203,7 +226,6 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
               : filteredNews.map((n, i) => (
                   <div key={n.id ?? i} data-news-id={n.id}
                        className={hoveredRouteId === n.id ? 'ring-1 ring-inset ring-[var(--accent)]/30 rounded-xl mx-1 transition-all' : ''}>
-                    {/* 3번째 카드 다음마다 인피드 네이티브 광고 */}
                     {i > 0 && i % 3 === 0 && (
                       <AdSlot
                         slot={SLOT.FEED_NATIVE}
@@ -219,10 +241,22 @@ export default function SidePanel({ open, onClose, selectedClubId, selectedLeagu
                         if (selectedNewsId === n.id) { onNewsSelect?.(null); }
                         else { onNewsSelect?.(n); }
                       }}
+                      onPlayerClick={onPlayerClick}
                     />
                   </div>
                 ))
             }
+            {!newsLoading && (
+              <>
+                <div ref={sentinelRef} className="h-1" />
+                {loadingMore && (
+                  <div className="flex items-center justify-center py-5 text-[0.78rem] text-[var(--text-sub)]">Loading…</div>
+                )}
+                {!hasMore && filteredNews.length > 0 && (
+                  <div className="text-center py-5 text-[0.68rem] text-[var(--text-sub)] tracking-widest uppercase">End</div>
+                )}
+              </>
+            )}
           </div>
         </>
       )}
