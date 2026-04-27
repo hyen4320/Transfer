@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { fetchJournalist, fetchJournalistNews } from '../api/journalists';
 import { ApiError } from '../api/client';
 import type { Journalist, NewsItem } from '../types';
@@ -53,15 +52,13 @@ export default function JournalistDetailPage() {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="profile" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-      </Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="profile" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
         <button onClick={() => navigate('/journalists')}
           className="border border-[var(--border)] text-[var(--text-sub)] text-[0.84rem] px-5 py-2.5 rounded-lg
