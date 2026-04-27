@@ -6,7 +6,7 @@ import { fetchClub, fetchClubTransfers, fetchClubsBySeason, fetchAllClubs } from
 import { fetchLeagues } from '../api/leagues';
 import { fetchJournalists } from '../api/journalists';
 import { fetchPlayersSearch } from '../api/players';
-import { fetchNewsPage } from '../api/news';
+import { fetchNews, fetchNewsPage } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import { ApiError } from '../api/client';
 import type { ApiClub, ApiLeague } from '../api/types';
@@ -156,6 +156,8 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const [filterState,        setFilterState]        = useState<FilterState>(defaultFilters);
   const [filterCount,        setFilterCount]        = useState<number>(NEWS.length);
   const [filterCountLoading, setFilterCountLoading] = useState(false);
+  const [appliedItems,       setAppliedItems]       = useState<NewsItem[] | null>(null);
+  const [applyLoading,       setApplyLoading]       = useState(false);
 
   // ── Imperative handle ─────────────────────────────────────────────────────
   useImperativeHandle(ref, () => ({
@@ -448,21 +450,51 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
             </select>
           </div>
 
-          <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
-            {(['rumour', 'confirmed', 'denied'] as const).map(s => (
-              <button key={s} onClick={() => toggleStatusFilter(s)}
-                className={`px-5 py-2.5 rounded-full text-[0.72rem] font-bold tracking-widest border transition-all
-                  ${s === 'rumour'    ? 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30' : ''}
-                  ${s === 'confirmed' ? 'bg-green-500/15  text-green-400  border-green-500/30'  : ''}
-                  ${s === 'denied'    ? 'bg-red-500/15    text-red-400    border-red-500/30'    : ''}
-                  ${statusFilters[s] ? 'opacity-100' : 'opacity-35'}`}>
-                {s.toUpperCase()}
+          {appliedItems !== null ? (
+            <div className="flex items-center gap-2 px-5 py-2.5 border-b border-[var(--border)] bg-[var(--accent)]/8 flex-shrink-0">
+              <span className="text-[0.72rem] font-bold text-[var(--accent)] flex-1">
+                Filter active · {appliedItems.length} results
+              </span>
+              <button onClick={() => setAppliedItems(null)}
+                className="text-[0.7rem] font-bold text-[var(--text-sub)] hover:text-[var(--text)] border border-[var(--border)]
+                           px-2.5 py-1 rounded-md transition-colors">
+                Clear ✕
               </button>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
+              {(['rumour', 'confirmed', 'denied'] as const).map(s => (
+                <button key={s} onClick={() => toggleStatusFilter(s)}
+                  className={`px-5 py-2.5 rounded-full text-[0.72rem] font-bold tracking-widest border transition-all
+                    ${s === 'rumour'    ? 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30' : ''}
+                    ${s === 'confirmed' ? 'bg-green-500/15  text-green-400  border-green-500/30'  : ''}
+                    ${s === 'denied'    ? 'bg-red-500/15    text-red-400    border-red-500/30'    : ''}
+                    ${statusFilters[s] ? 'opacity-100' : 'opacity-35'}`}>
+                  {s.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div ref={newsListRef} className="flex-1 overflow-y-auto py-5">
-            {newsLoading
+            {appliedItems !== null ? (
+              appliedItems.length === 0
+                ? <div className="py-16 text-center text-[0.82rem] text-[var(--text-sub)] opacity-50">No results</div>
+                : appliedItems.map((n, i) => (
+                    <div key={n.id} data-news-id={n.id}>
+                      {i > 0 && i % 3 === 0 && (
+                        <AdSlot slot={SLOT.FEED_NATIVE} format="fluid" layoutKey="-fb+5w+4e-db+86"
+                          className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]" />
+                      )}
+                      <NewsCard
+                        item={n}
+                        highlighted={selectedNewsId === n.id}
+                        onClick={() => selectedNewsId === n.id ? onNewsSelect?.(null) : onNewsSelect?.(n)}
+                        onPlayerClick={onPlayerClick}
+                      />
+                    </div>
+                  ))
+            ) : newsLoading
               ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
               : filteredNews.map((n, i) => (
                   <div key={n.id ?? i} data-news-id={n.id}
@@ -480,7 +512,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                   </div>
                 ))
             }
-            {!newsLoading && (
+            {appliedItems === null && !newsLoading && (
               <>
                 <div ref={sentinelRef} className="h-1" />
                 {loadingMore && (
@@ -841,26 +873,44 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
           </div>
 
           <div className="flex-shrink-0 border-t border-[var(--border)] px-6 py-4 flex gap-3">
-            <button onClick={() => {
-              if (onApplyFilter) {
-                const { from, to } = timeWindowToDates(filterState.timeWindow);
-                const beLeagueIds = [...filterState.leagues]
-                  .map(feId => apiLeagues.find(l => LEAGUE_NAME_TO_ID[l.name] === feId)?.id)
-                  .filter((id): id is number => id != null);
-                const position  = filterState.position !== 'ALL' ? filterState.position : undefined;
-                const minFeeEur = filterState.feeMin > 0  ? filterState.feeMin * 1_000_000 : undefined;
-                const maxFeeEur = filterState.feeMax < 300 ? filterState.feeMax * 1_000_000 : undefined;
-                const targets   = beLeagueIds.length > 0 ? beLeagueIds : [undefined as unknown as number];
-                onApplyFilter(
-                  targets.map(leagueId => ({ season: filterState.season, leagueId, position, minFeeEur, maxFeeEur, from, to, size: 100 })),
-                  filterState.statuses
+            <button onClick={async () => {
+              const { from, to } = timeWindowToDates(filterState.timeWindow);
+              const beLeagueIds = [...filterState.leagues]
+                .map(feId => apiLeagues.find(l => LEAGUE_NAME_TO_ID[l.name] === feId)?.id)
+                .filter((id): id is number => id != null);
+              const position  = filterState.position !== 'ALL' ? filterState.position : undefined;
+              const minFeeEur = filterState.feeMin > 0  ? filterState.feeMin * 1_000_000 : undefined;
+              const maxFeeEur = filterState.feeMax < 300 ? filterState.feeMax * 1_000_000 : undefined;
+              const targets   = beLeagueIds.length > 0 ? beLeagueIds : [undefined as unknown as number];
+              const paramsList = targets.map(leagueId => ({ season: filterState.season, leagueId, position, minFeeEur, maxFeeEur, from, to, size: 100 }));
+
+              if (onApplyFilter) onApplyFilter(paramsList, filterState.statuses);
+              setSeason(filterState.season);
+
+              setApplyLoading(true);
+              try {
+                const results = await Promise.all(
+                  paramsList.flatMap(params =>
+                    [...filterState.statuses].map(status => {
+                      const beStatus = status === 'rumour' ? 'RUMOR' : status.toUpperCase();
+                      return fetchNews({ ...params, status: beStatus });
+                    })
+                  )
                 );
-              }
-              onClose();
+                const merged = results.flat();
+                const seen = new Set<number>();
+                const deduped = merged.filter(n => { if (seen.has(n.id)) return false; seen.add(n.id); return true; });
+                setAppliedItems(deduped);
+              } catch { /* keep current on error */ }
+              finally { setApplyLoading(false); }
+
+              setView('news');
             }}
+              disabled={filterCountLoading || applyLoading}
               className="flex-1 py-2.5 rounded-lg bg-[var(--accent)] hover:bg-blue-400
-                         text-white text-[0.8rem] font-bold tracking-wide transition-colors">
-              {filterCountLoading ? 'Calculating…' : `Show Results · ${filterCount}`}
+                         text-white text-[0.8rem] font-bold tracking-wide transition-colors
+                         disabled:opacity-60 disabled:cursor-not-allowed">
+              {filterCountLoading || applyLoading ? 'Loading…' : `Show Results · ${filterCount}`}
             </button>
             <button className="px-5 py-2.5 rounded-lg border border-[var(--border)]
                                text-[var(--text-sub)] hover:text-[var(--text)] text-[0.8rem] font-bold
