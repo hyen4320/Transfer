@@ -14,11 +14,7 @@ import type { League, Club, NewsItem, Player, Journalist } from '../types';
 import NewsCard from './NewsCard';
 import AdSlot, { SLOT } from './AdSlot';
 import { LEAGUES, CLUBS, PLAYERS, JOURNALISTS, NEWS } from '../data/mock';
-import { SEASON_OPTIONS } from '../data/constants';
-
-const LEAGUE_NAME_TO_ID: Record<string, string> = {
-  'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
-};
+import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from '../data/constants';
 
 
 const POSITIONS   = ['ALL', 'GK', 'DF', 'MF', 'FW'];

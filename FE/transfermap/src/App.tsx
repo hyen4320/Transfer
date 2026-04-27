@@ -20,11 +20,7 @@ import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
 import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
-import { SEASON_OPTIONS } from './data/constants';
-
-const LEAGUE_NAME_TO_ID: Record<string, string> = {
-  'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
-};
+import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from './data/constants';
 
 function MapView() {
   const navigate       = useNavigate();

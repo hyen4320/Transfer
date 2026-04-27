@@ -10,15 +10,7 @@ import { fetchAllClubs } from '../api/clubs';
 import { fetchNewsPage } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import type { Club, Journalist } from '../types';
-
-// league name → FE id
-const LEAGUE_NAME_TO_ID: Record<string, string> = {
-  'Premier League': 'pl',
-  'La Liga':        'll',
-  'Bundesliga':     'bl',
-  'Serie A':        'sa',
-  'Ligue 1':        'l1',
-};
+import { LEAGUE_NAME_TO_ID } from '../data/constants';
 
 // time window → ISO date range
 function timeWindowToDates(w: string): { from?: string; to?: string } {

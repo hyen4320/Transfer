@@ -3,3 +3,12 @@ export const SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
   const fmt = (y: number) => String(y).padStart(2, '0');
   return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
 });
+
+/** BE leagueName → FE league string id */
+export const LEAGUE_NAME_TO_ID: Record<string, string> = {
+  'Premier League': 'pl',
+  'La Liga':        'll',
+  'Bundesliga':     'bl',
+  'Serie A':        'sa',
+  'Ligue 1':        'l1',
+};

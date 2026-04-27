@@ -24,6 +24,7 @@ export default function PlayerPanel({ playerId, onClose }: Props) {
   const [history, setHistory] = useState<TransferHistory[]>([]);
   const [news,    setNews]    = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error,   setError]   = useState(false);
   const [sheetFull, setSheetFull] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export default function PlayerPanel({ playerId, onClose }: Props) {
     const controller = new AbortController();
     const { signal } = controller;
     setLoading(true);
+    setError(false);
     setPlayer(null);
     setHistory([]);
     setNews([]);
@@ -42,7 +44,7 @@ export default function PlayerPanel({ playerId, onClose }: Props) {
         setLoading(false);
       })
       .catch(err => {
-        if (err.name !== 'AbortError') setLoading(false);
+        if (err.name !== 'AbortError') { setLoading(false); setError(true); }
       });
     return () => controller.abort();
   }, [playerId]);
@@ -91,6 +93,10 @@ export default function PlayerPanel({ playerId, onClose }: Props) {
       {loading ? (
         <div className="flex-1 flex items-center justify-center text-[0.84rem] text-[var(--text-sub)]">
           Loading…
+        </div>
+      ) : error ? (
+        <div className="flex-1 flex items-center justify-center text-[0.84rem] text-red-400">
+          Failed to load player data
         </div>
       ) : !player ? null : (
         <div className="flex-1 overflow-y-auto">

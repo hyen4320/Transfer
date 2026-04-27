@@ -3,15 +3,7 @@ import type { ApiClub, ApiNewsItem } from './types';
 import { mapNews } from './mappers';
 import type { Club, NewsItem } from '../types';
 import { LEAGUES } from '../data/mock';
-
-/** BE leagueName → FE league string id */
-const LEAGUE_NAME_TO_ID: Record<string, string> = {
-  'Premier League': 'pl',
-  'La Liga':        'll',
-  'Bundesliga':     'bl',
-  'Serie A':        'sa',
-  'Ligue 1':        'l1',
-};
+import { LEAGUE_NAME_TO_ID } from '../data/constants';
 
 export function mapApiClub(c: ApiClub): Club {
   const leagueId = LEAGUE_NAME_TO_ID[c.leagueName ?? ''] ?? '';

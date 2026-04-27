@@ -5,6 +5,7 @@ import { ApiError } from '../api/client';
 import { NEWS } from '../data/mock';
 import type { NewsItem } from '../types';
 
+// WorldMap 전용 — SidePanel 무한스크롤은 useNewsInfinite 사용
 export function useNews(season: number = 51) {
   const navigate = useNavigate();
   const [items,   setItems]   = useState<NewsItem[]>([]);
