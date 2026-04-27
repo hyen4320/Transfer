@@ -3,8 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useClubs } from './hooks/useClubs';
 import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
-import SidePanel from './components/SidePanel';
-import LeftPanel, { type LeftPanelHandle } from './components/LeftPanel';
+import SidePanel, { type SidePanelHandle } from './components/SidePanel';
 import PlayerPanel from './components/PlayerPanel';
 import MobileTabBar from './components/MobileTabBar';
 import JournalistPage from './components/JournalistPage';
@@ -21,21 +20,16 @@ import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
 import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
+import { SEASON_OPTIONS } from './data/constants';
 
 const LEAGUE_NAME_TO_ID: Record<string, string> = {
   'Premier League': 'pl', 'La Liga': 'll', 'Bundesliga': 'bl', 'Serie A': 'sa', 'Ligue 1': 'l1',
 };
 
-const MAP_SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
-  const y1 = 25 - i, y2 = 26 - i;
-  const fmt = (y: number) => String(y).padStart(2, '0');
-  return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
-});
-
 function MapView() {
-  const navigate      = useNavigate();
-  const sceneRef      = useRef<HTMLDivElement>(null);
-  const leftPanelRef  = useRef<LeftPanelHandle>(null);
+  const navigate       = useNavigate();
+  const sceneRef       = useRef<HTMLDivElement>(null);
+  const sidePanelRef   = useRef<SidePanelHandle>(null);
   const [mapSeason, setMapSeason] = useState(51);
   const { clubs } = useClubs(mapSeason);
   const { items: news } = useNews(mapSeason);
@@ -61,7 +55,6 @@ function MapView() {
   const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
   const [panelOpen, setPanelOpen]           = useState(false);
   const [hoveredRouteId, setHoveredRouteId] = useState<number | null>(null);
-  const [leftPanelOpen, setLeftPanelOpen]   = useState(false);
   const [selectedLeague, setSelectedLeague] = useState<League | null>(null);
   const [showCountryMap, setShowCountryMap] = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
@@ -69,6 +62,7 @@ function MapView() {
   const [flyPlayer, setFlyPlayer]           = useState<Player | null>(null);
   const [anchorDismissed, setAnchorDismissed] = useState(false);
   const [playerPanelId, setPlayerPanelId]   = useState<number | null>(null);
+  const [toast, setToast]                   = useState<string | null>(null);
 
   const handleNewsClick = useCallback((item: NewsItem) => {
     const toName = (item.to ?? '').toLowerCase().trim();
@@ -132,7 +126,7 @@ function MapView() {
     }
   };
 
-  const handleFlyTo = (player: Player, league: League) => {
+  const handleFlyTo = useCallback((player: Player, league: League) => {
     const scene = sceneRef.current;
     if (!scene) return;
 
@@ -156,26 +150,28 @@ function MapView() {
       setSelectedLeague(league);
       setShowCountryMap(true);
     }, 720);
-  };
+  }, []);
+
+  const showToast = useCallback((msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2500);
+  }, []);
 
   const handlePlayerClick = useCallback(async (playerName: string) => {
     try {
       const results = await fetchPlayersSearch(playerName, 1);
-      if (!results.length) return;
+      if (!results.length) { showToast(`Player not found: ${playerName}`); return; }
       const player = results[0];
       setPlayerPanelId(player.id);
-      setLeftPanelOpen(false);
       const leagueId = LEAGUE_NAME_TO_ID[player.currentLeague ?? ''];
       const league   = LEAGUES.find(l => l.id === leagueId);
       if (league) handleFlyTo(player, league);
     } catch { /* silent fail */ }
-  }, [handleFlyTo]);
+  }, [handleFlyTo, showToast]);
 
   const handleCountryClick = (league: League, centroid: [number, number]) => {
     const scene = sceneRef.current;
     if (!scene) return;
-
-    setLeftPanelOpen(true);
 
     scene.style.transformOrigin  = `${centroid[0]}px ${centroid[1]}px`;
     scene.style.transition       = 'transform 0.7s cubic-bezier(0.55,0,0.8,1), opacity 0.28s 0.42s';
@@ -235,16 +231,11 @@ function MapView() {
         setSelectedClubId(null);
         setPanelLeague(null);
         setSelectedNewsId(null);
-        setLeftPanelOpen(false);
         setPlayerPanelId(null);
       } else if (e.key === '/') {
         e.preventDefault();
-        if (leftPanelOpen) {
-          setLeftPanelOpen(false);
-        } else {
-          setLeftPanelOpen(true);
-          leftPanelRef.current?.focusSearch();
-        }
+        setPanelOpen(true);
+        sidePanelRef.current?.focusSearch();
       } else if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey) {
         if (isNewsFeedOpen) {
           setPanelOpen(false);
@@ -258,7 +249,7 @@ function MapView() {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [isNewsFeedOpen, leftPanelOpen]);
+  }, [isNewsFeedOpen]);
 
   return (
     <div className="w-screen h-screen overflow-hidden bg-[var(--bg)] relative">
@@ -334,6 +325,13 @@ function MapView() {
                            : 'border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10'}`}>
               ◈ News Feed
             </button>
+            <button onClick={() => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }}
+              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
+                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
+                         backdrop-blur-lg flex items-center gap-1.5 transition-all
+                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
+              ⌕ Search
+            </button>
             <button onClick={() => navigate('/journalists')}
               className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
                          text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
@@ -348,14 +346,6 @@ function MapView() {
                          hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
               ! Notice
             </button>
-            <button onClick={() => setLeftPanelOpen(p => !p)}
-              className={`bg-[rgba(13,22,38,0.8)] border text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
-                         backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         ${leftPanelOpen
-                           ? 'border-[var(--accent)]/60 text-[var(--accent)] bg-[var(--accent)]/10'
-                           : 'border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10'}`}>
-              ⌕ Search
-            </button>
           </div>
 
           {/* Right spacer — matches logo width */}
@@ -366,6 +356,7 @@ function MapView() {
 
       {/* SIDE PANEL */}
       <SidePanel
+        ref={sidePanelRef}
         open={panelOpen}
         onClose={closePanel}
         selectedClubId={selectedClubId}
@@ -378,6 +369,9 @@ function MapView() {
         season={mapSeason}
         onSeasonChange={setMapSeason}
         onPlayerClick={handlePlayerClick}
+        onFlyTo={handleFlyTo}
+        onApplyFilter={handleApplyFilter}
+        onPlayerPanelOpen={id => setPlayerPanelId(id)}
       />
 
       {/* PLAYER PANEL */}
@@ -386,50 +380,49 @@ function MapView() {
         onClose={() => setPlayerPanelId(null)}
       />
 
-      {/* LEFT PANEL (search / filter overlay) */}
-      <LeftPanel
-        ref={leftPanelRef}
-        open={leftPanelOpen}
-        onClose={() => { setLeftPanelOpen(false); setPlayerPanelId(null); }}
-        onFlyTo={handleFlyTo}
-        onApplyFilter={handleApplyFilter}
-      />
-
-      {/* Season selector — floating bottom-left, hidden when LeftPanel is open */}
-      {!leftPanelOpen && (
-        <div className="hidden sm:flex absolute left-4 z-40 transition-all duration-200"
-             style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '16px' }}>
-          <select
-            value={mapSeason}
-            onChange={e => setMapSeason(Number(e.target.value))}
-            className="bg-[rgba(13,22,38,0.85)] border border-[var(--border)] text-[var(--text-sub)]
-                       text-[0.72rem] rounded-md px-2.5 py-1.5 focus:outline-none backdrop-blur-sm
-                       hover:border-[var(--accent)]/50 hover:text-[var(--text)] transition-all cursor-pointer">
-            {MAP_SEASON_OPTIONS.map(s => (
-              <option key={s.value} value={s.value}>{s.label}</option>
-            ))}
-          </select>
-        </div>
-      )}
+      {/* Season selector — floating bottom-left */}
+      <div className="hidden sm:flex absolute left-4 z-40 transition-all duration-200"
+           style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '16px' }}>
+        <select
+          value={mapSeason}
+          onChange={e => setMapSeason(Number(e.target.value))}
+          className="bg-[rgba(13,22,38,0.85)] border border-[var(--border)] text-[var(--text-sub)]
+                     text-[0.72rem] rounded-md px-2.5 py-1.5 focus:outline-none backdrop-blur-sm
+                     hover:border-[var(--accent)]/50 hover:text-[var(--text)] transition-all cursor-pointer">
+          {SEASON_OPTIONS.map(s => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
+      </div>
 
       {/* FOOTER */}
       <div className="absolute right-4 flex gap-4 z-40 pointer-events-auto sm:flex hidden transition-all duration-200"
            style={{ bottom: !panelOpen && !anchorDismissed ? '68px' : '12px' }}>
         {[
-          { label: 'About',   path: '/info' },
-          { label: 'Contact', path: '/info' },
-          { label: 'Privacy', path: '/info' },
+          { label: 'About',   path: '/info#about'   },
+          { label: 'Contact', path: '/info#contact' },
+          { label: 'Privacy', path: '/info#privacy' },
         ].map(({ label, path }) => (
-          <button key={path} onClick={() => navigate(path)}
+          <button key={label} onClick={() => navigate(path)}
             className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors tracking-wide">
             {label}
           </button>
         ))}
       </div>
 
-      {/* Skyscraper ad — desktop 1200px+, right of panel */}
-      {!panelOpen && (
-        <div className="absolute top-16 right-0 w-[160px] z-30 pointer-events-none hidden 2xl:block">
+      {/* Toast */}
+      {toast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[100] px-5 py-2.5 rounded-xl
+                        bg-[rgba(15,25,45,0.95)] border border-[var(--border)] backdrop-blur-xl
+                        text-[0.82rem] text-[var(--text-sub)] shadow-2xl pointer-events-none
+                        animate-[fadeIn_0.2s_ease]">
+          {toast}
+        </div>
+      )}
+
+      {/* Skyscraper ad — desktop 1200px+, left side */}
+      {playerPanelId == null && (
+        <div className="absolute top-16 left-0 w-[160px] z-30 pointer-events-none hidden 2xl:block">
           <AdSlot
             slot={SLOT.SKYSCRAPER}
             format="vertical"
@@ -458,7 +451,7 @@ function MapView() {
       )}
 
       {/* Mobile FAB — filter */}
-      <button onClick={() => setLeftPanelOpen(true)}
+      <button onClick={() => { setPanelOpen(true); sidePanelRef.current?.openFilter(); }}
         className="sm:hidden fixed bottom-20 right-4 z-50 w-14 h-14 rounded-full
                    bg-[var(--accent)] flex items-center justify-center text-white text-xl
                    shadow-[0_4px_20px_rgba(59,130,246,0.5)] active:scale-95 transition-transform">
@@ -467,9 +460,9 @@ function MapView() {
 
       {/* Mobile tab bar */}
       <MobileTabBar
-        active={panelOpen ? 'news' : leftPanelOpen ? 'search' : 'map'}
+        active={panelOpen ? 'news' : 'map'}
         onNews={openNewsFeed}
-        onSearch={() => setLeftPanelOpen(true)}
+        onSearch={() => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }}
       />
 
       {/* COUNTRY MAP (overlay) */}
@@ -477,14 +470,14 @@ function MapView() {
         <CountryMapPage
           league={selectedLeague}
           backLabel="← Map"
-          onBack={() => { setShowCountryMap(false); setFlyPlayer(null); setLeftPanelOpen(false); }}
+          onBack={() => { setShowCountryMap(false); setFlyPlayer(null); }}
           clubs={clubs}
           news={filteredNews ?? news}
           flyPlayer={flyPlayer}
           onNewsClick={handleNewsClick}
-          leftOffset={leftPanelOpen || playerPanelId != null ? 460 : 0}
-          searchOpen={leftPanelOpen}
-          onToggleSearch={() => setLeftPanelOpen(p => !p)}
+          leftOffset={playerPanelId != null ? 460 : 0}
+          searchOpen={panelOpen}
+          onToggleSearch={() => setPanelOpen(p => !p)}
         />
       )}
     </div>

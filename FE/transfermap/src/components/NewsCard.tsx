@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { NewsItem } from '../types';
 
 const STATUS_STYLE: Record<string, string> = {
@@ -7,7 +8,7 @@ const STATUS_STYLE: Record<string, string> = {
   loan:      'bg-blue-500/15 text-blue-400 border border-blue-500/30',
 };
 
-export default function NewsCard({ item, onClick, highlighted, onPlayerClick }: {
+export default memo(function NewsCard({ item, onClick, highlighted, onPlayerClick }: {
   item: NewsItem;
   onClick?: () => void;
   highlighted?: boolean;
@@ -78,4 +79,4 @@ export default function NewsCard({ item, onClick, highlighted, onPlayerClick }: 
       </div>
     </div>
   );
-}
+});

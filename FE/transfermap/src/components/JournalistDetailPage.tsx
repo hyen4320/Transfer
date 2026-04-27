@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { fetchJournalist, fetchJournalistNews } from '../api/journalists';
 import { ApiError } from '../api/client';
 import type { Journalist, NewsItem } from '../types';
@@ -41,6 +42,9 @@ export default function JournalistDetailPage() {
 
   if (!journalist) return null;
 
+  const title = `${journalist.name} (${journalist.handle}) — TransferMap`;
+  const description = `${journalist.name} transfer news reporter${journalist.outlet ? ` at ${journalist.outlet}` : ''}. Credibility score: ${journalist.score?.toFixed(1) ?? '—'}/100.`;
+
   const bars = [
     { label: 'Speed',    value: journalist.speed,    color: '#3b82f6', weight: '×0.3' },
     { label: 'Accuracy', value: journalist.accuracy, color: '#22c55e', weight: '×0.5' },
@@ -49,6 +53,15 @@ export default function JournalistDetailPage() {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="profile" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
         <button onClick={() => navigate('/journalists')}
           className="border border-[var(--border)] text-[var(--text-sub)] text-[0.84rem] px-5 py-2.5 rounded-lg

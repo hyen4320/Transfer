@@ -28,6 +28,7 @@ export interface ApiJournalist {
   speedScore: number | null;
   accuracyScore: number | null;
   impactScore: number | null;
+  isBot: boolean;
 }
 
 /** BE PlayerResponse */

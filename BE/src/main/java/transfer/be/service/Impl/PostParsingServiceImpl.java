@@ -78,6 +78,13 @@ public class PostParsingServiceImpl implements PostParsingService {
 
         transferNewsRepository.save(news);
         log.info("[Parsing] TransferNews 생성 — {} → {} ({})", result.fromClub(), result.toClub(), result.status());
+
+        TransferNews.Status status = news.getStatus();
+        if (status == TransferNews.Status.CONFIRMED) {
+            playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.CONTRACTED);
+        } else if (status == TransferNews.Status.LOAN) {
+            playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.LOANED);
+        }
     }
 
     private Club resolveClub(String name) {

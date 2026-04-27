@@ -1,7 +1,15 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function InfoPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const el = document.getElementById(hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
@@ -21,7 +29,7 @@ export default function InfoPage() {
         <div className="w-full max-w-3xl px-4 sm:px-8 lg:px-10 py-10 space-y-16">
 
         {/* About */}
-        <section>
+        <section id="about">
           <h2 className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-6 pb-3 border-b border-[var(--border)]">About</h2>
           <div className="flex flex-col gap-8">
             <div>
@@ -47,7 +55,7 @@ export default function InfoPage() {
         </section>
 
         {/* Contact */}
-        <section>
+        <section id="contact">
           <h2 className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-6 pb-3 border-b border-[var(--border)]">Contact</h2>
           <p className="text-[0.84rem] text-[var(--text-sub)] mb-4 leading-relaxed">
             For bug reports, journalist registration requests, or data error reports, please reach out below.
@@ -64,7 +72,7 @@ export default function InfoPage() {
         </section>
 
         {/* Privacy */}
-        <section>
+        <section id="privacy">
           <h2 className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-6 pb-3 border-b border-[var(--border)]">Privacy Policy</h2>
           <div className="flex flex-col gap-6 text-[0.84rem] text-[var(--text-sub)] leading-relaxed">
             <p className="text-[var(--text)]">

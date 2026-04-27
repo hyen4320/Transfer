@@ -55,6 +55,7 @@ export interface Journalist {
   speed: number;
   accuracy: number;
   impact: number;
+  isBot?: boolean;
   bio?: string;
   country?: string;
   outlet?: string;

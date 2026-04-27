@@ -45,6 +45,11 @@ public class Player {
     @Column(name = "contract_status")
     private ContractStatus contractStatus;
 
+    public void updateCurrentClub(Club club, ContractStatus status) {
+        this.currentClub = club;
+        this.contractStatus = status;
+    }
+
     public enum Position {
         GK, DF, MF, FW
     }

@@ -62,6 +62,7 @@ export function mapJournalist(j: ApiJournalist): Journalist {
     speed:     j.speedScore    ?? 0,
     accuracy:  j.accuracyScore ?? 0,
     impact:    j.impactScore   ?? 0,
+    isBot:     j.isBot ?? false,
   };
 }
 

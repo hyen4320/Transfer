@@ -45,6 +45,9 @@ public class Journalist implements Serializable {
     /** 공신력 기반 순위 */
     private Integer rank;
 
+    @Column(name = "is_bot")
+    private Boolean isBot;
+
     @Column(name = "last_synced_at")
     private LocalDateTime lastSyncedAt;
 

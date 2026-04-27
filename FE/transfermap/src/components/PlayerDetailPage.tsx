@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { fetchPlayer, fetchPlayerTransfers } from '../api/players';
 import { ApiError } from '../api/client';
 import type { ApiPlayer } from '../api/types';
@@ -52,8 +53,21 @@ export default function PlayerDetailPage() {
 
   if (!player) return null;
 
+  const club = player.currentClubName ?? 'Free Agent';
+  const title = `${player.name} — ${club} | TransferMap`;
+  const description = `Transfer history and latest news for ${player.name} (${player.position ?? ''}, ${player.nationality ?? ''}), currently at ${club}.`;
+
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="profile" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
         <button onClick={() => navigate(-1)}
           className="border border-[var(--border)] text-[var(--text-sub)] text-[0.84rem] px-5 py-2.5 rounded-lg

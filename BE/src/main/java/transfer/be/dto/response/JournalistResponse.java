@@ -13,7 +13,8 @@ public record JournalistResponse(
         Integer rank,
         Float speedScore,
         Float accuracyScore,
-        Float impactScore
+        Float impactScore,
+        Boolean isBot
 ) {
     public static JournalistResponse from(Journalist j) {
         return from(j, null);
@@ -30,7 +31,8 @@ public record JournalistResponse(
                 j.getRank(),
                 metric != null ? metric.getSpeedScore()    : null,
                 metric != null ? metric.getAccuracyScore() : null,
-                metric != null ? metric.getImpactScore()   : null
+                metric != null ? metric.getImpactScore()   : null,
+                Boolean.TRUE.equals(j.getIsBot())
         );
     }
 }

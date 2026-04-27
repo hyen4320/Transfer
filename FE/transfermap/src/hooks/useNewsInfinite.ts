@@ -15,9 +15,10 @@ export function useNewsInfinite(season: number = 51) {
   const pageRef = useRef(0);
   const isPast = season !== 51;
 
-  const fetchPage = useCallback(async (page: number, reset: boolean) => {
+  const fetchPage = useCallback(async (page: number, reset: boolean, signal?: AbortSignal) => {
     if (reset) setLoading(true);
     else setLoadingMore(true);
+    let aborted = false;
     try {
       const data = await fetchNews({
         season,
@@ -25,22 +26,27 @@ export function useNewsInfinite(season: number = 51) {
         page,
         sort: isPast ? 'feeEur,desc' : 'publishedAt,desc',
         ...(isPast && { minFeeEur: 1 }),
-      });
+      }, signal);
       setItems(prev => reset ? data : [...prev, ...data]);
       setHasMore(data.length === PAGE_SIZE);
       pageRef.current = page;
     } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') { aborted = true; return; }
       if (err instanceof ApiError && err.status >= 500) navigate('/500');
     } finally {
-      if (reset) setLoading(false);
-      else setLoadingMore(false);
+      if (!aborted) {
+        if (reset) setLoading(false);
+        else setLoadingMore(false);
+      }
     }
   }, [season, isPast, navigate]);
 
   useEffect(() => {
+    const controller = new AbortController();
     pageRef.current = 0;
     setHasMore(true);
-    fetchPage(0, true);
+    fetchPage(0, true, controller.signal);
+    return () => controller.abort();
   }, [fetchPage]);
 
   const loadMore = useCallback(() => {

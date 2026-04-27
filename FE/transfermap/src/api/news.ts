@@ -37,9 +37,9 @@ function buildNewsQuery(params: NewsFilterParams): URLSearchParams {
   return q;
 }
 
-export async function fetchNews(params?: NewsFilterParams): Promise<NewsItem[]> {
+export async function fetchNews(params?: NewsFilterParams, signal?: AbortSignal): Promise<NewsItem[]> {
   const q = buildNewsQuery(params ?? {});
-  const data = await apiFetch<ApiPage<ApiNewsItem>>(`/news?${q}`);
+  const data = await apiFetch<ApiPage<ApiNewsItem>>(`/news?${q}`, signal);
   return data.content.map(mapNews);
 }
 
