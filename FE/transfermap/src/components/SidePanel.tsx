@@ -20,7 +20,21 @@ import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from '../data/constants';
 const POSITIONS   = ['ALL', 'GK', 'DF', 'MF', 'FW'];
 const TIME_OPTIONS = ['24h', '7d', '30d', 'This window', 'All'];
 const TRENDING    = ['Mbappé', 'Bellingham', 'Haaland', 'Saka', 'Yamal'];
-const RECENT      = ['Haaland', 'Jude Bellingham', 'Saka'];
+
+const RECENT_KEY = 'search_recent';
+const MAX_RECENT = 5;
+function loadRecent(): string[] {
+  try { return JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); }
+  catch { return []; }
+}
+function saveRecent(q: string): string[] {
+  const next = [q, ...loadRecent().filter(s => s !== q)].slice(0, MAX_RECENT);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+  return next;
+}
+function clearRecent(): void {
+  localStorage.removeItem(RECENT_KEY);
+}
 
 
 function timeWindowToDates(w: string): { from?: string; to?: string } {
@@ -123,8 +137,9 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   // ── Search state ─────────────────────────────────────────────────────────
   const [allClubs,      setAllClubs]      = useState<Club[]>(CLUBS);
   const [allJournalists, setAllJournalists] = useState<Journalist[]>(JOURNALISTS);
-  const [query,         setQuery]         = useState('');
-  const [scope,         setScope]         = useState<SearchScope>('player');
+  const [query,           setQuery]           = useState('');
+  const [scope,           setScope]           = useState<SearchScope>('player');
+  const [recentSearches,  setRecentSearches]  = useState<string[]>(() => loadRecent());
   const [searchResults, setSearchResults] = useState<(Player | Club | Journalist)[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [flyStep,       setFlyStep]       = useState<FlyStep>('idle');
@@ -227,6 +242,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
   const runSearch = useCallback(async (q: string, s: SearchScope) => {
     setSearchLoading(true);
+    if (s === 'player' && q.trim()) setRecentSearches(saveRecent(q.trim()));
     try {
       if (s === 'player') {
         const results = await fetchPlayersSearch(q, 8);
@@ -683,23 +699,34 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
             {flyStep === 'idle' && !query.trim() && (
               <div className="px-6 py-5 flex flex-col gap-6">
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">Recent</span>
-                    <button className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)]">Clear</button>
+                {recentSearches.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)]">Recent</span>
+                      <button
+                        onClick={() => { clearRecent(); setRecentSearches([]); }}
+                        className="text-[0.68rem] text-[var(--text-sub)] hover:text-[var(--text)]">Clear</button>
+                    </div>
+                    <div className="border-t border-[var(--border)]">
+                      {recentSearches.map((s, i) => (
+                        <div key={i} className="flex items-center justify-between py-2.5 border-b border-[var(--border)]">
+                          <button onClick={() => { setScope('player'); setQuery(s); }}
+                            className="flex items-center gap-2.5 text-[0.82rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors">
+                            <span className="opacity-40">⌕</span>{s}
+                          </button>
+                          <button
+                            onClick={() => {
+                              const next = recentSearches.filter((_, j) => j !== i);
+                              localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+                              setRecentSearches(next);
+                            }}
+                            className="text-[var(--text-sub)] opacity-40 hover:opacity-100 text-sm transition-opacity">✕</button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="border-t border-[var(--border)]">
-                    {RECENT.map((s, i) => (
-                      <div key={i} className="flex items-center justify-between py-2.5 border-b border-[var(--border)]">
-                        <button onClick={() => { setScope('player'); setQuery(s); }}
-                          className="flex items-center gap-2.5 text-[0.82rem] text-[var(--text-sub)] hover:text-[var(--text)] transition-colors">
-                          <span className="opacity-40">⌕</span>{s}
-                        </button>
-                        <span className="text-[var(--text-sub)] opacity-30 text-sm">✕</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                )}
+
                 <div>
                   <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">Trending</div>
                   <div className="flex flex-wrap gap-2">
