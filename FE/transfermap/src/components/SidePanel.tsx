@@ -161,6 +161,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   useImperativeHandle(ref, () => ({
     focusSearch: () => {
       setView('search');
+      setSheetFull(true);
       setFlyStep('idle');
       setQuery('');
       setTimeout(() => searchInputRef.current?.focus(), 50);
@@ -419,7 +420,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       {isTopLevel && (
         <div className="flex items-center border-b border-[var(--border)] flex-shrink-0">
           {([['news', '◈ Feed'], ['filter', '⚙ Filter'], ['search', '⌕ Search']] as const).map(([v, label]) => (
-            <button key={v} onClick={() => setView(v)}
+            <button key={v} onClick={() => { setView(v); if (isMobile && v === 'search') setSheetFull(true); }}
               className={`flex-1 py-3.5 text-[0.74rem] font-bold tracking-wide uppercase border-b-2 transition-all
                 ${view === v
                   ? 'text-[var(--accent)] border-[var(--accent)]'

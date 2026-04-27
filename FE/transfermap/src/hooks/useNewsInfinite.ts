@@ -27,7 +27,11 @@ export function useNewsInfinite(season: number = 51) {
         sort: isPast ? 'feeEur,desc' : 'publishedAt,desc',
         ...(isPast && { minFeeEur: 1 }),
       }, signal);
-      setItems(prev => reset ? data : [...prev, ...data]);
+      setItems(prev => {
+        if (reset) return data;
+        const seen = new Set(prev.map(n => n.id));
+        return [...prev, ...data.filter(n => !seen.has(n.id))];
+      });
       setHasMore(data.length === PAGE_SIZE);
       pageRef.current = page;
     } catch (err) {

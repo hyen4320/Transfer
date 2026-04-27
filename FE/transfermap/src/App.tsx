@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useClubs } from './hooks/useClubs';
 import { useNews } from './hooks/useNews';
@@ -165,7 +165,7 @@ function MapView() {
     } catch { /* silent fail */ }
   }, [handleFlyTo, showToast]);
 
-  const handleCountryClick = (league: League, centroid: [number, number]) => {
+  const handleCountryClick = useCallback((league: League, centroid: [number, number]) => {
     const scene = sceneRef.current;
     if (!scene) return;
 
@@ -185,20 +185,24 @@ function MapView() {
       setSelectedLeague(league);
       setShowCountryMap(true);
     }, 720);
-  };
+  }, []);
 
-  const handleLeaguePanelClick = (league: League) => {
+  const handleLeaguePanelClick = useCallback((league: League) => {
     setPanelLeague(league);
     setSelectedClubId(null);
     setPanelOpen(true);
-  };
+  }, []);
 
-  const handleClubClick = (clubId: number) => {
+  const handleClubClick = useCallback((clubId: number) => {
     setSelectedClubId(clubId);
     setPanelOpen(true);
-  };
+  }, []);
 
   const isNewsFeedOpen = panelOpen && !selectedClubId && !panelLeague;
+  const panelLeagueClubs = useMemo(
+    () => panelLeague ? clubs.filter(c => c.league === panelLeague.id) : [],
+    [panelLeague, clubs],
+  );
 
   const openNewsFeed = () => {
     if (isNewsFeedOpen) {
@@ -357,7 +361,7 @@ function MapView() {
         onClose={closePanel}
         selectedClubId={selectedClubId}
         selectedLeague={panelLeague}
-        leagueClubs={panelLeague ? clubs.filter(c => c.league === panelLeague.id) : []}
+        leagueClubs={panelLeagueClubs}
         onNewsClick={item => { closePanel(); handleNewsClick(item); }}
         onNewsSelect={item => setSelectedNewsId(item ? item.id : null)}
         selectedNewsId={selectedNewsId}
