@@ -94,7 +94,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   open, onClose, selectedClubId, selectedLeague, leagueClubs = [],
   onNewsSelect, selectedNewsId, hoveredRouteId,
   season: seasonProp = 51, onSeasonChange, onPlayerClick,
-  onFlyTo, onApplyFilter, onPlayerPanelOpen,
+  onApplyFilter, onPlayerPanelOpen,
 }: Props, ref) {
   const navigate  = useNavigate();
   const isMobile  = useIsMobile();
@@ -342,17 +342,6 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       return { ...prev, [key]: next };
     });
 
-  const handlePlayerSelect = (player: Player) => {
-    const leagueId = LEAGUE_NAME_TO_ID[player.currentLeague ?? ''];
-    const league   = LEAGUES.find(l => l.id === leagueId);
-    if (!league) return;
-    setFlyPlayer(player);
-    setFlyLeague(league);
-    setFlyStep('zooming');
-    setProgress(0);
-    onFlyTo?.(player, league);
-    setTimeout(() => setFlyStep('arrived'), 750);
-  };
 
   const resetFly = () => {
     setFlyStep('idle');
