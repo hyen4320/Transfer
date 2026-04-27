@@ -300,7 +300,9 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   }, [filterState.season]);
 
   // ── Infinite scroll ───────────────────────────────────────────────────────
+  // sentinel은 !newsLoading 조건부 렌더라서 로딩 완료 후 effect 재실행 필요
   useEffect(() => {
+    if (newsLoading) return;
     const sentinel  = sentinelRef.current;
     const container = newsListRef.current;
     if (!sentinel || !container) return;
@@ -310,7 +312,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     );
     obs.observe(sentinel);
     return () => obs.disconnect();
-  }, [loadMore]);
+  }, [loadMore, newsLoading]);
 
   // Hover → scroll sync
   useEffect(() => {

@@ -474,6 +474,7 @@ function MapView() {
           leftOffset={playerPanelId != null ? 460 : 0}
           searchOpen={panelOpen}
           onToggleSearch={() => setPanelOpen(p => !p)}
+          season={mapSeason}
         />
       )}
     </div>

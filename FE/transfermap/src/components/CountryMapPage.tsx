@@ -1,13 +1,19 @@
 import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useIsMobile } from '../hooks/useIsMobile';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import type { GeoPermissibleObjects } from 'd3-geo';
 import type { League, Club, NewsItem, Player, TransferStatus } from '../types';
 import NewsCard from './NewsCard';
+import AdSlot, { SLOT } from './AdSlot';
 import SidePanel from './SidePanel';
 import { resolveOverlaps, parseFee } from '../utils/mapUtils';
 import { loadWorldAtlas } from '../utils/worldAtlas';
+import { fetchLeagues } from '../api/leagues';
+import { fetchNews } from '../api/news';
+import { LEAGUE_NAME_TO_ID } from '../data/constants';
+import type { ApiLeague } from '../api/types';
 
 const EUROPEAN_IDS = new Set([
   8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,
@@ -51,6 +57,8 @@ function nameMatch(a: string, b: string): boolean {
   return a === b || a.includes(b) || b.includes(a);
 }
 
+const PAGE_SIZE = 30;
+
 interface Props {
   league: League;
   onBack: () => void;
@@ -62,14 +70,130 @@ interface Props {
   leftOffset?: number;
   searchOpen?: boolean;
   onToggleSearch?: () => void;
+  season?: number;
 }
 
-export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch }: Props) {
+interface SidebarProps {
+  searchQ: string;
+  setSearchQ: (v: string) => void;
+  filteredRoutes: RouteInfo[];
+  items: NewsItem[];
+  loading: boolean;
+  loadingMore: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  leagueClubs: Club[];
+  setSelectedClubId: (id: number) => void;
+  onNewsClick?: (item: NewsItem) => void;
+}
+
+function SidebarContent({ searchQ, setSearchQ, filteredRoutes, items, loading, loadingMore, hasMore, loadMore, leagueClubs, setSelectedClubId, onNewsClick }: SidebarProps) {
+  const scrollRef   = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  const filteredItems = useMemo(() => {
+    const q = searchQ.toLowerCase().trim();
+    if (!q) return items;
+    return items.filter(n =>
+      n.player.toLowerCase().includes(q) ||
+      (n.from ?? '').toLowerCase().includes(q) ||
+      n.to.toLowerCase().includes(q)
+    );
+  }, [items, searchQ]);
+
+  useEffect(() => {
+    const sentinel  = sentinelRef.current;
+    const container = scrollRef.current;
+    if (!sentinel || !container) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) loadMore(); },
+      { root: container, threshold: 0.1 },
+    );
+    obs.observe(sentinel);
+    return () => obs.disconnect();
+  }, [loadMore]);
+
+  return (
+    <>
+      {/* 검색 */}
+      <div className="px-5 pt-4 pb-3 border-b border-[var(--border)] flex-shrink-0">
+        <div className="relative flex items-center">
+          <span className="absolute left-3 text-[var(--text-sub)] text-[0.95rem] pointer-events-none">⌕</span>
+          <input
+            value={searchQ}
+            onChange={e => setSearchQ(e.target.value)}
+            placeholder="Search player, club…"
+            autoComplete="off"
+            className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg
+                       pl-9 pr-8 py-2 text-[0.85rem] text-[var(--text)] placeholder-[var(--text-sub)]
+                       focus:outline-none focus:border-[var(--accent)]/50 transition-colors"
+          />
+          {searchQ && (
+            <button onClick={() => setSearchQ('')}
+              className="absolute right-3 text-[var(--text-sub)] hover:text-[var(--text)] text-xs">✕</button>
+          )}
+        </div>
+        {searchQ && (
+          <div className="mt-1.5 text-[0.68rem] text-[var(--text-sub)]">
+            {filteredRoutes.length} routes · {filteredItems.length} news
+          </div>
+        )}
+      </div>
+
+      {/* Clubs */}
+      <div className="px-5 py-4 border-b border-[var(--border)] flex-shrink-0">
+        <div className="text-[0.65rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">Clubs</div>
+        <div className="flex flex-wrap gap-2">
+          {leagueClubs.map(c => (
+            <div key={c.id}
+              onClick={() => setSelectedClubId(c.id)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface2)] border border-[var(--border)]
+                         rounded-full text-[0.72rem] font-semibold text-[var(--text-sub)] cursor-pointer
+                         hover:text-[var(--text)] hover:border-blue-500/40 transition-all">
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c.color }} />
+              {c.name}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* News feed */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto py-4">
+        {loading ? (
+          <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
+        ) : filteredItems.length === 0 ? (
+          <div className="py-10 text-center text-[0.82rem] text-[var(--text-sub)] opacity-50">No results</div>
+        ) : (
+          filteredItems.map((n, i) => (
+            <div key={n.id ?? i}>
+              {i > 0 && i % 3 === 0 && (
+                <AdSlot slot={SLOT.FEED_NATIVE} format="fluid" layoutKey="-fb+5w+4e-db+86"
+                  className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]" />
+              )}
+              <NewsCard item={n} onClick={() => onNewsClick?.(n)} />
+            </div>
+          ))
+        )}
+        <div ref={sentinelRef} />
+        {loadingMore && (
+          <div className="flex items-center justify-center py-5 text-[0.78rem] text-[var(--text-sub)]">Loading…</div>
+        )}
+        {!hasMore && filteredItems.length > 0 && (
+          <div className="text-center py-5 text-[0.68rem] text-[var(--text-sub)] tracking-widest uppercase">End</div>
+        )}
+      </div>
+    </>
+  );
+}
+
+export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch, season = 51 }: Props) {
   const navigate = useNavigate();
   const sceneRef  = useRef<HTMLDivElement>(null);
   const bgRef     = useRef<SVGSVGElement>(null);   // z=1: 국가 배경만
   const worldRef  = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
 
+  const isMobile = useIsMobile();
+  const [sheetFull,      setSheetFull]      = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
   const [hoveredClub,    setHoveredClub]    = useState<number | null>(null);
   const [routePaths,     setRoutePaths]     = useState<RouteInfo[]>([]);
@@ -78,37 +202,64 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
   const [clubPixelPos,   setClubPixelPos]   = useState<Record<number, { x: number; y: number }>>({});
   const [searchQ,        setSearchQ]        = useState('');
 
+  // Infinite scroll news
+  const [beLeagueId,  setBeLeagueId]  = useState<number | undefined>(undefined);
+  const [newsItems,   setNewsItems]   = useState<NewsItem[]>([]);
+  const [newsLoading, setNewsLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore,     setHasMore]     = useState(true);
+  const newsPageRef = useRef(0);
+
+  useEffect(() => {
+    fetchLeagues()
+      .then((ls: ApiLeague[]) => {
+        const id = ls.find(l => LEAGUE_NAME_TO_ID[l.name] === league.id)?.id;
+        setBeLeagueId(id);
+      })
+      .catch(() => setBeLeagueId(undefined));
+  }, [league.id]);
+
+  useEffect(() => {
+    if (beLeagueId === undefined) return;
+    const controller = new AbortController();
+    newsPageRef.current = 0;
+    setHasMore(true);
+    setNewsLoading(true);
+    fetchNews({ season, leagueId: beLeagueId, size: PAGE_SIZE, page: 0, sort: 'publishedAt,desc' }, controller.signal)
+      .then(data => { setNewsItems(data); setHasMore(data.length === PAGE_SIZE); })
+      .catch(err  => { if (err?.name !== 'AbortError') setNewsItems([]); })
+      .finally(() => setNewsLoading(false));
+    return () => controller.abort();
+  }, [beLeagueId, season]);
+
+  const loadMore = useCallback(() => {
+    if (loadingMore || !hasMore || beLeagueId === undefined) return;
+    const next = newsPageRef.current + 1;
+    setLoadingMore(true);
+    fetchNews({ season, leagueId: beLeagueId, size: PAGE_SIZE, page: next, sort: 'publishedAt,desc' })
+      .then(data => {
+        setNewsItems(prev => [...prev, ...data]);
+        setHasMore(data.length === PAGE_SIZE);
+        newsPageRef.current = next;
+      })
+      .catch(() => {})
+      .finally(() => setLoadingMore(false));
+  }, [loadingMore, hasMore, beLeagueId, season]);
+
   const allClubs    = clubsProp ?? [];
   const leagueClubs = useMemo(() => allClubs.filter(c => c.league === league.id), [allClubs, league.id]);
   const leagueClubIds = useMemo(() => new Set(leagueClubs.map(c => c.id)), [leagueClubs]);
 
-  const countryNews = useMemo(() =>
-    newsProp.filter(n =>
-      leagueClubs.some(c => nameMatch(c.name, n.from) || nameMatch(c.name, n.to))
-    ),
-    [leagueClubs, newsProp]
-  );
-  const feedItems = countryNews.length ? countryNews : newsProp.slice(0, 10);
-
-  // 검색 필터
-  const q = searchQ.toLowerCase().trim();
+  // Route search filter (map overlay)
   const filteredRoutes = useMemo(() => {
+    const q = searchQ.toLowerCase().trim();
     if (!q) return routePaths;
     return routePaths.filter(r =>
       r.player.toLowerCase().includes(q) ||
       r.from.toLowerCase().includes(q) ||
       r.to.toLowerCase().includes(q)
     );
-  }, [routePaths, q]);
-
-  const filteredFeed = useMemo(() => {
-    if (!q) return feedItems;
-    return feedItems.filter(n =>
-      n.player.toLowerCase().includes(q) ||
-      (n.from ?? '').toLowerCase().includes(q) ||
-      n.to.toLowerCase().includes(q)
-    );
-  }, [feedItems, q]);
+  }, [routePaths, searchQ]);
 
   // D3: 국가 배경만 그림 (circles는 React로)
   const draw = useCallback((cW: number, cH: number) => {
@@ -267,7 +418,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
       </div>
 
       {/* Body */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
         {/* Map */}
         <div ref={sceneRef} className="flex-1 relative overflow-hidden">
 
@@ -440,61 +591,44 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
           )}
         </div>
 
-        {/* Sidebar */}
-        <div className="w-[420px] flex-shrink-0 border-l border-[var(--border)] flex flex-col">
-
-          {/* 검색 */}
-          <div className="px-5 pt-5 pb-3 border-b border-[var(--border)] flex-shrink-0">
-            <div className="relative flex items-center">
-              <span className="absolute left-3 text-[var(--text-sub)] text-[0.95rem] pointer-events-none">⌕</span>
-              <input
-                value={searchQ}
-                onChange={e => setSearchQ(e.target.value)}
-                placeholder="Search player, club…"
-                autoComplete="off"
-                className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg
-                           pl-9 pr-8 py-2 text-[0.85rem] text-[var(--text)] placeholder-[var(--text-sub)]
-                           focus:outline-none focus:border-[var(--accent)]/50 transition-colors"
-              />
-              {searchQ && (
-                <button onClick={() => setSearchQ('')}
-                  className="absolute right-3 text-[var(--text-sub)] hover:text-[var(--text)] text-xs">✕</button>
-              )}
-            </div>
-            {searchQ && (
-              <div className="mt-1.5 text-[0.68rem] text-[var(--text-sub)]">
-                {filteredRoutes.length} routes · {filteredFeed.length} news
-              </div>
-            )}
+        {/* Desktop sidebar */}
+        {!isMobile && (
+          <div className="w-[420px] flex-shrink-0 border-l border-[var(--border)] flex flex-col">
+            <SidebarContent
+              searchQ={searchQ} setSearchQ={setSearchQ}
+              filteredRoutes={filteredRoutes}
+              items={newsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
+              leagueClubs={leagueClubs}
+              setSelectedClubId={setSelectedClubId}
+              onNewsClick={onNewsClick}
+            />
           </div>
+        )}
 
-          {/* Clubs */}
-          <div className="px-5 py-4 border-b border-[var(--border)] flex-shrink-0">
-            <div className="text-[0.65rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">Clubs</div>
-            <div className="flex flex-wrap gap-2">
-              {leagueClubs.map(c => (
-                <div key={c.id}
-                  onClick={() => setSelectedClubId(c.id)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--surface2)] border border-[var(--border)]
-                             rounded-full text-[0.72rem] font-semibold text-[var(--text-sub)] cursor-pointer
-                             hover:text-[var(--text)] hover:border-blue-500/40 transition-all">
-                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c.color }} />
-                  {c.name}
-                </div>
-              ))}
-            </div>
+        {/* Mobile bottom sheet */}
+        {isMobile && (
+          <div className={`absolute bottom-0 left-0 right-0 z-10 h-[82dvh]
+                           bg-[rgba(8,14,26,0.97)] border-t border-[var(--border)] rounded-t-2xl
+                           flex flex-col
+                           transition-transform duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
+                           ${sheetFull ? 'translate-y-0' : 'translate-y-[calc(100%-72px)]'}`}>
+            <button onClick={() => setSheetFull(f => !f)}
+              className="flex-shrink-0 flex flex-col items-center pt-3 pb-2 gap-1 w-full">
+              <span className="w-10 h-1 rounded-full bg-white/20" />
+              <span className="text-[0.58rem] tracking-widest text-[var(--text-sub)] uppercase">
+                {sheetFull ? '▼ Collapse' : `▲ News & Clubs · ${newsItems.length}`}
+              </span>
+            </button>
+            <SidebarContent
+              searchQ={searchQ} setSearchQ={setSearchQ}
+              filteredRoutes={filteredRoutes}
+              items={newsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
+              leagueClubs={leagueClubs}
+              setSelectedClubId={setSelectedClubId}
+              onNewsClick={onNewsClick}
+            />
           </div>
-
-          {/* News feed */}
-          <div className="flex-1 overflow-y-auto py-4">
-            {filteredFeed.length === 0
-              ? <div className="py-10 text-center text-[0.82rem] text-[var(--text-sub)] opacity-50">No results</div>
-              : filteredFeed.map((n, i) => (
-                  <NewsCard key={n.id ?? i} item={n} onClick={() => onNewsClick?.(n)} />
-                ))
-            }
-          </div>
-        </div>
+        )}
       </div>
 
       <SidePanel

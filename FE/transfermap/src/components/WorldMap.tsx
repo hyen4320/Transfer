@@ -87,6 +87,10 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
   const dragRef   = useRef<DragState | null>(null);
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const mapTransformRef = useRef({ x: 0, y: 0, scale: 1 });
+  const [mapTransform,  setMapTransform]  = useState({ x: 0, y: 0, scale: 1 });
+  const lastTapRef      = useRef(0);
+
   const worldRef = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
 
   const draw = useCallback((W: number, H: number) => {
@@ -310,18 +314,130 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
     return () => { ro.disconnect(); clearTimeout(timer); };
   }, [draw]);
 
+  // Touch gesture: pinch-zoom + pan
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let mode: 'none' | 'pan' | 'pinch' = 'none';
+    let panLastX = 0, panLastY = 0;
+    let pinchStartDist = 0, pinchStartScale = 1;
+    let pinchStartMidX = 0, pinchStartMidY = 0;
+    let pinchStartTx = 0, pinchStartTy = 0;
+
+    const clampXY = (x: number, y: number, scale: number) => {
+      const maxX = (scale - 1) * el.clientWidth  / 2;
+      const maxY = (scale - 1) * el.clientHeight / 2;
+      return { x: Math.max(-maxX, Math.min(maxX, x)), y: Math.max(-maxY, Math.min(maxY, y)) };
+    };
+
+    const commit = (next: { x: number; y: number; scale: number }) => {
+      mapTransformRef.current = next;
+      setMapTransform({ ...next });
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        const now = Date.now();
+        if (now - lastTapRef.current < 300) {
+          lastTapRef.current = 0;
+          const cur = mapTransformRef.current;
+          commit(cur.scale > 1.1 ? { x: 0, y: 0, scale: 1 } : { x: 0, y: 0, scale: 2.5 });
+          return;
+        }
+        lastTapRef.current = now;
+        mode = 'pan';
+        panLastX = e.touches[0].clientX;
+        panLastY = e.touches[0].clientY;
+      } else if (e.touches.length === 2) {
+        if (holdTimer.current) clearTimeout(holdTimer.current);
+        dragRef.current = null;
+        setDragState(null);
+        const cur = mapTransformRef.current;
+        const t0 = e.touches[0], t1 = e.touches[1];
+        mode = 'pinch';
+        pinchStartDist  = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        pinchStartScale = cur.scale;
+        pinchStartMidX  = (t0.clientX + t1.clientX) / 2;
+        pinchStartMidY  = (t0.clientY + t1.clientY) / 2;
+        pinchStartTx    = cur.x;
+        pinchStartTy    = cur.y;
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const cur = mapTransformRef.current;
+
+      if (mode === 'pan' && e.touches.length === 1) {
+        if (cur.scale > 1.05) {
+          if (holdTimer.current) clearTimeout(holdTimer.current);
+          dragRef.current = null;
+          setDragState(null);
+        }
+        const dx = e.touches[0].clientX - panLastX;
+        const dy = e.touches[0].clientY - panLastY;
+        panLastX = e.touches[0].clientX;
+        panLastY = e.touches[0].clientY;
+        commit({ scale: cur.scale, ...clampXY(cur.x + dx, cur.y + dy, cur.scale) });
+
+      } else if (mode === 'pinch' && e.touches.length === 2) {
+        const t0 = e.touches[0], t1 = e.touches[1];
+        const dist     = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        const newScale = Math.max(1, Math.min(5, pinchStartScale * dist / pinchStartDist));
+        const midX     = (t0.clientX + t1.clientX) / 2;
+        const midY     = (t0.clientY + t1.clientY) / 2;
+        const rect     = el.getBoundingClientRect();
+        // Anchor zoom at pinch midpoint (in container-center coordinates)
+        const fx = pinchStartMidX - rect.left - el.clientWidth  / 2;
+        const fy = pinchStartMidY - rect.top  - el.clientHeight / 2;
+        const newX = pinchStartTx + fx * (1 - newScale / pinchStartScale) + (midX - pinchStartMidX);
+        const newY = pinchStartTy + fy * (1 - newScale / pinchStartScale) + (midY - pinchStartMidY);
+        commit({ scale: newScale, ...clampXY(newX, newY, newScale) });
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if      (e.touches.length === 0) { mode = 'none'; }
+      else if (e.touches.length === 1) {
+        mode = 'pan';
+        panLastX = e.touches[0].clientX;
+        panLastY = e.touches[0].clientY;
+      }
+    };
+
+    el.addEventListener('touchstart',  onTouchStart,  { passive: false });
+    el.addEventListener('touchmove',   onTouchMove,   { passive: false });
+    el.addEventListener('touchend',    onTouchEnd);
+    el.addEventListener('touchcancel', onTouchEnd);
+    return () => {
+      el.removeEventListener('touchstart',  onTouchStart);
+      el.removeEventListener('touchmove',   onTouchMove);
+      el.removeEventListener('touchend',    onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, []); // stable refs used inside (containerRef, holdTimer, dragRef, setDragState, lastTapRef)
+
   const badgeMap = Object.fromEntries(badgePos.map(p => [p.id, p]));
   const clubMap  = Object.fromEntries(clubPos.map(p  => [p.id, p]));
 
   return (
-    <div ref={containerRef} className="absolute inset-0" style={{ willChange: 'transform, opacity' }}>
-      <svg ref={svgRef} className="absolute inset-0" />
+    <div ref={containerRef} className="absolute inset-0"
+         style={{ willChange: 'transform, opacity', touchAction: 'none' }}>
 
-      {/* Transfer routes layer */}
-      <svg
-        className="absolute inset-0"
-        style={{ zIndex: 15, overflow: 'visible', pointerEvents: 'none' }}
-      >
+      {/* Pinch-zoom / pan layer */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        transform: `translate(${mapTransform.x}px,${mapTransform.y}px) scale(${mapTransform.scale})`,
+        transformOrigin: 'center',
+      }}>
+        <svg ref={svgRef} className="absolute inset-0" />
+
+        {/* Transfer routes layer */}
+        <svg
+          className="absolute inset-0"
+          style={{ zIndex: 15, overflow: 'visible', pointerEvents: 'none' }}
+        >
         <defs>
           <filter id="dot-blur" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="2" />
@@ -404,7 +520,59 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
         })}
       </svg>
 
-      {/* Tooltip */}
+        {/* League badges */}
+        {LEAGUES.map(l => {
+          const pos = badgeMap[l.id];
+          if (!pos) return null;
+          return (
+            <div key={l.id}
+              className="absolute flex flex-col items-center gap-1.5 cursor-pointer z-20
+                         -translate-x-1/2 -translate-y-1/2 transition-[transform,filter] duration-200
+                         hover:scale-[1.15] hover:brightness-125"
+              style={{ left: pos.x, top: pos.y }}
+              onClick={e => { e.stopPropagation(); onLeagueClick?.(l); }}>
+              <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center
+                              text-[0.95rem] font-black overflow-hidden"
+                style={{
+                  background:  l.color,
+                  boxShadow:  `0 0 20px ${l.accent}55, 0 0 6px rgba(0,0,0,0.8)`,
+                  border:     `2px solid ${l.accent}88`,
+                  color:       l.accent,
+                  textShadow: `0 0 8px ${l.accent}`,
+                }}>
+                {l.abbr}
+              </div>
+              <div className="text-[0.6rem] font-bold tracking-wide uppercase whitespace-nowrap"
+                style={{ color: 'rgba(220,230,255,0.85)', textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
+                {l.name}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Club markers */}
+        {clubs.map(c => {
+          const pos = clubMap[c.id];
+          if (!pos) return null;
+          return (
+            <div key={c.id}
+              className="absolute w-2.5 h-2.5 rounded-full z-[18] cursor-pointer border-[1.5px] border-white/30
+                         -translate-x-1/2 -translate-y-1/2 transition-[transform,box-shadow] duration-200 group
+                         hover:scale-[1.6] hover:z-[25]"
+              style={{ left: pos.x, top: pos.y, background: c.color, boxShadow: `0 0 8px ${c.color}88` }}
+              onClick={() => onClubClick(c.id)}>
+              <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-10
+                              bg-[rgba(6,10,18,0.92)] border border-[var(--border)] rounded px-2 py-0.5
+                              text-[0.65rem] font-semibold whitespace-nowrap text-[var(--text)] pointer-events-none
+                              opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                {c.name}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Tooltip — fixed, unaffected by map transform */}
       {hoveredRoute && (
         <div className="fixed z-50 pointer-events-none select-none
                         bg-[rgba(4,8,18,0.96)] border border-white/10
@@ -433,37 +601,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
         </div>
       )}
 
-      {/* League badges */}
-      {LEAGUES.map(l => {
-        const pos = badgeMap[l.id];
-        if (!pos) return null;
-        return (
-          <div key={l.id}
-            className="absolute flex flex-col items-center gap-1.5 cursor-pointer z-20
-                       -translate-x-1/2 -translate-y-1/2 transition-[transform,filter] duration-200
-                       hover:scale-[1.15] hover:brightness-125"
-            style={{ left: pos.x, top: pos.y }}
-            onClick={e => { e.stopPropagation(); onLeagueClick?.(l); }}>
-            <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center
-                            text-[0.95rem] font-black overflow-hidden"
-              style={{
-                background:  l.color,
-                boxShadow:  `0 0 20px ${l.accent}55, 0 0 6px rgba(0,0,0,0.8)`,
-                border:     `2px solid ${l.accent}88`,
-                color:       l.accent,
-                textShadow: `0 0 8px ${l.accent}`,
-              }}>
-              {l.abbr}
-            </div>
-            <div className="text-[0.6rem] font-bold tracking-wide uppercase whitespace-nowrap"
-              style={{ color: 'rgba(220,230,255,0.85)', textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
-              {l.name}
-            </div>
-          </div>
-        );
-      })}
-
-      {/* 드래그-투-엔터 진행 링 */}
+      {/* 드래그-투-엔터 진행 링 — absolute within container, unaffected by map transform */}
       {dragState && (
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 60 }}>
           {/* 반투명 배경 */}
@@ -506,27 +644,6 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
           )}
         </div>
       )}
-
-      {/* Club markers */}
-      {clubs.map(c => {
-        const pos = clubMap[c.id];
-        if (!pos) return null;
-        return (
-          <div key={c.id}
-            className="absolute w-2.5 h-2.5 rounded-full z-[18] cursor-pointer border-[1.5px] border-white/30
-                       -translate-x-1/2 -translate-y-1/2 transition-[transform,box-shadow] duration-200 group
-                       hover:scale-[1.6] hover:z-[25]"
-            style={{ left: pos.x, top: pos.y, background: c.color, boxShadow: `0 0 8px ${c.color}88` }}
-            onClick={() => onClubClick(c.id)}>
-            <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 z-10
-                            bg-[rgba(6,10,18,0.92)] border border-[var(--border)] rounded px-2 py-0.5
-                            text-[0.65rem] font-semibold whitespace-nowrap text-[var(--text)] pointer-events-none
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-              {c.name}
-            </div>
-          </div>
-        );
-      })}
     </div>
   );
 }
