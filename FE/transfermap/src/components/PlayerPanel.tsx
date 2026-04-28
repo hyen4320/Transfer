@@ -16,9 +16,10 @@ const STATUS_STYLE: Record<string, string> = {
 interface Props {
   playerId: number | null;
   onClose: () => void;
+  onNewsLoaded?: (news: NewsItem[]) => void;
 }
 
-export default function PlayerPanel({ playerId, onClose }: Props) {
+export default function PlayerPanel({ playerId, onClose, onNewsLoaded }: Props) {
   const isMobile = useIsMobile();
   const [player,  setPlayer]  = useState<ApiPlayer | null>(null);
   const [history, setHistory] = useState<TransferHistory[]>([]);
@@ -42,6 +43,7 @@ export default function PlayerPanel({ playerId, onClose }: Props) {
         setHistory(h);
         setNews(n);
         setLoading(false);
+        onNewsLoaded?.(n);
       })
       .catch(err => {
         if (err.name !== 'AbortError') { setLoading(false); setError(true); }

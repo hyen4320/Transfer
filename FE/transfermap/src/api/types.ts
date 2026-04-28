@@ -4,7 +4,7 @@ export interface ApiNewsItem {
   journalistId: number;
   playerName: string;
   fromClubName: string | null;
-  toClubName: string;
+  toClubName: string | null;
   feeEur: number | null;
   status: string;          // RUMOR | CONFIRMED | DENIED | LOAN
   reliability: number | null;

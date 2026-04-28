@@ -77,11 +77,13 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
   const svgRef       = useRef<SVGSVGElement>(null);
   const projRef      = useRef<d3.GeoProjection | null>(null);
 
-  const [badgePos,      setBadgePos]      = useState<OverlayPos[]>([]);
-  const [clubPos,       setClubPos]       = useState<OverlayPos[]>([]);
-  const [routePaths,    setRoutePaths]    = useState<RouteInfo[]>([]);
+  const [mapData, setMapData] = useState<{
+    badgePos:   OverlayPos[];
+    clubPos:    OverlayPos[];
+    routePaths: RouteInfo[];
+  }>({ badgePos: [], clubPos: [], routePaths: [] });
   const [hoveredRoute,  setHoveredRoute]  = useState<RouteInfo | null>(null);
-  const [tooltipPos,    setTooltipPos]    = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const [dragState,     setDragState]     = useState<DragState | null>(null);
 
   const dragRef   = useRef<DragState | null>(null);
@@ -188,11 +190,10 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
     });
     const resolvedClubPos = resolveOverlaps(rawClubPos);
 
-    setBadgePos(LEAGUES.map(l => {
+    const newBadgePos = LEAGUES.map(l => {
       const p = proj([l.lon, l.lat]);
       return { id: l.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
-    }));
-    setClubPos(resolvedClubPos);
+    });
 
     // 2. 이름 기반으로 구단 → 투영 좌표 조회 (API 데이터 사용)
     const clubProjMap = new Map(clubs.map(c => {
@@ -240,7 +241,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       } as RouteInfo;
     }).filter((r): r is RouteInfo => r !== null);
 
-    setRoutePaths(computed);
+    setMapData({ badgePos: newBadgePos, clubPos: resolvedClubPos, routePaths: computed });
   }, [onCountryClick, clubs, newsProp]);
 
   // 드래그-투-엔터: 전역 pointermove/up 추적
@@ -418,6 +419,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
     };
   }, []); // stable refs used inside (containerRef, holdTimer, dragRef, setDragState, lastTapRef)
 
+  const { badgePos, clubPos, routePaths } = mapData;
   const badgeMap = Object.fromEntries(badgePos.map(p => [p.id, p]));
   const clubMap  = Object.fromEntries(clubPos.map(p  => [p.id, p]));
 
@@ -465,9 +467,12 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
                         : '3 6';
           return (
             <g key={r.id} style={{ pointerEvents: 'auto' }}
-               onMouseEnter={e => { setHoveredRoute(r); setTooltipPos({ x: e.clientX, y: e.clientY }); onRouteHover?.(r.id); }}
+               onMouseEnter={e => { setHoveredRoute(r); onRouteHover?.(r.id); }}
                onMouseLeave={() => { setHoveredRoute(null); onRouteHover?.(null); }}
-               onMouseMove={e => setTooltipPos({ x: e.clientX, y: e.clientY })}>
+               onMouseMove={e => {
+                 const el = tooltipRef.current;
+                 if (el) { el.style.left = `${e.clientX + 14}px`; el.style.top = `${e.clientY - 50}px`; }
+               }}>
 
               {/* Outer glow — cross-league only */}
               {!r.sameLeague && (
@@ -572,34 +577,37 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
         })}
       </div>
 
-      {/* Tooltip — fixed, unaffected by map transform */}
-      {hoveredRoute && (
-        <div className="fixed z-50 pointer-events-none select-none
-                        bg-[rgba(4,8,18,0.96)] border border-white/10
-                        rounded-xl px-3.5 py-2.5 min-w-[170px] shadow-2xl"
-             style={{ left: tooltipPos.x + 14, top: tooltipPos.y - 50 }}>
-          <div className="text-white font-bold text-sm leading-tight">{hoveredRoute.player}</div>
-          <div className="text-white/50 text-xs mt-0.5">
-            {hoveredRoute.from}
-            <span className="text-white/30 mx-1">→</span>
-            {hoveredRoute.to}
-          </div>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded"
-              style={{
-                color: STATUS_COLOR[hoveredRoute.status],
-                background: STATUS_COLOR[hoveredRoute.status] + '20',
-                border: `1px solid ${STATUS_COLOR[hoveredRoute.status]}40`,
-              }}>
-              {STATUS_LABEL[hoveredRoute.status]}
-            </span>
-            <span className="text-white text-xs font-bold">{hoveredRoute.fee}</span>
-          </div>
-          <div className="text-white/30 text-[0.6rem] mt-1.5 tracking-wider">
-            {hoveredRoute.sameLeague ? '◈ Same League' : '✈ Cross League'}
-          </div>
-        </div>
-      )}
+      {/* Tooltip — DOM position updated directly via ref, no re-render on mousemove */}
+      <div ref={tooltipRef}
+           className="fixed z-50 pointer-events-none select-none
+                      bg-[rgba(4,8,18,0.96)] border border-white/10
+                      rounded-xl px-3.5 py-2.5 min-w-[170px] shadow-2xl"
+           style={{ left: 0, top: 0, visibility: hoveredRoute ? 'visible' : 'hidden' }}>
+        {hoveredRoute && (
+          <>
+            <div className="text-white font-bold text-sm leading-tight">{hoveredRoute.player}</div>
+            <div className="text-white/50 text-xs mt-0.5">
+              {hoveredRoute.from}
+              <span className="text-white/30 mx-1">→</span>
+              {hoveredRoute.to}
+            </div>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-[0.65rem] font-bold px-1.5 py-0.5 rounded"
+                style={{
+                  color: STATUS_COLOR[hoveredRoute.status],
+                  background: STATUS_COLOR[hoveredRoute.status] + '20',
+                  border: `1px solid ${STATUS_COLOR[hoveredRoute.status]}40`,
+                }}>
+                {STATUS_LABEL[hoveredRoute.status]}
+              </span>
+              <span className="text-white text-xs font-bold">{hoveredRoute.fee}</span>
+            </div>
+            <div className="text-white/30 text-[0.6rem] mt-1.5 tracking-wider">
+              {hoveredRoute.sameLeague ? '◈ Same League' : '✈ Cross League'}
+            </div>
+          </>
+        )}
+      </div>
 
       {/* 드래그-투-엔터 진행 링 — absolute within container, unaffected by map transform */}
       {dragState && (

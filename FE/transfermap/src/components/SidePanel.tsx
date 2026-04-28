@@ -97,6 +97,7 @@ interface Props {
   onPlayerClick?: (name: string) => void;
   onFlyTo?: (player: Player, league: League) => void;
   onApplyFilter?: (params: NewsFilterParams[], statuses: Set<string>) => void;
+  onClearFilter?: () => void;
   onPlayerPanelOpen?: (id: number) => void;
 }
 
@@ -104,7 +105,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   open, onClose, selectedClubId, selectedLeague, leagueClubs = [],
   onNewsSelect, selectedNewsId, hoveredRouteId,
   season: seasonProp = 51, onSeasonChange, onPlayerClick,
-  onApplyFilter, onPlayerPanelOpen,
+  onApplyFilter, onClearFilter, onPlayerPanelOpen,
 }: Props, ref) {
   const navigate  = useNavigate();
   const isMobile  = useIsMobile();
@@ -455,7 +456,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
               <span className="text-[0.72rem] font-bold text-[var(--accent)] flex-1">
                 Filter active · {appliedItems.length} results
               </span>
-              <button onClick={() => setAppliedItems(null)}
+              <button onClick={() => { setAppliedItems(null); onClearFilter?.(); }}
                 className="text-[0.7rem] font-bold text-[var(--text-sub)] hover:text-[var(--text)] border border-[var(--border)]
                            px-2.5 py-1 rounded-md transition-colors">
                 Clear ✕

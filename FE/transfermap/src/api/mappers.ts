@@ -38,7 +38,7 @@ export function mapNews(n: ApiNewsItem): NewsItem {
     id:           n.id,
     player:       n.playerName,
     from:         n.fromClubName ?? 'Free Agent',
-    to:           n.toClubName,
+    to:           n.toClubName   ?? 'Free Agent',
     fee:          formatFee(n.feeEur),
     status:       mapStatus(n.status),
     journalist:   n.journalistName,
@@ -82,7 +82,7 @@ export function mapTransferHistory(n: ApiNewsItem): TransferHistory {
   return {
     year:   new Date(n.publishedAt).getFullYear().toString(),
     from:   n.fromClubName ?? 'Free Agent',
-    to:     n.toClubName,
+    to:     n.toClubName   ?? 'Free Agent',
     fee:    formatFee(n.feeEur),
     status: mapStatus(n.status),
   };

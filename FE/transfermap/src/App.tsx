@@ -58,6 +58,7 @@ function MapView() {
   const [flyPlayer, setFlyPlayer]           = useState<Player | null>(null);
   const [anchorDismissed, setAnchorDismissed] = useState(false);
   const [playerPanelId, setPlayerPanelId]   = useState<number | null>(null);
+  const [playerPanelNews, setPlayerPanelNews] = useState<NewsItem[] | null>(null);
   const [toast, setToast]                   = useState<string | null>(null);
 
   const handleNewsClick = useCallback((item: NewsItem) => {
@@ -301,7 +302,7 @@ function MapView() {
             : 'none',
         }),
       }}>
-        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} onRouteHover={setHoveredRouteId} clubs={clubs} news={filteredNews ?? news} selectedNewsId={selectedNewsId} />
+        <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} onRouteHover={setHoveredRouteId} clubs={clubs} news={playerPanelNews ?? filteredNews ?? news} selectedNewsId={selectedNewsId} />
 
         {/* Topbar */}
         <div className="absolute top-0 left-0 right-0 h-14 flex items-center px-6 z-30 pointer-events-none"
@@ -371,13 +372,15 @@ function MapView() {
         onPlayerClick={handlePlayerClick}
         onFlyTo={handleFlyTo}
         onApplyFilter={handleApplyFilter}
+        onClearFilter={() => setFilteredNews(null)}
         onPlayerPanelOpen={id => setPlayerPanelId(id)}
       />
 
       {/* PLAYER PANEL */}
       <PlayerPanel
         playerId={playerPanelId}
-        onClose={() => setPlayerPanelId(null)}
+        onClose={() => { setPlayerPanelId(null); setPlayerPanelNews(null); }}
+        onNewsLoaded={setPlayerPanelNews}
       />
 
       {/* Season selector — floating bottom-left */}
@@ -472,7 +475,7 @@ function MapView() {
           backLabel="← Map"
           onBack={() => { setShowCountryMap(false); setFlyPlayer(null); }}
           clubs={clubs}
-          news={filteredNews ?? news}
+          news={playerPanelNews ?? filteredNews ?? news}
           flyPlayer={flyPlayer}
           onNewsClick={handleNewsClick}
           leftOffset={playerPanelId != null ? 460 : 0}
