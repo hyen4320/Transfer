@@ -2,18 +2,20 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchNews } from '../api/news';
 import { ApiError } from '../api/client';
+import { getTransferWindowState } from '../utils/transferWindow';
 import type { NewsItem } from '../types';
 
 const PAGE_SIZE = 30;
+const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
 
-export function useNewsInfinite(season: number = 51) {
+export function useNewsInfinite(season: number = CURRENT_SEASON) {
   const navigate = useNavigate();
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const pageRef = useRef(0);
-  const isPast = season !== 51;
+  const isPast = season !== CURRENT_SEASON || !WINDOW_IS_OPEN;
 
   const fetchPage = useCallback(async (page: number, reset: boolean, signal?: AbortSignal) => {
     if (reset) setLoading(true);

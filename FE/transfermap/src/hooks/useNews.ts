@@ -3,17 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { fetchNews } from '../api/news';
 import { ApiError } from '../api/client';
 import { NEWS } from '../data/mock';
+import { getTransferWindowState } from '../utils/transferWindow';
 import type { NewsItem } from '../types';
 
+const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
+
 // WorldMap 전용 — SidePanel 무한스크롤은 useNewsInfinite 사용
-export function useNews(season: number = 51) {
+export function useNews(season: number = CURRENT_SEASON) {
   const navigate = useNavigate();
   const [items,   setItems]   = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    const isPast = season !== 51;
+    const isPast = season !== CURRENT_SEASON || !WINDOW_IS_OPEN;
     fetchNews({
       season,
       size: 30,

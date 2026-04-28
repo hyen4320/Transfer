@@ -1,6 +1,10 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PLAYERS, CLUBS, NEWS, JOURNALISTS } from '../data/mock';
+import { getTransferWindowState, getWindowLabel } from '../utils/transferWindow';
+
+const CURRENT_WINDOW = getTransferWindowState();
+const WINDOW_LABEL   = getWindowLabel(CURRENT_WINDOW);
 
 const STATUS_STYLE: Record<string, string> = {
   rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
@@ -17,7 +21,10 @@ const LEAGUE_NAMES: Record<string, string> = {
   l1: 'Ligue 1',
 };
 
-const QUICK_FILTERS = ['TRENDING', 'CONFIRMED TODAY', '€100M+', 'FREE AGENTS', 'JAN WINDOW', 'SUMMER 26'];
+// 이적시장 상태에 따라 퀵필터 자동 결정
+const QUICK_FILTERS = CURRENT_WINDOW.isOpen
+  ? ['TRENDING', 'CONFIRMED TODAY', '€100M+', 'FREE AGENTS', WINDOW_LABEL.toUpperCase(), 'RUMOURS']
+  : ['TRENDING', '€100M+', 'FREE AGENTS', `${WINDOW_LABEL.toUpperCase()} REVIEW`, 'CONFIRMED', 'LOANS'];
 
 const RECENT_SEARCHES = [
   'Mbappé to Liverpool',

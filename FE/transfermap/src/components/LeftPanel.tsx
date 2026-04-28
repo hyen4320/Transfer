@@ -11,14 +11,20 @@ import { fetchNewsPage } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import type { Club, Journalist } from '../types';
 import { LEAGUE_NAME_TO_ID } from '../data/constants';
+import { getTransferWindowState, getSeasonOptions, getWindowLabel } from '../utils/transferWindow';
+
+const CURRENT_WINDOW = getTransferWindowState();
+const SEASON_OPTIONS = getSeasonOptions();
+const WINDOW_LABEL   = getWindowLabel(CURRENT_WINDOW);
 
 // time window → ISO date range
 function timeWindowToDates(w: string): { from?: string; to?: string } {
   const now = new Date();
   const fmt = (d: Date) => d.toISOString().slice(0, 10);
-  if (w === '24h')  return { from: fmt(new Date(now.getTime() - 86_400_000)) };
-  if (w === '7d')   return { from: fmt(new Date(now.getTime() - 7  * 86_400_000)) };
-  if (w === '30d')  return { from: fmt(new Date(now.getTime() - 30 * 86_400_000)) };
+  if (w === '24h')         return { from: fmt(new Date(now.getTime() - 86_400_000)) };
+  if (w === '7d')          return { from: fmt(new Date(now.getTime() - 7  * 86_400_000)) };
+  if (w === '30d')         return { from: fmt(new Date(now.getTime() - 30 * 86_400_000)) };
+  if (w === 'This window') return CURRENT_WINDOW.windowDateRange;
   return {};
 }
 
@@ -30,13 +36,6 @@ const RECENT = ['Haaland', 'Jude Bellingham', 'Saka'];
 type Tab = 'filter' | 'player';
 type Scope = 'player' | 'club' | 'journalist';
 type FlyStep = 'idle' | 'zooming' | 'arrived';
-
-// season encoding: 25+26=51 (25/26), 24+25=49 (24/25)
-const SEASON_OPTIONS = Array.from({ length: 26 }, (_, i) => {
-  const y1 = 25 - i, y2 = 26 - i;
-  const fmt = (y: number) => String(y).padStart(2, '0');
-  return { label: `${fmt(y1)}/${fmt(y2)}`, value: 51 - i * 2 };
-});
 
 interface FilterState {
   leagues: Set<string>;
@@ -55,7 +54,7 @@ const defaultFilters = (): FilterState => ({
   timeWindow: '7d',
   feeMin:     0,
   feeMax:     300,
-  season:     51,
+  season:     CURRENT_WINDOW.season,
 });
 
 interface Props {
@@ -246,7 +245,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
 
   // 과거 시즌 선택 시 날짜 기반 timeWindow 자동 해제
   useEffect(() => {
-    if (filters.season !== 51 && !['This window', 'All'].includes(filters.timeWindow)) {
+    if (filters.season !== CURRENT_WINDOW.season && !['This window', 'All'].includes(filters.timeWindow)) {
       setFilters(f => ({ ...f, timeWindow: 'All' }));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -438,7 +437,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
                       ${filters.timeWindow === t
                         ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-[var(--accent)]'
                         : 'border-[var(--border)] text-[var(--text-sub)] hover:border-[var(--accent)]/40 hover:text-[var(--text)]'}`}>
-                    {t}
+                    {t === 'This window' ? WINDOW_LABEL : t}
                   </button>
                 ))}
               </div>
