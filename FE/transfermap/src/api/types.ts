@@ -5,6 +5,8 @@ export interface ApiNewsItem {
   playerName: string;
   fromClubName: string | null;
   toClubName: string | null;
+  fromCountryCode: string | null;
+  toCountryCode: string | null;
   feeEur: number | null;
   status: string;          // RUMOR | CONFIRMED | DENIED | LOAN
   reliability: number | null;

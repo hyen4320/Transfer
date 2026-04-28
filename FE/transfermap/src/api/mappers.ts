@@ -37,8 +37,10 @@ export function mapNews(n: ApiNewsItem): NewsItem {
   return {
     id:           n.id,
     player:       n.playerName,
-    from:         n.fromClubName ?? 'Free Agent',
-    to:           n.toClubName   ?? 'Free Agent',
+    from:            n.fromClubName ?? 'Free Agent',
+    to:              n.toClubName   ?? 'Free Agent',
+    fromCountryCode: n.fromCountryCode ?? undefined,
+    toCountryCode:   n.toCountryCode   ?? undefined,
     fee:          formatFee(n.feeEur),
     status:       mapStatus(n.status),
     journalist:   n.journalistName,

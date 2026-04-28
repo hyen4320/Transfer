@@ -7,10 +7,33 @@ import { LEAGUES, CLUBS } from '../data/mock';
 import { resolveOverlaps, parseFee } from '../utils/mapUtils';
 import { loadWorldAtlas } from '../utils/worldAtlas';
 
+const COUNTRY_CENTROIDS: Record<string, [number, number]> = {
+  'GB': [-3.44,  55.38],
+  'DE': [10.45,  51.17],
+  'ES': [-3.75,  40.46],
+  'IT': [12.57,  41.87],
+  'FR': [ 2.21,  46.23],
+  'PT': [-8.22,  39.40],
+  'NL': [ 5.29,  52.13],
+  'BE': [ 4.47,  50.50],
+  'TR': [35.24,  38.96],
+  'SA': [45.08,  23.89],
+  'BR': [-51.93, -14.24],
+  'AR': [-63.62, -38.42],
+  'JP': [138.25,  36.20],
+  'US': [-95.71,  37.09],
+  'CN': [104.19,  35.86],
+  'MA': [ -7.09,  31.79],
+  'NG': [  8.68,   9.08],
+  'SN': [-14.45,  14.50],
+  'CI': [ -5.55,   7.54],
+  'GH': [ -1.02,   7.95],
+};
+
 const EUROPEAN_IDS = new Set([
   8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,
   428,438,440,442,470,492,498,499,528,578,616,620,642,674,688,703,705,724,
-  752,756,804,807,826,
+  752,756,792,804,807,826,
 ]);
 
 const STATUS_COLOR: Record<TransferStatus, string> = {
@@ -209,18 +232,27 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       return null;
     }
 
+    function countryProj(countryCode: string | undefined): { x: number; y: number; club: null } | null {
+      if (!countryCode) return null;
+      const coords = COUNTRY_CENTROIDS[countryCode];
+      if (!coords) return null;
+      const p = proj(coords);
+      if (!p) return null;
+      return { x: p[0], y: p[1], club: null };
+    }
+
     // 이적료 내림차순 정렬 → 상위 ANIM_LIMIT개만 도트 애니메이션
     const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
 
     const computed = sortedNews.map((n, rank) => {
-      const fp = findClubProj(n.from);
-      const tp = findClubProj(n.to);
+      const fp = findClubProj(n.from) ?? countryProj(n.fromCountryCode);
+      const tp = findClubProj(n.to)   ?? countryProj(n.toCountryCode);
       if (!fp || !tp) return null;
-      const fc = fp.club;
-      const tc = tp.club;
       const [x1, y1] = [fp.x, fp.y];
       const [x2, y2] = [tp.x, tp.y];
-      const sameLeague = fc.league === tc.league && fc.league !== '';
+      const sameLeague = fp.club && tp.club
+        ? fp.club.league === tp.club.league && fp.club.league !== ''
+        : false;
       const dx = x2 - x1, dy = y2 - y1;
       const dist = Math.sqrt(dx * dx + dy * dy);
       const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);

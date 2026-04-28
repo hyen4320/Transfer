@@ -36,6 +36,8 @@ export interface NewsItem {
   toClubId?: number;
   from: string;
   to: string;
+  fromCountryCode?: string;
+  toCountryCode?: string;
   fee: string;
   status: TransferStatus;
   journalist: string;
