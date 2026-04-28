@@ -467,7 +467,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
                         : '3 6';
           return (
             <g key={r.id} style={{ pointerEvents: 'auto' }}
-               onMouseEnter={e => { setHoveredRoute(r); onRouteHover?.(r.id); }}
+               onMouseEnter={() => { setHoveredRoute(r); onRouteHover?.(r.id); }}
                onMouseLeave={() => { setHoveredRoute(null); onRouteHover?.(null); }}
                onMouseMove={e => {
                  const el = tooltipRef.current;
