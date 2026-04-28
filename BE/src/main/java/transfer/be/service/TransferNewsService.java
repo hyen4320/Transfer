@@ -23,7 +23,11 @@ public interface TransferNewsService {
 
     List<TransferNews> findByToClub(Club club);
 
+    List<TransferNews> findByToClubAndSeason(Club club, Short season);
+
     List<TransferNews> findByFromClub(Club club);
+
+    List<TransferNews> findByFromClubAndSeason(Club club, Short season);
 
     List<TransferNews> findByJournalist(Journalist journalist);
 

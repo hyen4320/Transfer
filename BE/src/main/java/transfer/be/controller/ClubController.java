@@ -46,18 +46,22 @@ public class ClubController {
         return ClubResponse.from(club);
     }
 
-    /** 구단 이적 인/아웃 */
+    /** 구단 이적 인/아웃 — season 지정 시 해당 시즌만 필터링 */
     @GetMapping("/{id}/transfers")
-    public Map<String, List<TransferNewsResponse>> getTransfers(@PathVariable Long id) {
+    public Map<String, List<TransferNewsResponse>> getTransfers(
+            @PathVariable Long id,
+            @RequestParam(required = false) Short season) {
         Club club = clubRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Club not found: " + id));
 
-        List<TransferNewsResponse> incoming = transferNewsService.findByToClub(club).stream()
-                .map(TransferNewsResponse::from)
-                .toList();
-        List<TransferNewsResponse> outgoing = transferNewsService.findByFromClub(club).stream()
-                .map(TransferNewsResponse::from)
-                .toList();
+        List<TransferNewsResponse> incoming = (season != null
+                ? transferNewsService.findByToClubAndSeason(club, season)
+                : transferNewsService.findByToClub(club))
+                .stream().map(TransferNewsResponse::from).toList();
+        List<TransferNewsResponse> outgoing = (season != null
+                ? transferNewsService.findByFromClubAndSeason(club, season)
+                : transferNewsService.findByFromClub(club))
+                .stream().map(TransferNewsResponse::from).toList();
 
         return Map.of("incoming", incoming, "outgoing", outgoing);
     }

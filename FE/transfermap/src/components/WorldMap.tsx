@@ -568,18 +568,18 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
                          hover:scale-[1.15] hover:brightness-125"
               style={{ left: pos.x, top: pos.y }}
               onClick={e => { e.stopPropagation(); onLeagueClick?.(l); }}>
-              <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center
-                              text-[0.95rem] font-black overflow-hidden"
+              <div className="w-[26px] h-[26px] sm:w-[52px] sm:h-[52px] rounded-full flex items-center justify-center
+                              text-[0.48rem] sm:text-[0.95rem] font-black overflow-hidden"
                 style={{
                   background:  l.color,
-                  boxShadow:  `0 0 20px ${l.accent}55, 0 0 6px rgba(0,0,0,0.8)`,
-                  border:     `2px solid ${l.accent}88`,
+                  boxShadow:  `0 0 10px ${l.accent}55, 0 0 4px rgba(0,0,0,0.8)`,
+                  border:     `1.5px solid ${l.accent}88`,
                   color:       l.accent,
                   textShadow: `0 0 8px ${l.accent}`,
                 }}>
                 {l.abbr}
               </div>
-              <div className="text-[0.6rem] font-bold tracking-wide uppercase whitespace-nowrap"
+              <div className="hidden sm:block text-[0.6rem] font-bold tracking-wide uppercase whitespace-nowrap"
                 style={{ color: 'rgba(220,230,255,0.85)', textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                 {l.name}
               </div>

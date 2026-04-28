@@ -23,7 +23,11 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
 
     List<TransferNews> findByToClubOrderByPublishedAtDesc(Club club);
 
+    List<TransferNews> findByToClubAndSeasonOrderByPublishedAtDesc(Club club, Short season);
+
     List<TransferNews> findByFromClubOrderByPublishedAtDesc(Club club);
+
+    List<TransferNews> findByFromClubAndSeasonOrderByPublishedAtDesc(Club club, Short season);
 
     Page<TransferNews> findAllByOrderByPublishedAtDesc(Pageable pageable);
 

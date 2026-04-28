@@ -38,12 +38,13 @@ export async function fetchClub(id: number): Promise<ApiClub> {
   return apiFetch<ApiClub>(`/clubs/${id}`);
 }
 
-export async function fetchClubTransfers(id: number): Promise<{
+export async function fetchClubTransfers(id: number, season?: number): Promise<{
   incoming: NewsItem[];
   outgoing: NewsItem[];
 }> {
+  const q = season != null ? `?season=${season}` : '';
   const data = await apiFetch<{ incoming: ApiNewsItem[]; outgoing: ApiNewsItem[] }>(
-    `/clubs/${id}/transfers`
+    `/clubs/${id}/transfers${q}`
   );
   return {
     incoming: (data.incoming ?? []).map(mapNews),

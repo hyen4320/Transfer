@@ -57,8 +57,20 @@ public class TransferNewsServiceImpl implements TransferNewsService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<TransferNews> findByToClubAndSeason(Club club, Short season) {
+        return transferNewsRepository.findByToClubAndSeasonOrderByPublishedAtDesc(club, season);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<TransferNews> findByFromClub(Club club) {
         return transferNewsRepository.findByFromClubOrderByPublishedAtDesc(club);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TransferNews> findByFromClubAndSeason(Club club, Short season) {
+        return transferNewsRepository.findByFromClubAndSeasonOrderByPublishedAtDesc(club, season);
     }
 
     @Override

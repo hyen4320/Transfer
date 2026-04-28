@@ -127,9 +127,11 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const sentinelRef  = useRef<HTMLDivElement>(null);
 
   // ── Club / League detail ─────────────────────────────────────────────────
-  const [clubDetail,    setClubDetail]    = useState<ApiClub | null>(null);
-  const [clubTransfers, setClubTransfers] = useState<{ incoming: NewsItem[]; outgoing: NewsItem[] }>({ incoming: [], outgoing: [] });
-  const [clubLoading,   setClubLoading]   = useState(false);
+  const [clubDetail,          setClubDetail]          = useState<ApiClub | null>(null);
+  const [clubTransfers,       setClubTransfers]       = useState<{ incoming: NewsItem[]; outgoing: NewsItem[] }>({ incoming: [], outgoing: [] });
+  const [clubLoading,         setClubLoading]         = useState(false);
+  const [clubTransfersLoading, setClubTransfersLoading] = useState(false);
+  const [clubSeason,          setClubSeason]          = useState<number>(SEASON_OPTIONS[0].value);
 
   const [apiLeagues,         setApiLeagues]         = useState<ApiLeague[]>([]);
   const [seasonClubs,        setSeasonClubs]         = useState<Club[]>(leagueClubs);
@@ -196,7 +198,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       .finally(() => setSeasonClubsLoading(false));
   }, [selectedLeague, season, apiLeagues, leagueClubs]);
 
-  // Club ID change → club view
+  // Club ID change → club detail
   useEffect(() => {
     if (!selectedClubId) {
       if (!selectedLeague) setView('news');
@@ -206,11 +208,21 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     setView('club');
     setClubTab('in');
     setClubLoading(true);
-    Promise.all([fetchClub(selectedClubId), fetchClubTransfers(selectedClubId)])
-      .then(([detail, transfers]) => { setClubDetail(detail); setClubTransfers(transfers); })
+    fetchClub(selectedClubId)
+      .then(detail => setClubDetail(detail))
       .catch(err => { if (err instanceof ApiError && err.status >= 500) navigate('/500'); })
       .finally(() => setClubLoading(false));
   }, [selectedClubId, navigate, selectedLeague]);
+
+  // Club ID or season change → transfers
+  useEffect(() => {
+    if (!selectedClubId) { setClubTransfers({ incoming: [], outgoing: [] }); return; }
+    setClubTransfersLoading(true);
+    fetchClubTransfers(selectedClubId, clubSeason)
+      .then(transfers => setClubTransfers(transfers))
+      .catch(err => { if (err instanceof ApiError && err.status >= 500) navigate('/500'); })
+      .finally(() => setClubTransfersLoading(false));
+  }, [selectedClubId, clubSeason, navigate]);
 
   // Reset fly state when panel closes
   useEffect(() => {
@@ -973,10 +985,15 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                       setView('club');
                       setClubTab('in');
                       setClubLoading(true);
-                      Promise.all([fetchClub(club.id), fetchClubTransfers(club.id)])
-                        .then(([detail, transfers]) => { setClubDetail(detail); setClubTransfers(transfers); })
+                      fetchClub(club.id)
+                        .then(detail => setClubDetail(detail))
                         .catch(err => { if (err instanceof ApiError && err.status >= 500) navigate('/500'); })
                         .finally(() => setClubLoading(false));
+                      setClubTransfersLoading(true);
+                      fetchClubTransfers(club.id, clubSeason)
+                        .then(transfers => setClubTransfers(transfers))
+                        .catch(() => {})
+                        .finally(() => setClubTransfersLoading(false));
                     }}
                     className="w-full flex items-center gap-4 px-5 py-4 text-left
                                hover:bg-[rgba(255,255,255,0.04)] transition-colors border-b border-[var(--border)] last:border-b-0">
@@ -1032,15 +1049,25 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                 <div className="flex gap-8 text-[0.74rem] text-[var(--text-sub)]">
                   <div>
                     <strong className="block text-[1.4rem] text-[var(--text)] font-extrabold leading-none mb-1.5">
-                      {clubTransfers.incoming.length}
+                      {clubTransfersLoading ? '…' : clubTransfers.incoming.length}
                     </strong>Incoming
                   </div>
                   <div>
                     <strong className="block text-[1.4rem] text-[var(--text)] font-extrabold leading-none mb-1.5">
-                      {clubTransfers.outgoing.length}
+                      {clubTransfersLoading ? '…' : clubTransfers.outgoing.length}
                     </strong>Outgoing
                   </div>
                 </div>
+              </div>
+
+              {/* Season selector */}
+              <div className="px-7 pt-4 pb-3 flex-shrink-0">
+                <select value={clubSeason} onChange={e => setClubSeason(Number(e.target.value))}
+                  className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
+                             text-[0.8rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                             transition-colors cursor-pointer">
+                  {SEASON_OPTIONS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                </select>
               </div>
 
               <div className="flex border-b border-[var(--border)] flex-shrink-0">
@@ -1054,22 +1081,24 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
               </div>
 
               <div className="flex-1 overflow-y-auto py-5">
-                {activeTransfers.length === 0
-                  ? <div className="py-14 text-center text-[0.82rem] text-[var(--text-sub)]">No transfers</div>
-                  : activeTransfers.map((t, i) => (
-                      <div key={i} className="mx-5 mb-4 p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
-                        <div className="flex items-start justify-between gap-4 mb-3">
-                          <div className="text-[0.9rem] font-bold">{t.player}</div>
-                          <span className={`px-3 py-1 rounded-full text-[0.64rem] font-bold border flex-shrink-0 ${STATUS_STYLE[t.status] ?? ''}`}>
-                            {t.status.toUpperCase()}
-                          </span>
+                {clubTransfersLoading
+                  ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
+                  : activeTransfers.length === 0
+                    ? <div className="py-14 text-center text-[0.82rem] text-[var(--text-sub)]">No transfers</div>
+                    : activeTransfers.map((t, i) => (
+                        <div key={i} className="mx-5 mb-4 p-6 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <div className="text-[0.9rem] font-bold">{t.player}</div>
+                            <span className={`px-3 py-1 rounded-full text-[0.64rem] font-bold border flex-shrink-0 ${STATUS_STYLE[t.status] ?? ''}`}>
+                              {t.status.toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="text-[0.82rem] text-[rgba(200,220,255,0.6)] mb-2.5">{t.fee}</div>
+                          <div className="text-[0.76rem] text-[var(--text-sub)]">
+                            {clubTab === 'in' ? `from: ${t.from}` : `to: ${t.to}`}
+                          </div>
                         </div>
-                        <div className="text-[0.82rem] text-[rgba(200,220,255,0.6)] mb-2.5">{t.fee}</div>
-                        <div className="text-[0.76rem] text-[var(--text-sub)]">
-                          {clubTab === 'in' ? `from: ${t.from}` : `to: ${t.to}`}
-                        </div>
-                      </div>
-                    ))
+                      ))
                 }
               </div>
             </>
