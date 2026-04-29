@@ -16,6 +16,9 @@ public interface JournalistService {
     /** X API에서 사용자 정보를 조회해 DB에 저장 */
     Journalist registerFromX(String xHandle);
 
+    /** xUserId가 없는 기자들을 X API로 채움 */
+    void syncMissingXUserIds();
+
     /** 공신력 점수 갱신 후 전체 순위 재계산 */
     void updateCredibilityScore(Long journalistId, float newScore);
 }

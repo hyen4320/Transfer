@@ -48,3 +48,9 @@ export async function fetchNewsPage(params?: NewsFilterParams): Promise<{ items:
   const data = await apiFetch<ApiPage<ApiNewsItem>>(`/news?${q}`);
   return { items: data.content.map(mapNews), total: data.totalElements };
 }
+
+export async function fetchTrendingPlayers(days = 7, limit = 5): Promise<string[]> {
+  const q = new URLSearchParams({ days: String(days), limit: String(limit) });
+  const data = await apiFetch<{ players: string[] }>(`/news/trending-players?${q}`);
+  return data.players;
+}

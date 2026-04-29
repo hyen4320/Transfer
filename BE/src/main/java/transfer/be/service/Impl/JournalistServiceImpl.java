@@ -1,6 +1,7 @@
 package transfer.be.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import transfer.be.service.JournalistService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JournalistServiceImpl implements JournalistService {
@@ -60,6 +62,34 @@ public class JournalistServiceImpl implements JournalistService {
                 .build();
 
         return journalistRepository.save(journalist);
+    }
+
+    @Override
+    @Transactional
+    public void syncMissingXUserIds() {
+        List<Journalist> missing = journalistRepository.findAllByXUserIdIsNull();
+        for (Journalist j : missing) {
+            try {
+                XUserResponse response = xApiClient.getUserByUsername(j.getXHandle());
+                XUserResponse.XUser user = response.data();
+                Journalist updated = Journalist.builder()
+                        .id(j.getId())
+                        .xHandle(j.getXHandle())
+                        .xUserId(user.id())
+                        .name(j.getName())
+                        .profileImageUrl(user.profileImageUrl())
+                        .followerCount(user.publicMetrics().followersCount())
+                        .credibilityScore(j.getCredibilityScore())
+                        .rank(j.getRank())
+                        .isBot(j.getIsBot())
+                        .lastSyncedAt(LocalDateTime.now())
+                        .createdAt(j.getCreatedAt())
+                        .build();
+                journalistRepository.save(updated);
+            } catch (Exception e) {
+                log.error("[JournalistSync] @{} xUserId 동기화 실패: {}", j.getXHandle(), e.getMessage());
+            }
+        }
     }
 
     @Override

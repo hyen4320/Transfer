@@ -34,6 +34,7 @@ public class XCollectorScheduler {
 
     @Scheduled(fixedDelay = 15 * 60 * 1000)
     public void collectAllJournalistPosts() {
+        journalistService.syncMissingXUserIds();
         List<Journalist> journalists = journalistService.findAllByRank();
         log.info("[XCollector] 수집 시작 — 대상 기자: {}명", journalists.size());
 

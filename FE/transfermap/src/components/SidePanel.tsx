@@ -6,7 +6,7 @@ import { fetchClub, fetchClubTransfers, fetchClubsBySeason, fetchAllClubs } from
 import { fetchLeagues } from '../api/leagues';
 import { fetchJournalists } from '../api/journalists';
 import { fetchPlayersSearch } from '../api/players';
-import { fetchNews, fetchNewsPage } from '../api/news';
+import { fetchNews, fetchNewsPage, fetchTrendingPlayers } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import { ApiError } from '../api/client';
 import type { ApiClub, ApiLeague } from '../api/types';
@@ -132,6 +132,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const [clubLoading,         setClubLoading]         = useState(false);
   const [clubTransfersLoading, setClubTransfersLoading] = useState(false);
   const [clubSeason,          setClubSeason]          = useState<number>(SEASON_OPTIONS[0].value);
+  const [viewingClubId,       setViewingClubId]       = useState<number | null>(null);
 
   const [apiLeagues,         setApiLeagues]         = useState<ApiLeague[]>([]);
   const [seasonClubs,        setSeasonClubs]         = useState<Club[]>(leagueClubs);
@@ -154,6 +155,9 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const debounceRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // ── Trending ──────────────────────────────────────────────────────────────
+  const [trendingPlayers, setTrendingPlayers] = useState<string[]>(TRENDING);
 
   // ── Filter state ─────────────────────────────────────────────────────────
   const [filterState,        setFilterState]        = useState<FilterState>(defaultFilters);
@@ -179,7 +183,11 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     fetchLeagues().then(setApiLeagues).catch(() => {});
     fetchAllClubs().then(c => { if (c.length) setAllClubs(c); }).catch(() => {});
     fetchJournalists().then(j => { if (j.length) setAllJournalists(j); }).catch(() => {});
+    fetchTrendingPlayers().then(p => { if (p.length) setTrendingPlayers(p); }).catch(() => {});
   }, []);
+
+  // Season change → clear applied filter so feed shows fresh news
+  useEffect(() => { setAppliedItems(null); }, [season]);
 
   // League selected → league view
   useEffect(() => {
@@ -203,8 +211,10 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     if (!selectedClubId) {
       if (!selectedLeague) setView('news');
       setClubDetail(null);
+      setViewingClubId(null);
       return;
     }
+    setViewingClubId(selectedClubId);
     setView('club');
     setClubTab('in');
     setClubLoading(true);
@@ -214,19 +224,19 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       .finally(() => setClubLoading(false));
   }, [selectedClubId, navigate, selectedLeague]);
 
-  // Club ID or season change → transfers
+  // Viewing club or season change → transfers
   useEffect(() => {
-    if (!selectedClubId) { setClubTransfers({ incoming: [], outgoing: [] }); return; }
+    if (!viewingClubId) { setClubTransfers({ incoming: [], outgoing: [] }); return; }
     setClubTransfersLoading(true);
-    fetchClubTransfers(selectedClubId, clubSeason)
+    fetchClubTransfers(viewingClubId, clubSeason)
       .then(transfers => setClubTransfers(transfers))
       .catch(err => { if (err instanceof ApiError && err.status >= 500) navigate('/500'); })
       .finally(() => setClubTransfersLoading(false));
-  }, [selectedClubId, clubSeason, navigate]);
+  }, [viewingClubId, clubSeason, navigate]);
 
   // Reset fly state when panel closes
   useEffect(() => {
-    if (!open) { setFlyStep('idle'); setFlyPlayer(null); setFlyLeague(null); setProgress(0); }
+    if (!open) { setFlyStep('idle'); setFlyPlayer(null); setFlyLeague(null); setProgress(0); setViewingClubId(null); }
   }, [open]);
 
   // Progress bar animation during zoom
@@ -776,7 +786,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                 <div>
                   <div className="text-[0.68rem] font-bold tracking-widest uppercase text-[var(--text-sub)] mb-3">Trending</div>
                   <div className="flex flex-wrap gap-2">
-                    {TRENDING.map((t, i) => (
+                    {trendingPlayers.map((t, i) => (
                       <button key={i} onClick={() => { setScope('player'); setQuery(t); }}
                         className="px-4 py-1.5 rounded-full text-[0.72rem] font-bold border border-[var(--border)]
                                    bg-[var(--surface)] text-[var(--text-sub)] hover:text-[var(--text)]
@@ -982,6 +992,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
               : seasonClubs.map(club => (
                   <button key={club.id}
                     onClick={() => {
+                      setViewingClubId(club.id);
                       setView('club');
                       setClubTab('in');
                       setClubLoading(true);
@@ -989,11 +1000,6 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                         .then(detail => setClubDetail(detail))
                         .catch(err => { if (err instanceof ApiError && err.status >= 500) navigate('/500'); })
                         .finally(() => setClubLoading(false));
-                      setClubTransfersLoading(true);
-                      fetchClubTransfers(club.id, clubSeason)
-                        .then(transfers => setClubTransfers(transfers))
-                        .catch(() => {})
-                        .finally(() => setClubTransfersLoading(false));
                     }}
                     className="w-full flex items-center gap-4 px-5 py-4 text-left
                                hover:bg-[rgba(255,255,255,0.04)] transition-colors border-b border-[var(--border)] last:border-b-0">
@@ -1020,7 +1026,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       {view === 'club' && (
         <>
           <div className="flex items-center px-7 py-6 border-b border-[var(--border)] gap-3 flex-shrink-0">
-            <button onClick={() => setView(selectedLeague ? 'league' : 'news')}
+            <button onClick={() => { setViewingClubId(null); setView(selectedLeague ? 'league' : 'news'); }}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] transition-all">←</button>
             <div className="text-[0.92rem] font-bold tracking-widest uppercase flex-1">{clubDetail?.name ?? '…'}</div>

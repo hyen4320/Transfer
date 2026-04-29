@@ -77,11 +77,15 @@ interface DragState {
   progress: number; // 0–1
 }
 
+function normStr(s: string): string {
+  // NFD 분해 후 결합 발음구별 기호 제거 (Atlético → Atletico, München → Munchen 등)
+  return s.normalize('NFD').replace(/\p{Mn}/gu, '').toLowerCase().trim();
+}
+
 function nameMatch(a: string, b: string): boolean {
   if (!a || !b) return false;
-  a = a.toLowerCase().trim();
-  b = b.toLowerCase().trim();
-  return a === b || a.includes(b) || b.includes(a);
+  const na = normStr(a), nb = normStr(b);
+  return na === nb || na.includes(nb) || nb.includes(na);
 }
 
 interface Props {
@@ -218,11 +222,14 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       return { id: l.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
     });
 
-    // 2. 이름 기반으로 구단 → 투영 좌표 조회 (API 데이터 사용)
-    const clubProjMap = new Map(clubs.map(c => {
-      const p = proj([c.lon, c.lat]);
-      return [c.id, p ? { x: p[0], y: p[1], club: c } : null] as const;
-    }));
+    // 2. 이름 기반으로 구단 → 투영 좌표 조회 (resolvedClubPos 사용 — 마커 위치와 일치)
+    const clubById = new Map(clubs.map(c => [c.id, c]));
+    const clubProjMap = new Map(
+      resolvedClubPos.map(rp => {
+        const club = clubById.get(rp.id);
+        return [rp.id, club ? { x: rp.x, y: rp.y, club } : null] as const;
+      })
+    );
 
     function findClubProj(name: string) {
       if (!name || name === 'Free Agent') return null;
@@ -241,12 +248,24 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       return { x: p[0], y: p[1], club: null };
     }
 
+    // 상위 5개 리그 국가: 클럽이 clubs에 없으면 국가 중심 폴백 금지
+    // (강등팀 등 DB에 있지만 해당 시즌 미포함 클럽이 국가 중심 좌표에 표시되는 문제 방지)
+    const TOP5_COUNTRY_CODES = new Set(['GB', 'DE', 'ES', 'IT', 'FR']);
+
+    function resolveEndpoint(name: string, countryCode: string | undefined) {
+      const byName = findClubProj(name);
+      if (byName) return byName;
+      // 상위 5리그 국가이면 폴백 없이 null → 해당 루트 제외
+      if (!countryCode || TOP5_COUNTRY_CODES.has(countryCode)) return null;
+      return countryProj(countryCode);
+    }
+
     // 이적료 내림차순 정렬 → 상위 ANIM_LIMIT개만 도트 애니메이션
     const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
 
     const computed = sortedNews.map((n, rank) => {
-      const fp = findClubProj(n.from) ?? countryProj(n.fromCountryCode);
-      const tp = findClubProj(n.to)   ?? countryProj(n.toCountryCode);
+      const fp = resolveEndpoint(n.from, n.fromCountryCode);
+      const tp = resolveEndpoint(n.to,   n.toCountryCode);
       if (!fp || !tp) return null;
       const [x1, y1] = [fp.x, fp.y];
       const [x2, y2] = [tp.x, tp.y];

@@ -19,6 +19,9 @@ public interface JournalistRepository extends JpaRepository<Journalist, Long> {
 
     List<Journalist> findAllByOrderByRankAsc();
 
+    @Query("select j from Journalist j where j.xUserId is null")
+    List<Journalist> findAllByXUserIdIsNull();
+
     /** 공신력 점수 기준으로 순위 일괄 업데이트 */
     @Modifying
     @Query("""
