@@ -71,6 +71,10 @@ public class JournalistServiceImpl implements JournalistService {
         for (Journalist j : missing) {
             try {
                 XUserResponse response = xApiClient.getUserByUsername(j.getXHandle());
+                if (response == null || response.data() == null) {
+                    log.warn("[JournalistSync] @{} — X에서 사용자를 찾을 수 없음 (계정 없음/정지)", j.getXHandle());
+                    continue;
+                }
                 XUserResponse.XUser user = response.data();
                 Journalist updated = Journalist.builder()
                         .id(j.getId())

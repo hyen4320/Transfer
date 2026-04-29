@@ -10,11 +10,10 @@ import { fetchAllClubs } from '../api/clubs';
 import { fetchNewsPage } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import type { Club, Journalist } from '../types';
-import { LEAGUE_NAME_TO_ID } from '../data/constants';
-import { getTransferWindowState, getSeasonOptions, getWindowLabel } from '../utils/transferWindow';
+import { LEAGUE_NAME_TO_ID, SEASON_OPTIONS } from '../data/constants';
+import { getTransferWindowState, getWindowLabel } from '../utils/transferWindow';
 
 const CURRENT_WINDOW = getTransferWindowState();
-const SEASON_OPTIONS = getSeasonOptions();
 const WINDOW_LABEL   = getWindowLabel(CURRENT_WINDOW);
 
 // time window → ISO date range
