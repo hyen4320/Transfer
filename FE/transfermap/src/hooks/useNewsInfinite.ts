@@ -15,7 +15,7 @@ export function useNewsInfinite(season: number = CURRENT_SEASON) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const pageRef = useRef(0);
-  const isPast = season !== CURRENT_SEASON || !WINDOW_IS_OPEN;
+  const isPast = season < CURRENT_SEASON;
 
   const fetchPage = useCallback(async (page: number, reset: boolean, signal?: AbortSignal) => {
     if (reset) setLoading(true);

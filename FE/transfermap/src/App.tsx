@@ -21,12 +21,13 @@ import type { NewsFilterParams } from './api/news';
 import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
 import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from './data/constants';
+import { getTransferWindowState } from './utils/transferWindow';
 
 function MapView() {
   const navigate       = useNavigate();
   const sceneRef       = useRef<HTMLDivElement>(null);
   const sidePanelRef   = useRef<SidePanelHandle>(null);
-  const [mapSeason, setMapSeason] = useState(51);
+  const [mapSeason, setMapSeason] = useState(() => getTransferWindowState().season);
   const { clubs } = useClubs(mapSeason);
   const { items: news } = useNews(mapSeason);
 
