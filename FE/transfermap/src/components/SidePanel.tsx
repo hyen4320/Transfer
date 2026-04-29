@@ -66,7 +66,7 @@ interface FilterState {
 
 const defaultFilters = (): FilterState => ({
   leagues:    new Set(['pl', 'll', 'bl']),
-  statuses:   new Set(['rumour', 'confirmed']),
+  statuses:   new Set(['interest', 'rumour', 'confirmed', 'loan']),
   position:   'ALL',
   timeWindow: '7d',
   feeMin:     0,
@@ -829,7 +829,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
             </FilterSection>
 
             <FilterSection label="Status">
-              {(['rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
+              {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <CheckRow key={s} checked={filterState.statuses.has(s)}
                   label={s.charAt(0).toUpperCase() + s.slice(1)}
                   count={NEWS.filter(n => n.status === s).length}

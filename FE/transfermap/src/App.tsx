@@ -305,8 +305,8 @@ function MapView() {
         <WorldMap onCountryClick={handleCountryClick} onClubClick={handleClubClick} onLeagueClick={handleLeaguePanelClick} onRouteHover={setHoveredRouteId} clubs={clubs} news={playerPanelNews ?? filteredNews ?? news} selectedNewsId={selectedNewsId} />
 
         {/* Topbar */}
-        <div className="absolute top-0 left-0 right-0 h-14 flex items-center px-6 z-30 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, rgba(6,10,18,0.85) 0%, transparent 100%)' }}>
+        <div className="absolute top-0 left-0 right-0 h-12 flex items-center px-6 z-30 pointer-events-none"
+          style={{ background: 'rgba(6,10,18,0.90)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
 
           {/* Logo — left */}
           <div className="pointer-events-auto flex-none">
@@ -316,37 +316,22 @@ function MapView() {
             </div>
           </div>
 
-          {/* 4 nav buttons — desktop center */}
-          <div className="hidden sm:flex flex-1 items-center justify-center gap-2 pointer-events-auto">
-            <button onClick={openNewsFeed}
-              className={`bg-[rgba(13,22,38,0.8)] border text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
-                         backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         ${isNewsFeedOpen
-                           ? 'border-[var(--accent)]/60 text-[var(--accent)] bg-[var(--accent)]/10'
-                           : 'border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10'}`}>
-              ◈ News Feed
-            </button>
-            <button onClick={() => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }}
-              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
-                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
-                         backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
-              ⌕ Search
-            </button>
-            <button onClick={() => navigate('/journalists')}
-              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
-                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
-                         backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
-              ★ Journalists
-            </button>
-            <button onClick={() => navigate('/notice')}
-              className="bg-[rgba(13,22,38,0.8)] border border-[var(--border)] text-[var(--text-sub)]
-                         text-[0.78rem] font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-md
-                         backdrop-blur-lg flex items-center gap-1.5 transition-all
-                         hover:text-[var(--text)] hover:border-blue-500/50 hover:bg-blue-500/10">
-              ! Notice
-            </button>
+          {/* Nav menu — desktop center */}
+          <div className="hidden sm:flex flex-1 items-center justify-center gap-1 pointer-events-auto">
+            {[
+              { label: 'News Feed',   onClick: openNewsFeed,                                                          active: isNewsFeedOpen },
+              { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); },    active: false },
+              { label: 'Journalists', onClick: () => navigate('/journalists'),                                        active: false },
+              { label: 'Notice',      onClick: () => navigate('/notice'),                                             active: false },
+            ].map(({ label, onClick, active }) => (
+              <button key={label} onClick={onClick}
+                className={`text-[0.78rem] font-semibold tracking-wide px-4 h-12 transition-all border-b-2
+                  ${active
+                    ? 'text-[var(--accent)] border-[var(--accent)]'
+                    : 'text-[var(--text-sub)] border-transparent hover:text-[var(--text)] hover:border-[var(--border)]'}`}>
+                {label}
+              </button>
+            ))}
           </div>
 
           {/* Right spacer — matches logo width */}
