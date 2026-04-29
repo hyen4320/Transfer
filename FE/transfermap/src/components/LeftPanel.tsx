@@ -48,7 +48,7 @@ interface FilterState {
 
 const defaultFilters = (): FilterState => ({
   leagues:    new Set(['pl', 'll', 'bl']),
-  statuses:   new Set(['rumour', 'confirmed']),
+  statuses:   new Set(['interest', 'rumour', 'confirmed', 'loan']),
   position:   'ALL',
   timeWindow: '7d',
   feeMin:     0,
@@ -285,7 +285,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
 
   const handleClubSelect = (club: Club) => {
     setSelectedClub(club);
-    const allStatuses = new Set(['rumour', 'confirmed', 'denied', 'loan']);
+    const allStatuses = new Set(['interest', 'rumour', 'confirmed', 'denied', 'loan']);
     onApplyFilter?.([
       { fromClubId: club.id, season: searchSeason, size: 30 },
       { toClubId:   club.id, season: searchSeason, size: 30 },
@@ -377,7 +377,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
 
             {/* Status */}
             <FilterSection label="Status">
-              {(['rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
+              {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <CheckRow key={s}
                   checked={filters.statuses.has(s)}
                   label={s.charAt(0).toUpperCase() + s.slice(1)}

@@ -47,6 +47,7 @@ function timeWindowToDates(w: string): { from?: string; to?: string } {
 }
 
 const STATUS_STYLE: Record<string, string> = {
+  interest:  'bg-purple-500/15 text-purple-400 border-purple-500/30',
   rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
   confirmed: 'bg-green-500/15  text-green-400  border-green-500/30',
   denied:    'bg-red-500/15    text-red-400    border-red-500/30',
@@ -116,7 +117,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
 
   // ── News feed ─────────────────────────────────────────────────────────────
-  const [statusFilters, setStatusFilters] = useState({ rumour: true, confirmed: true, denied: false });
+  const [statusFilters, setStatusFilters] = useState({ interest: true, rumour: true, confirmed: true, denied: false, loan: true });
   const season    = seasonProp;
   const setSeason = (s: number) => onSeasonChange?.(s);
 
@@ -397,7 +398,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     setSelectedClub(club);
     onApplyFilter?.(
       [{ fromClubId: club.id, season: searchSeason, size: 30 }, { toClubId: club.id, season: searchSeason, size: 30 }],
-      new Set(['rumour', 'confirmed', 'denied', 'loan'])
+      new Set(['interest', 'rumour', 'confirmed', 'denied', 'loan'])
     );
   };
 
@@ -486,12 +487,10 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
             </div>
           ) : (
             <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
-              {(['rumour', 'confirmed', 'denied'] as const).map(s => (
+              {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <button key={s} onClick={() => toggleStatusFilter(s)}
                   className={`px-5 py-2.5 rounded-full text-[0.72rem] font-bold tracking-widest border transition-all
-                    ${s === 'rumour'    ? 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30' : ''}
-                    ${s === 'confirmed' ? 'bg-green-500/15  text-green-400  border-green-500/30'  : ''}
-                    ${s === 'denied'    ? 'bg-red-500/15    text-red-400    border-red-500/30'    : ''}
+                    ${STATUS_STYLE[s] ?? ''}
                     ${statusFilters[s] ? 'opacity-100' : 'opacity-35'}`}>
                   {s.toUpperCase()}
                 </button>

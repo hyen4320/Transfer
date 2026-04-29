@@ -105,14 +105,21 @@ public class PostParsingServiceImpl implements PostParsingService {
 
     private Short determineSeason() {
         LocalDate now = LocalDate.now();
+        int month = now.getMonthValue();
         int year = now.getYear() % 100;
-        return now.getMonthValue() >= 7
+        // 3~5월: 다가오는 여름 이적시장(26/27) 기준으로 다음 시즌
+        if (month >= 3 && month <= 5) {
+            return (short) (year + (year + 1));
+        }
+        return month >= 7
                 ? (short) (year + (year + 1))
                 : (short) ((year - 1) + year);
     }
 
     private TransferNews.TransferWindow determineWindow() {
         int month = LocalDate.now().getMonthValue();
+        // 3~5월: 다가오는 여름 이적시장
+        if (month >= 3 && month <= 5) return TransferNews.TransferWindow.SUMMER;
         return (month >= 6 && month <= 9)
                 ? TransferNews.TransferWindow.SUMMER
                 : TransferNews.TransferWindow.WINTER;
