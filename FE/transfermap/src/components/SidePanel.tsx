@@ -12,6 +12,7 @@ import { ApiError } from '../api/client';
 import type { ApiClub, ApiLeague } from '../api/types';
 import type { League, Club, NewsItem, Player, Journalist } from '../types';
 import NewsCard from './NewsCard';
+import { groupNewsByTransfer } from '../utils/groupNews';
 import AdSlot, { SLOT } from './AdSlot';
 import { LEAGUES, CLUBS, PLAYERS, JOURNALISTS, NEWS } from '../data/mock';
 import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from '../data/constants';
@@ -518,17 +519,18 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                   ))
             ) : newsLoading
               ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
-              : filteredNews.map((n, i) => (
-                  <div key={n.id ?? i} data-news-id={n.id}
-                       className={hoveredRouteId === n.id ? 'ring-1 ring-inset ring-[var(--accent)]/30 rounded-xl mx-1 transition-all' : ''}>
+              : groupNewsByTransfer(filteredNews).map((g, i) => (
+                  <div key={g.lead.id ?? i} data-news-id={g.lead.id}
+                       className={hoveredRouteId === g.lead.id ? 'ring-1 ring-inset ring-[var(--accent)]/30 rounded-xl mx-1 transition-all' : ''}>
                     {i > 0 && i % 3 === 0 && (
                       <AdSlot slot={SLOT.FEED_NATIVE} format="fluid" layoutKey="-fb+5w+4e-db+86"
                         className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]" />
                     )}
                     <NewsCard
-                      item={n}
-                      highlighted={selectedNewsId === n.id}
-                      onClick={() => selectedNewsId === n.id ? onNewsSelect?.(null) : onNewsSelect?.(n)}
+                      item={g.lead}
+                      grouped={g}
+                      highlighted={selectedNewsId === g.lead.id}
+                      onClick={() => selectedNewsId === g.lead.id ? onNewsSelect?.(null) : onNewsSelect?.(g.lead)}
                       onPlayerClick={onPlayerClick}
                     />
                   </div>

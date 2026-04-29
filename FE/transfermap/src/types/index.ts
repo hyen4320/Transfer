@@ -45,7 +45,13 @@ export interface NewsItem {
   handle: string;
   credibility: number;
   time: string;
+  publishedAt: string;
   sourceUrl?: string;
+}
+
+export interface GroupedNewsItem {
+  lead: NewsItem;
+  reporters: { name: string; handle: string; credibility: number; sourceUrl?: string; time: string }[];
 }
 
 export interface Journalist {

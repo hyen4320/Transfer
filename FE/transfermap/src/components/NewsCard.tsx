@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import type { NewsItem } from '../types';
+import type { NewsItem, GroupedNewsItem } from '../types';
 
 const STATUS_STYLE: Record<string, string> = {
   interest:  'bg-purple-500/15 text-purple-400 border border-purple-500/30',
@@ -9,12 +9,15 @@ const STATUS_STYLE: Record<string, string> = {
   loan:      'bg-blue-500/15 text-blue-400 border border-blue-500/30',
 };
 
-export default memo(function NewsCard({ item, onClick, highlighted, onPlayerClick }: {
+export default memo(function NewsCard({ item, grouped, onClick, highlighted, onPlayerClick }: {
   item: NewsItem;
+  grouped?: GroupedNewsItem;
   onClick?: () => void;
   highlighted?: boolean;
   onPlayerClick?: (name: string) => void;
 }) {
+  const reporters = grouped?.reporters ?? [{ name: item.journalist, handle: item.handle, credibility: item.credibility, sourceUrl: item.sourceUrl, time: item.time }];
+
   return (
     <div onClick={onClick}
          className={`mx-5 mb-4 p-6 rounded-xl border cursor-pointer transition-all duration-200
@@ -48,35 +51,35 @@ export default memo(function NewsCard({ item, onClick, highlighted, onPlayerClic
       {/* Fee */}
       <div className="text-[0.84rem] text-[rgba(200,220,255,0.6)] mb-5">{item.fee}</div>
 
-      {/* Journalist row */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-full bg-[var(--surface2)] border border-[var(--border)]
-                          flex items-center justify-center text-[0.62rem] text-[var(--text-sub)] flex-shrink-0">✎</div>
-          <div className="text-[0.76rem] text-[var(--text-sub)] leading-snug">
-            {item.journalist}
-            <span className="text-[var(--accent)] text-[0.68rem] ml-2">{item.handle}</span>
+      {/* Reporters */}
+      <div className="flex flex-col gap-2">
+        {reporters.map((r, i) => (
+          <div key={i} className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-[var(--surface2)] border border-[var(--border)]
+                              flex items-center justify-center text-[0.62rem] text-[var(--text-sub)] flex-shrink-0">✎</div>
+              <div className="text-[0.76rem] text-[var(--text-sub)] leading-snug">
+                {r.name}
+                <span className="text-[var(--accent)] text-[0.68rem] ml-2">@{r.handle}</span>
+              </div>
+            </div>
+            <div className="text-right flex-shrink-0">
+              <div className="text-[0.7rem] font-bold text-[var(--accent)] bg-[var(--accent-glow)] px-2.5 py-1 rounded-full">
+                {r.credibility}
+              </div>
+              <div className="flex items-center gap-2 justify-end mt-1.5">
+                <div className="text-[0.65rem] text-[rgba(160,185,220,0.4)]">{r.time}</div>
+                {r.sourceUrl && (
+                  <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer"
+                     onClick={e => e.stopPropagation()}
+                     className="text-[0.65rem] font-semibold text-[var(--accent)] opacity-60 hover:opacity-100 transition-opacity underline underline-offset-2">
+                    View on X →
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="text-right flex-shrink-0">
-          <div className="text-[0.7rem] font-bold text-[var(--accent)] bg-[var(--accent-glow)] px-2.5 py-1 rounded-full">
-            {item.credibility}
-          </div>
-          <div className="flex items-center gap-2 justify-end mt-1.5">
-            <div className="text-[0.65rem] text-[rgba(160,185,220,0.4)]">{item.time}</div>
-            {item.sourceUrl && (
-              <a
-                href={item.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={e => e.stopPropagation()}
-                className="text-[0.65rem] font-semibold text-[var(--accent)] opacity-60 hover:opacity-100 transition-opacity underline underline-offset-2"
-              >
-                View on X →
-              </a>
-            )}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

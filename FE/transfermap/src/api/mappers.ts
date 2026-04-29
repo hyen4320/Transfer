@@ -50,6 +50,7 @@ export function mapNews(n: ApiNewsItem): NewsItem {
                     : `@${n.journalistXHandle}`,
     credibility:  n.journalistCredibility,
     time:         relativeTime(n.publishedAt),
+    publishedAt:  n.publishedAt,
     sourceUrl:    n.sourceUrl,
   };
 }

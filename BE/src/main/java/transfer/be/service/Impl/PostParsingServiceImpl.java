@@ -63,6 +63,8 @@ public class PostParsingServiceImpl implements PostParsingService {
 
         Club fromClub = result.fromClub() != null ? resolveClub(result.fromClub()) : null;
 
+        short season = determineSeason();
+
         TransferNews news = TransferNews.builder()
                 .post(post)
                 .player(playerOpt.get())
@@ -71,7 +73,7 @@ public class PostParsingServiceImpl implements PostParsingService {
                 .feeEur(result.feeEur())
                 .status(parseStatus(result.status()))
                 .reliability((byte) 3)
-                .season(determineSeason())
+                .season(season)
                 .window(determineWindow())
                 .publishedAt(post.getPostedAt() != null ? post.getPostedAt() : LocalDateTime.now())
                 .build();
