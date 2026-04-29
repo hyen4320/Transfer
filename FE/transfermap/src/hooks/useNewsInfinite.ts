@@ -6,7 +6,7 @@ import { getTransferWindowState } from '../utils/transferWindow';
 import type { NewsItem } from '../types';
 
 const PAGE_SIZE = 30;
-const { season: CURRENT_SEASON } = getTransferWindowState();
+const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
 
 export function useNewsInfinite(season: number = CURRENT_SEASON) {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export function useNewsInfinite(season: number = CURRENT_SEASON) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const pageRef = useRef(0);
-  const isPast = season < CURRENT_SEASON;
+  const isPast = season < CURRENT_SEASON || (season === CURRENT_SEASON && !WINDOW_IS_OPEN);
 
   const fetchPage = useCallback(async (page: number, reset: boolean, signal?: AbortSignal) => {
     if (reset) setLoading(true);

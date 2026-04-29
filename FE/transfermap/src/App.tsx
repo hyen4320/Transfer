@@ -318,20 +318,18 @@ function MapView() {
           </div>
 
           {/* Nav menu — desktop center */}
-          <div className="hidden sm:flex flex-1 items-center justify-center gap-1 pointer-events-auto">
+          <div className="hidden sm:flex flex-1 items-center justify-center gap-8 pointer-events-auto">
             {[
-              { label: 'News Feed',   onClick: openNewsFeed,                                                          active: isNewsFeedOpen },
-              { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); },    active: false },
-              { label: 'Journalists', onClick: () => navigate('/journalists'),                                        active: false },
-              { label: 'Notice',      onClick: () => navigate('/notice'),                                             active: false },
+              { label: 'News Feed',   onClick: openNewsFeed,                                                       active: isNewsFeedOpen },
+              { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }, active: false },
+              { label: 'Journalists', onClick: () => navigate('/journalists'),                                     active: false },
+              { label: 'Notice',      onClick: () => navigate('/notice'),                                          active: false },
             ].map(({ label, onClick, active }) => (
-              <button key={label} onClick={onClick}
-                className={`text-[0.78rem] font-semibold tracking-wide px-4 h-12 transition-all border-b-2
-                  ${active
-                    ? 'text-[var(--accent)] border-[var(--accent)]'
-                    : 'text-[var(--text-sub)] border-transparent hover:text-[var(--text)] hover:border-[var(--border)]'}`}>
+              <span key={label} onClick={onClick}
+                className={`text-[0.78rem] font-semibold tracking-widest uppercase cursor-pointer transition-all
+                  ${active ? 'text-[var(--accent)]' : 'text-[var(--text-sub)] hover:text-[var(--text)]'}`}>
                 {label}
-              </button>
+              </span>
             ))}
           </div>
 

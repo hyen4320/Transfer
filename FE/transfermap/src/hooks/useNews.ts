@@ -16,7 +16,7 @@ export function useNews(season: number = CURRENT_SEASON) {
 
   useEffect(() => {
     setLoading(true);
-    const isPast = season !== CURRENT_SEASON || !WINDOW_IS_OPEN;
+    const isPast = season < CURRENT_SEASON || (season === CURRENT_SEASON && !WINDOW_IS_OPEN);
     fetchNews({
       season,
       size: 30,

@@ -2,6 +2,7 @@ import { memo } from 'react';
 import type { NewsItem } from '../types';
 
 const STATUS_STYLE: Record<string, string> = {
+  interest:  'bg-purple-500/15 text-purple-400 border border-purple-500/30',
   rumour:    'bg-yellow-500/15 text-yellow-400 border border-yellow-500/30',
   confirmed: 'bg-green-500/15 text-green-400 border border-green-500/30',
   denied:    'bg-red-500/15 text-red-400 border border-red-500/30',
@@ -69,9 +70,9 @@ export default memo(function NewsCard({ item, onClick, highlighted, onPlayerClic
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={e => e.stopPropagation()}
-                className="text-[0.65rem] text-[var(--accent)] opacity-60 hover:opacity-100 transition-opacity"
+                className="text-[0.65rem] font-semibold text-[var(--accent)] opacity-60 hover:opacity-100 transition-opacity underline underline-offset-2"
               >
-                X
+                View on X →
               </a>
             )}
           </div>
