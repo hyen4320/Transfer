@@ -54,6 +54,17 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
             @Param("toClub") Club toClub,
             @Param("season") Short season);
 
+    /** 기간 내 선수별 언급 횟수 — trending 집계용 */
+    @Query("""
+            select p.name, count(tn) as cnt
+            from TransferNews tn
+            join tn.player p
+            where tn.publishedAt >= :since
+            group by p.id, p.name
+            order by count(tn) desc
+            """)
+    List<Object[]> findTrendingPlayerNames(@Param("since") java.time.LocalDateTime since, Pageable pageable);
+
     /** 기자의 전체 뉴스 수 (공신력 정확도 계산용) */
     @Query("""
             SELECT COUNT(tn) FROM TransferNews tn

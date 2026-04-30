@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +16,11 @@ import transfer.be.dto.response.TransferNewsResponse;
 import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 import transfer.be.service.TransferNewsService;
+import transfer.be.service.TrendingService;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/news")
@@ -23,6 +28,21 @@ import java.time.LocalDate;
 public class NewsController {
 
     private final TransferNewsService transferNewsService;
+    private final TrendingService trendingService;
+
+    @GetMapping("/trending-players")
+    public Map<String, List<String>> trendingPlayers(
+            @RequestParam(defaultValue = "7")  int days,
+            @RequestParam(defaultValue = "5")  int limit
+    ) {
+        return Map.of("players", trendingService.getTrendingPlayers(days, limit));
+    }
+
+    @PostMapping("/trending-players/record")
+    public ResponseEntity<Void> recordTrending(@RequestParam String name) {
+        if (!name.isBlank()) trendingService.recordSearch(name);
+        return ResponseEntity.ok().build();
+    }
 
     /**
      * 이적 뉴스 복합 조건 검색

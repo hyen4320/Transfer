@@ -12,7 +12,7 @@ import { resolveOverlaps, parseFee } from '../utils/mapUtils';
 import { loadWorldAtlas } from '../utils/worldAtlas';
 import { fetchLeagues } from '../api/leagues';
 import { fetchNews } from '../api/news';
-import { LEAGUE_NAME_TO_ID } from '../data/constants';
+import { LEAGUE_NAME_TO_ID, SEASON_OPTIONS } from '../data/constants';
 import type { ApiLeague } from '../api/types';
 
 const EUROPEAN_IDS = new Set([
@@ -20,6 +20,14 @@ const EUROPEAN_IDS = new Set([
   428,438,440,442,470,492,498,499,528,578,616,620,642,674,688,703,705,724,
   752,756,804,807,826,
 ]);
+
+const STATUS_STYLE: Record<string, string> = {
+  interest:  'bg-purple-500/15 text-purple-400 border-purple-500/30',
+  rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
+  confirmed: 'bg-green-500/15  text-green-400  border-green-500/30',
+  denied:    'bg-red-500/15    text-red-400    border-red-500/30',
+  loan:      'bg-blue-500/15   text-blue-400   border-blue-500/30',
+};
 
 const STATUS_COLOR: Record<TransferStatus, string> = {
   confirmed: '#22c55e',
@@ -85,9 +93,13 @@ interface SidebarProps {
   leagueClubs: Club[];
   setSelectedClubId: (id: number) => void;
   onNewsClick?: (item: NewsItem) => void;
+  season: number;
+  onSeasonChange: (s: number) => void;
+  statusFilters: Record<string, boolean>;
+  onToggleStatus: (s: string) => void;
 }
 
-function SidebarContent({ searchQ, setSearchQ, filteredRoutes, items, loading, loadingMore, hasMore, loadMore, leagueClubs, setSelectedClubId, onNewsClick }: SidebarProps) {
+function SidebarContent({ searchQ, setSearchQ, filteredRoutes, items, loading, loadingMore, hasMore, loadMore, leagueClubs, setSelectedClubId, onNewsClick, season, onSeasonChange, statusFilters, onToggleStatus }: SidebarProps) {
   const scrollRef   = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -115,8 +127,30 @@ function SidebarContent({ searchQ, setSearchQ, filteredRoutes, items, loading, l
 
   return (
     <>
+      {/* 시즌 선택 */}
+      <div className="px-5 pt-4 pb-2 flex-shrink-0">
+        <select value={season} onChange={e => onSeasonChange(Number(e.target.value))}
+          className="w-full bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-3 py-1.5
+                     text-[0.8rem] text-[var(--text)] focus:outline-none focus:border-[var(--accent)]/50
+                     transition-colors cursor-pointer">
+          {SEASON_OPTIONS.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+        </select>
+      </div>
+
+      {/* 상태 필터 */}
+      <div className="flex gap-2 flex-wrap px-5 pb-3 flex-shrink-0">
+        {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
+          <button key={s} onClick={() => onToggleStatus(s)}
+            className={`px-3 py-1 rounded-full text-[0.65rem] font-bold border transition-all
+              ${STATUS_STYLE[s] ?? ''}
+              ${statusFilters[s] ? 'opacity-100' : 'opacity-30'}`}>
+            {s.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
       {/* 검색 */}
-      <div className="px-5 pt-4 pb-3 border-b border-[var(--border)] flex-shrink-0">
+      <div className="px-5 pb-3 border-b border-[var(--border)] flex-shrink-0">
         <div className="relative flex items-center">
           <span className="absolute left-3 text-[var(--text-sub)] text-[0.95rem] pointer-events-none">⌕</span>
           <input
@@ -191,8 +225,11 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
   const sceneRef  = useRef<HTMLDivElement>(null);
   const bgRef     = useRef<SVGSVGElement>(null);   // z=1: 국가 배경만
   const worldRef  = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
+  const projRef   = useRef<d3.GeoProjection | null>(null);
 
   const isMobile = useIsMobile();
+  const [localSeason,    setLocalSeason]    = useState(season);
+  const [statusFilters,  setStatusFilters]  = useState({ interest: true, rumour: true, confirmed: true, denied: false, loan: true });
   const [sheetFull,      setSheetFull]      = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
   const [hoveredClub,    setHoveredClub]    = useState<number | null>(null);
@@ -225,18 +262,18 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
     newsPageRef.current = 0;
     setHasMore(true);
     setNewsLoading(true);
-    fetchNews({ season, leagueId: beLeagueId, size: PAGE_SIZE, page: 0, sort: 'publishedAt,desc' }, controller.signal)
+    fetchNews({ season: localSeason, leagueId: beLeagueId, size: PAGE_SIZE, page: 0, sort: 'publishedAt,desc' }, controller.signal)
       .then(data => { setNewsItems(data); setHasMore(data.length === PAGE_SIZE); })
       .catch(err  => { if (err?.name !== 'AbortError') setNewsItems([]); })
       .finally(() => setNewsLoading(false));
     return () => controller.abort();
-  }, [beLeagueId, season]);
+  }, [beLeagueId, localSeason]);
 
   const loadMore = useCallback(() => {
     if (loadingMore || !hasMore || beLeagueId === undefined) return;
     const next = newsPageRef.current + 1;
     setLoadingMore(true);
-    fetchNews({ season, leagueId: beLeagueId, size: PAGE_SIZE, page: next, sort: 'publishedAt,desc' })
+    fetchNews({ season: localSeason, leagueId: beLeagueId, size: PAGE_SIZE, page: next, sort: 'publishedAt,desc' })
       .then(data => {
         setNewsItems(prev => [...prev, ...data]);
         setHasMore(data.length === PAGE_SIZE);
@@ -244,22 +281,96 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
       })
       .catch(() => {})
       .finally(() => setLoadingMore(false));
-  }, [loadingMore, hasMore, beLeagueId, season]);
+  }, [loadingMore, hasMore, beLeagueId, localSeason]);
 
   const allClubs    = clubsProp ?? [];
   const leagueClubs = useMemo(() => allClubs.filter(c => c.league === league.id), [allClubs, league.id]);
+
+  const filteredNewsItems = useMemo(
+    () => newsItems.filter(n => statusFilters[n.status as keyof typeof statusFilters] ?? true),
+    [newsItems, statusFilters],
+  );
+
+  const toggleStatus = (s: string) =>
+    setStatusFilters(f => ({ ...f, [s]: !f[s as keyof typeof f] }));
   const leagueClubIds = useMemo(() => new Set(leagueClubs.map(c => c.id)), [leagueClubs]);
 
-  // Route search filter (map overlay)
+  // 시즌 + 상태 필터가 적용된 newsItems로 이적선 재계산
+  const computeRoutes = useCallback(() => {
+    const proj = projRef.current;
+    if (!proj || Object.keys(clubPixelPos).length === 0) return;
+
+    const resolvedMap = new Map(
+      Object.entries(clubPixelPos).map(([id, pos]) => [Number(id), pos])
+    );
+
+    const clubProjMap = new Map(allClubs.map(c => {
+      const p = proj([c.lon, c.lat]);
+      return [c.id, p ? { x: p[0], y: p[1], club: c } : null] as const;
+    }));
+
+    function findClubProj(name: string) {
+      if (!name || name === 'Free Agent') return null;
+      for (const entry of clubProjMap.values()) {
+        if (entry && nameMatch(entry.club.name, name)) {
+          const resolved = resolvedMap.get(entry.club.id);
+          if (resolved) return { x: resolved.x, y: resolved.y, club: entry.club };
+          return entry;
+        }
+      }
+      return null;
+    }
+
+    const sortedNews = [...newsItems].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
+    const computed = sortedNews.map((n, rank) => {
+      const fp = findClubProj(n.from ?? '');
+      const tp = findClubProj(n.to);
+      if (!fp || !tp) return null;
+
+      const fromInLeague = leagueClubIds.has(fp.club.id);
+      const toInLeague   = leagueClubIds.has(tp.club.id);
+      if (!fromInLeague && !toInLeague) return null;
+
+      const [x1, y1] = [fp.x, fp.y];
+      const [x2, y2] = [tp.x, tp.y];
+      const sameLeague = fromInLeague && toInLeague;
+      const dx = x2 - x1, dy = y2 - y1;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);
+      const perpX = (dy / Math.max(dist, 1)) * lift * 0.35;
+      const mx = (x1 + x2) / 2 + perpX;
+      const my = (y1 + y2) / 2 - lift;
+
+      return {
+        id: n.id,
+        d: `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
+        status: n.status,
+        sameLeague,
+        player: n.player,
+        fee: n.fee,
+        from: n.from ?? '',
+        to: n.to,
+        animDur: n.status === 'confirmed' ? 2.2 : n.status === 'rumour' ? 3.5 : 5,
+        animate: rank < ANIM_LIMIT && n.status !== 'denied',
+      } as RouteInfo;
+    }).filter((r): r is RouteInfo => r !== null);
+
+    setRoutePaths(computed);
+  }, [newsItems, clubPixelPos, allClubs, leagueClubIds]);
+
+  useEffect(() => { computeRoutes(); }, [computeRoutes]);
+
+  // Route search + status filter (map overlay)
   const filteredRoutes = useMemo(() => {
+    const statusFiltered = routePaths.filter(r => statusFilters[r.status] ?? true);
     const q = searchQ.toLowerCase().trim();
-    if (!q) return routePaths;
-    return routePaths.filter(r =>
+    if (!q) return statusFiltered;
+    return statusFiltered.filter(r =>
       r.player.toLowerCase().includes(q) ||
       r.from.toLowerCase().includes(q) ||
       r.to.toLowerCase().includes(q)
     );
-  }, [routePaths, searchQ]);
+  }, [routePaths, searchQ, statusFilters]);
 
   // D3: 국가 배경만 그림 (circles는 React로)
   const draw = useCallback((cW: number, cH: number) => {
@@ -279,6 +390,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
     svg.append('rect').attr('width', cW).attr('height', cH).attr('fill', 'url(#cMapGlow)');
 
     const proj = d3.geoMercator().center(league.center).scale(league.scale).translate([cW / 2, cH / 2]);
+    projRef.current = proj;
     const pg   = d3.geoPath().projection(proj);
 
     const allFeatures    = topojson.feature(world, world.objects.countries).features;
@@ -308,65 +420,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
     const resolvedPos = resolveOverlaps(rawPos, 20);
     setClubPixelPos(Object.fromEntries(resolvedPos.map(p => [p.id, { x: p.x, y: p.y }])));
 
-    // 밀어낸 좌표 맵 (리그 내 구단만) — 화살표가 원 위치를 정확히 가리키도록
-    const resolvedMap = new Map(resolvedPos.map(p => [p.id, { x: p.x, y: p.y }]));
-
-    // 이름 기반 구단 → 투영 좌표 (타 리그 구단 포함)
-    const clubProjMap = new Map(allClubs.map(c => {
-      const p = proj([c.lon, c.lat]);
-      return [c.id, p ? { x: p[0], y: p[1], club: c } : null] as const;
-    }));
-
-    function findClubProj(name: string) {
-      if (!name || name === 'Free Agent') return null;
-      for (const entry of clubProjMap.values()) {
-        if (entry && nameMatch(entry.club.name, name)) {
-          // 리그 내 구단은 밀어낸 좌표 사용, 타 리그는 원본 투영 좌표 사용
-          const resolved = resolvedMap.get(entry.club.id);
-          if (resolved) return { x: resolved.x, y: resolved.y, club: entry.club };
-          return entry;
-        }
-      }
-      return null;
-    }
-
-    const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
-
-    const computed = sortedNews.map((n, rank) => {
-      const fp = findClubProj(n.from);
-      const tp = findClubProj(n.to);
-      if (!fp || !tp) return null;
-
-      const fromInLeague = leagueClubIds.has(fp.club.id);
-      const toInLeague   = leagueClubIds.has(tp.club.id);
-      if (!fromInLeague && !toInLeague) return null;
-
-      const [x1, y1] = [fp.x, fp.y];
-      const [x2, y2] = [tp.x, tp.y];
-      const sameLeague = fromInLeague && toInLeague;
-      const dx = x2 - x1, dy = y2 - y1;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);
-      const perpX = (dy / Math.max(dist, 1)) * lift * 0.35;
-      const mx = (x1 + x2) / 2 + perpX;
-      const my = (y1 + y2) / 2 - lift;
-
-      return {
-        id: n.id,
-        d: `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
-        status: n.status,
-        sameLeague,
-        player: n.player,
-        fee: n.fee,
-        from: n.from,
-        to: n.to,
-        animDur: n.status === 'confirmed' ? 2.2 : n.status === 'rumour' ? 3.5 : 5,
-        animate: rank < ANIM_LIMIT && n.status !== 'denied',
-      } as RouteInfo;
-    }).filter((r): r is RouteInfo => r !== null);
-
-    setRoutePaths(computed);
-  }, [league, leagueClubs, leagueClubIds, allClubs, newsProp]);
+  }, [league, leagueClubs]);
 
   useEffect(() => {
     loadWorldAtlas().then(world => {
@@ -597,10 +651,12 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
             <SidebarContent
               searchQ={searchQ} setSearchQ={setSearchQ}
               filteredRoutes={filteredRoutes}
-              items={newsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
+              items={filteredNewsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
               leagueClubs={leagueClubs}
               setSelectedClubId={setSelectedClubId}
               onNewsClick={onNewsClick}
+              season={localSeason} onSeasonChange={setLocalSeason}
+              statusFilters={statusFilters} onToggleStatus={toggleStatus}
             />
           </div>
         )}
@@ -622,10 +678,12 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
             <SidebarContent
               searchQ={searchQ} setSearchQ={setSearchQ}
               filteredRoutes={filteredRoutes}
-              items={newsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
+              items={filteredNewsItems} loading={newsLoading} loadingMore={loadingMore} hasMore={hasMore} loadMore={loadMore}
               leagueClubs={leagueClubs}
               setSelectedClubId={setSelectedClubId}
               onNewsClick={onNewsClick}
+              season={localSeason} onSeasonChange={setLocalSeason}
+              statusFilters={statusFilters} onToggleStatus={toggleStatus}
             />
           </div>
         )}

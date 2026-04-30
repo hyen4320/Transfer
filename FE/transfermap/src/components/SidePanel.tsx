@@ -6,7 +6,7 @@ import { fetchClub, fetchClubTransfers, fetchClubsBySeason, fetchAllClubs } from
 import { fetchLeagues } from '../api/leagues';
 import { fetchJournalists } from '../api/journalists';
 import { fetchPlayersSearch } from '../api/players';
-import { fetchNews, fetchNewsPage, fetchTrendingPlayers } from '../api/news';
+import { fetchNews, fetchNewsPage, fetchTrendingPlayers, recordTrendingSearch } from '../api/news';
 import type { NewsFilterParams } from '../api/news';
 import { ApiError } from '../api/client';
 import type { ApiClub, ApiLeague } from '../api/types';
@@ -177,7 +177,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       setQuery('');
       setTimeout(() => searchInputRef.current?.focus(), 50);
     },
-    openFilter: () => setView('filter'),
+    openFilter: () => { setView('filter'); setSheetFull(true); },
   }), []);
 
   // ── Data loading ──────────────────────────────────────────────────────────
@@ -428,7 +428,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     <div className={`flex flex-col z-40 bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-[var(--border)]
                      transition-[transform] duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
                      ${isMobile
-                       ? `fixed bottom-0 left-0 right-0 h-[92dvh] border-t rounded-t-2xl ${mobileTranslate}`
+                       ? `fixed bottom-16 left-0 right-0 h-[calc(92dvh-4rem)] border-t rounded-t-2xl ${mobileTranslate}`
                        : `absolute top-0 right-0 w-[460px] h-screen border-l ${open ? 'translate-x-0' : 'translate-x-full'}`
                      }`}>
 
@@ -447,7 +447,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       {isTopLevel && (
         <div className="flex items-center border-b border-[var(--border)] flex-shrink-0">
           {([['news', '◈ Feed'], ['filter', '⚙ Filter'], ['search', '⌕ Search']] as const).map(([v, label]) => (
-            <button key={v} onClick={() => { setView(v); if (isMobile && v === 'search') setSheetFull(true); }}
+            <button key={v} onClick={() => { setView(v); if (isMobile && (v === 'search' || v === 'filter')) setSheetFull(true); }}
               className={`flex-1 py-3.5 text-[0.74rem] font-bold tracking-wide uppercase border-b-2 transition-all
                 ${view === v
                   ? 'text-[var(--accent)] border-[var(--accent)]'
@@ -721,7 +721,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                       return (
                         <button key={i}
                           onClick={() => {
-                            if (scope === 'player') onPlayerPanelOpen?.(p.id);
+                            if (scope === 'player') { recordTrendingSearch(p.name); onPlayerPanelOpen?.(p.id); }
                             else if (scope === 'club') handleClubSelect(c);
                             else navigate(`/journalists/${j.id}`);
                           }}
@@ -896,7 +896,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
           </div>
 
-          <div className="flex-shrink-0 border-t border-[var(--border)] px-6 py-4 flex gap-3">
+          <div className={`flex-shrink-0 border-t border-[var(--border)] px-6 flex gap-3 py-4`}>
             <button onClick={async () => {
               const { from, to } = timeWindowToDates(filterState.timeWindow);
               const beLeagueIds = [...filterState.leagues]

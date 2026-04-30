@@ -32,7 +32,7 @@ public class XCollectorScheduler {
     private final PostParsingService postParsingService;
     private final StringRedisTemplate redisTemplate;
 
-    @Scheduled(fixedDelay = 12 * 60 * 60 * 1000)
+    @Scheduled(cron = "0 0 9,21 * * *", zone = "Europe/London")
     public void collectAllJournalistPosts() {
         journalistService.syncMissingXUserIds();
         List<Journalist> journalists = journalistService.findAllByRank();

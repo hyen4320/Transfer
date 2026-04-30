@@ -308,7 +308,7 @@ const LeftPanel = forwardRef<LeftPanelHandle, Props>(function LeftPanel({ open, 
     : [];
 
   return (
-    <div className={`absolute top-0 left-0 w-[460px] h-screen flex flex-col z-[60]
+    <div className={`absolute top-0 left-0 w-[460px] h-[100dvh] flex flex-col z-[60]
                      bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-r border-[var(--border)]
                      transition-transform duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
                      ${open ? 'translate-x-0' : '-translate-x-full'}`}>

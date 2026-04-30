@@ -160,12 +160,9 @@ function MapView() {
       const results = await fetchPlayersSearch(playerName, 1);
       if (!results.length) { showToast(`Player not found: ${playerName}`); return; }
       const player = results[0];
-      setPlayerPanelId(player.id);
-      const leagueId = LEAGUE_NAME_TO_ID[player.currentLeague ?? ''];
-      const league   = LEAGUES.find(l => l.id === leagueId);
-      if (league) handleFlyTo(player, league);
+      setPlayerPanelId(prev => prev === player.id ? prev : player.id);
     } catch { /* silent fail */ }
-  }, [handleFlyTo, showToast]);
+  }, [showToast]);
 
   const handleCountryClick = useCallback((league: League, centroid: [number, number]) => {
     const scene = sceneRef.current;

@@ -54,3 +54,8 @@ export async function fetchTrendingPlayers(days = 7, limit = 5): Promise<string[
   const data = await apiFetch<{ players: string[] }>(`/news/trending-players?${q}`);
   return data.players;
 }
+
+export function recordTrendingSearch(name: string): void {
+  const q = new URLSearchParams({ name });
+  fetch(`/api/news/trending-players/record?${q}`, { method: 'POST' }).catch(() => {});
+}
