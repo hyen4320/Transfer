@@ -20,7 +20,7 @@ import { fetchNews } from './api/news';
 import type { NewsFilterParams } from './api/news';
 import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
-import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from './data/constants';
+import { SEASON_OPTIONS } from './data/constants';
 import { getTransferWindowState } from './utils/transferWindow';
 
 function MapView() {

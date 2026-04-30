@@ -220,7 +220,7 @@ function SidebarContent({ searchQ, setSearchQ, filteredRoutes, items, loading, l
   );
 }
 
-export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch, season = 51 }: Props) {
+export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: _newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch, season = 51 }: Props) {
   const navigate = useNavigate();
   const sceneRef  = useRef<HTMLDivElement>(null);
   const bgRef     = useRef<SVGSVGElement>(null);   // z=1: 국가 배경만
