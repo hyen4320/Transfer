@@ -60,15 +60,35 @@ export default function InfoPage() {
           <p className="text-[0.84rem] text-[var(--text-sub)] mb-4 leading-relaxed">
             For bug reports, journalist registration requests, or data error reports, please reach out below.
           </p>
-          <a href="mailto:hyen43204@gmail.com"
-            className="bg-[var(--surface)] border border-[var(--border)] rounded-xl px-8 py-6
-                       hover:border-white/15 transition-colors flex items-center justify-between group">
-            <div>
-              <div className="text-[0.97rem] font-bold mb-1">Email</div>
-              <div className="text-[0.82rem] text-[var(--text-sub)]">hyen43204@gmail.com</div>
-            </div>
-            <span className="text-[var(--text-sub)] group-hover:text-[var(--text)] transition-colors text-lg">→</span>
-          </a>
+          <div className="flex flex-col gap-3">
+            <a href="mailto:hyen43204@gmail.com"
+              className="bg-[var(--surface)] border border-[var(--border)] rounded-xl px-8 py-6
+                         hover:border-white/15 transition-colors flex items-center justify-between group">
+              <div>
+                <div className="text-[0.97rem] font-bold mb-1">Email</div>
+                <div className="text-[0.82rem] text-[var(--text-sub)]">hyen43204@gmail.com</div>
+              </div>
+              <span className="text-[var(--text-sub)] group-hover:text-[var(--text)] transition-colors text-lg">→</span>
+            </a>
+            <a href="https://instagram.com/transfermap_dot_com" target="_blank" rel="noopener noreferrer"
+              className="bg-[var(--surface)] border border-[var(--border)] rounded-xl px-8 py-6
+                         hover:border-white/15 transition-colors flex items-center justify-between group">
+              <div>
+                <div className="text-[0.97rem] font-bold mb-1">Instagram</div>
+                <div className="text-[0.82rem] text-[var(--text-sub)]">@transfermap_dot_com</div>
+              </div>
+              <span className="text-[var(--text-sub)] group-hover:text-[var(--text)] transition-colors text-lg">→</span>
+            </a>
+            <a href="https://x.com/TheTransferMap" target="_blank" rel="noopener noreferrer"
+              className="bg-[var(--surface)] border border-[var(--border)] rounded-xl px-8 py-6
+                         hover:border-white/15 transition-colors flex items-center justify-between group">
+              <div>
+                <div className="text-[0.97rem] font-bold mb-1">X (Twitter)</div>
+                <div className="text-[0.82rem] text-[var(--text-sub)]">@TheTransferMap</div>
+              </div>
+              <span className="text-[var(--text-sub)] group-hover:text-[var(--text)] transition-colors text-lg">→</span>
+            </a>
+          </div>
         </section>
 
         {/* Privacy */}
