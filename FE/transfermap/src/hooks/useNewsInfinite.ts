@@ -8,7 +8,7 @@ import type { NewsItem } from '../types';
 const PAGE_SIZE = 30;
 const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
 
-export function useNewsInfinite(season: number = CURRENT_SEASON) {
+export function useNewsInfinite(season: number = CURRENT_SEASON, skip = false) {
   const navigate = useNavigate();
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,6 +18,7 @@ export function useNewsInfinite(season: number = CURRENT_SEASON) {
   const isPast = season < CURRENT_SEASON || (season === CURRENT_SEASON && !WINDOW_IS_OPEN);
 
   const fetchPage = useCallback(async (page: number, reset: boolean, signal?: AbortSignal) => {
+    if (skip) return;
     if (reset) setLoading(true);
     else setLoadingMore(true);
     let aborted = false;
@@ -56,9 +57,10 @@ export function useNewsInfinite(season: number = CURRENT_SEASON) {
   }, [fetchPage]);
 
   const loadMore = useCallback(() => {
-    if (loadingMore || !hasMore) return;
+    if (skip || loadingMore || !hasMore) return;
     fetchPage(pageRef.current + 1, false);
-  }, [loadingMore, hasMore, fetchPage]);
+  }, [skip, loadingMore, hasMore, fetchPage]);
 
+  if (skip) return { items: [] as NewsItem[], loading: false, loadingMore: false, hasMore: false, loadMore: () => {} };
   return { items, loading, loadingMore, hasMore, loadMore };
 }

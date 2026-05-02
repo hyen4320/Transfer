@@ -1,6 +1,7 @@
 /** BE TransferNewsResponse */
 export interface ApiNewsItem {
   id: number;
+  playerId: number | null;
   journalistId: number;
   playerName: string;
   fromClubName: string | null;
@@ -8,7 +9,7 @@ export interface ApiNewsItem {
   fromCountryCode: string | null;
   toCountryCode: string | null;
   feeEur: number | null;
-  status: string;          // RUMOR | CONFIRMED | DENIED | LOAN
+  status: string;          // INTEREST | RUMOR | CONFIRMED | DENIED | LOAN
   reliability: number | null;
   publishedAt: string;     // ISO-8601
   journalistXHandle: string;

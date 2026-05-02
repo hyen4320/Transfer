@@ -61,9 +61,27 @@ public class PostParsingServiceImpl implements PostParsingService {
             return;
         }
 
-        Club fromClub = result.fromClub() != null ? resolveClub(result.fromClub()) : null;
+        TransferNews.Status status = parseStatus(result.status());
+
+        // 재계약은 이적이 아니므로 fromClub = toClub
+        Club fromClub;
+        if (status == TransferNews.Status.CONTRACT_EXTENSION) {
+            fromClub = toClub;
+        } else {
+            fromClub = result.fromClub() != null ? resolveClub(result.fromClub()) : null;
+            // Gemini가 현재 구단을 추출 못했으면 Player.currentClub 사용
+            if (fromClub == null) {
+                fromClub = playerOpt.get().getCurrentClub();
+            }
+        }
 
         short season = determineSeason();
+
+        // 동일 시즌 같은 선수→같은 구단 중복 저장 방지
+        if (transferNewsRepository.existsByPlayerAndToClubAndSeason(playerOpt.get(), toClub, season)) {
+            log.debug("[Parsing] 중복 TransferNews 스킵 — player={} toClub={} season={}", result.playerName(), result.toClub(), season);
+            return;
+        }
 
         TransferNews news = TransferNews.builder()
                 .post(post)
@@ -71,7 +89,7 @@ public class PostParsingServiceImpl implements PostParsingService {
                 .fromClub(fromClub)
                 .toClub(toClub)
                 .feeEur(result.feeEur())
-                .status(parseStatus(result.status()))
+                .status(status)
                 .reliability((byte) 3)
                 .season(season)
                 .window(determineWindow())
@@ -81,7 +99,6 @@ public class PostParsingServiceImpl implements PostParsingService {
         transferNewsRepository.save(news);
         log.info("[Parsing] TransferNews 생성 — {} → {} ({})", result.fromClub(), result.toClub(), result.status());
 
-        TransferNews.Status status = news.getStatus();
         if (status == TransferNews.Status.CONFIRMED) {
             playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.CONTRACTED);
         } else if (status == TransferNews.Status.LOAN) {

@@ -84,6 +84,14 @@ export interface SidePanelHandle {
   openFilter:  () => void;
 }
 
+export interface PreloadedNews {
+  items: NewsItem[];
+  loading: boolean;
+  loadingMore: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+}
+
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -101,13 +109,17 @@ interface Props {
   onApplyFilter?: (params: NewsFilterParams[], statuses: Set<string>) => void;
   onClearFilter?: () => void;
   onPlayerPanelOpen?: (id: number) => void;
+  onStatusFilterChange?: (filters: { interest: boolean; rumour: boolean; confirmed: boolean; denied: boolean; loan: boolean }) => void;
+  variant?: 'overlay' | 'inline';
+  preloadedNews?: PreloadedNews;
 }
 
 const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   open, onClose, selectedClubId, selectedLeague, leagueClubs = [],
-  onNewsSelect, selectedNewsId, hoveredRouteId,
+  onNewsClick, onNewsSelect, selectedNewsId, hoveredRouteId,
   season: seasonProp = 51, onSeasonChange, onPlayerClick,
-  onApplyFilter, onClearFilter, onPlayerPanelOpen,
+  onApplyFilter, onClearFilter, onPlayerPanelOpen, onStatusFilterChange,
+  variant = 'overlay', preloadedNews,
 }: Props, ref) {
   const navigate  = useNavigate();
   const isMobile  = useIsMobile();
@@ -122,8 +134,15 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const season    = seasonProp;
   const setSeason = (s: number) => onSeasonChange?.(s);
 
-  const { items: allNews, loading: newsLoading, loadingMore, hasMore, loadMore } = useNewsInfinite(season);
-  const filteredNews = allNews.filter(n => statusFilters[n.status as keyof typeof statusFilters] ?? true);
+  const { items: allNews, loading: newsLoading, loadingMore, hasMore, loadMore } = useNewsInfinite(season, !!preloadedNews);
+
+  const activeNews       = preloadedNews?.items       ?? allNews;
+  const activeLoading    = preloadedNews?.loading     ?? newsLoading;
+  const activeLoadingMore = preloadedNews?.loadingMore ?? loadingMore;
+  const activeHasMore    = preloadedNews?.hasMore     ?? hasMore;
+  const activeLoadMore   = preloadedNews?.loadMore    ?? loadMore;
+
+  const filteredNews = activeNews.filter(n => statusFilters[n.status as keyof typeof statusFilters] ?? true);
 
   const newsListRef  = useRef<HTMLDivElement>(null);
   const sentinelRef  = useRef<HTMLDivElement>(null);
@@ -191,10 +210,10 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   // Season change → clear applied filter so feed shows fresh news
   useEffect(() => { setAppliedItems(null); }, [season]);
 
-  // League selected → league view
+  // League selected → league view (overlay 모드만)
   useEffect(() => {
-    if (selectedLeague) { setView('league'); setClubDetail(null); }
-  }, [selectedLeague]);
+    if (selectedLeague && variant === 'overlay') { setView('league'); setClubDetail(null); }
+  }, [selectedLeague, variant]);
 
   // League or season change → refetch season clubs
   useEffect(() => {
@@ -344,19 +363,18 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   }, [filterState.season]);
 
   // ── Infinite scroll ───────────────────────────────────────────────────────
-  // sentinel은 !newsLoading 조건부 렌더라서 로딩 완료 후 effect 재실행 필요
   useEffect(() => {
-    if (newsLoading) return;
+    if (activeLoading) return;
     const sentinel  = sentinelRef.current;
     const container = newsListRef.current;
     if (!sentinel || !container) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) loadMore(); },
+      ([entry]) => { if (entry.isIntersecting) activeLoadMore(); },
       { root: container, threshold: 0.1 },
     );
     obs.observe(sentinel);
     return () => obs.disconnect();
-  }, [loadMore, newsLoading]);
+  }, [activeLoadMore, activeLoading]);
 
   // Hover → scroll sync
   useEffect(() => {
@@ -374,8 +392,11 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   // ── Callbacks ─────────────────────────────────────────────────────────────
   const handleClose = useCallback(() => { setSheetFull(false); onClose(); }, [onClose]);
 
-  const toggleStatusFilter = (key: keyof typeof statusFilters) =>
-    setStatusFilters(f => ({ ...f, [key]: !f[key] }));
+  const toggleStatusFilter = (key: keyof typeof statusFilters) => {
+    const next = { ...statusFilters, [key]: !statusFilters[key] };
+    setStatusFilters(next);
+    onStatusFilterChange?.(next);
+  };
 
   const toggleFilterSet = (key: 'leagues' | 'statuses', val: string) =>
     setFilterState(prev => {
@@ -417,7 +438,8 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     : [];
 
   const activeTransfers = clubTab === 'in' ? clubTransfers.incoming : clubTransfers.outgoing;
-  const isTopLevel      = view === 'news' || view === 'filter' || view === 'search';
+  const isTopLevel = view === 'news' || view === 'filter' || view === 'search'
+                  || (variant === 'inline' && view === 'league');
 
   // ── Layout ────────────────────────────────────────────────────────────────
   const mobileTranslate = !open ? 'translate-y-full'
@@ -425,15 +447,18 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                         : 'translate-y-[calc(100%-160px)]';
 
   return (
-    <div className={`flex flex-col z-40 bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-[var(--border)]
-                     transition-[transform] duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
-                     ${isMobile
-                       ? `fixed bottom-16 left-0 right-0 h-[calc(92dvh-4rem)] border-t rounded-t-2xl ${mobileTranslate}`
-                       : `absolute top-0 right-0 w-[460px] h-screen border-l ${open ? 'translate-x-0' : 'translate-x-full'}`
+    <div className={`flex flex-col bg-[rgba(8,14,26,0.96)] backdrop-blur-xl border-[var(--border)]
+                     ${variant === 'inline'
+                       ? 'flex-1 h-full overflow-hidden'
+                       : `z-40 transition-[transform] duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]
+                          ${isMobile
+                            ? `fixed bottom-16 left-0 right-0 h-[calc(92dvh-4rem)] border-t rounded-t-2xl ${mobileTranslate}`
+                            : `absolute top-0 right-0 w-[460px] h-screen border-l ${open ? 'translate-x-0' : 'translate-x-full'}`
+                          }`
                      }`}>
 
-      {/* Mobile drag handle */}
-      {isMobile && (
+      {/* Mobile drag handle — overlay 모드만 */}
+      {isMobile && variant === 'overlay' && (
         <button onClick={() => setSheetFull(f => !f)}
           className="flex-shrink-0 flex flex-col items-center pt-3 pb-1 gap-1 w-full">
           <span className="w-10 h-1 rounded-full bg-white/20" />
@@ -443,10 +468,15 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
         </button>
       )}
 
-      {/* ── Tab bar (Feed / Search / Filter) ──────────────────────────────── */}
+      {/* ── Tab bar ───────────────────────────────────────────────────────── */}
       {isTopLevel && (
         <div className="flex items-center border-b border-[var(--border)] flex-shrink-0">
-          {([['news', '◈ Feed'], ['filter', '⚙ Filter'], ['search', '⌕ Search']] as const).map(([v, label]) => (
+          {([
+            ['news',   '◈ Feed'],
+            ['filter', '⚙ Filter'],
+            ['search', '⌕ Search'],
+            ...(variant === 'inline' && selectedLeague ? [['league', '⊞ Clubs']] : []),
+          ] as ['news' | 'filter' | 'search' | 'league', string][]).map(([v, label]) => (
             <button key={v} onClick={() => { setView(v); if (isMobile && (v === 'search' || v === 'filter')) setSheetFull(true); }}
               className={`flex-1 py-3.5 text-[0.74rem] font-bold tracking-wide uppercase border-b-2 transition-all
                 ${view === v
@@ -455,11 +485,13 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
               {label}
             </button>
           ))}
-          <button onClick={handleClose}
-            className="w-12 h-[52px] flex items-center justify-center
-                       text-[var(--text-sub)] hover:text-[var(--text)] transition-colors flex-shrink-0">
-            ✕
-          </button>
+          {variant === 'overlay' && (
+            <button onClick={handleClose}
+              className="w-12 h-[52px] flex items-center justify-center
+                         text-[var(--text-sub)] hover:text-[var(--text)] transition-colors flex-shrink-0">
+              ✕
+            </button>
+          )}
         </div>
       )}
 
@@ -512,12 +544,12 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                       <NewsCard
                         item={n}
                         highlighted={selectedNewsId === n.id}
-                        onClick={() => selectedNewsId === n.id ? onNewsSelect?.(null) : onNewsSelect?.(n)}
+                        onClick={() => { onNewsClick?.(n); selectedNewsId === n.id ? onNewsSelect?.(null) : onNewsSelect?.(n); }}
                         onPlayerClick={onPlayerClick}
                       />
                     </div>
                   ))
-            ) : newsLoading
+            ) : activeLoading
               ? <div className="flex items-center justify-center h-32 text-[0.82rem] text-[var(--text-sub)]">Loading…</div>
               : groupNewsByTransfer(filteredNews).map((g, i) => (
                   <div key={g.lead.id ?? i} data-news-id={g.lead.id}
@@ -530,19 +562,19 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                       item={g.lead}
                       grouped={g}
                       highlighted={selectedNewsId === g.lead.id}
-                      onClick={() => selectedNewsId === g.lead.id ? onNewsSelect?.(null) : onNewsSelect?.(g.lead)}
+                      onClick={() => { onNewsClick?.(g.lead); selectedNewsId === g.lead.id ? onNewsSelect?.(null) : onNewsSelect?.(g.lead); }}
                       onPlayerClick={onPlayerClick}
                     />
                   </div>
                 ))
             }
-            {appliedItems === null && !newsLoading && (
+            {appliedItems === null && !activeLoading && (
               <>
                 <div ref={sentinelRef} className="h-1" />
-                {loadingMore && (
+                {activeLoadingMore && (
                   <div className="flex items-center justify-center py-5 text-[0.78rem] text-[var(--text-sub)]">Loading…</div>
                 )}
-                {!hasMore && filteredNews.length > 0 && (
+                {!activeHasMore && filteredNews.length > 0 && (
                   <div className="text-center py-5 text-[0.68rem] text-[var(--text-sub)] tracking-widest uppercase">End</div>
                 )}
               </>
@@ -1027,7 +1059,11 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
       {view === 'club' && (
         <>
           <div className="flex items-center px-7 py-6 border-b border-[var(--border)] gap-3 flex-shrink-0">
-            <button onClick={() => { setViewingClubId(null); setView(selectedLeague ? 'league' : 'news'); }}
+            <button onClick={() => {
+                setViewingClubId(null);
+                setView(selectedLeague ? 'league' : 'news');
+                if (variant === 'inline') onClose?.();
+              }}
               className="w-9 h-9 rounded-lg border border-[var(--border)] flex items-center justify-center
                          text-[var(--text-sub)] hover:text-[var(--text)] transition-all">←</button>
             <div className="text-[0.92rem] font-bold tracking-widest uppercase flex-1">{clubDetail?.name ?? '…'}</div>

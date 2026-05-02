@@ -26,7 +26,7 @@ export interface Club {
   emoji?: string;
 }
 
-export type TransferStatus = 'rumour' | 'confirmed' | 'denied' | 'loan';
+export type TransferStatus = 'interest' | 'rumour' | 'confirmed' | 'denied' | 'loan';
 
 export interface NewsItem {
   id: number;

@@ -43,16 +43,7 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
     Page<TransferNews> findByLeagueOrderByPublishedAtDesc(@Param("league") League league, Pageable pageable);
 
     /** 동일 시즌에 같은 선수 → 같은 구단 이적 뉴스 중복 체크 */
-    @Query("""
-            select count(tn) > 0 from TransferNews tn
-            where tn.player = :player
-              and tn.toClub = :toClub
-              and tn.season = :season
-            """)
-    boolean existsByPlayerAndToClubAndSeason(
-            @Param("player") Player player,
-            @Param("toClub") Club toClub,
-            @Param("season") Short season);
+    boolean existsByPlayerAndToClubAndSeason(Player player, Club toClub, Short season);
 
     /** 기간 내 선수별 언급 횟수 — trending 집계용 */
     @Query("""

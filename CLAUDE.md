@@ -1,7 +1,7 @@
 # CLAUDE.md — Transfer Project Root
 
 ## 중요 규칙
-
+**반말하지마라**
 **빌드/실행/서버 시작은 사용자가 직접 한다.**
 - `npm run dev`, `npm run build`, `./gradlew bootRun`, `./gradlew build` 등 절대 실행하지 말 것
 - 코드 작성/수정만 하고, 실행은 사용자에게 맡긴다
