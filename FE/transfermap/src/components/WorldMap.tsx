@@ -37,7 +37,6 @@ const EUROPEAN_IDS = new Set([
 ]);
 
 const STATUS_COLOR: Record<TransferStatus, string> = {
-  interest:  '#a855f7',
   confirmed: '#22c55e',
   rumour:    '#f59e0b',
   denied:    '#ef4444',
@@ -45,7 +44,6 @@ const STATUS_COLOR: Record<TransferStatus, string> = {
 };
 
 const STATUS_LABEL: Record<TransferStatus, string> = {
-  interest:  'INTEREST',
   confirmed: 'CONFIRMED',
   rumour:    'RUMOUR',
   denied:    'DENIED',

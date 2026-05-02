@@ -63,7 +63,7 @@ public class TransferNews {
     private LocalDateTime publishedAt;
 
     public enum Status {
-        INTEREST, RUMOR, CONFIRMED, DENIED, LOAN, CONTRACT_EXTENSION
+        RUMOR, CONFIRMED, DENIED, LOAN, CONTRACT_EXTENSION
     }
 
     public enum TransferWindow {

@@ -30,17 +30,15 @@ public class TransferNewsFilter {
             ),
             Status.RUMOR, List.of(
                     "in talks", "advanced talks", "close to", "bid", "offer", "fee agreed",
-                    "medical", "set to join", "move closer", "deal close", "negotiations"
-            ),
-            Status.INTEREST, List.of(
+                    "medical", "set to join", "move closer", "deal close", "negotiations",
                     "interested", "targeting", "considering", "monitoring", "scouting",
                     "eyeing", "contact made", "enquiry", "approach"
             )
     );
 
-    // CONFIRMED > CONTRACT_EXTENSION > LOAN > DENIED > RUMOR > INTEREST 순 우선순위
+    // CONFIRMED > CONTRACT_EXTENSION > LOAN > DENIED > RUMOR 순 우선순위
     private static final List<Status> STATUS_PRIORITY = List.of(
-            Status.CONFIRMED, Status.CONTRACT_EXTENSION, Status.LOAN, Status.DENIED, Status.RUMOR, Status.INTEREST
+            Status.CONFIRMED, Status.CONTRACT_EXTENSION, Status.LOAN, Status.DENIED, Status.RUMOR
     );
 
     public boolean isTransferRelated(String text) {

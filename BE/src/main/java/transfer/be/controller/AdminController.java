@@ -37,7 +37,7 @@ public class AdminController {
             List<TransferNews> history = transferNewsRepository.findByPlayerOrderByPublishedAtDesc(player);
             if (history.isEmpty()) continue;
 
-            // CONFIRMED → LOAN → INTEREST/RUMOR 순으로 최우선 뉴스 선택
+            // CONFIRMED → LOAN → RUMOR 순으로 최우선 뉴스 선택
             TransferNews best = history.stream()
                     .filter(n -> n.getStatus() == TransferNews.Status.CONFIRMED)
                     .findFirst()

@@ -94,7 +94,7 @@ public class GeminiApiClient {
                                 "playerName",    Map.of("type", "string",  "description", "Full name of the player"),
                                 "fromClub",      Map.of("type", "string",  "description", "Current/source club name, null if free agent"),
                                 "toClub",        Map.of("type", "string",  "description", "Destination club name"),
-                                "status",        Map.of("type", "string",  "description", "Transfer status", "enum", List.of("INTEREST", "RUMOR", "CONFIRMED", "DENIED", "LOAN", "CONTRACT_EXTENSION")),
+                                "status",        Map.of("type", "string",  "description", "Transfer status", "enum", List.of("RUMOR", "CONFIRMED", "DENIED", "LOAN", "CONTRACT_EXTENSION")),
                                 "feeEur",        Map.of("type", "integer", "description", "Transfer fee in euros, null if unknown or free")
                         ),
                         "required", List.of("isTransferNews")

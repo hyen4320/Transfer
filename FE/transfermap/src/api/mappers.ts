@@ -2,7 +2,7 @@ import type { NewsItem, Journalist, Player, TransferStatus, TransferHistory } fr
 import type { ApiNewsItem, ApiJournalist, ApiPlayer } from './types';
 
 const STATUS_MAP: Record<string, TransferStatus> = {
-  INTEREST: 'interest', RUMOR: 'rumour', CONFIRMED: 'confirmed', DENIED: 'denied', LOAN: 'loan',
+  RUMOR: 'rumour', CONFIRMED: 'confirmed', DENIED: 'denied', LOAN: 'loan',
 };
 
 export function mapStatus(beStatus: string): TransferStatus {

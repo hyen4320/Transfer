@@ -48,7 +48,6 @@ function timeWindowToDates(w: string): { from?: string; to?: string } {
 }
 
 const STATUS_STYLE: Record<string, string> = {
-  interest:  'bg-purple-500/15 text-purple-400 border-purple-500/30',
   rumour:    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
   confirmed: 'bg-green-500/15  text-green-400  border-green-500/30',
   denied:    'bg-red-500/15    text-red-400    border-red-500/30',
@@ -67,7 +66,7 @@ interface FilterState {
 
 const defaultFilters = (): FilterState => ({
   leagues:    new Set(['pl', 'll', 'bl']),
-  statuses:   new Set(['interest', 'rumour', 'confirmed', 'loan']),
+  statuses:   new Set(['rumour', 'confirmed', 'loan']),
   position:   'ALL',
   timeWindow: '7d',
   feeMin:     0,
@@ -109,7 +108,7 @@ interface Props {
   onApplyFilter?: (params: NewsFilterParams[], statuses: Set<string>) => void;
   onClearFilter?: () => void;
   onPlayerPanelOpen?: (id: number) => void;
-  onStatusFilterChange?: (filters: { interest: boolean; rumour: boolean; confirmed: boolean; denied: boolean; loan: boolean }) => void;
+  onStatusFilterChange?: (filters: { rumour: boolean; confirmed: boolean; denied: boolean; loan: boolean }) => void;
   variant?: 'overlay' | 'inline';
   preloadedNews?: PreloadedNews;
 }
@@ -130,7 +129,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   const [clubTab, setClubTab] = useState<'in' | 'out'>('in');
 
   // ── News feed ─────────────────────────────────────────────────────────────
-  const [statusFilters, setStatusFilters] = useState({ interest: true, rumour: true, confirmed: true, denied: false, loan: true });
+  const [statusFilters, setStatusFilters] = useState({ rumour: true, confirmed: true, denied: false, loan: true });
   const season    = seasonProp;
   const setSeason = (s: number) => onSeasonChange?.(s);
 
@@ -420,7 +419,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
     setSelectedClub(club);
     onApplyFilter?.(
       [{ fromClubId: club.id, season: searchSeason, size: 30 }, { toClubId: club.id, season: searchSeason, size: 30 }],
-      new Set(['interest', 'rumour', 'confirmed', 'denied', 'loan'])
+      new Set(['rumour', 'confirmed', 'denied', 'loan'])
     );
   };
 
@@ -520,7 +519,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
             </div>
           ) : (
             <div className="flex gap-3 flex-wrap px-7 py-4 border-b border-[var(--border)] flex-shrink-0">
-              {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
+              {(['rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <button key={s} onClick={() => toggleStatusFilter(s)}
                   className={`px-5 py-2.5 rounded-full text-[0.72rem] font-bold tracking-widest border transition-all
                     ${STATUS_STYLE[s] ?? ''}
@@ -863,7 +862,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
             </FilterSection>
 
             <FilterSection label="Status">
-              {(['interest', 'rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
+              {(['rumour', 'confirmed', 'denied', 'loan'] as const).map(s => (
                 <CheckRow key={s} checked={filterState.statuses.has(s)}
                   label={s.charAt(0).toUpperCase() + s.slice(1)}
                   count={NEWS.filter(n => n.status === s).length}

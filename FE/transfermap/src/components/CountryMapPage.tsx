@@ -22,7 +22,6 @@ const EUROPEAN_IDS = new Set([
 ]);
 
 const STATUS_COLOR: Record<TransferStatus, string> = {
-  interest:  '#a855f7',
   confirmed: '#22c55e',
   rumour:    '#f59e0b',
   denied:    '#ef4444',
@@ -30,7 +29,6 @@ const STATUS_COLOR: Record<TransferStatus, string> = {
 };
 
 const STATUS_LABEL: Record<TransferStatus, string> = {
-  interest:  'INTEREST',
   confirmed: 'CONFIRMED',
   rumour:    'RUMOUR',
   denied:    'DENIED',
@@ -85,7 +83,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
 
   const isMobile = useIsMobile();
   const [localSeason,    setLocalSeason]    = useState(season);
-  const [statusFilters,  setStatusFilters]  = useState({ interest: true, rumour: true, confirmed: true, denied: false, loan: true });
+  const [statusFilters,  setStatusFilters]  = useState({ rumour: true, confirmed: true, denied: false, loan: true });
   const [sheetFull,      setSheetFull]      = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
   const [openPlayerId,   setOpenPlayerId]   = useState<number | null>(null);
