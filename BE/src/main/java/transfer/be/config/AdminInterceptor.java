@@ -9,7 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AdminInterceptor implements HandlerInterceptor {
 
-    @Value("${admin.secret}")
+    @Value("${admin.secret:change-me-before-deploy}")
     private String adminSecret;
 
     @Override
