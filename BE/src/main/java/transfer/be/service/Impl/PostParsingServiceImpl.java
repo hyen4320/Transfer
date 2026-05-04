@@ -44,8 +44,17 @@ public class PostParsingServiceImpl implements PostParsingService {
     private void parseSingle(Post post) {
         ParseResult result = geminiApiClient.parseTransferTweet(post.getContent());
 
-        if (!result.isTransferNews() || result.playerName() == null || result.toClub() == null) {
+        if (!result.isTransferNews() || result.playerName() == null) {
             log.debug("[Parsing] post_id={} — 이적 뉴스 아님, 스킵", post.getId());
+            return;
+        }
+
+        TransferNews.Status status = parseStatus(result.status());
+        boolean isFa = status == TransferNews.Status.FREE_AGENT;
+
+        // FA가 아닌 경우 toClub 필수
+        if (!isFa && result.toClub() == null) {
+            log.debug("[Parsing] post_id={} — toClub null (FA 아님), 스킵", post.getId());
             return;
         }
 
@@ -55,13 +64,14 @@ public class PostParsingServiceImpl implements PostParsingService {
             return;
         }
 
-        Club toClub = resolveClub(result.toClub());
-        if (toClub == null) {
-            log.info("[Parsing] toClub 미등록: '{}' — 스킵", result.toClub());
-            return;
+        Club toClub = null;
+        if (!isFa) {
+            toClub = resolveClub(result.toClub());
+            if (toClub == null) {
+                log.info("[Parsing] toClub 미등록: '{}' — 스킵", result.toClub());
+                return;
+            }
         }
-
-        TransferNews.Status status = parseStatus(result.status());
 
         // 재계약은 이적이 아니므로 fromClub = toClub
         Club fromClub;
@@ -77,8 +87,8 @@ public class PostParsingServiceImpl implements PostParsingService {
 
         short season = determineSeason();
 
-        // 동일 시즌 같은 선수→같은 구단 중복 저장 방지
-        if (transferNewsRepository.existsByPlayerAndToClubAndSeason(playerOpt.get(), toClub, season)) {
+        // 동일 시즌 같은 선수→같은 구단 중복 저장 방지 (FA는 toClub=null이므로 체크 스킵)
+        if (toClub != null && transferNewsRepository.existsByPlayerAndToClubAndSeason(playerOpt.get(), toClub, season)) {
             log.debug("[Parsing] 중복 TransferNews 스킵 — player={} toClub={} season={}", result.playerName(), result.toClub(), season);
             return;
         }
@@ -103,6 +113,8 @@ public class PostParsingServiceImpl implements PostParsingService {
             playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.CONTRACTED);
         } else if (status == TransferNews.Status.LOAN) {
             playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.LOANED);
+        } else if (isFa) {
+            playerOpt.get().updateCurrentClub(null, Player.ContractStatus.FREE_AGENT);
         }
     }
 

@@ -3,6 +3,7 @@ package transfer.be.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,12 @@ public class AdminController {
 
     private final PlayerRepository playerRepository;
     private final TransferNewsRepository transferNewsRepository;
+
+    /** 인터셉터가 통과시켜야 도달 — 토큰 유효성 검증 */
+    @GetMapping("/verify")
+    public Map<String, String> verify() {
+        return Map.of("status", "ok");
+    }
 
     /**
      * 모든 선수의 currentClub을 최근 TransferNews 기준으로 동기화.

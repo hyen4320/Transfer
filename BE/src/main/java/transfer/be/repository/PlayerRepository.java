@@ -2,6 +2,7 @@ package transfer.be.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import transfer.be.model.Player;
 
 import java.time.LocalDate;
@@ -15,4 +16,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     Optional<Player> findByNameIgnoreCase(String name);
 
     List<Player> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    @Query("select p.id from Player p order by p.id")
+    List<Long> findAllIds();
 }

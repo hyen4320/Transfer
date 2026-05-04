@@ -14,6 +14,7 @@ type TabKey = (typeof TABS)[number]['key'];
 const MORE_ITEMS = [
   { icon: '◈', label: 'News Feed',    key: 'newsfeed'   },
   { icon: '★', label: 'Journalists',  key: 'journalists' },
+  { icon: '▤', label: 'Report',       key: 'report'     },
   { icon: '!', label: 'Notice',       key: 'notice'     },
   { icon: '👤', label: 'About',       key: 'about'      },
 ] as const;
@@ -35,6 +36,7 @@ export default function MobileTabBar({ active = 'map', onSearch, onNews }: Props
     switch (key) {
       case 'newsfeed':    onNews?.();                  break;
       case 'journalists': navigate('/journalists');    break;
+      case 'report':      navigate('/report');         break;
       case 'notice':      navigate('/notice');         break;
       case 'about':       navigate('/info');           break;
     }

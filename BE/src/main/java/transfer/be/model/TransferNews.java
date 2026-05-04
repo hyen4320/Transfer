@@ -31,8 +31,9 @@ public class TransferNews {
     @JoinColumn(name = "from_club_id")
     private Club fromClub;
 
+    /** 영입 구단 — null이면 FA 전환 */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_club_id", nullable = false)
+    @JoinColumn(name = "to_club_id")
     private Club toClub;
 
     /** 이적료 (유로) — null이면 불명 */
@@ -63,7 +64,7 @@ public class TransferNews {
     private LocalDateTime publishedAt;
 
     public enum Status {
-        RUMOR, CONFIRMED, DENIED, LOAN, CONTRACT_EXTENSION
+        RUMOR, CONFIRMED, DENIED, LOAN, CONTRACT_EXTENSION, FREE_AGENT
     }
 
     public enum TransferWindow {

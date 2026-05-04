@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useClubs } from './hooks/useClubs';
 import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
@@ -14,6 +14,9 @@ import ErrorPage from './components/ErrorPage';
 import SearchPage from './components/SearchPage';
 import NoticePage from './components/NoticePage';
 import InfoPage from './components/InfoPage';
+import ReportPage from './components/ReportPage';
+import ReportComposer from './components/ReportComposer';
+import AdminGate from './components/AdminGate';
 import AdSlot, { SLOT } from './components/AdSlot';
 import type { League, Player, NewsItem } from './types';
 import { fetchNews } from './api/news';
@@ -22,6 +25,11 @@ import { fetchPlayersSearch } from './api/players';
 import { LEAGUES } from './data/mock';
 import { SEASON_OPTIONS } from './data/constants';
 import { getTransferWindowState } from './utils/transferWindow';
+
+function PlayerIdRedirect() {
+  const { id } = useParams<{ id: string }>();
+  return <Navigate to={`/players/${id}`} replace />;
+}
 
 function MapView() {
   const navigate       = useNavigate();
@@ -320,6 +328,7 @@ function MapView() {
               { label: 'News Feed',   onClick: openNewsFeed,                                                       active: isNewsFeedOpen },
               { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }, active: false },
               { label: 'Journalists', onClick: () => navigate('/journalists'),                                     active: false },
+              { label: 'Report',      onClick: () => navigate('/report'),                                          active: false },
               { label: 'Notice',      onClick: () => navigate('/notice'),                                          active: false },
             ].map(({ label, onClick, active }) => (
               <span key={label} onClick={onClick}
@@ -480,7 +489,10 @@ export default function App() {
       } />
       <Route path="/journalists/:id"   element={<JournalistDetailPage />} />
       <Route path="/players/:id"       element={<PlayerDetailPage />} />
+      <Route path="/player/:id"        element={<PlayerIdRedirect />} />
       <Route path="/search"             element={<SearchPage />} />
+      <Route path="/report"             element={<ReportPage />} />
+      <Route path="/report/compose"    element={<AdminGate><ReportComposer /></AdminGate>} />
       <Route path="/notice"             element={<NoticePage />} />
       <Route path="/info"               element={<InfoPage />} />
       <Route path="/privacy"           element={<InfoPage />} />

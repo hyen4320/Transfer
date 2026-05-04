@@ -56,6 +56,15 @@ export default function PlayerDetailPage() {
   const title = `${player.name} — ${club} | TransferMap`;
   const description = `Transfer history and latest news for ${player.name} (${player.position ?? ''}, ${player.nationality ?? ''}), currently at ${club}.`;
 
+  const posMap: Record<string, string> = { GK: 'goalkeeper', DF: 'defender', MF: 'midfielder', FW: 'forward' };
+  const pos = player.position ? posMap[player.position] : 'footballer';
+  const bioParts = [player.nationality, pos].filter(Boolean).join(' ');
+  const bioClub = player.currentClubName ? `currently contracted with ${player.currentClubName}` : 'currently a free agent';
+  const bioTransfers = history.length > 0
+    ? ` TransferMap has tracked ${history.length} transfer${history.length !== 1 ? 's' : ''} throughout their career, sourced from verified journalist reports on X (Twitter).`
+    : '';
+  const bio = `${player.name} is a ${bioParts}, ${bioClub}.${bioTransfers}`;
+
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
       <title>{title}</title>
@@ -99,6 +108,7 @@ export default function PlayerDetailPage() {
                     </span>
                   ))}
                 </div>
+                <p className="mt-4 text-[0.83rem] text-[var(--text-sub)] leading-relaxed">{bio}</p>
               </div>
             </div>
 

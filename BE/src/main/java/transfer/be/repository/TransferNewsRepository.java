@@ -83,4 +83,77 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
               )
             """)
     long countFirstReportByJournalistId(@Param("journalistId") Long journalistId);
+
+    /** [Report] 시즌별 리그 이적 지출 합계 — CONFIRMED 뉴스, 이적료 있는 것만 */
+    @Query("""
+            select tn.toClub.league.name, tn.toClub.league.countryCode, sum(tn.feeEur), count(tn)
+            from TransferNews tn
+            where tn.season = :season
+              and tn.feeEur is not null
+              and tn.status = 'CONFIRMED'
+              and tn.toClub is not null
+            group by tn.toClub.league.id, tn.toClub.league.name, tn.toClub.league.countryCode
+            order by sum(tn.feeEur) desc
+            """)
+    List<Object[]> findLeagueSpendingBySeason(@Param("season") Short season);
+
+    /** [Report] 시즌별 포지션별 이적 뉴스 수 */
+    @Query("""
+            select tn.player.position, count(tn)
+            from TransferNews tn
+            where tn.season = :season
+              and tn.player.position is not null
+            group by tn.player.position
+            order by count(tn) desc
+            """)
+    List<Object[]> findPositionTrendBySeason(@Param("season") Short season);
+
+    /** [Report] 시즌별 구단 영입 건수 + 지출 합계 (상위 N) */
+    @Query("""
+            select tn.toClub.name, tn.toClub.league.name, count(tn), sum(tn.feeEur)
+            from TransferNews tn
+            where tn.season = :season
+              and tn.toClub is not null
+            group by tn.toClub.id, tn.toClub.name, tn.toClub.league.name
+            order by count(tn) desc
+            """)
+    List<Object[]> findClubIncomingActivityBySeason(@Param("season") Short season, Pageable pageable);
+
+    /** [Report] 시즌별 국가 간 이적 흐름 (상위 N, 국내 이적 제외) */
+    @Query("""
+            select tn.fromClub.countryCode, tn.toClub.countryCode, count(tn)
+            from TransferNews tn
+            where tn.season = :season
+              and tn.fromClub is not null
+              and tn.toClub is not null
+              and tn.fromClub.countryCode <> tn.toClub.countryCode
+            group by tn.fromClub.countryCode, tn.toClub.countryCode
+            order by count(tn) desc
+            """)
+    List<Object[]> findTransferFlowBySeason(@Param("season") Short season, Pageable pageable);
+
+    /** [Report] 시즌 최고액 확정 이적 (상위 N) */
+    @Query("""
+            select tn.player.name, fc.name, tn.toClub.name, tn.toClub.league.name, tn.feeEur
+            from TransferNews tn
+            left join tn.fromClub fc
+            where tn.season = :season
+              and tn.status = 'CONFIRMED'
+              and tn.feeEur is not null
+              and tn.toClub is not null
+            order by tn.feeEur desc
+            """)
+    List<Object[]> findTopDealsBySeason(@Param("season") Short season, Pageable pageable);
+
+    /** [Report] 자유계약(fromClub=null) 이적을 리그별로 집계 */
+    @Query("""
+            select tn.toClub.league.name, count(tn)
+            from TransferNews tn
+            where tn.season = :season
+              and tn.fromClub is null
+              and tn.toClub is not null
+            group by tn.toClub.league.id, tn.toClub.league.name
+            order by count(tn) desc
+            """)
+    List<Object[]> findFreeAgentLeaguesBySeason(@Param("season") Short season);
 }
