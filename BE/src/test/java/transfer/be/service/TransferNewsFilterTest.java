@@ -34,9 +34,9 @@ class TransferNewsFilterTest {
     }
 
     @Test
-    void interest_키워드_감지() {
+    void interest_키워드는_RUMOR로_감지() {
         assertThat(filter.detectStatus("Chelsea are interested in signing Wirtz this summer."))
-                .isEqualTo(Status.INTEREST);
+                .isEqualTo(Status.RUMOR);
     }
 
     @Test
@@ -48,7 +48,7 @@ class TransferNewsFilterTest {
     }
 
     @Test
-    void confirmed가_interest보다_우선순위_높음() {
+    void confirmed가_RUMOR보다_우선순위_높음() {
         // "confirmed"와 "interested" 둘 다 포함 → CONFIRMED
         assertThat(filter.detectStatus("Clubs interested but deal now confirmed and signed."))
                 .isEqualTo(Status.CONFIRMED);

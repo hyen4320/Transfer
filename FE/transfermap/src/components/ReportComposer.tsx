@@ -112,14 +112,6 @@ function CCField({ label, hint, children }: { label: string; hint?: string; chil
   );
 }
 
-function CCInput({ value, onChange, placeholder, mono = false }: { value: string; onChange: (v: string) => void; placeholder?: string; mono?: boolean }) {
-  return (
-    <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      style={mono ? inputMono : inputStyle}
-      onFocus={e => (e.target.style.borderColor = C.accent)}
-      onBlur={e => (e.target.style.borderColor = C.border)} />
-  );
-}
 
 function CCTextarea({ value, onChange, placeholder, rows = 3 }: { value: string; onChange: (v: string) => void; placeholder?: string; rows?: number }) {
   return (
