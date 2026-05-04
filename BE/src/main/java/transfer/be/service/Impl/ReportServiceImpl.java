@@ -86,12 +86,12 @@ public class ReportServiceImpl implements ReportService {
         String label = seasonLabel(season);
 
         List<EditorialReport> reports = new ArrayList<>();
-        reports.add(build(season, "league-spending",  "Which League Is Spending the Most?",  leagueDeck(league, label),   "blue",     "bars",  "dashboard", 0.94f, 4, league));
-        reports.add(build(season, "top-deals",        "The Biggest Confirmed Deals",          dealsDeck(deals, label),     "amber",    "orbit", "dashboard", 0.97f, 3, deals));
-        reports.add(build(season, "position-trends",  "What Position Is the Market Chasing?", positionDeck(position, label),"graphite","grid",  "brief",     0.91f, 2, position));
-        reports.add(build(season, "club-activity",    "Who Is Signing the Most Players?",     clubDeck(club, label),       "gold",     "bars",  "brief",     0.89f, 3, club));
-        reports.add(build(season, "transfer-flow",    "How Are Players Crossing Borders?",    flowDeck(flow, label),       "sky",      "lines", "dashboard", 0.88f, 3, flow));
-        reports.add(build(season, "free-agents",      "How Big Is the Free Agent Market?",    faDeck(fa, label),           "crimson",  "orbit", "brief",     0.93f, 2, fa));
+        reports.add(build(season, "league-spending",  "[" + label + "] Which League Is Spending the Most?",  leagueDeck(league, label),    "blue",     "bars",  "dashboard", 0.94f, 4, league));
+        reports.add(build(season, "top-deals",        "[" + label + "] The Biggest Confirmed Deals",          dealsDeck(deals, label),      "amber",    "orbit", "dashboard", 0.97f, 3, deals));
+        reports.add(build(season, "position-trends",  "[" + label + "] What Position Is the Market Chasing?", positionDeck(position, label), "graphite", "grid",  "brief",     0.91f, 2, position));
+        reports.add(build(season, "club-activity",    "[" + label + "] Who Is Signing the Most Players?",     clubDeck(club, label),        "gold",     "bars",  "brief",     0.89f, 3, club));
+        reports.add(build(season, "transfer-flow",    "[" + label + "] How Are Players Crossing Borders?",    flowDeck(flow, label),        "sky",      "lines", "dashboard", 0.88f, 3, flow));
+        reports.add(build(season, "free-agents",      "[" + label + "] How Big Is the Free Agent Market?",    faDeck(fa, label),            "crimson",  "orbit", "brief",     0.93f, 2, fa));
 
         editorialReportRepository.saveAll(reports);
     }
