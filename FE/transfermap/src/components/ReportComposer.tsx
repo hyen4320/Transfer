@@ -62,6 +62,7 @@ function newBlock(kind: Block['kind']): Block {
     case 'timeline':  return { id: genId(), kind, items: [{ year: 'YYYY', label: 'Event', body: '' }] };
     case 'kpi':       return { id: genId(), kind, items: [{ label: 'Metric', value: '0', delta: '' }, { label: 'Metric', value: '0', delta: '' }, { label: 'Metric', value: '0', delta: '' }] };
     case 'divider':   return { id: genId(), kind };
+    default: throw new Error(`Unhandled block kind: ${kind as never}`);
   }
 }
 
