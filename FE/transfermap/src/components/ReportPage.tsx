@@ -142,18 +142,6 @@ function FormatBadge({ format }: { format: string }) {
   );
 }
 
-function ConfidenceBar({ value, compact }: { value: number; compact?: boolean }) {
-  const pct = Math.round(value * 100);
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: MONO, fontSize: compact ? 9 : 10 }}>
-      {!compact && <span style={{ color: 'rgba(160,185,220,0.6)', letterSpacing: '0.15em' }}>CONF</span>}
-      <div style={{ width: compact ? 50 : 80, height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${pct}%`, background: '#3b82f6', boxShadow: '0 0 8px #3b82f6' }} />
-      </div>
-      <span style={{ color: '#e8edf5', fontWeight: 700 }}>{pct}</span>
-    </div>
-  );
-}
 
 // ── data table ────────────────────────────────────────────────────────────────
 
@@ -223,9 +211,8 @@ function ReportCard({ report, onOpen }: {
           {report.deck}
         </p>
         <div style={{ flex: 1 }} />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
           paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <ConfidenceBar value={report.confidence} compact />
           <span style={{ fontFamily: MONO, fontSize: 10, color: 'rgba(160,185,220,0.45)' }}>READ →</span>
         </div>
       </div>
@@ -468,8 +455,6 @@ function DetailView({ report, onBack }: {
           <div style={{ display: 'flex', gap: 24, alignItems: 'center', marginTop: 18,
             fontFamily: MONO, fontSize: 11, color: 'rgba(160,185,220,0.7)' }}>
             <span>{report.readMinutes} MIN READ</span>
-            <span>·</span>
-            <ConfidenceBar value={report.confidence} />
           </div>
         </div>
       </div>

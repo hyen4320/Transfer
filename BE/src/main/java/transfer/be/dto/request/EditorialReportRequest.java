@@ -8,7 +8,6 @@ public record EditorialReportRequest(
         String type,           // "analysis" | "data"
         String format,         // "longform" | "dashboard" | "brief"
         String classification, // "open-source" | "sourced" | "data-room"
-        Float confidence,
         Integer readMinutes,
         String coverTone,
         String coverMotif,

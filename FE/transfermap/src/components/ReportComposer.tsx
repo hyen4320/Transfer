@@ -74,7 +74,6 @@ interface ReportMeta {
   type:           'analysis' | 'data';
   format:         'longform' | 'dashboard' | 'brief';
   classification: 'open-source' | 'sourced' | 'data-room';
-  confidence:     number;
   coverTone:      string;
   coverMotif:     MotifKey;
   tags:           string[];
@@ -82,7 +81,7 @@ interface ReportMeta {
 
 const DEFAULT_META: ReportMeta = {
   title: '', deck: '', type: 'analysis', format: 'longform',
-  classification: 'open-source', confidence: 0.7,
+  classification: 'open-source',
   coverTone: 'blue', coverMotif: 'orbit', tags: [],
 };
 
@@ -447,7 +446,6 @@ function LivePreview({ meta, blocks, readMinutes }: { meta: ReportMeta; blocks: 
   const fmtLabel = meta.format === 'dashboard' ? 'DASHBOARD' : meta.format === 'brief' ? 'BRIEF' : 'LONG';
   const typeLabel = meta.type === 'data' ? 'DATA' : 'ANALYSIS';
   const clsLabel  = meta.classification === 'sourced' ? 'SOURCED' : meta.classification === 'data-room' ? 'DATA ROOM' : 'OPEN SOURCE';
-  const pct = Math.round(meta.confidence * 100);
 
   return (
     <div style={{ background: C.bg, color: C.text, height: '100%', overflowY: 'auto', borderRadius: 6, border: `1px solid ${C.border}` }}>
@@ -469,13 +467,6 @@ function LivePreview({ meta, blocks, readMinutes }: { meta: ReportMeta; blocks: 
       <div style={{ display: 'flex', gap: 10, padding: '8px 14px', borderBottom: `1px solid ${C.border}`, fontFamily: MONO, fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', color: C.dim }}>
         <span>{readMinutes} MIN</span><span>·</span>
         <span style={{ color: meta.classification === 'sourced' ? C.amber : meta.classification === 'data-room' ? C.green : '#94a3b8' }}>{clsLabel}</span>
-        <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ color: C.dim }}>CONF</span>
-          <div style={{ width: 44, height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${pct}%`, background: fmtColor, boxShadow: `0 0 6px ${fmtColor}` }} />
-          </div>
-          <span style={{ color: C.text }}>{pct}</span>
-        </span>
       </div>
 
       {/* Body */}
@@ -556,7 +547,6 @@ export default function ReportComposer() {
     type: meta.type,
     format: meta.format,
     classification: meta.classification,
-    confidence: meta.confidence,
     readMinutes: estReadMin,
     coverTone: meta.coverTone,
     coverMotif: meta.coverMotif,
@@ -627,12 +617,6 @@ export default function ReportComposer() {
                 { value: 'sourced',     label: 'SOURCED', color: '#f59e0b' },
                 { value: 'data-room',   label: 'DATA',    color: '#22c55e' },
               ]} />
-          </CCField>
-
-          <CCField label="CONFIDENCE" hint={`${Math.round(meta.confidence * 100)}%`}>
-            <input type="range" min="0" max="1" step="0.01"
-              value={meta.confidence} onChange={e => setM('confidence', parseFloat(e.target.value))}
-              style={{ width: '100%', accentColor: C.accent, cursor: 'pointer' }} />
           </CCField>
 
           <CCField label="TAGS">

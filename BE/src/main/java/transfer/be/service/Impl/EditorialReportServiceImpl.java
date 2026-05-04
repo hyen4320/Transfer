@@ -27,7 +27,6 @@ public class EditorialReportServiceImpl implements EditorialReportService {
                 .type(parseType(req.type()))
                 .format(parseFormat(req.format()))
                 .classification(parseClassification(req.classification()))
-                .confidence(req.confidence())
                 .readMinutes(req.readMinutes())
                 .coverTone(req.coverTone())
                 .coverMotif(req.coverMotif())
@@ -48,7 +47,7 @@ public class EditorialReportServiceImpl implements EditorialReportService {
         report.applyUpdate(
                 req.title(), req.deck(),
                 parseType(req.type()), parseFormat(req.format()), parseClassification(req.classification()),
-                req.confidence(), req.readMinutes(),
+                req.readMinutes(),
                 req.coverTone(), req.coverMotif(),
                 joinTags(req.tags()), req.blocks(),
                 parseStatus(req.status())

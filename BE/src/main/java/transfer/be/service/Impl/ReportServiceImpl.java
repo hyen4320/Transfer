@@ -86,19 +86,19 @@ public class ReportServiceImpl implements ReportService {
         String label = seasonLabel(season);
 
         List<EditorialReport> reports = new ArrayList<>();
-        reports.add(build(season, "league-spending",  "[" + label + "] Which League Is Spending the Most?",  leagueDeck(league, label),    "blue",     "bars",  "dashboard", 0.94f, 4, league));
-        reports.add(build(season, "top-deals",        "[" + label + "] The Biggest Confirmed Deals",          dealsDeck(deals, label),      "amber",    "orbit", "dashboard", 0.97f, 3, deals));
-        reports.add(build(season, "position-trends",  "[" + label + "] What Position Is the Market Chasing?", positionDeck(position, label), "graphite", "grid",  "brief",     0.91f, 2, position));
-        reports.add(build(season, "club-activity",    "[" + label + "] Who Is Signing the Most Players?",     clubDeck(club, label),        "gold",     "bars",  "brief",     0.89f, 3, club));
-        reports.add(build(season, "transfer-flow",    "[" + label + "] How Are Players Crossing Borders?",    flowDeck(flow, label),        "sky",      "lines", "dashboard", 0.88f, 3, flow));
-        reports.add(build(season, "free-agents",      "[" + label + "] How Big Is the Free Agent Market?",    faDeck(fa, label),            "crimson",  "orbit", "brief",     0.93f, 2, fa));
+        reports.add(build(season, "league-spending",  "[" + label + "] Which League Is Spending the Most?",  leagueDeck(league, label),    "blue",     "bars",  "dashboard", 4, league));
+        reports.add(build(season, "top-deals",        "[" + label + "] The Biggest Confirmed Deals",          dealsDeck(deals, label),      "amber",    "orbit", "dashboard", 3, deals));
+        reports.add(build(season, "position-trends",  "[" + label + "] What Position Is the Market Chasing?", positionDeck(position, label), "graphite", "grid",  "brief",     2, position));
+        reports.add(build(season, "club-activity",    "[" + label + "] Who Is Signing the Most Players?",     clubDeck(club, label),        "gold",     "bars",  "brief",     3, club));
+        reports.add(build(season, "transfer-flow",    "[" + label + "] How Are Players Crossing Borders?",    flowDeck(flow, label),        "sky",      "lines", "dashboard", 3, flow));
+        reports.add(build(season, "free-agents",      "[" + label + "] How Big Is the Free Agent Market?",    faDeck(fa, label),            "crimson",  "orbit", "brief",     2, fa));
 
         editorialReportRepository.saveAll(reports);
     }
 
     private EditorialReport build(Short season, String category, String title, String deck,
                                   String tone, String motif, String format,
-                                  float confidence, int readMinutes, Object data) {
+                                  int readMinutes, Object data) {
         String tags = "data-auto," + category + ",season:" + season;
         String blocks;
         try {
@@ -122,7 +122,6 @@ public class ReportServiceImpl implements ReportService {
                 .type(EditorialReport.ReportType.DATA)
                 .format(fmt)
                 .classification(EditorialReport.Classification.OPEN_SOURCE)
-                .confidence(confidence)
                 .readMinutes(readMinutes)
                 .coverTone(tone)
                 .coverMotif(motif)

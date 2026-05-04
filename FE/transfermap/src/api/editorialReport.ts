@@ -22,7 +22,6 @@ export interface EditorialReportRequest {
   type:           'analysis' | 'data';
   format:         'longform' | 'dashboard' | 'brief';
   classification: 'open-source' | 'sourced' | 'data-room';
-  confidence:     number;
   readMinutes:    number;
   coverTone:      string;
   coverMotif:     string;
@@ -38,7 +37,6 @@ export interface EditorialReportResponse {
   type:           string;
   format:         string;
   classification: string;
-  confidence:     number;
   readMinutes:    number;
   coverTone:      string;
   coverMotif:     string;

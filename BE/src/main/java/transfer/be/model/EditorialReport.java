@@ -36,8 +36,6 @@ public class EditorialReport {
     @Column(nullable = false)
     private Classification classification;
 
-    private Float confidence;
-
     @Column(name = "read_minutes")
     private Integer readMinutes;
 
@@ -71,7 +69,7 @@ public class EditorialReport {
     public enum ReportStatus  { DRAFT, READY, PUBLISHED }
 
     public void applyUpdate(String title, String deck, ReportType type, ReportFormat format,
-                            Classification classification, Float confidence, Integer readMinutes,
+                            Classification classification, Integer readMinutes,
                             String coverTone, String coverMotif, String tags, String blocks,
                             ReportStatus status) {
         this.title = title;
@@ -79,7 +77,6 @@ public class EditorialReport {
         this.type = type;
         this.format = format;
         this.classification = classification;
-        this.confidence = confidence;
         this.readMinutes = readMinutes;
         this.coverTone = coverTone;
         this.coverMotif = coverMotif;
