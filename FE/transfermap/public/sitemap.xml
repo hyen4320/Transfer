@@ -6,4 +6,7 @@
   <sitemap>
     <loc>https://transfer-map.com/sitemap-players.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://transfer-map.com/sitemap-reports.xml</loc>
+  </sitemap>
 </sitemapindex>
