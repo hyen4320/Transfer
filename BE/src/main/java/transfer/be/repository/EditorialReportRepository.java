@@ -10,4 +10,6 @@ public interface EditorialReportRepository extends JpaRepository<EditorialReport
     List<EditorialReport> findByStatusOrderByCreatedAtDesc(EditorialReport.ReportStatus status);
 
     List<EditorialReport> findAllByOrderByCreatedAtDesc();
+
+    void deleteByTypeAndTagsContaining(EditorialReport.ReportType type, String tag);
 }

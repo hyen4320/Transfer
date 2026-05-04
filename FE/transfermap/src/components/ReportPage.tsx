@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import {
-  fetchLeagueSpending, fetchPositionTrend, fetchClubActivity,
-  fetchTransferFlow, fetchTopDeals, fetchFreeAgent,
-  type LeagueSpendingItem, type PositionTrendItem, type ClubActivityItem,
-  type TransferFlowItem, type TopDealItem, type FreeAgentItem,
-} from '../api/report';
 import { fetchEditorialReports, type EditorialReportResponse, type Block } from '../api/editorialReport';
-import { SEASON_OPTIONS } from '../data/constants';
 
 const MONO = "'JetBrains Mono', 'Courier New', monospace";
 
@@ -162,102 +155,7 @@ function ConfidenceBar({ value, compact }: { value: number; compact?: boolean })
   );
 }
 
-// ── types ─────────────────────────────────────────────────────────────────────
-
-interface ReportCard {
-  id:          string;
-  title:       string;
-  deck:        string;
-  type:        'data' | 'analysis';
-  format:      string;
-  cover:       { tone: string; motif: string };
-  readMinutes: number;
-  confidence:  number;
-  views:       number;
-  category:    string;
-  season:      number;
-  label:       string;
-  data:        unknown;
-}
-
-function buildCards(season: number, label: string, d: {
-  leagueData: LeagueSpendingItem[]; positionData: PositionTrendItem[];
-  clubData: ClubActivityItem[];     flowData: TransferFlowItem[];
-  dealsData: TopDealItem[];         faData: FreeAgentItem[];
-}): ReportCard[] {
-  const top = d.leagueData[0];
-  const topDeal = d.dealsData[0];
-  const topPos  = d.positionData[0];
-  const topClub = d.clubData[0];
-  const topFlow = d.flowData[0];
-  const faTotal = d.faData.reduce((s, x) => s + x.count, 0);
-  const posLabel: Record<string, string> = { GK:'Goalkeeper', DF:'Defender', MF:'Midfielder', FW:'Forward' };
-
-  return [
-    {
-      id: `league-spending-${season}`, season, label,
-      title: 'Which League Is Spending the Most?',
-      deck: top
-        ? `${top.leagueName} leads the ${label} window with ${fmt(top.totalFeeEur)} across ${top.count} confirmed deal${top.count !== 1 ? 's' : ''} — the biggest single-league commitment so far.`
-        : `Cross-league spending data for the ${label} transfer window.`,
-      type: 'data', format: 'dashboard', readMinutes: 4,
-      cover: { tone: 'blue', motif: 'bars' },
-      confidence: 0.94, views: 0, category: 'League Spending', data: d.leagueData,
-    },
-    {
-      id: `top-deals-${season}`, season, label,
-      title: 'The Biggest Confirmed Deals',
-      deck: topDeal
-        ? `${topDeal.playerName} tops the ${label} window at ${fmt(topDeal.feeEur)}, moving from ${topDeal.fromClubName ?? 'a free transfer'} to ${topDeal.toClubName}. Five biggest confirmed deals charted.`
-        : `The top confirmed transfer deals of the ${label} season, ranked by fee.`,
-      type: 'data', format: 'dashboard', readMinutes: 3,
-      cover: { tone: 'amber', motif: 'orbit' },
-      confidence: 0.97, views: 0, category: 'Top Deals', data: d.dealsData,
-    },
-    {
-      id: `position-trends-${season}`, season, label,
-      title: 'What Position Is the Market Chasing?',
-      deck: topPos
-        ? `${posLabel[topPos.position] ?? topPos.position}s dominate the ${label} transfer market, accounting for ${((topPos.count / d.positionData.reduce((s, x) => s + x.count, 0)) * 100).toFixed(0)}% of all reported activity.`
-        : `Positional demand breakdown across all top-five league clubs in ${label}.`,
-      type: 'data', format: 'brief', readMinutes: 2,
-      cover: { tone: 'graphite', motif: 'grid' },
-      confidence: 0.91, views: 0, category: 'Position Trends', data: d.positionData,
-    },
-    {
-      id: `club-activity-${season}`, season, label,
-      title: 'Who Is Signing the Most Players?',
-      deck: topClub
-        ? `${topClub.clubName} leads all clubs with ${topClub.incomingCount} incoming transfers in ${label} — more than any other team in Europe's top five leagues.`
-        : `Club-by-club recruitment activity ranked by incoming transfer reports in ${label}.`,
-      type: 'data', format: 'brief', readMinutes: 3,
-      cover: { tone: 'gold', motif: 'bars' },
-      confidence: 0.89, views: 0, category: 'Club Recruitment', data: d.clubData,
-    },
-    {
-      id: `transfer-flow-${season}`, season, label,
-      title: 'How Are Players Crossing Borders?',
-      deck: topFlow
-        ? `The ${topFlow.fromCountryCode.toUpperCase()} → ${topFlow.toCountryCode.toUpperCase()} corridor is the busiest cross-border route of the ${label} window with ${topFlow.count} reported moves.`
-        : `Cross-border transfer corridors mapped across European football in ${label}.`,
-      type: 'data', format: 'dashboard', readMinutes: 3,
-      cover: { tone: 'sky', motif: 'lines' },
-      confidence: 0.88, views: 0, category: 'Transfer Flow', data: d.flowData,
-    },
-    {
-      id: `free-agents-${season}`, season, label,
-      title: 'How Big Is the Free Agent Market?',
-      deck: faTotal > 0
-        ? `${faTotal} free agent signings reported across the ${label} window — clubs strengthening without paying transfer fees, a trend rising across all five leagues.`
-        : `Free agent transfer activity across Europe's top five leagues in ${label}.`,
-      type: 'data', format: 'brief', readMinutes: 2,
-      cover: { tone: 'crimson', motif: 'orbit' },
-      confidence: 0.93, views: 0, category: 'Free Market', data: d.faData,
-    },
-  ];
-}
-
-// ── detail view ───────────────────────────────────────────────────────────────
+// ── data table ────────────────────────────────────────────────────────────────
 
 function DataTable({ rows }: { rows: { label: string; sub?: string; value: string }[] }) {
   return (
@@ -282,202 +180,9 @@ function DataTable({ rows }: { rows: { label: string; sub?: string; value: strin
   );
 }
 
-function DetailView({ card, onBack }: { card: ReportCard; onBack: () => void }) {
-  const t = TONES[card.cover.tone] || TONES.blue;
+// ── report card ───────────────────────────────────────────────────────────────
 
-  const renderData = () => {
-    if (card.id.startsWith('league-spending')) {
-      const data = card.data as LeagueSpendingItem[];
-      return (
-        <DataTable rows={data.map(d => ({
-          label: d.leagueName,
-          sub: `${flag(d.countryCode)} ${d.count} deals`,
-          value: fmt(d.totalFeeEur),
-        }))} />
-      );
-    }
-    if (card.id.startsWith('top-deals')) {
-      const data = card.data as TopDealItem[];
-      return (
-        <DataTable rows={data.map(d => ({
-          label: d.playerName,
-          sub: `${d.fromClubName ?? 'Free Agent'} → ${d.toClubName}`,
-          value: fmt(d.feeEur),
-        }))} />
-      );
-    }
-    if (card.id.startsWith('position-trends')) {
-      const data = card.data as PositionTrendItem[];
-      const total = data.reduce((s, d) => s + d.count, 0);
-      const posLabel: Record<string, string> = { GK:'Goalkeeper', DF:'Defender', MF:'Midfielder', FW:'Forward' };
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {data.map(d => {
-            const pct = total > 0 ? ((d.count / total) * 100).toFixed(1) : '0.0';
-            return (
-              <div key={d.position}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 6 }}>
-                  <span style={{ color: '#e8edf5' }}>{posLabel[d.position] ?? d.position}</span>
-                  <span style={{ fontFamily: MONO, fontWeight: 700, color: '#e8edf5' }}>
-                    {d.count} <span style={{ color: 'rgba(160,185,220,0.4)', fontWeight: 400 }}>({pct}%)</span>
-                  </span>
-                </div>
-                <div style={{ height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${pct}%`, background: t.fg, borderRadius: 3,
-                    boxShadow: `0 0 8px ${t.fg}66` }} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      );
-    }
-    if (card.id.startsWith('club-activity')) {
-      const data = card.data as ClubActivityItem[];
-      return (
-        <DataTable rows={data.slice(0, 10).map(d => ({
-          label: d.clubName,
-          sub: d.leagueName,
-          value: `${d.incomingCount} reports`,
-        }))} />
-      );
-    }
-    if (card.id.startsWith('transfer-flow')) {
-      const data = card.data as TransferFlowItem[];
-      return (
-        <DataTable rows={data.slice(0, 10).map(d => ({
-          label: `${flag(d.fromCountryCode)} ${d.fromCountryCode.toUpperCase()} → ${flag(d.toCountryCode)} ${d.toCountryCode.toUpperCase()}`,
-          value: `${d.count} transfers`,
-        }))} />
-      );
-    }
-    if (card.id.startsWith('free-agents')) {
-      const data = card.data as FreeAgentItem[];
-      return (
-        <DataTable rows={data.map(d => ({
-          label: d.leagueName,
-          value: `${d.count} signings`,
-        }))} />
-      );
-    }
-    return null;
-  };
-
-  return (
-    <div style={{ width: '100%', background: '#060a12', color: '#e8edf5', fontFamily: "'Helvetica Neue', Arial, sans-serif" }}>
-      {/* Sticky top bar */}
-      <div style={{
-        display: 'flex', alignItems: 'center', gap: 14, padding: '14px 40px',
-        borderBottom: '1px solid rgba(255,255,255,0.08)', position: 'sticky', top: 0,
-        background: 'rgba(6,10,18,0.95)', backdropFilter: 'blur(8px)', zIndex: 10,
-      }}>
-        <button onClick={onBack} style={{
-          border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(160,185,220,0.7)',
-          fontSize: 12, padding: '6px 14px', borderRadius: 6,
-          background: 'transparent', cursor: 'pointer', fontFamily: MONO, letterSpacing: '0.1em',
-        }}>← REPORTS</button>
-        <TypeBadge type={card.type} sm />
-        <FormatBadge format={card.format} />
-        <div style={{ flex: 1 }} />
-        <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.2em', color: 'rgba(160,185,220,0.5)' }}>
-          {card.label} · {card.category.toUpperCase()}
-        </span>
-      </div>
-
-      {/* Hero cover */}
-      <div style={{ position: 'relative', height: 360 }}>
-        <CoverMotif tone={card.cover.tone} motif={card.cover.motif} w={1280} h={360} />
-        <div style={{ position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(6,10,18,0.15) 0%, rgba(6,10,18,0.92) 100%)' }} />
-        <div style={{ position: 'absolute', bottom: 36, left: 40, right: 40, maxWidth: 860 }}>
-          <div style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.25em', color: '#7dd3fc', marginBottom: 14 }}>
-            ◈ {card.category.toUpperCase()} · {card.label} SEASON
-          </div>
-          <h1 style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 16px',
-            textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
-            {card.title}
-          </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.55, margin: 0, color: 'rgba(220,235,255,0.85)', maxWidth: 720 }}>
-            {card.deck}
-          </p>
-          <div style={{ display: 'flex', gap: 24, alignItems: 'center', marginTop: 18,
-            fontFamily: MONO, fontSize: 11, color: 'rgba(160,185,220,0.7)' }}>
-            <span>{card.readMinutes} MIN READ</span>
-            <span>·</span>
-            <ConfidenceBar value={card.confidence} />
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 40px 80px' }}>
-        <div style={{ marginBottom: 32, padding: '20px 24px',
-          background: '#0d1626', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12 }}>
-          <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.25em',
-            color: 'rgba(160,185,220,0.4)', marginBottom: 12 }}>// REPORT SUMMARY</div>
-          <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, color: 'rgba(200,220,255,0.75)' }}>
-            {card.deck}
-          </p>
-        </div>
-        <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.28em',
-          color: 'rgba(160,185,220,0.4)', marginBottom: 16 }}>// DATA</div>
-        {renderData()}
-      </div>
-    </div>
-  );
-}
-
-// ── magazine card ─────────────────────────────────────────────────────────────
-
-function MagazineCard({ card, onOpen }: { card: ReportCard; onOpen: (c: ReportCard) => void }) {
-  const [hov, setHov] = useState(false);
-  return (
-    <article onClick={() => onOpen(card)}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        background: '#0d1626', border: `1px solid ${hov ? 'rgba(59,130,246,0.4)' : 'rgba(255,255,255,0.08)'}`,
-        borderRadius: 12, overflow: 'hidden', cursor: 'pointer',
-        display: 'flex', flexDirection: 'column',
-        transform: hov ? 'translateY(-2px)' : 'none',
-        transition: 'transform 0.15s, border-color 0.15s',
-      }}>
-      <div style={{ position: 'relative', height: 160 }}>
-        <CoverMotif tone={card.cover.tone} motif={card.cover.motif} w={400} h={160} />
-        <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          <TypeBadge type={card.type} sm />
-          <FormatBadge format={card.format} />
-        </div>
-      </div>
-      <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8,
-          fontFamily: MONO, fontSize: 9, letterSpacing: '0.2em', color: 'rgba(160,185,220,0.5)' }}>
-          <span>{card.category.toUpperCase()}</span>
-          <span style={{ opacity: 0.5 }}>·</span>
-          <span>{card.label}</span>
-          <span style={{ opacity: 0.5 }}>·</span>
-          <span>{card.readMinutes}MIN</span>
-        </div>
-        <h3 style={{ fontSize: 17, fontWeight: 800, lineHeight: 1.25, margin: 0, letterSpacing: '-0.005em' }}>
-          {card.title}
-        </h3>
-        <p style={{ fontSize: 13, lineHeight: 1.5, margin: 0, color: 'rgba(200,220,255,0.6)' }}>
-          {card.deck}
-        </p>
-        <div style={{ flex: 1 }} />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <ConfidenceBar value={card.confidence} compact />
-          <span style={{ fontFamily: MONO, fontSize: 10, color: 'rgba(160,185,220,0.45)' }}>READ →</span>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-// ── editorial card ────────────────────────────────────────────────────────────
-
-function EditorialCard({ report, onOpen }: {
+function ReportCard({ report, onOpen }: {
   report: EditorialReportResponse;
   onOpen: (r: EditorialReportResponse) => void;
 }) {
@@ -505,7 +210,7 @@ function EditorialCard({ report, onOpen }: {
       <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8,
           fontFamily: MONO, fontSize: 9, letterSpacing: '0.2em', color: 'rgba(160,185,220,0.5)' }}>
-          <span>EDITORIAL</span>
+          <span>{report.type === 'data' ? 'DATA' : 'EDITORIAL'}</span>
           <span style={{ opacity: 0.5 }}>·</span>
           <span>{report.readMinutes}MIN</span>
           {report.tags?.[0] && <><span style={{ opacity: 0.5 }}>·</span>
@@ -528,9 +233,11 @@ function EditorialCard({ report, onOpen }: {
   );
 }
 
-// ── editorial detail view ─────────────────────────────────────────────────────
+// ── detail view ───────────────────────────────────────────────────────────────
 
-function EditorialDetailView({ report, onBack }: {
+const POS_LABEL: Record<string, string> = { GK: 'Goalkeeper', DF: 'Defender', MF: 'Midfielder', FW: 'Forward' };
+
+function DetailView({ report, onBack }: {
   report: EditorialReportResponse;
   onBack: () => void;
 }) {
@@ -539,6 +246,82 @@ function EditorialDetailView({ report, onBack }: {
 
   let blocks: Block[] = [];
   try { blocks = JSON.parse(report.blocks); } catch { /* empty */ }
+
+  const renderDataRaw = (block: Extract<Block, { kind: 'data-raw' }>) => {
+    const { category, items } = block;
+
+    if (category === 'league-spending') {
+      type Item = { leagueName: string; countryCode: string; totalFeeEur: number; count: number };
+      return <DataTable rows={(items as Item[]).map(d => ({
+        label: d.leagueName,
+        sub: `${flag(d.countryCode)} ${d.count} deals`,
+        value: fmt(d.totalFeeEur),
+      }))} />;
+    }
+
+    if (category === 'top-deals') {
+      type Item = { playerName: string; fromClubName: string | null; toClubName: string; feeEur: number };
+      return <DataTable rows={(items as Item[]).map(d => ({
+        label: d.playerName,
+        sub: `${d.fromClubName ?? 'Free Agent'} → ${d.toClubName}`,
+        value: fmt(d.feeEur),
+      }))} />;
+    }
+
+    if (category === 'position-trends') {
+      type Item = { position: string; count: number };
+      const data = items as Item[];
+      const total = data.reduce((s, d) => s + d.count, 0);
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {data.map(d => {
+            const pct = total > 0 ? ((d.count / total) * 100).toFixed(1) : '0.0';
+            return (
+              <div key={d.position}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 6 }}>
+                  <span style={{ color: '#e8edf5' }}>{POS_LABEL[d.position] ?? d.position}</span>
+                  <span style={{ fontFamily: MONO, fontWeight: 700, color: '#e8edf5' }}>
+                    {d.count} <span style={{ color: 'rgba(160,185,220,0.4)', fontWeight: 400 }}>({pct}%)</span>
+                  </span>
+                </div>
+                <div style={{ height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${pct}%`, background: t.fg, borderRadius: 3,
+                    boxShadow: `0 0 8px ${t.fg}66` }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    if (category === 'club-activity') {
+      type Item = { clubName: string; leagueName: string; incomingCount: number };
+      return <DataTable rows={(items as Item[]).slice(0, 10).map(d => ({
+        label: d.clubName,
+        sub: d.leagueName,
+        value: `${d.incomingCount} reports`,
+      }))} />;
+    }
+
+    if (category === 'transfer-flow') {
+      type Item = { fromCountryCode: string; toCountryCode: string; count: number };
+      return <DataTable rows={(items as Item[]).slice(0, 10).map(d => ({
+        label: `${flag(d.fromCountryCode)} ${d.fromCountryCode.toUpperCase()} → ${flag(d.toCountryCode)} ${d.toCountryCode.toUpperCase()}`,
+        value: `${d.count} transfers`,
+      }))} />;
+    }
+
+    if (category === 'free-agents') {
+      type Item = { leagueName: string; count: number };
+      return <DataTable rows={(items as Item[]).map(d => ({
+        label: d.leagueName,
+        value: `${d.count} signings`,
+      }))} />;
+    }
+
+    return null;
+  };
 
   const renderBlock = (block: Block) => {
     switch (block.kind) {
@@ -624,6 +407,14 @@ function EditorialDetailView({ report, onBack }: {
       case 'divider':
         return <hr key={block.id} style={{ border: 'none',
           borderTop: '1px solid rgba(255,255,255,0.08)', margin: '36px 0' }} />;
+      case 'data-raw':
+        return (
+          <div key={block.id}>
+            <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.28em',
+              color: 'rgba(160,185,220,0.4)', marginBottom: 16 }}>// DATA</div>
+            {renderDataRaw(block)}
+          </div>
+        );
     }
   };
 
@@ -646,7 +437,7 @@ function EditorialDetailView({ report, onBack }: {
         <div style={{ flex: 1 }} />
         {report.tags.length > 0 && (
           <div style={{ display: 'flex', gap: 8 }}>
-            {report.tags.map(tag => (
+            {report.tags.filter(tag => !tag.startsWith('data-auto') && !tag.startsWith('season:')).map(tag => (
               <span key={tag} style={{
                 fontFamily: MONO, fontSize: 9, padding: '4px 9px', borderRadius: 3,
                 background: `${t.fg}14`, color: t.fg, border: `1px solid ${t.fg}40`,
@@ -664,7 +455,7 @@ function EditorialDetailView({ report, onBack }: {
           background: 'linear-gradient(180deg, rgba(6,10,18,0.15) 0%, rgba(6,10,18,0.92) 100%)' }} />
         <div style={{ position: 'absolute', bottom: 36, left: 40, right: 40, maxWidth: 860 }}>
           <div style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.25em', color: t.fg, marginBottom: 14 }}>
-            ◈ EDITORIAL
+            ◈ {report.type === 'data' ? 'DATA REPORT' : 'EDITORIAL'}
           </div>
           <h1 style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.02em',
             margin: '0 0 16px', textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
@@ -685,6 +476,16 @@ function EditorialDetailView({ report, onBack }: {
 
       {/* Content */}
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 40px 80px' }}>
+        {report.deck && (
+          <div style={{ marginBottom: 32, padding: '20px 24px',
+            background: '#0d1626', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12 }}>
+            <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.25em',
+              color: 'rgba(160,185,220,0.4)', marginBottom: 12 }}>// REPORT SUMMARY</div>
+            <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, color: 'rgba(200,220,255,0.75)' }}>
+              {report.deck}
+            </p>
+          </div>
+        )}
         {blocks.map(block => renderBlock(block))}
       </div>
     </div>
@@ -713,34 +514,16 @@ function SkeletonCard() {
 
 export default function ReportPage() {
   const navigate = useNavigate();
-  const [searchParams] = useState(() => typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams());
 
-  const [cards, setCards] = useState<ReportCard[] | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [openCard, setOpenCard] = useState<ReportCard | null>(null);
-  const [editorialReports, setEditorialReports] = useState<EditorialReportResponse[]>([]);
-  const [openEditorial, setOpenEditorial] = useState<EditorialReportResponse | null>(null);
-  const [tab, setTab] = useState<'data' | 'editorial'>(
-    searchParams.get('tab') === 'editorial' ? 'editorial' : 'data'
-  );
+  const [reports, setReports] = useState<EditorialReportResponse[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState<EditorialReportResponse | null>(null);
 
   useEffect(() => {
-    fetchEditorialReports().then(setEditorialReports).catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    const opt = SEASON_OPTIONS[0];
-    setLoading(true);
-    Promise.all([
-      fetchLeagueSpending(opt.value), fetchPositionTrend(opt.value),
-      fetchClubActivity(opt.value),  fetchTransferFlow(opt.value),
-      fetchTopDeals(opt.value),      fetchFreeAgent(opt.value),
-    ]).then(([league, position, club, flow, deals, fa]) => {
-      setCards(buildCards(opt.value, opt.label, {
-        leagueData: league, positionData: position, clubData: club,
-        flowData: flow, dealsData: deals, faData: fa,
-      }));
-    }).catch(() => setCards([])).finally(() => setLoading(false));
+    fetchEditorialReports()
+      .then(setReports)
+      .catch(() => setReports([]))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -755,10 +538,8 @@ export default function ReportPage() {
         <meta name="twitter:description" content="European football transfer spending analysis and club activity reports." />
       </Helmet>
 
-      {openEditorial ? (
-        <EditorialDetailView report={openEditorial} onBack={() => setOpenEditorial(null)} />
-      ) : openCard ? (
-        <DetailView card={openCard} onBack={() => setOpenCard(null)} />
+      {open ? (
+        <DetailView report={open} onBack={() => setOpen(null)} />
       ) : (
         <>
           {/* Header */}
@@ -785,59 +566,31 @@ export default function ReportPage() {
             }}>+ WRITE REPORT</button>
           </div>
 
-          {/* Tab bar */}
-          <div style={{ display: 'flex', padding: '0 40px',
-            borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            {(['data', 'editorial'] as const).map(t => (
-              <button key={t} onClick={() => setTab(t)} style={{
-                fontFamily: MONO, fontSize: 11, fontWeight: 800, letterSpacing: '0.2em',
-                textTransform: 'uppercase', padding: '14px 20px', cursor: 'pointer',
-                background: 'transparent', border: 'none', outline: 'none',
-                color: tab === t ? '#e8edf5' : 'rgba(160,185,220,0.4)',
-                borderBottom: `2px solid ${tab === t ? '#3b82f6' : 'transparent'}`,
-                marginBottom: -1, transition: 'color 0.15s',
-              }}>{t}</button>
-            ))}
+          {/* Grid */}
+          <div style={{ padding: '28px 40px 40px',
+            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            {loading
+              ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
+              : (reports ?? []).map(r => (
+                  <ReportCard key={r.id} report={r} onOpen={setOpen} />
+                ))
+            }
+            {!loading && reports?.length === 0 && (
+              <div style={{
+                gridColumn: '1 / -1', display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                background: '#0d1626', border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 16, minHeight: 440, gap: 12,
+              }}>
+                <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.2em', color: 'rgba(160,185,220,0.35)' }}>
+                  NO REPORTS
+                </span>
+                <span style={{ fontSize: 13, color: 'rgba(160,185,220,0.25)' }}>
+                  Published reports will appear here
+                </span>
+              </div>
+            )}
           </div>
-
-          {/* Data tab */}
-          {tab === 'data' && (
-            <div style={{ padding: '28px 40px 40px',
-              display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-              {loading
-                ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-                : (cards ?? []).map(card => (
-                    <MagazineCard key={card.id} card={card} onOpen={setOpenCard} />
-                  ))
-              }
-            </div>
-          )}
-
-          {/* Editorial tab */}
-          {tab === 'editorial' && (
-            <div style={{ padding: '28px 40px 40px' }}>
-              {editorialReports.length === 0 ? (
-                <div style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                  background: '#0d1626', border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 16, minHeight: 440, gap: 12,
-                }}>
-                  <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.2em', color: 'rgba(160,185,220,0.35)' }}>
-                    NO EDITORIAL REPORTS
-                  </span>
-                  <span style={{ fontSize: 13, color: 'rgba(160,185,220,0.25)' }}>
-                    Published reports will appear here
-                  </span>
-                </div>
-              ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-                  {editorialReports.map(r => (
-                    <EditorialCard key={r.id} report={r} onOpen={setOpenEditorial} />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Footer */}
           <div style={{ margin: '0 40px 40px', paddingTop: 24,

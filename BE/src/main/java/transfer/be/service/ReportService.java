@@ -16,4 +16,5 @@ public interface ReportService {
     List<TransferFlowItem> getTransferFlow(Short season);
     List<TopDealItem> getTopDeals(Short season);
     List<FreeAgentItem> getFreeAgentLeagues(Short season);
+    void generateDataReports(Short season);
 }

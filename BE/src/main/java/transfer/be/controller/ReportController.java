@@ -1,9 +1,12 @@
 package transfer.be.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import transfer.be.dto.response.report.ClubActivityItem;
 import transfer.be.dto.response.report.FreeAgentItem;
@@ -50,5 +53,11 @@ public class ReportController {
     @GetMapping("/free-agent")
     public List<FreeAgentItem> freeAgent(@RequestParam Short season) {
         return reportService.getFreeAgentLeagues(season);
+    }
+
+    @PostMapping("/generate")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void generate(@RequestParam Short season) {
+        reportService.generateDataReports(season);
     }
 }

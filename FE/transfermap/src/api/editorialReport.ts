@@ -1,6 +1,6 @@
 import { apiFetch, apiMutate } from './client';
 
-export type BlockKind = 'heading' | 'paragraph' | 'pullquote' | 'stats' | 'timeline' | 'kpi' | 'divider';
+export type BlockKind = 'heading' | 'paragraph' | 'pullquote' | 'stats' | 'timeline' | 'kpi' | 'divider' | 'data-raw';
 
 export interface StatItem     { label: string; value: string; sub: string }
 export interface TimelineItem { year: string; label: string; body: string }
@@ -14,6 +14,7 @@ export type Block =
   | { id: string; kind: 'timeline';  items: TimelineItem[] }
   | { id: string; kind: 'kpi';       items: KpiItem[] }
   | { id: string; kind: 'divider' }
+  | { id: string; kind: 'data-raw';  category: string; items: unknown[] }
 
 export interface EditorialReportRequest {
   title:          string;
