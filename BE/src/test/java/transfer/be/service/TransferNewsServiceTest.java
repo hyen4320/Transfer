@@ -3,7 +3,6 @@ package transfer.be.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,7 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import transfer.be.exception.NotFoundException;
 import transfer.be.model.*;
+import transfer.be.repository.JournalistRepository;
 import transfer.be.repository.TransferNewsRepository;
+import transfer.be.repository.VerificationRepository;
 import transfer.be.service.impl.TransferNewsServiceImpl;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,6 +31,8 @@ import static org.mockito.Mockito.when;
 class TransferNewsServiceTest {
 
     @Mock TransferNewsRepository transferNewsRepository;
+    @Mock VerificationRepository verificationRepository;
+    @Mock JournalistRepository journalistRepository;
     @InjectMocks TransferNewsServiceImpl transferNewsService;
 
     @Test
@@ -44,8 +46,8 @@ class TransferNewsServiceTest {
     }
 
     @Test
-    @DisplayName("updateStatus는 id를 포함해 저장한다 (INSERT 버그 방지)")
-    void updateStatus_id_포함_저장() {
+    @DisplayName("updateStatus는 엔티티 status 필드를 직접 변경한다")
+    void updateStatus_엔티티_status_변경() {
         Journalist journalist = Journalist.builder().id(1L).xHandle("Romano").name("Romano").credibilityScore(0f).build();
         Post post = Post.builder().id(1L).journalist(journalist).xPostId("tweet-1").content("news").build();
         Club toClub = Club.builder().id(1L).name("Arsenal").countryCode("GB")
@@ -58,16 +60,12 @@ class TransferNewsServiceTest {
                 .publishedAt(LocalDateTime.now()).build();
 
         when(transferNewsRepository.findById(5L)).thenReturn(Optional.of(existing));
-        when(transferNewsRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         transferNewsService.updateStatus(5L, TransferNews.Status.CONFIRMED);
 
-        ArgumentCaptor<TransferNews> captor = ArgumentCaptor.forClass(TransferNews.class);
-        verify(transferNewsRepository).save(captor.capture());
-
-        TransferNews saved = captor.getValue();
-        assertThat(saved.getId()).isEqualTo(5L);                        // id 포함 → UPDATE
-        assertThat(saved.getStatus()).isEqualTo(TransferNews.Status.CONFIRMED);
+        // dirty checking으로 처리 — save() 불필요, 엔티티 status만 검증
+        assertThat(existing.getStatus()).isEqualTo(TransferNews.Status.CONFIRMED);
+        verify(transferNewsRepository).findById(5L);
     }
 
     @Test
