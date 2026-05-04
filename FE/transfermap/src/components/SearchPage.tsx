@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { PLAYERS, CLUBS, NEWS, JOURNALISTS } from '../data/mock';
 import { getTransferWindowState, getWindowLabel } from '../utils/transferWindow';
 
@@ -150,6 +151,12 @@ export default function SearchPage() {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>Search — TransferMap</title>
+        <meta name="description" content="Search for players, clubs, and transfer news on TransferMap." />
+        <meta property="og:title" content="Search — TransferMap" />
+        <meta name="twitter:title" content="Search — TransferMap" />
+      </Helmet>
       {/* Topbar */}
       <div className="flex items-center gap-4 px-6 h-14 border-b border-[var(--border)] flex-shrink-0"
         style={{ background: 'var(--surface)' }}>

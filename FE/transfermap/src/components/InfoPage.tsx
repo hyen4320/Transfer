@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function InfoPage() {
   const navigate = useNavigate();
@@ -13,6 +14,12 @@ export default function InfoPage() {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>Info — TransferMap</title>
+        <meta name="description" content="About TransferMap, contact information, and privacy policy for the European football transfer tracking service." />
+        <meta property="og:title" content="Info — TransferMap" />
+        <meta name="twitter:title" content="Info — TransferMap" />
+      </Helmet>
       <div className="border-b border-[var(--border)] flex-shrink-0 flex justify-center">
         <div className="w-full max-w-3xl px-4 sm:px-8 lg:px-10 py-7 flex items-center gap-5">
           <button

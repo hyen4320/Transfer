@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { fetchNotices, type Notice } from '../api/notices';
 
 const TAG_LABEL: Record<Notice['tag'], string> = {
@@ -50,6 +51,12 @@ export default function NoticePage() {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>Notice — TransferMap</title>
+        <meta name="description" content="Updates and announcements from TransferMap." />
+        <meta property="og:title" content="Notice — TransferMap" />
+        <meta name="twitter:title" content="Notice — TransferMap" />
+      </Helmet>
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
         <button
           onClick={() => navigate('/')}

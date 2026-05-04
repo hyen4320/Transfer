@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://transfermap.net/sitemap.xml
+Sitemap: https://transfer-map.com/sitemap.xml

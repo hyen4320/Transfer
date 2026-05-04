@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useClubs } from './hooks/useClubs';
 import { useNews } from './hooks/useNews';
 import WorldMap from './components/WorldMap';
@@ -41,7 +42,7 @@ function MapView() {
 
   // Intro animation (skip if already seen)
   type IntroPhase = 'enter' | 'rise' | 'done';
-  const alreadySeen = localStorage.getItem('introSeen') === '1';
+  const alreadySeen = typeof window !== 'undefined' && localStorage.getItem('introSeen') === '1';
   const [introPhase, setIntroPhase] = useState<IntroPhase>(alreadySeen ? 'done' : 'enter');
   const [textVisible, setTextVisible] = useState(alreadySeen);
 
@@ -260,6 +261,15 @@ function MapView() {
 
   return (
     <div className="w-screen h-screen overflow-hidden bg-[var(--bg)] relative">
+      <Helmet>
+        <title>TransferMap — European Football Transfer Network</title>
+        <meta name="description" content="Real-time European football transfer news and rumours visualised on an interactive map. Powered by credibility-ranked journalists." />
+        <meta property="og:title" content="TransferMap — European Football Transfer Network" />
+        <meta property="og:description" content="Real-time European football transfer news and rumours visualised on an interactive map." />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TransferMap — European Football Transfer Network" />
+        <meta name="twitter:description" content="Real-time European football transfer news and rumours visualised on an interactive map." />
+      </Helmet>
 
       {/* INTRO OVERLAY */}
       {introPhase !== 'done' && (

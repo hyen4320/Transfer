@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useJournalists } from '../hooks/useJournalists';
 import AdSlot, { SLOT } from './AdSlot';
 
@@ -13,6 +14,14 @@ export default function JournalistPage({ onBack }: Props) {
 
   return (
     <div className="absolute inset-0 bg-[var(--bg)] z-50 flex flex-col">
+      <Helmet>
+        <title>Journalist Ranking — TransferMap</title>
+        <meta name="description" content="Credibility-ranked football transfer journalists. See accuracy, speed, and impact scores for top transfer reporters." />
+        <meta property="og:title" content="Journalist Ranking — TransferMap" />
+        <meta property="og:description" content="Credibility-ranked football transfer journalists on TransferMap." />
+        <meta name="twitter:title" content="Journalist Ranking — TransferMap" />
+        <meta name="twitter:description" content="Credibility-ranked football transfer journalists on TransferMap." />
+      </Helmet>
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
         <button onClick={onBack}
           className="border border-[var(--border)] text-[var(--text-sub)] text-[0.84rem] px-5 py-2.5 rounded-lg

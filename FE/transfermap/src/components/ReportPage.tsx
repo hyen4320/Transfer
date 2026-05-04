@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   fetchLeagueSpending, fetchPositionTrend, fetchClubActivity,
   fetchTransferFlow, fetchTopDeals, fetchFreeAgent,
@@ -712,7 +713,7 @@ function SkeletonCard() {
 
 export default function ReportPage() {
   const navigate = useNavigate();
-  const [searchParams] = useState(() => new URLSearchParams(window.location.search));
+  const [searchParams] = useState(() => typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams());
 
   const [cards, setCards] = useState<ReportCard[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -745,6 +746,14 @@ export default function ReportPage() {
   return (
     <div className="h-screen overflow-y-auto" style={{ background: '#060a12', color: '#e8edf5',
       fontFamily: "'Helvetica Neue', Arial, sans-serif" }}>
+      <Helmet>
+        <title>Transfer Report — TransferMap</title>
+        <meta name="description" content="European football transfer spending analysis, position trends, and club activity reports." />
+        <meta property="og:title" content="Transfer Report — TransferMap" />
+        <meta property="og:description" content="European football transfer spending analysis, position trends, and club activity reports." />
+        <meta name="twitter:title" content="Transfer Report — TransferMap" />
+        <meta name="twitter:description" content="European football transfer spending analysis and club activity reports." />
+      </Helmet>
 
       {openEditorial ? (
         <EditorialDetailView report={openEditorial} onBack={() => setOpenEditorial(null)} />
