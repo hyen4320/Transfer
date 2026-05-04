@@ -10,6 +10,7 @@ import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 import transfer.be.repository.PlayerRepository;
 import transfer.be.repository.TransferNewsRepository;
+import transfer.be.scheduler.XCollectorScheduler;
 import transfer.be.service.TransferNewsService;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class AdminController {
     private final PlayerRepository playerRepository;
     private final TransferNewsRepository transferNewsRepository;
     private final TransferNewsService transferNewsService;
+    private final XCollectorScheduler xCollectorScheduler;
 
     /** 인터셉터가 통과시켜야 도달 — 토큰 유효성 검증 */
     @GetMapping("/verify")
@@ -69,6 +71,12 @@ public class AdminController {
         }
 
         return Map.of("total", players.size(), "updated", updated);
+    }
+
+    @PostMapping("/collect-posts")
+    public Map<String, String> collectPosts() {
+        xCollectorScheduler.collectAllJournalistPosts();
+        return Map.of("status", "ok");
     }
 
     @PatchMapping("/news/{newsId}/confirm")
