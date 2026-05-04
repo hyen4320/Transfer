@@ -63,6 +63,10 @@ public class TransferNews {
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 
+    public void updateStatus(Status newStatus) {
+        this.status = newStatus;
+    }
+
     public enum Status {
         RUMOR, CONFIRMED, DENIED, LOAN, CONTRACT_EXTENSION, FREE_AGENT
     }

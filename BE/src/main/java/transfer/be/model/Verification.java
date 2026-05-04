@@ -36,4 +36,11 @@ public class Verification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "confirmed_by")
     private Journalist confirmedBy;
+
+    public void update(boolean isConfirmed, String sourceUrl, Journalist confirmedBy) {
+        this.isConfirmed = isConfirmed;
+        this.confirmedAt = isConfirmed ? LocalDateTime.now() : null;
+        this.sourceUrl = sourceUrl;
+        this.confirmedBy = confirmedBy;
+    }
 }

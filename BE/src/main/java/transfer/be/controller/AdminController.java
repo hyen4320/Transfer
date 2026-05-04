@@ -2,15 +2,15 @@ package transfer.be.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import transfer.be.dto.request.ConfirmRequest;
 import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 import transfer.be.repository.PlayerRepository;
 import transfer.be.repository.TransferNewsRepository;
+import transfer.be.service.TransferNewsService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +23,7 @@ public class AdminController {
 
     private final PlayerRepository playerRepository;
     private final TransferNewsRepository transferNewsRepository;
+    private final TransferNewsService transferNewsService;
 
     /** 인터셉터가 통과시켜야 도달 — 토큰 유효성 검증 */
     @GetMapping("/verify")
@@ -68,5 +69,14 @@ public class AdminController {
         }
 
         return Map.of("total", players.size(), "updated", updated);
+    }
+
+    @PatchMapping("/news/{newsId}/confirm")
+    public ResponseEntity<Void> confirmNews(
+            @PathVariable Long newsId,
+            @RequestBody ConfirmRequest req
+    ) {
+        transferNewsService.confirm(newsId, req);
+        return ResponseEntity.ok().build();
     }
 }

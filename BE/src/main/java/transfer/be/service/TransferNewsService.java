@@ -40,4 +40,6 @@ public interface TransferNewsService {
     TransferNews save(TransferNews transferNews);
 
     void updateStatus(Long newsId, TransferNews.Status status);
+
+    void confirm(Long newsId, transfer.be.dto.request.ConfirmRequest req);
 }

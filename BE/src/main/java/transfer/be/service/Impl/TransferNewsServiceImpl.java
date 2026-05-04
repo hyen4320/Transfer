@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import transfer.be.dto.request.ConfirmRequest;
 import transfer.be.dto.request.TransferNewsSearchCondition;
 import transfer.be.exception.NotFoundException;
 import transfer.be.model.Club;
@@ -12,10 +13,14 @@ import transfer.be.model.Journalist;
 import transfer.be.model.League;
 import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
+import transfer.be.model.Verification;
+import transfer.be.repository.JournalistRepository;
 import transfer.be.repository.TransferNewsRepository;
 import transfer.be.repository.TransferNewsSpecification;
+import transfer.be.repository.VerificationRepository;
 import transfer.be.service.TransferNewsService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,6 +28,8 @@ import java.util.List;
 public class TransferNewsServiceImpl implements TransferNewsService {
 
     private final TransferNewsRepository transferNewsRepository;
+    private final VerificationRepository verificationRepository;
+    private final JournalistRepository journalistRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -106,18 +113,43 @@ public class TransferNewsServiceImpl implements TransferNewsService {
     @Override
     @Transactional
     public void updateStatus(Long newsId, TransferNews.Status status) {
+        findById(newsId).updateStatus(status);
+    }
+
+    @Override
+    @Transactional
+    public void confirm(Long newsId, ConfirmRequest req) {
         TransferNews news = findById(newsId);
-        TransferNews updated = TransferNews.builder()
-                .id(news.getId())
-                .post(news.getPost())
-                .player(news.getPlayer())
-                .fromClub(news.getFromClub())
-                .toClub(news.getToClub())
-                .feeEur(news.getFeeEur())
-                .status(status)
-                .reliability(news.getReliability())
-                .publishedAt(news.getPublishedAt())
-                .build();
-        transferNewsRepository.save(updated);
+        news.updateStatus(req.status());
+
+        Journalist confirmedBy = req.confirmedByJournalistId() != null
+                ? journalistRepository.findById(req.confirmedByJournalistId()).orElse(null)
+                : null;
+
+        boolean isConfirmed = req.status() != TransferNews.Status.RUMOR
+                && req.status() != TransferNews.Status.DENIED;
+
+        Verification verification = verificationRepository.findByTransferNews(news)
+                .orElse(null);
+        if (verification == null) {
+            verification = Verification.builder()
+                    .transferNews(news)
+                    .isConfirmed(isConfirmed)
+                    .confirmedAt(isConfirmed ? LocalDateTime.now() : null)
+                    .sourceUrl(req.sourceUrl())
+                    .confirmedBy(confirmedBy)
+                    .build();
+        } else {
+            verification.update(isConfirmed, req.sourceUrl(), confirmedBy);
+        }
+        verificationRepository.save(verification);
+
+        Player player = news.getPlayer();
+        switch (req.status()) {
+            case CONFIRMED, CONTRACT_EXTENSION -> player.updateCurrentClub(news.getToClub(), Player.ContractStatus.CONTRACTED);
+            case LOAN -> player.updateCurrentClub(news.getToClub(), Player.ContractStatus.LOANED);
+            case FREE_AGENT -> player.updateCurrentClub(null, Player.ContractStatus.FREE_AGENT);
+            default -> {}
+        }
     }
 }
