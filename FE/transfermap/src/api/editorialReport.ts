@@ -70,5 +70,8 @@ export const updateEditorialReport = (id: number, req: EditorialReportRequest) =
 export const fetchEditorialReports = () =>
   apiFetch<EditorialReportResponse[]>('/editorial-reports');
 
+export const fetchEditorialReportById = (id: number) =>
+  apiFetch<EditorialReportResponse>(`/editorial-reports/${id}`);
+
 export const fetchAllEditorialReports = () =>
   apiFetch<EditorialReportResponse[]>('/editorial-reports/all');

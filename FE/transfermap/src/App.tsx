@@ -503,6 +503,7 @@ export default function App() {
       <Route path="/search"             element={<SearchPage />} />
       <Route path="/report"             element={<ReportPage />} />
       <Route path="/report/compose"    element={<AdminGate><ReportComposer /></AdminGate>} />
+      <Route path="/report/:id"        element={<ReportPage />} />
       <Route path="/notice"             element={<NoticePage />} />
       <Route path="/info"               element={<InfoPage />} />
       <Route path="/privacy"           element={<InfoPage />} />

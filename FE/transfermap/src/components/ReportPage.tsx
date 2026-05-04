@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { fetchEditorialReports, type EditorialReportResponse, type Block } from '../api/editorialReport';
+import { fetchEditorialReports, fetchEditorialReportById, type EditorialReportResponse, type Block } from '../api/editorialReport';
 
 const MONO = "'JetBrains Mono', 'Courier New', monospace";
 
@@ -408,6 +408,15 @@ function DetailView({ report, onBack }: {
   return (
     <div style={{ width: '100%', background: '#060a12', color: '#e8edf5',
       fontFamily: "'Helvetica Neue', Arial, sans-serif" }}>
+      <Helmet>
+        <title>{report.title} — TransferMap</title>
+        <meta name="description" content={report.deck || ''} />
+        <meta property="og:title" content={report.title} />
+        <meta property="og:description" content={report.deck || ''} />
+        <meta name="twitter:title" content={report.title} />
+        <meta name="twitter:description" content={report.deck || ''} />
+        <link rel="canonical" href={`https://transfer-map.com/report/${report.id}`} />
+      </Helmet>
       {/* Sticky top bar */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 14, padding: '14px 40px',
@@ -499,10 +508,11 @@ function SkeletonCard() {
 
 export default function ReportPage() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   const [reports, setReports] = useState<EditorialReportResponse[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState<EditorialReportResponse | null>(null);
+  const [detail, setDetail] = useState<EditorialReportResponse | null>(null);
 
   useEffect(() => {
     fetchEditorialReports()
@@ -510,6 +520,15 @@ export default function ReportPage() {
       .catch(() => setReports([]))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!id) { setDetail(null); return; }
+    const found = reports?.find(r => r.id === Number(id));
+    if (found) { setDetail(found); return; }
+    fetchEditorialReportById(Number(id))
+      .then(setDetail)
+      .catch(() => navigate('/report', { replace: true }));
+  }, [id, reports]);
 
   return (
     <div className="h-screen overflow-y-auto" style={{ background: '#060a12', color: '#e8edf5',
@@ -523,8 +542,8 @@ export default function ReportPage() {
         <meta name="twitter:description" content="European football transfer spending analysis and club activity reports." />
       </Helmet>
 
-      {open ? (
-        <DetailView report={open} onBack={() => setOpen(null)} />
+      {detail ? (
+        <DetailView report={detail} onBack={() => navigate('/report')} />
       ) : (
         <>
           {/* Header */}
@@ -557,7 +576,7 @@ export default function ReportPage() {
             {loading
               ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
               : (reports ?? []).map(r => (
-                  <ReportCard key={r.id} report={r} onOpen={setOpen} />
+                  <ReportCard key={r.id} report={r} onOpen={r => navigate(`/report/${r.id}`)} />
                 ))
             }
             {!loading && reports?.length === 0 && (
