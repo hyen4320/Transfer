@@ -94,7 +94,7 @@ public class GeminiApiClient {
                                 "playerName",    Map.of("type", "string",  "description", "Full name of the player"),
                                 "fromClub",      Map.of("type", "string",  "description", "Current/source club name, null if free agent"),
                                 "toClub",        Map.of("type", "string",  "description", "Destination club name"),
-                                "status",        Map.of("type", "string",  "description", "Transfer status", "enum", List.of("RUMOR", "CONFIRMED", "DENIED", "LOAN", "CONTRACT_EXTENSION")),
+                                "status",        Map.of("type", "string",  "description", "Transfer status. Use CONFIRMED only when the transfer is officially done (e.g. 'here we go!', 'done deal', 'medical complete', 'contract signed', official club announcement). Use DENIED when a club or player officially rejects the move. Use LOAN for confirmed loan moves. Use CONTRACT_EXTENSION for confirmed renewals. Default to RUMOR for any interest, talks, negotiations, offers, or uncertainty.", "enum", List.of("RUMOR", "CONFIRMED", "DENIED", "LOAN", "CONTRACT_EXTENSION")),
                                 "feeEur",        Map.of("type", "integer", "description", "Transfer fee in euros, null if unknown or free")
                         ),
                         "required", List.of("isTransferNews")

@@ -12,6 +12,7 @@ import transfer.be.model.Player;
 import transfer.be.model.TransferNews;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TransferNewsRepository extends JpaRepository<TransferNews, Long>, JpaSpecificationExecutor<TransferNews> {
 
@@ -44,6 +45,9 @@ public interface TransferNewsRepository extends JpaRepository<TransferNews, Long
 
     /** 동일 시즌에 같은 선수 → 같은 구단 이적 뉴스 중복 체크 */
     boolean existsByPlayerAndToClubAndSeason(Player player, Club toClub, Short season);
+
+    /** 동일 시즌에 같은 선수 → 같은 구단 이적 뉴스 조회 (루머 확정 업그레이드용) */
+    Optional<TransferNews> findFirstByPlayerAndToClubAndSeasonOrderByPublishedAtDesc(Player player, Club toClub, Short season);
 
     /** 기간 내 선수별 언급 횟수 — trending 집계용 */
     @Query("""

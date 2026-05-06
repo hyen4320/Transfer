@@ -11,6 +11,7 @@ import transfer.be.repository.ClubAliasRepository;
 import transfer.be.repository.ClubRepository;
 import transfer.be.repository.PlayerRepository;
 import transfer.be.repository.TransferNewsRepository;
+import transfer.be.repository.VerificationRepository;
 import transfer.be.service.PostParsingService;
 
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class PostParsingServiceImpl implements PostParsingService {
     private final ClubRepository clubRepository;
     private final ClubAliasRepository clubAliasRepository;
     private final TransferNewsRepository transferNewsRepository;
+    private final VerificationRepository verificationRepository;
 
     @Override
     @Transactional
@@ -63,6 +65,7 @@ public class PostParsingServiceImpl implements PostParsingService {
             log.info("[Parsing] 선수 미등록: '{}' — 스킵", result.playerName());
             return;
         }
+        Player player = playerOpt.get();
 
         Club toClub = null;
         if (!isFa) {
@@ -81,21 +84,38 @@ public class PostParsingServiceImpl implements PostParsingService {
             fromClub = result.fromClub() != null ? resolveClub(result.fromClub()) : null;
             // Gemini가 현재 구단을 추출 못했으면 Player.currentClub 사용
             if (fromClub == null) {
-                fromClub = playerOpt.get().getCurrentClub();
+                fromClub = player.getCurrentClub();
             }
         }
 
         short season = determineSeason();
+        boolean isConfirmation = status != TransferNews.Status.RUMOR;
 
-        // 동일 시즌 같은 선수→같은 구단 중복 저장 방지 (FA는 toClub=null이므로 체크 스킵)
-        if (toClub != null && transferNewsRepository.existsByPlayerAndToClubAndSeason(playerOpt.get(), toClub, season)) {
+        // 확정/부인/임차 계열: 기존 RUMOR 업그레이드 우선
+        if (isConfirmation && toClub != null) {
+            Optional<TransferNews> existingOpt = transferNewsRepository
+                    .findFirstByPlayerAndToClubAndSeasonOrderByPublishedAtDesc(player, toClub, season);
+            if (existingOpt.isPresent()) {
+                TransferNews existing = existingOpt.get();
+                if (existing.getStatus() == TransferNews.Status.RUMOR) {
+                    existing.updateStatus(status);
+                    autoVerify(existing, post, status);
+                    syncPlayerClub(player, toClub, status);
+                    log.info("[AutoVerify] {} → {} 루머 → {} 자동 확정", result.playerName(), result.toClub(), status);
+                }
+                return;
+            }
+        }
+
+        // 루머이고 이미 동일 기록 있으면 중복 스킵 (FA는 toClub=null이므로 체크 스킵)
+        if (!isConfirmation && toClub != null && transferNewsRepository.existsByPlayerAndToClubAndSeason(player, toClub, season)) {
             log.debug("[Parsing] 중복 TransferNews 스킵 — player={} toClub={} season={}", result.playerName(), result.toClub(), season);
             return;
         }
 
         TransferNews news = TransferNews.builder()
                 .post(post)
-                .player(playerOpt.get())
+                .player(player)
                 .fromClub(fromClub)
                 .toClub(toClub)
                 .feeEur(result.feeEur())
@@ -109,12 +129,36 @@ public class PostParsingServiceImpl implements PostParsingService {
         transferNewsRepository.save(news);
         log.info("[Parsing] TransferNews 생성 — {} → {} ({})", result.fromClub(), result.toClub(), result.status());
 
-        if (status == TransferNews.Status.CONFIRMED) {
-            playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.CONTRACTED);
-        } else if (status == TransferNews.Status.LOAN) {
-            playerOpt.get().updateCurrentClub(toClub, Player.ContractStatus.LOANED);
-        } else if (isFa) {
-            playerOpt.get().updateCurrentClub(null, Player.ContractStatus.FREE_AGENT);
+        if (isConfirmation) {
+            autoVerify(news, post, status);
+            syncPlayerClub(player, toClub, status);
+        }
+    }
+
+    private void autoVerify(TransferNews news, Post post, TransferNews.Status status) {
+        boolean isConfirmed = status != TransferNews.Status.DENIED;
+        String sourceUrl = "https://x.com/" + post.getJournalist().getXHandle() + "/status/" + post.getXPostId();
+
+        Verification existing = verificationRepository.findByTransferNews(news).orElse(null);
+        if (existing == null) {
+            verificationRepository.save(Verification.builder()
+                    .transferNews(news)
+                    .isConfirmed(isConfirmed)
+                    .confirmedAt(isConfirmed ? LocalDateTime.now() : null)
+                    .sourceUrl(sourceUrl)
+                    .confirmedBy(post.getJournalist())
+                    .build());
+        } else {
+            existing.update(isConfirmed, sourceUrl, post.getJournalist());
+        }
+    }
+
+    private void syncPlayerClub(Player player, Club toClub, TransferNews.Status status) {
+        switch (status) {
+            case CONFIRMED, CONTRACT_EXTENSION -> player.updateCurrentClub(toClub, Player.ContractStatus.CONTRACTED);
+            case LOAN -> player.updateCurrentClub(toClub, Player.ContractStatus.LOANED);
+            case FREE_AGENT -> player.updateCurrentClub(null, Player.ContractStatus.FREE_AGENT);
+            default -> {}
         }
     }
 
