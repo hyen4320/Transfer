@@ -88,6 +88,99 @@ function nameMatch(a: string, b: string): boolean {
   return na === nb || na.includes(nb) || nb.includes(na);
 }
 
+function makeProjection(W: number, H: number) {
+  return d3.geoMercator()
+    .center([15, 53])
+    .scale(Math.min(W, H) * 1.1)
+    .translate([W / 2, H * 0.45]);
+}
+
+const TOP5_COUNTRY_CODES = new Set(['GB', 'DE', 'ES', 'IT', 'FR']);
+
+function computeMapPositions(
+  W: number, H: number,
+  clubs: Club[],
+  newsProp: NewsItem[],
+) {
+  const proj = makeProjection(W, H);
+
+  const rawClubPos = clubs.map(c => {
+    const p = proj([c.lon, c.lat]);
+    return { id: c.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
+  });
+  const resolvedClubPos = resolveOverlaps(rawClubPos);
+
+  const badgePos = LEAGUES.map(l => {
+    const p = proj([l.lon, l.lat]);
+    return { id: l.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
+  });
+
+  const clubById = new Map(clubs.map(c => [c.id, c]));
+  const clubProjMap = new Map(
+    resolvedClubPos.map(rp => {
+      const club = clubById.get(rp.id);
+      return [rp.id, club ? { x: rp.x, y: rp.y, club } : null] as const;
+    })
+  );
+
+  function findClubProj(name: string) {
+    if (!name || name === 'Free Agent') return null;
+    for (const entry of clubProjMap.values()) {
+      if (entry && nameMatch(entry.club.name, name)) return entry;
+    }
+    return null;
+  }
+
+  function countryProj(countryCode: string | undefined): { x: number; y: number; club: null } | null {
+    if (!countryCode) return null;
+    const coords = COUNTRY_CENTROIDS[countryCode];
+    if (!coords) return null;
+    const p = proj(coords);
+    if (!p) return null;
+    return { x: p[0], y: p[1], club: null };
+  }
+
+  function resolveEndpoint(name: string, countryCode: string | undefined) {
+    const byName = findClubProj(name);
+    if (byName) return byName;
+    if (!countryCode || TOP5_COUNTRY_CODES.has(countryCode)) return null;
+    return countryProj(countryCode);
+  }
+
+  const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
+
+  const routePaths = sortedNews.map((n, rank) => {
+    const fp = resolveEndpoint(n.from, n.fromCountryCode);
+    const tp = resolveEndpoint(n.to,   n.toCountryCode);
+    if (!fp || !tp) return null;
+    const [x1, y1] = [fp.x, fp.y];
+    const [x2, y2] = [tp.x, tp.y];
+    const sameLeague = fp.club && tp.club
+      ? fp.club.league === tp.club.league && fp.club.league !== ''
+      : false;
+    const dx = x2 - x1, dy = y2 - y1;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);
+    const perpX = (dy / Math.max(dist, 1)) * lift * 0.35;
+    const mx = (x1 + x2) / 2 + perpX;
+    const my = (y1 + y2) / 2 - lift;
+    return {
+      id: n.id,
+      d: `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
+      status: n.status,
+      sameLeague,
+      player: n.player,
+      fee: n.fee,
+      from: n.from,
+      to: n.to,
+      animDur: n.status === 'confirmed' ? 2.2 : n.status === 'rumour' ? 3.5 : 5,
+      animate: rank < ANIM_LIMIT && n.status !== 'denied',
+    } as RouteInfo;
+  }).filter((r): r is RouteInfo => r !== null);
+
+  return { badgePos, clubPos: resolvedClubPos, routePaths, proj };
+}
+
 interface Props {
   onCountryClick: (league: League, centroid: [number, number]) => void;
   onClubClick: (clubId: number) => void;
@@ -122,6 +215,17 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
 
   const worldRef = useRef<Awaited<ReturnType<typeof loadWorldAtlas>> | null>(null);
 
+  const [containerDims, setContainerDims] = useState<{ W: number; H: number } | null>(null);
+  const firstResizeRef = useRef(true);
+
+  // Route/position computation — runs as soon as news + container size are ready, no atlas needed
+  useEffect(() => {
+    if (!containerDims) return;
+    const { badgePos, clubPos, routePaths, proj } = computeMapPositions(containerDims.W, containerDims.H, clubs, newsProp);
+    projRef.current = proj;
+    setMapData({ badgePos, clubPos, routePaths });
+  }, [clubs, newsProp, containerDims]);
+
   const draw = useCallback((W: number, H: number) => {
     const world = worldRef.current;
     if (!world || !svgRef.current) return;
@@ -141,10 +245,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
       .attr('rx', W * 0.38).attr('ry', H * 0.38)
       .attr('fill', 'url(#centerGlow)');
 
-    const proj = d3.geoMercator()
-      .center([15, 53])
-      .scale(Math.min(W, H) * 1.1)
-      .translate([W / 2, H * 0.45]);
+    const proj = makeProjection(W, H);
     const pg = d3.geoPath().projection(proj);
     projRef.current = proj;
 
@@ -209,91 +310,7 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
     svg.append('path').datum(borders as GeoPermissibleObjects)
       .attr('fill', 'none').attr('stroke', '#0e2d5c').attr('stroke-width', 0.5)
       .attr('d', pg);
-
-    // 1. resolveOverlaps 먼저 계산 → 마커와 루트 끝점을 같은 좌표로 공유
-    const rawClubPos = clubs.map(c => {
-      const p = proj([c.lon, c.lat]);
-      return { id: c.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
-    });
-    const resolvedClubPos = resolveOverlaps(rawClubPos);
-
-    const newBadgePos = LEAGUES.map(l => {
-      const p = proj([l.lon, l.lat]);
-      return { id: l.id, x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
-    });
-
-    // 2. 이름 기반으로 구단 → 투영 좌표 조회 (resolvedClubPos 사용 — 마커 위치와 일치)
-    const clubById = new Map(clubs.map(c => [c.id, c]));
-    const clubProjMap = new Map(
-      resolvedClubPos.map(rp => {
-        const club = clubById.get(rp.id);
-        return [rp.id, club ? { x: rp.x, y: rp.y, club } : null] as const;
-      })
-    );
-
-    function findClubProj(name: string) {
-      if (!name || name === 'Free Agent') return null;
-      for (const entry of clubProjMap.values()) {
-        if (entry && nameMatch(entry.club.name, name)) return entry;
-      }
-      return null;
-    }
-
-    function countryProj(countryCode: string | undefined): { x: number; y: number; club: null } | null {
-      if (!countryCode) return null;
-      const coords = COUNTRY_CENTROIDS[countryCode];
-      if (!coords) return null;
-      const p = proj(coords);
-      if (!p) return null;
-      return { x: p[0], y: p[1], club: null };
-    }
-
-    // 상위 5개 리그 국가: 클럽이 clubs에 없으면 국가 중심 폴백 금지
-    // (강등팀 등 DB에 있지만 해당 시즌 미포함 클럽이 국가 중심 좌표에 표시되는 문제 방지)
-    const TOP5_COUNTRY_CODES = new Set(['GB', 'DE', 'ES', 'IT', 'FR']);
-
-    function resolveEndpoint(name: string, countryCode: string | undefined) {
-      const byName = findClubProj(name);
-      if (byName) return byName;
-      // 상위 5리그 국가이면 폴백 없이 null → 해당 루트 제외
-      if (!countryCode || TOP5_COUNTRY_CODES.has(countryCode)) return null;
-      return countryProj(countryCode);
-    }
-
-    // 이적료 내림차순 정렬 → 상위 ANIM_LIMIT개만 도트 애니메이션
-    const sortedNews = [...newsProp].sort((a, b) => parseFee(b.fee) - parseFee(a.fee));
-
-    const computed = sortedNews.map((n, rank) => {
-      const fp = resolveEndpoint(n.from, n.fromCountryCode);
-      const tp = resolveEndpoint(n.to,   n.toCountryCode);
-      if (!fp || !tp) return null;
-      const [x1, y1] = [fp.x, fp.y];
-      const [x2, y2] = [tp.x, tp.y];
-      const sameLeague = fp.club && tp.club
-        ? fp.club.league === tp.club.league && fp.club.league !== ''
-        : false;
-      const dx = x2 - x1, dy = y2 - y1;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const lift = Math.max(dist * (sameLeague ? 0.22 : 0.38), sameLeague ? 22 : 45);
-      const perpX = (dy / Math.max(dist, 1)) * lift * 0.35;
-      const mx = (x1 + x2) / 2 + perpX;
-      const my = (y1 + y2) / 2 - lift;
-      return {
-        id: n.id,
-        d: `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`,
-        status: n.status,
-        sameLeague,
-        player: n.player,
-        fee: n.fee,
-        from: n.from,
-        to: n.to,
-        animDur: n.status === 'confirmed' ? 2.2 : n.status === 'rumour' ? 3.5 : 5,
-        animate: rank < ANIM_LIMIT && n.status !== 'denied',
-      } as RouteInfo;
-    }).filter((r): r is RouteInfo => r !== null);
-
-    setMapData({ badgePos: newBadgePos, clubPos: resolvedClubPos, routePaths: computed });
-  }, [onCountryClick, clubs, newsProp]);
+  }, [onCountryClick]);
 
   // 드래그-투-엔터: 전역 pointermove/up 추적
   useEffect(() => {
@@ -357,8 +374,15 @@ export default function WorldMap({ onCountryClick, onClubClick, onLeagueClick, o
     let timer: ReturnType<typeof setTimeout>;
     const ro = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect;
+      if (firstResizeRef.current) {
+        firstResizeRef.current = false;
+        setContainerDims({ W: width, H: height });
+        if (worldRef.current) draw(width, height);
+        return;
+      }
       clearTimeout(timer);
       timer = setTimeout(() => {
+        setContainerDims({ W: width, H: height });
         if (worldRef.current) draw(width, height);
       }, 80);
     });
