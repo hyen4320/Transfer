@@ -5,7 +5,7 @@ const TABS = [
   { key: 'map',    icon: '◇', label: 'MAP'    },
   { key: 'search', icon: '⌕', label: 'SEARCH' },
   { key: 'news',   icon: '◈', label: 'NEWS'   },
-  { key: 'stars',  icon: '★', label: 'STARS'  },
+  // { key: 'stars',  icon: '★', label: 'STARS'  },
   { key: 'more',   icon: '☰', label: 'MORE'   },
 ] as const;
 
@@ -13,7 +13,7 @@ type TabKey = (typeof TABS)[number]['key'];
 
 const MORE_ITEMS = [
   { icon: '◈', label: 'News Feed',    key: 'newsfeed'   },
-  { icon: '★', label: 'Journalists',  key: 'journalists' },
+  // { icon: '★', label: 'Journalists',  key: 'journalists' },
   { icon: '▤', label: 'Report',       key: 'report'     },
   { icon: '!', label: 'Notice',       key: 'notice'     },
   { icon: '👤', label: 'About',       key: 'about'      },
@@ -35,7 +35,7 @@ export default function MobileTabBar({ active = 'map', onSearch, onNews }: Props
     setMoreOpen(false);
     switch (key) {
       case 'newsfeed':    onNews?.();                  break;
-      case 'journalists': navigate('/journalists');    break;
+      // case 'journalists': navigate('/journalists');    break;
       case 'report':      navigate('/report');         break;
       case 'notice':      navigate('/notice');         break;
       case 'about':       navigate('/info');           break;
@@ -49,7 +49,7 @@ export default function MobileTabBar({ active = 'map', onSearch, onNews }: Props
       case 'map':    navigate('/');    break;
       case 'search': onSearch?.();    break;
       case 'news':   onNews?.();      break;
-      case 'stars':  navigate('/journalists'); break;
+      // case 'stars':  navigate('/journalists'); break;
     }
   };
 

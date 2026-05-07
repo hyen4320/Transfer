@@ -337,7 +337,7 @@ function MapView() {
             {[
               { label: 'News Feed',   onClick: openNewsFeed,                                                       active: isNewsFeedOpen },
               { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }, active: false },
-              { label: 'Journalists', onClick: () => navigate('/journalists'),                                     active: false },
+              // { label: 'Journalists', onClick: () => navigate('/journalists'),                                     active: false },
               { label: 'Report',      onClick: () => navigate('/report'),                                          active: false },
               { label: 'Notice',      onClick: () => navigate('/notice'),                                          active: false },
             ].map(({ label, onClick, active }) => (
