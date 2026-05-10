@@ -39,13 +39,13 @@
   "screenshots": [
     {
       "src": "/screenshots/mobile.png",
-      "sizes": "390x844",
+      "sizes": "1170x2532",
       "type": "image/png",
       "label": "TransferMap 메인 화면"
     },
     {
       "src": "/screenshots/desktop.png",
-      "sizes": "1280x800",
+      "sizes": "2560x1600",
       "type": "image/png",
       "form_factor": "wide",
       "label": "TransferMap 데스크톱 화면"
