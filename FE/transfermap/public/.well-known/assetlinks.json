@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.transfer_map.twa",
+      "sha256_cert_fingerprints": [
+        "4A:B6:F9:D0:1F:E3:50:52:5E:DF:AE:5E:28:19:3A:BF:DC:95:C2:BE:AD:56:D4:BF:4B:25:03:6E:80:FC:93:4C",
+        "30:6E:7F:E7:1D:24:00:93:AA:83:7B:A5:6F:3E:0E:E3:62:5C:F6:49:3F:22:E8:2A:33:76:A0:BB:16:53:2A:17"
+      ]
+    }
+  }
+]
