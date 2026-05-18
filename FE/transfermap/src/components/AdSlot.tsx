@@ -22,20 +22,28 @@ interface Props {
   layoutKey?: string;
 }
 
-export default function AdSlot({ slot, className = '', style }: Props) {
+// 동시에 여러 AdSlot이 마운트되어도 스크립트는 한 번만 삽입
+let pendingTimer: ReturnType<typeof setTimeout> | null = null;
+let activeScript: HTMLScriptElement | null = null;
 
+function triggerAdFit() {
+  if (pendingTimer) clearTimeout(pendingTimer);
+  pendingTimer = setTimeout(() => {
+    if (activeScript && document.head.contains(activeScript)) {
+      document.head.removeChild(activeScript);
+    }
+    activeScript = document.createElement('script');
+    activeScript.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
+    activeScript.async = true;
+    document.head.appendChild(activeScript);
+    pendingTimer = null;
+  }, 0);
+}
+
+export default function AdSlot({ slot, className = '', style }: Props) {
   useEffect(() => {
     if (!slot) return;
-
-    // SPA에서 동적으로 마운트된 ins 태그를 AdFit이 인식하도록 스크립트를 재삽입
-    const script = document.createElement('script');
-    script.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
+    triggerAdFit();
   }, [slot]);
 
   if (!slot) return null;
