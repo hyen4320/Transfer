@@ -6,6 +6,8 @@ export const SLOT = {
   // 미생성 단위 — 추후 AdFit 콘솔에서 추가 후 교체
   ANCHOR_BOTTOM:    { unit: 'DAN-zM6UZwHqOlezjsvz', width: 320,  height: 50  },
   FEED_NATIVE:      { unit: 'DAN-qt4YeKfFOECQfMTz', width: 320,  height: 100 },
+  FEED_NATIVE_2:    { unit: 'DAN-b20mDCNz5pwEAQwX', width: 320,  height: 100 },
+  FEED_NATIVE_3:    { unit: 'DAN-zv5kQPLy28gFi1UB', width: 320,  height: 100 },
   TABLE_ROW_NATIVE: null,
   MPU_SIDEBAR_1:    null,
   MPU_SIDEBAR_2:    null,

@@ -178,6 +178,9 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
   // ── Trending ──────────────────────────────────────────────────────────────
   const [trendingPlayers, setTrendingPlayers] = useState<string[]>(TRENDING);
+  useEffect(() => {
+    fetchTrendingPlayers().then(setTrendingPlayers).catch(() => {});
+  }, []);
 
   // ── Filter state ─────────────────────────────────────────────────────────
   const [filterState,        setFilterState]        = useState<FilterState>(defaultFilters);
@@ -537,7 +540,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                 : appliedItems.map((n, i) => (
                     <div key={n.id} data-news-id={n.id}>
                       {i > 0 && i % 3 === 0 && (
-                        <AdSlot slot={SLOT.FEED_NATIVE} format="fluid" layoutKey="-fb+5w+4e-db+86"
+                        <AdSlot slot={[SLOT.FEED_NATIVE, SLOT.FEED_NATIVE_2, SLOT.FEED_NATIVE_3][(i / 3 - 1) % 3]} format="fluid" layoutKey="-fb+5w+4e-db+86"
                           className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]" />
                       )}
                       <NewsCard
@@ -554,7 +557,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
                   <div key={g.lead.id ?? i} data-news-id={g.lead.id}
                        className={hoveredRouteId === g.lead.id ? 'ring-1 ring-inset ring-[var(--accent)]/30 rounded-xl mx-1 transition-all' : ''}>
                     {i > 0 && i % 3 === 0 && (
-                      <AdSlot slot={SLOT.FEED_NATIVE} format="fluid" layoutKey="-fb+5w+4e-db+86"
+                      <AdSlot slot={[SLOT.FEED_NATIVE, SLOT.FEED_NATIVE_2, SLOT.FEED_NATIVE_3][(i / 3 - 1) % 3]} format="fluid" layoutKey="-fb+5w+4e-db+86"
                         className="mx-5 my-2 rounded-xl overflow-hidden border border-[var(--border)]" />
                     )}
                     <NewsCard
