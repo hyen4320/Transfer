@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 export const SLOT = {
   LEADERBOARD:      { unit: 'DAN-Y8XDMKFJ0Rmrf2kr', width: 728,  height: 90  },
   SKYSCRAPER:       { unit: 'DAN-8KnuN0REmhMD6v5e', width: 160,  height: 600 },
@@ -16,11 +18,26 @@ interface Props {
   slot: SlotConfig;
   className?: string;
   style?: React.CSSProperties;
-  format?: string;    // AdSense 호환용 — 미사용
-  layoutKey?: string; // AdSense 호환용 — 미사용
+  format?: string;
+  layoutKey?: string;
 }
 
 export default function AdSlot({ slot, className = '', style }: Props) {
+
+  useEffect(() => {
+    if (!slot) return;
+
+    // SPA에서 동적으로 마운트된 ins 태그를 AdFit이 인식하도록 스크립트를 재삽입
+    const script = document.createElement('script');
+    script.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [slot]);
+
   if (!slot) return null;
 
   return (
