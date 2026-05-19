@@ -17,6 +17,7 @@ import NoticePage from './components/NoticePage';
 import InfoPage from './components/InfoPage';
 import ReportPage from './components/ReportPage';
 import ReportComposer from './components/ReportComposer';
+import FixturesPage from './components/FixturesPage';
 import AdminGate from './components/AdminGate';
 import AdSlot, { SLOT } from './components/AdSlot';
 import type { League, Player, NewsItem } from './types';
@@ -336,6 +337,7 @@ function MapView() {
           <div className="hidden sm:flex flex-1 items-center justify-center gap-8 pointer-events-auto">
             {[
               { label: 'News Feed',   onClick: openNewsFeed,                                                       active: isNewsFeedOpen },
+              { label: 'Fixtures',    onClick: () => navigate('/fixtures'),                                        active: false },
               { label: 'Search',      onClick: () => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }, active: false },
               // { label: 'Journalists', onClick: () => navigate('/journalists'),                                     active: false },
               { label: 'Report',      onClick: () => navigate('/report'),                                          active: false },
@@ -501,6 +503,7 @@ export default function App() {
       <Route path="/players/:id"       element={<PlayerDetailPage />} />
       <Route path="/player/:id"        element={<PlayerIdRedirect />} />
       <Route path="/search"             element={<SearchPage />} />
+      <Route path="/fixtures"           element={<FixturesPage />} />
       <Route path="/report"             element={<ReportPage />} />
       <Route path="/report/compose"    element={<AdminGate><ReportComposer /></AdminGate>} />
       <Route path="/report/:id"        element={<ReportPage />} />
