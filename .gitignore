@@ -6,7 +6,7 @@ BE/src/test/resources/application.properties
 .env
 .env.*
 !.env.example
-
+Transfer_SNS
 # ==========================================
 # Obsidian vault (별도 repo로 관리)
 # ==========================================

@@ -20,6 +20,7 @@ import transfer.be.service.FixturesService;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -62,7 +63,7 @@ class FixturesControllerTest {
 
         when(fixturesService.getFixtures(anyString(), anyString()))
                 .thenReturn(List.of(sampleFixture));
-        when(fixturesService.getFixturesByWeek(anyString(), anyInt()))
+        when(fixturesService.getFixturesByWeek(anyString(), anyInt(), any(java.time.LocalDate.class)))
                 .thenReturn(List.of(sampleFixture));
         when(fixturesService.getMatchEvents(anyLong()))
                 .thenReturn(List.of());
