@@ -683,7 +683,7 @@ export default function ReportComposer() {
         </div>
 
         {/* Blocks */}
-        <div style={{ padding: '16px 28px 24px', flex: 1 }}>
+        <div style={{ padding: '16px 28px 24px' }}>
           {blocks.map((b, i) => (
             <BlockChrome key={b.id} kind={b.kind} isFirst={i === 0} isLast={i === blocks.length - 1}
               onMoveUp={() => moveBlock(b.id, -1)} onMoveDown={() => moveBlock(b.id, 1)}
