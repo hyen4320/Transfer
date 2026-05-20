@@ -696,7 +696,7 @@ export default function ReportComposer() {
       </div>
 
       {/* ── RIGHT: LIVE PREVIEW ── */}
-      <div style={{ borderLeft: `1px solid ${C.border}`, background: C.panelAlt, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ borderLeft: `1px solid ${C.border}`, background: C.panelAlt, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <div style={{ padding: '14px 16px', borderBottom: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: MONO, fontSize: 10, fontWeight: 800, letterSpacing: '0.25em', color: C.dim }}>◈ LIVE PREVIEW</span>
           <span style={{ fontFamily: MONO, fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', color: C.accentLight }}>{meta.format.toUpperCase()}</span>
