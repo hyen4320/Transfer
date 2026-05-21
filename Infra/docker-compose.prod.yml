@@ -43,6 +43,7 @@ services:
       X_API_BEARER_TOKEN: ${X_API_BEARER_TOKEN}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       ADMIN_SECRET: ${ADMIN_SECRET}
+      API_FOOTBALL_KEY: ${API_FOOTBALL_KEY}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       postgres:
