@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "api.football")
 public class ApiFootballProperties {
     private String key = "";
-    private String baseUrl = "https://v3.football.api-sports.io";
+    private String baseUrl = "https://api.football-data.org/v4";
 }

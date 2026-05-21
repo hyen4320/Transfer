@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import transfer.be.dto.response.FixtureItem;
-import transfer.be.dto.response.LineupPlayerItem;
 import transfer.be.dto.response.MatchEventItem;
 import transfer.be.dto.response.MatchLineupItem;
 import transfer.be.dto.response.MatchStatItem;
@@ -28,12 +27,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FixturesServiceImpl implements FixturesService {
 
-    private static final Map<String, Integer> LEAGUE_MAP = Map.of(
-            "pl", 39,
-            "ll", 140,
-            "bl", 78,
-            "sa", 135,
-            "l1", 61
+    private static final Map<String, String> LEAGUE_MAP = Map.of(
+            "pl", "PL",
+            "ll", "PD",
+            "bl", "BL1",
+            "sa", "SA",
+            "l1", "FL1"
     );
 
     @Qualifier("apiFootballRestClient")
@@ -49,13 +48,16 @@ public class FixturesServiceImpl implements FixturesService {
             return deserialize(cached, FixtureItem.class);
         }
 
-        Integer apiLeagueId = LEAGUE_MAP.get(leagueId);
-        if (apiLeagueId == null) return List.of();
+        String code = LEAGUE_MAP.get(leagueId);
+        if (code == null) return List.of();
 
         try {
             String response = apiFootballRestClient.get()
-                    .uri("/fixtures?league={lid}&date={date}&season={season}",
-                            apiLeagueId, date, currentSeason())
+                    .uri(b -> b.path("/competitions/{code}/matches")
+                            .queryParam("dateFrom", date)
+                            .queryParam("dateTo", date)
+                            .queryParam("season", currentSeason())
+                            .build(code))
                     .retrieve()
                     .body(String.class);
 
@@ -76,15 +78,18 @@ public class FixturesServiceImpl implements FixturesService {
             return deserialize(cached, FixtureItem.class);
         }
 
-        Integer apiLeagueId = LEAGUE_MAP.get(leagueId);
-        if (apiLeagueId == null) return List.of();
+        String code = LEAGUE_MAP.get(leagueId);
+        if (code == null) return List.of();
 
         LocalDate to = from.plusDays(6);
 
         try {
             String response = apiFootballRestClient.get()
-                    .uri("/fixtures?league={lid}&season={season}&from={from}&to={to}",
-                            apiLeagueId, season, from, to)
+                    .uri(b -> b.path("/competitions/{code}/matches")
+                            .queryParam("dateFrom", from)
+                            .queryParam("dateTo", to)
+                            .queryParam("season", season)
+                            .build(code))
                     .retrieve()
                     .body(String.class);
 
@@ -105,12 +110,14 @@ public class FixturesServiceImpl implements FixturesService {
             return deserialize(cached, StandingItem.class);
         }
 
-        Integer apiLeagueId = LEAGUE_MAP.get(leagueId);
-        if (apiLeagueId == null) return List.of();
+        String code = LEAGUE_MAP.get(leagueId);
+        if (code == null) return List.of();
 
         try {
             String response = apiFootballRestClient.get()
-                    .uri("/standings?league={lid}&season={season}", apiLeagueId, season)
+                    .uri(b -> b.path("/competitions/{code}/standings")
+                            .queryParam("season", season)
+                            .build(code))
                     .retrieve()
                     .body(String.class);
 
@@ -123,106 +130,51 @@ public class FixturesServiceImpl implements FixturesService {
         }
     }
 
-    // ─── Match detail ─────────────────────────────────────────────────────────────
-
     @Override
     public List<MatchEventItem> getMatchEvents(long fixtureId) {
-        String cacheKey = "events:" + fixtureId;
-        String cached = redisTemplate.opsForValue().get(cacheKey);
-        if (cached != null) return deserialize(cached, MatchEventItem.class);
-        try {
-            String response = apiFootballRestClient.get()
-                    .uri("/fixtures/events?fixture={id}", fixtureId)
-                    .retrieve().body(String.class);
-            List<MatchEventItem> items = parseEvents(response);
-            redisTemplate.opsForValue().set(cacheKey, serialize(items), Duration.ofMinutes(5));
-            return items;
-        } catch (RestClientException e) {
-            log.warn("API-Football events failed for fixture {}: {}", fixtureId, e.getMessage());
-            return List.of();
-        }
+        return List.of();
     }
 
     @Override
     public MatchStatItem getMatchStats(long fixtureId) {
-        String cacheKey = "stats:" + fixtureId;
-        String cached = redisTemplate.opsForValue().get(cacheKey);
-        if (cached != null) {
-            try { return objectMapper.readValue(cached, MatchStatItem.class); } catch (Exception ignored) {}
-        }
-        try {
-            String response = apiFootballRestClient.get()
-                    .uri("/fixtures/statistics?fixture={id}", fixtureId)
-                    .retrieve().body(String.class);
-            MatchStatItem item = parseStats(response);
-            if (item != null) redisTemplate.opsForValue().set(cacheKey, serialize(item), Duration.ofMinutes(5));
-            return item;
-        } catch (RestClientException e) {
-            log.warn("API-Football stats failed for fixture {}: {}", fixtureId, e.getMessage());
-            return null;
-        }
+        return null;
     }
 
     @Override
     public List<MatchLineupItem> getMatchLineups(long fixtureId) {
-        String cacheKey = "lineups:" + fixtureId;
-        String cached = redisTemplate.opsForValue().get(cacheKey);
-        if (cached != null) return deserialize(cached, MatchLineupItem.class);
-        try {
-            String response = apiFootballRestClient.get()
-                    .uri("/fixtures/lineups?fixture={id}", fixtureId)
-                    .retrieve().body(String.class);
-            List<MatchLineupItem> items = parseLineups(response);
-            redisTemplate.opsForValue().set(cacheKey, serialize(items), Duration.ofHours(1));
-            return items;
-        } catch (RestClientException e) {
-            log.warn("API-Football lineups failed for fixture {}: {}", fixtureId, e.getMessage());
-            return List.of();
-        }
+        return List.of();
     }
 
-    // ─── Parsers ────────────────────────────────────────────────────────────────
+    // ─── Parsers ─────────────────────────────────────────────────────────────────
 
     private List<FixtureItem> parseFixtures(String json, String leagueId) {
         try {
-            JsonNode root = objectMapper.readTree(json);
-            JsonNode resp = root.path("response");
+            JsonNode matches = objectMapper.readTree(json).path("matches");
             List<FixtureItem> result = new ArrayList<>();
-            for (JsonNode f : resp) {
-                JsonNode fix    = f.path("fixture");
-                JsonNode teams  = f.path("teams");
-                JsonNode goals  = f.path("goals");
-                JsonNode status = fix.path("status");
-                JsonNode lg     = f.path("league");
+            for (JsonNode m : matches) {
+                String utcDate = m.path("utcDate").asText();
+                String date    = utcDate.length() >= 10 ? utcDate.substring(0, 10) : utcDate;
+                String kickoff = utcDate.length() >= 16 ? utcDate.substring(11, 16) : "--:--";
 
-                String dateStr = fix.path("date").asText();
-                String date    = dateStr.length() >= 10 ? dateStr.substring(0, 10) : dateStr;
-                String kickoff = dateStr.length() >= 16 ? dateStr.substring(11, 16) : "--:--";
-
-                String stateShort = status.path("short").asText();
-                String state = toState(stateShort);
-
-                String roundStr = lg.path("round").asText("");
-                int matchday = 0;
-                try {
-                    String digits = roundStr.replaceAll("[^0-9]", "");
-                    if (!digits.isEmpty()) matchday = Integer.parseInt(digits);
-                } catch (NumberFormatException ignored) {}
+                JsonNode fullTime = m.path("score").path("fullTime");
+                JsonNode referees = m.path("referees");
+                String referee = (referees.isArray() && referees.size() > 0)
+                        ? referees.get(0).path("name").asText("") : "";
 
                 result.add(FixtureItem.builder()
-                        .id(fix.path("id").asLong())
+                        .id(m.path("id").asLong())
                         .leagueId(leagueId)
                         .date(date)
                         .kickoff(kickoff)
-                        .state(state)
-                        .minute(status.path("elapsed").isNull() ? 0 : status.path("elapsed").asInt())
-                        .homeTeam(teams.path("home").path("name").asText())
-                        .awayTeam(teams.path("away").path("name").asText())
-                        .homeScore(goals.path("home").isNull() || goals.path("home").isTextual() ? null : goals.path("home").asInt())
-                        .awayScore(goals.path("away").isNull() || goals.path("away").isTextual() ? null : goals.path("away").asInt())
-                        .matchday(matchday)
-                        .venue(fix.path("venue").path("name").asText(""))
-                        .referee(fix.path("referee").asText(""))
+                        .state(toState(m.path("status").asText()))
+                        .minute(0)
+                        .homeTeam(m.path("homeTeam").path("name").asText())
+                        .awayTeam(m.path("awayTeam").path("name").asText())
+                        .homeScore(fullTime.path("home").isNull() ? null : fullTime.path("home").asInt())
+                        .awayScore(fullTime.path("away").isNull() ? null : fullTime.path("away").asInt())
+                        .matchday(m.path("matchday").asInt(0))
+                        .venue(m.path("venue").asText(""))
+                        .referee(referee)
                         .build());
             }
             return result;
@@ -234,21 +186,28 @@ public class FixturesServiceImpl implements FixturesService {
 
     private List<StandingItem> parseStandings(String json) {
         try {
-            JsonNode root = objectMapper.readTree(json);
-            JsonNode rows = root.path("response").get(0).path("league").path("standings").get(0);
+            JsonNode standings = objectMapper.readTree(json).path("standings");
+            JsonNode table = null;
+            for (JsonNode s : standings) {
+                if ("TOTAL".equals(s.path("type").asText())) {
+                    table = s.path("table");
+                    break;
+                }
+            }
+            if (table == null) return List.of();
+
             List<StandingItem> result = new ArrayList<>();
-            for (JsonNode r : rows) {
-                JsonNode all = r.path("all");
+            for (JsonNode r : table) {
                 result.add(StandingItem.builder()
-                        .rank(r.path("rank").asInt())
+                        .rank(r.path("position").asInt())
                         .teamName(r.path("team").path("name").asText())
-                        .played(all.path("played").asInt())
-                        .won(all.path("win").asInt())
-                        .drawn(all.path("draw").asInt())
-                        .lost(all.path("lose").asInt())
-                        .goalsFor(all.path("goals").path("for").asInt())
-                        .goalsAgainst(all.path("goals").path("against").asInt())
-                        .goalsDiff(r.path("goalsDiff").asInt())
+                        .played(r.path("playedGames").asInt())
+                        .won(r.path("won").asInt())
+                        .drawn(r.path("draw").asInt())
+                        .lost(r.path("lost").asInt())
+                        .goalsFor(r.path("goalsFor").asInt())
+                        .goalsAgainst(r.path("goalsAgainst").asInt())
+                        .goalsDiff(r.path("goalDifference").asInt())
                         .points(r.path("points").asInt())
                         .form(r.path("form").asText(""))
                         .build());
@@ -260,120 +219,12 @@ public class FixturesServiceImpl implements FixturesService {
         }
     }
 
-    private List<MatchEventItem> parseEvents(String json) {
-        try {
-            JsonNode resp = objectMapper.readTree(json).path("response");
-            List<MatchEventItem> result = new ArrayList<>();
-            for (JsonNode ev : resp) {
-                String apiType   = ev.path("type").asText("");
-                String apiDetail = ev.path("detail").asText("");
-                String type = switch (apiType) {
-                    case "Goal" -> "goal";
-                    case "Card" -> (apiDetail.contains("Red") || apiDetail.contains("Second Yellow")) ? "red" : "yellow";
-                    case "subst" -> "sub";
-                    default -> "event";
-                };
-                JsonNode assistNode = ev.path("assist").path("name");
-                result.add(MatchEventItem.builder()
-                        .minute(ev.path("time").path("elapsed").asInt())
-                        .type(type)
-                        .teamName(ev.path("team").path("name").asText())
-                        .player(ev.path("player").path("name").asText())
-                        .assist(assistNode.isNull() || assistNode.isMissingNode() ? null : assistNode.asText())
-                        .detail(apiDetail)
-                        .build());
-            }
-            return result;
-        } catch (Exception e) {
-            log.error("parseEvents error: {}", e.getMessage());
-            return List.of();
-        }
-    }
-
-    private MatchStatItem parseStats(String json) {
-        try {
-            JsonNode resp = objectMapper.readTree(json).path("response");
-            if (resp.size() < 2) return null;
-            Map<String, JsonNode> home = buildStatMap(resp.get(0).path("statistics"));
-            Map<String, JsonNode> away = buildStatMap(resp.get(1).path("statistics"));
-            return MatchStatItem.builder()
-                    .possession(new int[]{ intStat(home.get("Ball Possession")), intStat(away.get("Ball Possession")) })
-                    .shots(new int[]{ intStat(home.get("Total Shots")), intStat(away.get("Total Shots")) })
-                    .shotsOnTarget(new int[]{ intStat(home.get("Shots on Goal")), intStat(away.get("Shots on Goal")) })
-                    .xG(new double[]{ dblStat(home.get("expected_goals")), dblStat(away.get("expected_goals")) })
-                    .passes(new int[]{ intStat(home.get("Total passes")), intStat(away.get("Total passes")) })
-                    .corners(new int[]{ intStat(home.get("Corner Kicks")), intStat(away.get("Corner Kicks")) })
-                    .build();
-        } catch (Exception e) {
-            log.error("parseStats error: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    private List<MatchLineupItem> parseLineups(String json) {
-        try {
-            JsonNode resp = objectMapper.readTree(json).path("response");
-            List<MatchLineupItem> result = new ArrayList<>();
-            for (JsonNode team : resp) {
-                List<LineupPlayerItem> startXI = new ArrayList<>();
-                for (JsonNode p : team.path("startXI")) {
-                    JsonNode pl = p.path("player");
-                    JsonNode grid = pl.path("grid");
-                    startXI.add(LineupPlayerItem.builder()
-                            .name(pl.path("name").asText())
-                            .number(pl.path("number").asInt())
-                            .pos(pl.path("pos").asText(""))
-                            .grid(grid.isNull() || grid.isMissingNode() ? null : grid.asText())
-                            .build());
-                }
-                List<LineupPlayerItem> subs = new ArrayList<>();
-                for (JsonNode p : team.path("substitutes")) {
-                    JsonNode pl = p.path("player");
-                    subs.add(LineupPlayerItem.builder()
-                            .name(pl.path("name").asText())
-                            .number(pl.path("number").asInt())
-                            .pos(pl.path("pos").asText(""))
-                            .grid(null)
-                            .build());
-                }
-                result.add(MatchLineupItem.builder()
-                        .teamName(team.path("team").path("name").asText())
-                        .formation(team.path("formation").asText(""))
-                        .startXI(startXI)
-                        .substitutes(subs)
-                        .build());
-            }
-            return result;
-        } catch (Exception e) {
-            log.error("parseLineups error: {}", e.getMessage());
-            return List.of();
-        }
-    }
-
-    private Map<String, JsonNode> buildStatMap(JsonNode statistics) {
-        Map<String, JsonNode> map = new java.util.HashMap<>();
-        for (JsonNode s : statistics) map.put(s.path("type").asText(), s.path("value"));
-        return map;
-    }
-
-    private int intStat(JsonNode node) {
-        if (node == null || node.isNull() || node.isMissingNode()) return 0;
-        try { return Integer.parseInt(node.asText("0").replace("%", "").trim()); }
-        catch (NumberFormatException e) { return 0; }
-    }
-
-    private double dblStat(JsonNode node) {
-        if (node == null || node.isNull() || node.isMissingNode()) return 0.0;
-        try { return Double.parseDouble(node.asText("0")); }
-        catch (NumberFormatException e) { return 0.0; }
-    }
-
     // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-    private String toState(String short_) {
-        return switch (short_) {
-            case "FT", "AET", "PEN", "AWD", "WO" -> "finished";
-            case "1H", "HT", "2H", "ET", "BT", "P", "SUSP", "INT", "LIVE" -> "live";
+    private String toState(String status) {
+        return switch (status) {
+            case "FINISHED", "AWARDED" -> "finished";
+            case "IN_PLAY", "PAUSED", "LIVE" -> "live";
             default -> "scheduled";
         };
     }

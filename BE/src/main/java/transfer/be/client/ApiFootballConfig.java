@@ -11,8 +11,7 @@ public class ApiFootballConfig {
     public RestClient apiFootballRestClient(ApiFootballProperties props) {
         return RestClient.builder()
                 .baseUrl(props.getBaseUrl())
-                .defaultHeader("x-apisports-key", props.getKey())
-                .defaultHeader("Content-Type", "application/json")
+                .defaultHeader("X-Auth-Token", props.getKey())
                 .build();
     }
 }
