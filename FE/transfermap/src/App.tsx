@@ -69,6 +69,7 @@ function MapView() {
   const [flyPlayer, setFlyPlayer]           = useState<Player | null>(null);
   const [anchorDismissed, setAnchorDismissed] = useState(false);
   const [playerPanelId, setPlayerPanelId]   = useState<number | null>(null);
+  const [mobileTab, setMobileTab]           = useState<'map' | 'news' | 'search'>('map');
   const [playerPanelNews, setPlayerPanelNews] = useState<NewsItem[] | null>(null);
   const [toast, setToast]                   = useState<string | null>(null);
 
@@ -217,10 +218,12 @@ function MapView() {
     if (isNewsFeedOpen) {
       setPanelOpen(false);
       setSelectedNewsId(null);
+      setMobileTab('map');
     } else {
       setSelectedClubId(null);
       setPanelLeague(null);
       setPanelOpen(true);
+      setMobileTab('news');
     }
   };
 
@@ -229,6 +232,7 @@ function MapView() {
     setSelectedClubId(null);
     setPanelLeague(null);
     setSelectedNewsId(null);
+    setMobileTab('map');
   };
 
   // Keyboard shortcuts: Esc = close panel, / = toggle search, n = toggle news feed
@@ -465,9 +469,9 @@ function MapView() {
 
       {/* Mobile tab bar */}
       <MobileTabBar
-        active={panelOpen ? 'news' : 'map'}
+        active={mobileTab}
         onNews={openNewsFeed}
-        onSearch={() => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); }}
+        onSearch={() => { setPanelOpen(true); sidePanelRef.current?.focusSearch(); setMobileTab('search'); }}
       />
 
       {/* COUNTRY MAP (overlay) */}
