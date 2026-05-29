@@ -5,6 +5,7 @@ import { LEAGUES, CLUBS } from '../data/mock';
 import { fetchWeekFixtures, fetchStandings, fetchMatchEvents, fetchMatchStats, fetchMatchLineups } from '../api/fixtures';
 import type { FixtureItem, StandingItem, MatchEventItem, MatchStatItem, MatchLineupItem } from '../api/fixtures';
 import type { Club } from '../types';
+import AdSlot, { SLOT } from './AdSlot';
 
 // ─── Mock fallback (mirrors fixtures-data.js from design) ────────────────────
 
@@ -362,6 +363,11 @@ function ScheduleEditorial({ fixtures, onMatchOpen, leagueFilter, onLeagueFilter
         </div>
       </div>
 
+      {/* Top ad — above league filter */}
+      <div style={{ padding: '12px 24px 0' }}>
+        <AdSlot slot={SLOT.LEADERBOARD} style={{ minHeight: 90 }} />
+      </div>
+
       {/* League filter */}
       <div style={{ padding: '10px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         {[{ id: 'all', abbr: 'All', flag: '🌍', accent: '#3b82f6' }, ...LEAGUES].map(lg => (
@@ -462,7 +468,37 @@ function ScheduleEditorial({ fixtures, onMatchOpen, leagueFilter, onLeagueFilter
             ◈ ELSEWHERE THIS WEEK
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 10 }}>
-            {others.map(f => <MatchCard key={f.id} fix={f} onClick={onMatchOpen} />)}
+            {others.flatMap((f, i) => {
+              const card = <MatchCard key={f.id} fix={f} onClick={onMatchOpen} />;
+              const adSlot = i === 2 ? SLOT.FEED_NATIVE
+                           : i === 6 ? SLOT.FEED_NATIVE_2
+                           : i === 10 ? SLOT.FEED_NATIVE_3
+                           : null;
+              if (adSlot && i < others.length - 1) {
+                return [card, (
+                  <div key={`ad-${i}`} style={{
+                    gridColumn: 'span 2',
+                    padding: '12px 14px',
+                    background: 'rgba(0,0,0,0.25)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderLeft: '3px solid rgba(160,185,220,0.35)',
+                    borderRadius: 6,
+                    display: 'flex', flexDirection: 'column',
+                    overflow: 'hidden', minWidth: 0,
+                  }}>
+                    <div style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 9, fontWeight: 800, letterSpacing: '0.22em',
+                      color: 'rgba(160,185,220,0.45)', marginBottom: 8,
+                    }}>◈ SPONSORED</div>
+                    <div style={{ display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+                      <AdSlot slot={adSlot} style={{ minHeight: 100, width: 320, maxWidth: '100%' }} />
+                    </div>
+                  </div>
+                )];
+              }
+              return [card];
+            })}
           </div>
         </div>
       )}

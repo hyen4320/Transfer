@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { fetchEditorialReports, fetchEditorialReportById, type EditorialReportResponse, type Block } from '../api/editorialReport';
+import AdSlot, { SLOT } from './AdSlot';
 
 const MONO = "'JetBrains Mono', 'Courier New', monospace";
 
@@ -468,19 +469,68 @@ function DetailView({ report, onBack }: {
         </div>
       </div>
 
-      {/* Content */}
-      <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 40px 80px' }}>
-        {report.deck && (
-          <div style={{ marginBottom: 32, padding: '20px 24px',
-            background: '#0d1626', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12 }}>
-            <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.25em',
-              color: 'rgba(160,185,220,0.4)', marginBottom: 12 }}>// REPORT SUMMARY</div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, color: 'rgba(200,220,255,0.75)' }}>
-              {report.deck}
-            </p>
+      {/* Content with left/right sidebar ads */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 24,
+        padding: '48px 24px 80px', maxWidth: 1280, margin: '0 auto' }}>
+        {/* Left sidebar — skyscraper */}
+        <aside className="hidden xl:block" style={{ width: 184, flexShrink: 0 }}>
+          <div style={{ position: 'sticky', top: 80 }}>
+            <div style={{
+              padding: '10px 12px',
+              background: '#0d1626',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}>
+              <div style={{ fontFamily: MONO, fontSize: 8, fontWeight: 800,
+                letterSpacing: '0.22em', color: 'rgba(160,185,220,0.4)',
+                marginBottom: 8, textAlign: 'center' }}>◈ SPONSORED</div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <AdSlot slot={SLOT.SKYSCRAPER} style={{ minHeight: 600, width: 160 }} />
+              </div>
+            </div>
           </div>
-        )}
-        {blocks.map(block => renderBlock(block))}
+        </aside>
+
+        {/* Center article */}
+        <div style={{ flex: 1, maxWidth: 860, minWidth: 0 }}>
+          {report.deck && (
+            <div style={{ marginBottom: 32, padding: '20px 24px',
+              background: '#0d1626', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12 }}>
+              <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.25em',
+                color: 'rgba(160,185,220,0.4)', marginBottom: 12 }}>// REPORT SUMMARY</div>
+              <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0, color: 'rgba(200,220,255,0.75)' }}>
+                {report.deck}
+              </p>
+            </div>
+          )}
+          {blocks.map(block => renderBlock(block))}
+
+          {/* Bottom ad */}
+          <div style={{ marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <AdSlot slot={SLOT.FEED_NATIVE_3} style={{ minHeight: 100 }} />
+          </div>
+        </div>
+
+        {/* Right sidebar — skyscraper */}
+        <aside className="hidden xl:block" style={{ width: 184, flexShrink: 0 }}>
+          <div style={{ position: 'sticky', top: 80 }}>
+            <div style={{
+              padding: '10px 12px',
+              background: '#0d1626',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}>
+              <div style={{ fontFamily: MONO, fontSize: 8, fontWeight: 800,
+                letterSpacing: '0.22em', color: 'rgba(160,185,220,0.4)',
+                marginBottom: 8, textAlign: 'center' }}>◈ SPONSORED</div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <AdSlot slot={SLOT.SKYSCRAPER} style={{ minHeight: 600, width: 160 }} />
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
@@ -570,14 +620,52 @@ export default function ReportPage() {
             }}>+ WRITE REPORT</button>
           </div>
 
+          {/* Top ad — desktop leaderboard / mobile native */}
+          <div style={{ padding: '20px 40px 0' }}>
+            <div className="hidden md:block">
+              <AdSlot slot={SLOT.LEADERBOARD} style={{ minHeight: 90 }} />
+            </div>
+            <div className="block md:hidden">
+              <AdSlot slot={SLOT.FEED_NATIVE} style={{ minHeight: 100 }} />
+            </div>
+          </div>
+
           {/* Grid */}
           <div style={{ padding: '28px 40px 40px',
             display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
             {loading
               ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-              : (reports ?? []).map(r => (
-                  <ReportCard key={r.id} report={r} onOpen={r => navigate(`/report/${r.id}`)} />
-                ))
+              : (reports ?? []).flatMap((r, i) => {
+                  const card = <ReportCard key={r.id} report={r} onOpen={r => navigate(`/report/${r.id}`)} />;
+                  const adSlot = i === 2 ? SLOT.FEED_NATIVE
+                               : i === 5 ? SLOT.FEED_NATIVE_2
+                               : i === 8 ? SLOT.FEED_NATIVE_3
+                               : null;
+                  if (adSlot && i < (reports?.length ?? 0) - 1) {
+                    return [card, (
+                      <article key={`ad-${i}`} style={{
+                        background: '#0d1626',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: 12, overflow: 'hidden',
+                        display: 'flex', flexDirection: 'column', minHeight: 320,
+                        minWidth: 0,
+                      }}>
+                        <div style={{
+                          padding: '14px 18px 10px',
+                          fontFamily: MONO, fontSize: 9, fontWeight: 800,
+                          letterSpacing: '0.22em', color: 'rgba(160,185,220,0.45)',
+                          borderBottom: '1px solid rgba(255,255,255,0.05)',
+                        }}>◈ SPONSORED</div>
+                        <div style={{ padding: '16px 18px 20px', flex: 1,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          overflow: 'hidden' }}>
+                          <AdSlot slot={adSlot} style={{ minHeight: 100, width: 320, maxWidth: '100%' }} />
+                        </div>
+                      </article>
+                    )];
+                  }
+                  return [card];
+                })
             }
             {!loading && reports?.length === 0 && (
               <div style={{

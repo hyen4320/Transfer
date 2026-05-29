@@ -78,9 +78,11 @@ export default function PlayerDetailPage() {
         <meta name="twitter:description" content={description} />
       </Helmet>
       <div className="flex items-center gap-5 px-14 py-7 border-b border-[var(--border)] flex-shrink-0">
-        <button onClick={() => navigate(-1)}
+        <button onClick={() => navigate('/')}
           className="border border-[var(--border)] text-[var(--text-sub)] text-[0.84rem] px-5 py-2.5 rounded-lg
-                     hover:text-[var(--text)] hover:border-white/20 transition-all">← Back</button>
+                     hover:text-[var(--text)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-all">
+          ← Explore TransferMap
+        </button>
         <div className="text-[1.05rem] font-extrabold tracking-[0.12em] uppercase">Player Profile</div>
       </div>
 
