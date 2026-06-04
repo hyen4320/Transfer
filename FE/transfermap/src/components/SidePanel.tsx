@@ -16,7 +16,12 @@ import { groupNewsByTransfer } from '../utils/groupNews';
 import AdSlot, { SLOT } from './AdSlot';
 import { LEAGUES, CLUBS, PLAYERS, JOURNALISTS, NEWS } from '../data/mock';
 import { SEASON_OPTIONS, LEAGUE_NAME_TO_ID } from '../data/constants';
+import { getTransferWindowState } from '../utils/transferWindow';
 
+// 현재 시즌 경계 — useNews/useNewsInfinite와 동일 기준
+const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
+const isPastSeason = (s: number): boolean =>
+  s < CURRENT_SEASON || (s === CURRENT_SEASON && !WINDOW_IS_OPEN);
 
 const POSITIONS   = ['ALL', 'GK', 'DF', 'MF', 'FW'];
 const TIME_OPTIONS = ['24h', '7d', '30d', 'This window', 'All'];
@@ -71,7 +76,7 @@ const defaultFilters = (): FilterState => ({
   timeWindow: '7d',
   feeMin:     0,
   feeMax:     300,
-  season:     51,
+  season:     CURRENT_SEASON,
 });
 
 type View = 'news' | 'search' | 'filter' | 'club' | 'league';
@@ -116,7 +121,7 @@ interface Props {
 const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
   open, onClose, selectedClubId, selectedLeague, leagueClubs = [],
   onNewsClick, onNewsSelect, selectedNewsId, hoveredRouteId,
-  season: seasonProp = 51, onSeasonChange, onPlayerClick,
+  season: seasonProp = CURRENT_SEASON, onSeasonChange, onPlayerClick,
   onApplyFilter, onClearFilter, onPlayerPanelOpen, onStatusFilterChange,
   variant = 'overlay', preloadedNews,
 }: Props, ref) {
@@ -359,7 +364,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(function SidePanel({
 
   // Past season → disable date-based timeWindow
   useEffect(() => {
-    if (filterState.season !== 51 && !['This window', 'All'].includes(filterState.timeWindow))
+    if (isPastSeason(filterState.season) && !['This window', 'All'].includes(filterState.timeWindow))
       setFilterState(f => ({ ...f, timeWindow: 'All' }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterState.season]);

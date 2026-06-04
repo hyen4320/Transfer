@@ -29,8 +29,8 @@ export function getTransferWindowState(now = new Date()): WindowState {
   const month = now.getMonth() + 1; // 1~12
   const year  = now.getFullYear();
 
-  // 시즌 시작 연도: 7월 이후면 올해, 이전이면 작년
-  const seasonStartYear = month >= 7 ? year : year - 1;
+  // 시즌 시작 연도: 6월(여름 윈도우 오픈) 이후면 올해, 이전이면 작년
+  const seasonStartYear = month >= 6 ? year : year - 1;
   const season      = encodeSeason(seasonStartYear);
   const y1          = String(seasonStartYear % 100).padStart(2, '0');
   const y2          = String((seasonStartYear + 1) % 100).padStart(2, '0');

@@ -182,11 +182,9 @@ public class PostParsingServiceImpl implements PostParsingService {
         LocalDate now = LocalDate.now();
         int month = now.getMonthValue();
         int year = now.getYear() % 100;
-        // 3~5월: 다가오는 여름 이적시장(26/27) 기준으로 다음 시즌
-        if (month >= 3 && month <= 5) {
-            return (short) (year + (year + 1));
-        }
-        return month >= 7
+        // 3~12월: 여름 이적시장은 다가오는 시즌 소속 (3~5월 사전 루머 ~ 6월 윈도우 오픈 ~ 9월 마감 ~ 신시즌)
+        // 1~2월: 겨울 이적시장 — 진행 중인 현재 시즌
+        return month >= 3
                 ? (short) (year + (year + 1))
                 : (short) ((year - 1) + year);
     }

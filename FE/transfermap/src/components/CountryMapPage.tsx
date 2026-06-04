@@ -13,7 +13,15 @@ import { fetchLeagues } from '../api/leagues';
 import { fetchNews } from '../api/news';
 import { fetchPlayersSearch } from '../api/players';
 import { LEAGUE_NAME_TO_ID } from '../data/constants';
+import { getTransferWindowState } from '../utils/transferWindow';
 import type { ApiLeague } from '../api/types';
+
+// 지난 시즌은 이적료순, 현재 시즌(윈도우 열림)은 시간순 — useNews/useNewsInfinite와 동일 기준
+const { season: CURRENT_SEASON, isOpen: WINDOW_IS_OPEN } = getTransferWindowState();
+const sortForSeason = (s: number): string =>
+  s < CURRENT_SEASON || (s === CURRENT_SEASON && !WINDOW_IS_OPEN)
+    ? 'feeEur,desc'
+    : 'publishedAt,desc';
 
 const EUROPEAN_IDS = new Set([
   8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,
@@ -74,7 +82,7 @@ interface Props {
 }
 
 
-export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: _newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch, season = 51 }: Props) {
+export default function CountryMapPage({ league, onBack, backLabel = '← Map', clubs: clubsProp, news: _newsProp = [], flyPlayer, onNewsClick, leftOffset = 0, searchOpen = false, onToggleSearch, season = CURRENT_SEASON }: Props) {
   const navigate = useNavigate();
   const sceneRef  = useRef<HTMLDivElement>(null);
   const bgRef     = useRef<SVGSVGElement>(null);   // z=1: 국가 배경만
@@ -116,7 +124,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
     newsPageRef.current = 0;
     setHasMore(true);
     setNewsLoading(true);
-    const sort = localSeason === 51 ? 'publishedAt,desc' : 'feeEur,desc';
+    const sort = sortForSeason(localSeason);
     fetchNews({ season: localSeason, leagueId: beLeagueId, size: PAGE_SIZE, page: 0, sort }, controller.signal)
       .then(data => { setNewsItems(data); setHasMore(data.length === PAGE_SIZE); })
       .catch(err  => { if (err?.name !== 'AbortError') setNewsItems([]); })
@@ -127,7 +135,7 @@ export default function CountryMapPage({ league, onBack, backLabel = '← Map', 
   const loadMore = useCallback(() => {
     if (loadingMore || !hasMore || beLeagueId === undefined) return;
     const next = newsPageRef.current + 1;
-    const sort = localSeason === 51 ? 'publishedAt,desc' : 'feeEur,desc';
+    const sort = sortForSeason(localSeason);
     setLoadingMore(true);
     fetchNews({ season: localSeason, leagueId: beLeagueId, size: PAGE_SIZE, page: next, sort })
       .then(data => {

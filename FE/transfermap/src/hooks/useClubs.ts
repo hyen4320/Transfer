@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { fetchClubsBySeason } from '../api/clubs';
 import { CLUBS } from '../data/mock';
 import type { Club } from '../types';
+import { getTransferWindowState } from '../utils/transferWindow';
 
-export function useClubs(season: number = 51) {
+const CURRENT_SEASON = getTransferWindowState().season;
+
+export function useClubs(season: number = CURRENT_SEASON) {
   const [clubs,   setClubs]   = useState<Club[]>([]);
   const [loading, setLoading] = useState(true);
 
